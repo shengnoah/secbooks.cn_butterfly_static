@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Django超级简单的MVC实例 | Lua基础入门教程</title><meta name="author" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Django超级简单的MVC实例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django超级简单的MVC实例">
+<meta property="og:url" content="https://lua.ren/topic/37/index.html">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:description" content="Django超级简单的MVC实例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2016-09-17T14:50:18.000Z">
+<meta property="article:modified_time" content="2023-12-21T10:24:06.194Z">
+<meta property="article:author" content="糖果的实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/topic/37/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Django超级简单的MVC实例',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-21 18:24:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Lua基础入门教程"><span class="site-name">Lua基础入门教程</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Django超级简单的MVC实例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-21T10:24:06.194Z" title="更新于 2023-12-21 18:24:06">2023-12-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Django超级简单的MVC实例"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>【前言】<br>写一遍django的入门例子，基于MVC设计模式，本程序有输入，处理，输出。开始用django搬运互联网上的数据。简单介绍一下什么是MVC模式。MVC就是把程序成分3部分职责。</p>
+<p>【MVC】<br>V(View)：系统的界面，django中就是网页。UI部分，用于接受用户的数据，输出用户的数据。<br>M(Model)： 处理用户输入的数据，对数据进行加工。django中就是py文件中的方法。<br>C（Control）:处理用户的功能请求，分配给不同的模块进行处理。django中就url的分发。</p>
+<p>【功能概要】<br>    提供一个表单，接受用户输入的数据（输入V），将用户的数据写出到数据库中（处理M），并将写入的结果显示在网页上(输出V)。这就是数据搬运的一个简单流程，在此最基本的模式上，会衍生出数据库的CRUD(增加，查询，更新，删除)操作。</p>
+<pre><code>以上这些动作，基本都是熟能生巧的技术工作，某种角度来说，就是模式化重复的体力活，不同的是，django可以快速的完成这些任务，短小精干，并且快速。
+</code></pre>
+<p>【HTTP】<br>[code]<br>[08/Mar/2014 14:53:01] “GET /search/?name=%E9%83%9D%E5%BB%BA&amp;email=<a href="mailto:&#115;&#104;&#101;&#x6e;&#103;&#x40;&#118;&#x65;&#114;&#117;&#x70;&#46;&#99;&#110;">&#115;&#104;&#101;&#x6e;&#103;&#x40;&#118;&#x65;&#114;&#117;&#x70;&#46;&#99;&#110;</a> HTTP/1.1” 200 17<br>[/code]</p>
+<p>这个是有两个输入项目表单提交的一条HTTP的get请求。<br>【CGI】<br>上面的那条Http的get请用，可以用各种类型的CGI程序去处理，比如说java,C,C++,PHP,ruby,python.可但是，功能最全打字越少，快速的处理HTTP请求，Get和Post的语言最好，先举出一个C语言写的CGI程序。</p>
+<p>[code]</p>
+<form action="/cgi-bin/dachengzi.cgi" method="get">
+<input name="name" size="100">
+<input name="email" size="100"></br>
+<input type="submit" value="ok">
+</form>
+[/code]
+
+<p>[code]<br>#include &lt;stdio.h&gt;<br>#include &lt;stdlib.h&gt;<br>#include &lt;string.h&gt;</p>
+<p>int main(int argc, char** argv)<br>{<br>  char *data;<br>  printf(“Content-type:text/html;charset=gb2312\n\n”);<br>  data = getenv(“QUERY_STRING”);<br>  return 0;<br>}<br>[/code]</p>
+<p>“Content-type:text/html;charset=gb2312\n\n”<br>这个必须有，声明MIME类型。没有的话，结果网页无法正常显示，因为浏览器不知道程序输出的是什么。</p>
+<p>上面的变量data就是用户发送过来的字典数据，从“&amp;”符号分开的key pair数据，没一对数据的key和value在用“等号分割”</p>
+<p>GET /search/?name=sheng&amp;email=<a href="mailto:&#116;&#101;&#x65;&#x31;&#x36;&#56;&#64;&#x71;&#x71;&#x2e;&#99;&#x6f;&#x6d;">&#116;&#101;&#x65;&#x31;&#x36;&#56;&#64;&#x71;&#x71;&#x2e;&#99;&#x6f;&#x6d;</a><br>name=sheng<br>&amp;<br>email=<a href="mailto:&#116;&#x65;&#x65;&#49;&#54;&#56;&#x40;&#x71;&#x71;&#46;&#99;&#x6f;&#109;">&#116;&#x65;&#x65;&#49;&#54;&#56;&#x40;&#x71;&#x71;&#46;&#99;&#x6f;&#109;</a></p>
+<p>用户需要先对”&amp;”符号进行split,判断有多少组数据，然后在对每一组的数据进行“=”split，得到最后的数据，如下<br>char* name=”sheng”;<br>char* email=”<a href="mailto:&#116;&#x65;&#x65;&#49;&#54;&#56;&#64;&#113;&#113;&#x2e;&#99;&#111;&#109;">&#116;&#x65;&#x65;&#49;&#54;&#56;&#64;&#113;&#113;&#x2e;&#99;&#111;&#109;</a>“;</p>
+<p>得到了key和value</p>
+<p>【视图实现(View)】<br>本功能数据的源头就是用户从表单输入的输入，所以视图V一部分是HTML表单。另外一部分是对用户在网页上发出的http请求的响应处理，python的CGI程序。<br>[code]</p>
+<html>
+<head>
+        <title>www.verup.cn</title>
+</head>
+<body>
+        <form action="/search/" method="get">
+                <input type="text" name="name">
+                <input type="text" name="email">
+                <input type="submit" value="enter">
+        </form>
+</body>
+</html>
+[/code]
+
+<p>在接受到用户输入的数据后，会对用户的数据进行处理，<br>[code]<br>from hotwords.models import Author</p>
+<p>def GetAuthorInfo(request):<br>        return render_to_response(‘Author.html’)</p>
+<p>def search(request):<br>        if ‘key’ in request.GET:<br>                message = request.GET[‘name’] + request.GET[‘email’]</p>
+<pre><code>    name = request.GET[&#39;name&#39;]
+    email = request.GET[&#39;email&#39;]
+    #在创建Author的models后，就会有对应的Autor对象产生（参考【模型(M)】）
+    #引用Author的models,创建构造对象，调用一下save()方法，就完成了一条记录的插入，创造一个author对象，相当于表格的一条记录，用表单传入的数据，去构造对象，完成一条表记录的插入。
+    author = Author(1, name, email)
+    author.save()
+    return HttpResponse(message)
+</code></pre>
+<p>[/code]</p>
+<p>对表输入的插入，删除，修改是常用的DB操作，map和list,这也都是主要的数据搬用动作，也是很没意思的部分。但是，你还得写。</p>
+<p>【CRUD】</p>
+<p>【模型(M)】<br>使用django的ORM，通过定义数据对象类来创建数据库的table,几乎就不用再直接SQL打交道了。下面就。。。看！</p>
+<p>[code]<br>from django.db import models<br>from django.contrib import admin</p>
+<p>class Author(models.Model):<br>        name = models.CharField(max_length=50)<br>        email = models.EmailField()</p>
+<pre><code>    def __unicode__(self):
+            return self.name
+</code></pre>
+<p>[/code]</p>
+<p>看到了没一共就两个字段，运行如下命令：</p>
+<p>[code]<br>python manage.py syncdb<br>[/code]</p>
+<p>django就会在数据库中创建名author表格。</p>
+<p>[code]<br>+——-+————-+——+—–+———+—————-+<br>| Field | Type        | Null | Key | Default | Extra          |<br>+——-+————-+——+—–+———+—————-+<br>| id    | int(11)     | NO   | PRI | NULL    | auto_increment |<br>| name  | varchar(50) | NO   |     | NULL    |                |<br>| email | varchar(75) | NO   |     | NULL    |                |<br>+——-+————-+——+—–+———+—————-+<br>[/code]</p>
+<p>作者：糖果</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果的实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/topic/37/">https://lua.ren/topic/37/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">Lua基础入门教程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua/">lua</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/topic/369/" title="MoonScript官方文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MoonScript官方文档</div></div></a></div><div class="next-post pull-right"><a href="/topic/370/" title="MoonScript Command Line."><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MoonScript Command Line.</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/lua_guide/statement/" title="Lua中的if语句"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">Lua中的if语句</div></div></a></div><div><a href="/lua_guide/arrays/" title="数组"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">数组</div></div></a></div><div><a href="/lua_guide/break/" title="Break语句"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">Break语句</div></div></a></div><div><a href="/lua_guide/types/" title="数据类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">数据类型</div></div></a></div><div><a href="/lua_guide/syntax/" title="Lua基本语法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">Lua基本语法</div></div></a></div><div><a href="/lua_guide/access/" title="Lua数据库访问"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">Lua数据库访问</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果的实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="内存管理">内存管理</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/phi-2%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85/" title="phi-2部署安装">phi-2部署安装</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E8%A7%86%E9%A2%91%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%EF%BC%88VideoLCM%EF%BC%89/" title="视频一致性模型（VideoLCM）">视频一致性模型（VideoLCM）</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E6%88%91%E5%B8%8C%E6%9C%9B%E6%9C%89%E4%BA%BA%E5%91%8A%E8%AF%89%E6%88%91%E7%9A%84%E4%BA%8B%E6%83%85/" title="我希望有人告诉我的事情">我希望有人告诉我的事情</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/21/templater/%E5%AE%89%E4%B9%A6%E6%A8%A1%E6%9D%BF/" title="&lt;% tp.file.title %&gt;">&lt;% tp.file.title %&gt;</a><time datetime="2023-12-21T10:24:06.199Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 糖果的实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua基础入门教程</title><meta name="author" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Lua基础入门教程">
+<meta property="og:url" content="https://lua.ren/page/17/index.html">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="糖果的实验室 备案:辽ICP备16003836号-5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/page/17/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua基础入门教程',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-25 18:56:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Lua基础入门教程"><span class="site-name">Lua基础入门教程</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Lua基础入门教程</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/111/" title="《Lua游戏AI开发指南 --- Lua调用C/C++函数》">《Lua游戏AI开发指南 --- Lua调用C/C++函数》</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
+
+Exposing C++ functions to Lua takes place through a process called function binding. Any bound functions exposed to Lua become accessible either as a global function or as a function available through a package. Packages in Lua are similar to namespaces in C++ and are implemented as a global table within Lua.
+
+
+通过暴漏C++函数给Lua的过程，叫做函数绑定。任何绑定函数暴漏给Lua成为一个可访问的全局函数，或是作为可用的包函数。Lua中的Packages(包)类似于C++中的命名空间，作为一个类似全局表被实现的。
+
+Function binding 
+
+Any function exposed to Lua must fit the lua_CFunction d ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/112/" title="《Lua游戏AI开发指南 --- C/C++中调用Lua函数》">《Lua游戏AI开发指南 --- C/C++中调用Lua函数》</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">C/C++ calling Lua functions
+The sandbox hooks into the Lua script through three predefined global Lua functions:
+Sandbox_Initialize, Sandbox_Cleanup, and Sandbox_Update. When the sandbox is first
+attached to the corresponding Lua script, the Sandbox_Initialize function is called. Each
+update tick of the sandbox will also invoke the Sandbox_Update function in the Lua script.
+When the sandbox is being destroyed or reloaded, the Sandbox_Cleanup function will
+have an opportunity to perform any scrip ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/113/" title="WEB IDE环境运行Lua网页应用">WEB IDE环境运行Lua网页应用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
+如Python和Ruby一样，Lua也可以创建WEB应用，之前提过的一个Lua WEB框架
+这次就在WEB IDE环境下，部署一下LuaWEB的运行环境，并创建一个Lua WEB应用。
+第一步：安装WEB服务器， Openresty。
+1).下载安装包
+1wget https://openresty.org/download/ngx_openresty-1.7.10.1.tar.gz
+
+2).解压
+1tar xzvf ngx_openresty-1.7.10.1.tar.gz
+3).安装依赖包
+1234567sudo apt-get install libreadline-devsudo apt-get install libncurses5-devsudo apt-get install libpcre3-devsudo apt-get install libssl-devsudo apt-get install perlsudo apt-get install makesudo apt-get install build-essential
+
+3).配置与安装
+1234 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/114/" title="Openresty的Lua定时器（计划任务）">Openresty的Lua定时器（计划任务）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">在系统中有一类需求是：周期性的执行某些任务，利用定时的timer去实现这种操作。
+Openresty为Lua提供了这种机制实现的API，通过设定timer来完成这种类似计划任务功能。
+下面，就是一个典型的Openresty的timer API的使用例子：
+实现思路是，通过一个timer设定调用一个函数，在函数内部还有一个循环递归的timer调用，调用函数自身，实现周期性的函数执行。
+–此函数的主要的目的是6秒钟的时间，对redis中某Key，进行数值累加。
+123456789101112131415local handlerfunction handler(premature, params)--定时执行一个redis的累加计数操作。RedisCommon.add()--递归的timer，重复调用handler函数。local ok, err = ngx.timer.at(6, handler, &quot;params-data&quot;)        ngx.log(ngx.DEBUG, &quot;ok:&quot;, ok, &quot; err:&quot;, err)e ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/115/" title="MoonScript脚本开发简介">MoonScript脚本开发简介</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">Coffescript是一种中间的脚本，可以把这种脚本翻译成JavaScript。而MoonScript，是可以翻译成lua语言的中间脚本。
+本文简单的介绍的：
+
+如何在VIM中，实现MoonScript语法高亮。 
+如何简单的编译MoonScript脚本。
+
+1.安装MoonScript1sudo luarocks install moonscript
+
+2.创建.moon源文件app.moon
+1234lapis = require &quot;lapis&quot;   class extends lapis.Application     &quot;/&quot;: =&gt; &quot;Welcome to Lapis #&#123;require &quot;lapis.version&quot;&#125;!&quot; 
+
+
+3.安装MoonScript语法高亮的插件。3-1.下载vim的bundle插件管理程序。
+1git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
+
+3-2.创 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/116/" title="配置VIM的插件补全功能---(在WEB IDE中)">配置VIM的插件补全功能---(在WEB IDE中)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">VIM提供了很多的第三方插件，足可以把VIM武装成强大的开发IDE，这次抛砖引玉，介绍一下在coding的WEB IDE环境下，家法配置VIM插件，补全插件。
+1.进入VIM管理目录。
+1cd ~/.vim
+
+2.创建工作目录。
+1mkdir neo
+
+3.下载插件。
+123wget https://github.com/Shougo/neocomplcache.vim/archive/master.zipunzip master.zip
+
+4.解压复制文件。
+12cd neocomplcache.vim-mastercp -r autoload doc plugin vest  ../ 
+
+5.配置.vimrc文件
+12vim ~/.vimrclet g:neocomplcache_enable_at_startup = 1
+
+
+
+如果是在coding有default环境下，按如上方法安装，再次打开VIM，就会看到自到补全效果。例如可以输入关键字:”function”。
+作者：糖果
+PS:转载到其它平台请注明作者姓名及原文链接，请勿用于商业用途。
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/117/" title="LUA与STOMP协议">LUA与STOMP协议</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
+STOMP协议是一种简单的消息文本协议。协义本身简单明了，用消息头定义和消息体数据传输。
+RabbitMQ做为一种队列中间件，提供了STOMP协议的支持，我们可以通过STOMP协议向队列发送消息。下面的例子中，我们将使用LUA程序向RabbitMQ发送消息， 通过Python程序读取消息。
+send.lua文件
+12345678local client = require &quot;stomp&quot;local mq, err = client:new()local ok, err = mq:connect(&quot;127.0.0.1&quot;, 61613)local msg = &quot;say hi!&quot;local headers = &#123;&#125;headers[&quot;destination&quot;] = &quot;/queue/test&quot;headers[&quot;app-id&quot;] = &quot;APP&quot;local ok, err = mq:send(info_json, headers) ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/118/" title="以“99”结尾，奇数价格定价的来由。">以“99”结尾，奇数价格定价的来由。</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">the answer to the origin of this strategy is unclear. [3]  There are 3 different theories of its history:
+这个答案的最开始渊源并已经不很清楚了。关于这个，有三种不同的历史说法。
+1.Marketers (such as RH Macy) of mid 1800s tried to ambush their competitors in highly price sensitive goods.
+1800年代中叶市场人员（列如RH Macy公司）试图去伏击竞争对手的高价格紧俏货品，采用的一种手段。
+2.Melville Stone of Chicago Daily News priced his paper at 1 cent. However, given that cents were not in common use then, he coaxed local shops into odd pricing so that his customers will have the ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/119/" title="Lua Lapis的模板系统etlua">Lua Lapis的模板系统etlua</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
+主流的WEB开发框架都有模板系统，或是支持第三方的模板插件。Lua Lapis也不例外，也有自己的模板系统，叫做etlua。
+说到模板系统，另外要提一下静态资源的问题，模板的话难免要使用css、js、image这种静态文件，为了扫除一部分障碍先说一下Openresty是如何设定静态目标的。（相对Django相对要简单很多。）
+123location /static/ &#123;                                                                                                                                                             alias static/;                                                                                                                                     ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/120/" title="DokuWiki系统介绍与部署安装">DokuWiki系统介绍与部署安装</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
+http://www.lua.ren
+DokuWiki
+这个Wiki系统之前都没有用过，因为最近一个机会使用了DokuWiki，感觉Wiki系统也大有内容。XML-RPC, Atom协议，Wiki的进化越来越强大。DokuWiki是一个轻量级的 Wiki系统。对说需求不是过于复杂的发布任务来说，足以满足。
+Doku是一个开源的PHP项目。
+在github上的连接:
+因为是PHP项目需要一个PHP的开发环境，这个暂略。
+不过因为安装过程中，会涉及到某些目录的权限修改问题，需要提一下Apache2, 我们采用的Web服务器是Apache，因为是Ubuntu系统，方便的使用了apt-get的安装方式。
+第一步：安装apahce2
+1sudo apt-get install apache2
+
+以apt-get安装的时候，创建了一个www-data的用户组。在安装dokuwiki的时候，需要把一些目录所属权限改成www-data。
+第二步：下载DokuWiki。
+把DokuWiki的源文件下载到/var/www/目录下。
+1git clone https://github.com/s ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/16/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/#content-inner">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/#content-inner">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/#content-inner">46</a><a class="extend next" rel="next" href="/page/18/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果的实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="内存管理">内存管理</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/phi-2%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85/" title="phi-2部署安装">phi-2部署安装</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E8%A7%86%E9%A2%91%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%EF%BC%88VideoLCM%EF%BC%89/" title="视频一致性模型（VideoLCM）">视频一致性模型（VideoLCM）</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E6%88%91%E5%B8%8C%E6%9C%9B%E6%9C%89%E4%BA%BA%E5%91%8A%E8%AF%89%E6%88%91%E7%9A%84%E4%BA%8B%E6%83%85/" title="我希望有人告诉我的事情">我希望有人告诉我的事情</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/21/templater/%E5%AE%89%E4%B9%A6%E6%A8%A1%E6%9D%BF/" title="&lt;% tp.file.title %&gt;">&lt;% tp.file.title %&gt;</a><time datetime="2023-12-21T10:24:06.199Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">6</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/conda/"><span class="card-category-list-name">conda</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/"><span class="card-category-list-name">Sec</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/Graylog/"><span class="card-category-list-name">Graylog</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/linux/"><span class="card-category-list-name">linux</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/lua/"><span class="card-category-list-name">lua</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E7%94%B5%E8%84%91%E5%A4%96%E8%AE%BE/" style="font-size: 1.1em; color: #999">电脑外设</a> <a href="/tags/JSON/" style="font-size: 1.1em; color: #999">JSON</a> <a href="/tags/Graylog/" style="font-size: 1.37em; color: #99a4b2">Graylog</a> <a href="/tags/%E4%B8%BB%E6%9D%BF/" style="font-size: 1.1em; color: #999">主板</a> <a href="/tags/%E9%94%AE%E7%9B%98%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%89/" style="font-size: 1.23em; color: #999ea6">键盘（计算机）</a> <a href="/tags/iptables/" style="font-size: 1.1em; color: #999">iptables</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">无线键盘</a> <a href="/tags/lua%E5%BE%AA%E7%8E%AF/" style="font-size: 1.1em; color: #999">lua循环</a> <a href="/tags/python/" style="font-size: 1.1em; color: #999">python</a> <a href="/tags/OpenAI/" style="font-size: 1.1em; color: #999">OpenAI</a> <a href="/tags/x79/" style="font-size: 1.1em; color: #999">x79</a> <a href="/tags/pdf/" style="font-size: 1.1em; color: #999">pdf</a> <a href="/tags/%E5%AE%89%E5%85%A8%E5%9B%BE%E4%B9%A6/" style="font-size: 1.1em; color: #999">安全图书</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">安全技术</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/x99/" style="font-size: 1.1em; color: #999">x99</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%B1%82%E8%81%8C/" style="font-size: 1.1em; color: #999">程序员求职</a> <a href="/tags/%E5%A4%B1%E4%B8%9A/" style="font-size: 1.1em; color: #999">失业</a> <a href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" style="font-size: 1.1em; color: #999">Cherry（键盘）</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全数据运营</a> <a href="/tags/%E7%A3%81%E7%9B%98/" style="font-size: 1.1em; color: #999">磁盘</a> <a href="/tags/moonscript/" style="font-size: 1.1em; color: #999">moonscript</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">二分查找</a> <a href="/tags/GROK/" style="font-size: 1.1em; color: #999">GROK</a> <a href="/tags/lua%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">lua二分查找</a> <a href="/tags/ClickHouse/" style="font-size: 1.1em; color: #999">ClickHouse</a> <a href="/tags/ElasticSearch/" style="font-size: 1.1em; color: #999">ElasticSearch</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.23em; color: #999ea6">Web安全</a> <a href="/tags/Split/" style="font-size: 1.1em; color: #999">Split</a> <a href="/tags/%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">折半查找</a> <a href="/tags/OpenResty/" style="font-size: 1.1em; color: #999">OpenResty</a> <a href="/tags/LLM/" style="font-size: 1.5em; color: #99a9bf">LLM</a> <a href="/tags/picgo/" style="font-size: 1.1em; color: #999">picgo</a> <a href="/tags/obsidian/" style="font-size: 1.37em; color: #99a4b2">obsidian</a> <a href="/tags/%E7%94%B5%E5%AD%90%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE/" style="font-size: 1.1em; color: #999">电子工业出版社</a> <a href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" style="font-size: 1.1em; color: #999">运维记录</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全运营</a> <a href="/tags/conda/" style="font-size: 1.1em; color: #999">conda</a> <a href="/tags/mount/" style="font-size: 1.1em; color: #999">mount</a> <a href="/tags/ChatGPT/" style="font-size: 1.1em; color: #999">ChatGPT</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">147</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2017/09/"><span class="card-archive-list-date">九月 2017</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/09/"><span class="card-archive-list-date">九月 2016</span><span class="card-archive-list-count">307</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">457</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-12-25T10:56:02.038Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 糖果的实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

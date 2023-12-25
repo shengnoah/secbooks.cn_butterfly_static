@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua基础入门教程</title><meta name="author" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Lua基础入门教程">
+<meta property="og:url" content="https://lua.ren/page/14/index.html">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="糖果的实验室 备案:辽ICP备16003836号-5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/page/14/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua基础入门教程',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-25 18:56:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Lua基础入门教程"><span class="site-name">Lua基础入门教程</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Lua基础入门教程</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/jinxing/HR/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.163Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">刚毕业的计算机专业大学生应该怎么找工作比较好？
+以下是一些建议：
+
+了解自己的技能和兴趣：首先要明确自己的技能和兴趣，确定自己想从事哪个领域或岗位。这有助于你更有针对性地寻找适合自己的工作。
+
+更新简历和求职信：编写一份精确、清晰、易读的简历和求职信。突出你的教育背景、实习经验和项目经验，并强调与目标工作相关的技能。
+
+利用校园资源：学校通常提供就业指导、招聘会等资源，利用这些资源寻找机会。参加招聘会并与雇主面谈，可以增加你与雇主直接接触的机会。
+
+网络招聘平台：注册并创建个人资料，上传简历，并定期查看最新职位信息。使用关键词搜索来找到适合你的工作，并在申请前仔细阅读职位要求。
+
+社交媒体：建立一个专业形象的社交媒体账号，并关注相关行业领域的公司和专业人士。通过发布有关技术动态、项目经验等内容来展示你对行业的热情和知识。
+
+寻找实习机会：如果你没有相关工作经验，可以寻找实习机会来积累经验。实习不仅可以让你学到更多实际操作的技能，还有可能转化为全职就业机会。
+
+主动联系公司：不仅要等待招聘信息，还可以主动联系你感兴趣的公司。发送个性化的求职信和简历，并解释你为何对该公司感兴趣以及如何能为 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/jinxing/%E4%B8%8D%E5%90%AC%20%E8%80%81%E4%BA%BA%E8%A8%80/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.163Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">从原理上解释一下为什么：“不听老人言，吃亏在眼前！‘
+从心理学角度来解释，年长者通常经历了更多的人生阅历和经验积累，他们对事物的判断和决策更为成熟和准确。他们能够通过自己的经验教训来指导年轻人，帮助他们避免犯同样的错误。
+此外，年长者在社会中拥有更高的地位和威信，他们的建议往往具有权威性。因此，不听从年长者的意见可能导致缺乏正确的指导，而出现失误或吃亏。
+另外，年长者也具备更多的人际关系网络和社会资源，他们可以通过这些资源提供帮助和支持。如果不听从他们的建议，则可能失去了得到这些资源的机会。
+总之，“不听老人言，吃亏在眼前”这句话表达了尊重和借鉴前辈经验教训的重要性。年长者对我们来说是宝贵的财富，在做决策时应该谦虚地听取他们的意见，并根据需要加以参考和应用。
+从原理上解释一下为什么：“不听老人言，开心一整年！‘
+“不听老人言，开心一整年！”这句话的原理可以从两个方面解释。
+首先，老人的经验和智慧是通过多年的生活经历积累起来的。他们在各种情况下都可能有着宝贵的建议和指导。因此，听取老人的意见可以避免重复犯错，减少风险，并且能够更快地找到解决问题的方法。如果我们不听老人言，就可能会陷入自己 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/jinxing/%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.163Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">什么是函数的导数？导数在数值坐标上的几何意义是什么？函数的导数是描述函数变化率的概念。对于函数f(x)，其导数表示了在x点处函数值的变化速率。
+导数在数值坐标上的几何意义是函数曲线在某一点处的切线斜率。具体地说，导数可以告诉我们函数曲线在该点的陡峭程度和方向。如果导数为正，表示曲线向上倾斜；如果导数为负，表示曲线向下倾斜；如果导数为零，表示曲线在该点处平坦。此外，导数的绝对值越大，表示曲线变化越快；导数接近于零，表示曲线变化缓慢。
+通过研究函数的导数，我们可以了解函数在不同点上的行为，并推断函数图像的形状和趋势。这对于解决实际问题、优化函数以及理解物理、经济等领域中的变化过程非常重要。
+如何求一个函数的导数要求一个函数的导数，可以按以下步骤进行：
+
+确定函数的形式。假设函数为f(x)，并确定其表达式。
+
+使用导数的定义来计算导数。导数的定义是lim(h→0) [f(x+h) - f(x)] / h，其中h代表变量的微小增量。
+
+将函数表达式带入导数定义中，并进行化简。
+
+取极限，即令h趋近于零。这样就可以得到函数在某个点x处的导数。
+
+如果需要求整个函数的导数，则需要对每个点都进行上述 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/jinxing/%E6%B5%B7%E6%B7%80%E5%8C%BA/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.163Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">北京海淀区小学一年级50米，买多少秒成绩及格。
+成绩及格的时间是根据个人情况而定的，无法通过跑50米的时间来确定。一般来说，小学一年级的学生在50米跑方面，如果能够在10-15秒之间完成，可以算作是成绩及格。但是需要根据学校或教师对于成绩评判标准来确定是否及格。
+北京海淀区小学生一年级坐位体前屈什么标准算及格
+北京海淀区小学生一年级坐位体前屈的及格标准一般是指学生能够完成一定程度的身体前屈动作。具体标准可能根据学校或教育机构的要求而有所差异，但一般来说，以下是常见的及格标准：
+
+学生双脚并排、挺直坐在地上，双手自然垂放在身体两侧。
+学生慢慢向前弯腰，尽量用手指触碰或接近脚尖，保持动作稳定。
+身体前屈时，头部和脊柱应保持挺直，不扭曲或歪斜。
+不要出现明显的疼痛或不适感。
+
+需要注意的是，这只是一般的及格标准，并不代表每个学校或机构都会采用相同的标准。具体的及格标准应以相关教育规定为准。同时，在进行任何身体活动时，也应注意安全和合理性。
+北京海淀区小学生跳绳成绩， 跳多少个算及格。
+北京海淀区小学生跳绳成绩及格的标准可能因学校、年级和性别而有所不同。一般来说，以下是一些可能的及格标准供参考 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/blog/baimaozijianganquan/" title="白帽子讲Web安全">白帽子讲Web安全</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.162Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%B9%A6%E7%B1%8D/">书籍</a></span></div><div class="content">购买链接： 点击购买
+作者： 吴翰清内容简介：在互联网时代，数据安全与个人隐私受到了前所未有的挑战，各种新奇的攻击技术层出不穷。如何才能更好地保护我们的数据？《白帽子讲Web安全》将带你走进web安全的世界，让你了解Web安全的方方面面。黑客不再变得神秘，攻击技术原来我也可以会，小网站主自己也能找到正确的安全道路。大公司是怎么做安全的，为什么要选择这样的方案呢？你能在《白帽子讲Web安全》中找到答案。详细的剖析，让你不仅能“知其然”，更能“知其所以然”。 　　《白帽子讲Web安全》是根据作者吴翰清若干年实际工作中积累下来的丰富经验而写成的，在解决方案上具有极强的可操作性，深入分析了各种错误的解决方案与误区，对安全工作者有很好的参考价值。安全开发流程与运营的介绍，对同行业的工作具有指导意义。
+推荐理由：本书对Web安全各个方面都进行了较详细的分析，在掌握基本知识后阅读此书更佳。
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/blog/clickhouse/" title="Clickhouse的Docker版本查询">Clickhouse的Docker版本查询</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.162Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">Clickhouse的Docker版本查询。
+123select service, count(service) as cnt from x_main_all where date &gt; &#x27;2021-01-01&#x27;  and date &lt;&#x27;2022-01-27&#x27;    group by service  order by cnt desc limit 1000;select product, count(product) as cnt from x_main_all where date &gt; &#x27;2021-01-01&#x27;  and date &lt;&#x27;2022-01-27&#x27;    group by product  order by cnt desc limit 1000;docker run -it --rm yandex/clickhouse-client -h xxx.cn --port 9000 -m -u username --password passwd -d usern
+
+
+
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/blog/cdn-ip/" title="绕过CDN查找真实IP方法">绕过CDN查找真实IP方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.162Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">相信大家平时在做渗透测试时，经常会碰到部署了CDN的网站，我们有时候想要获取某站的源站ip，方法有很多，今天我给大家总结一下，赠人玫瑰，手有余香。
+CDN简介：CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。
+域名解析过程:传统访问：用户访问域名–&gt;解析IP–&gt;访问目标主机CDN模式：用户访问域名–&gt;CDN节点–&gt;真实IP–&gt;目标主机
+验证网站有无CDN方法:利用“全球Ping”快速检测目标网址是否存在CDN，如果返回域名解析对应多个 IP 地址多半是使用了 CDN,如果得到的IP归属地是某CDN服务商，或者每个地区得到的IP地址不一样则说明可能存在CDN，可用以下几个网站检测！http://ping.chinaz.comhttp://ping.aizhan.com/http://www.web ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/blog/elasticsearch/" title="ElasticSearch最大返回结果量大小设置">ElasticSearch最大返回结果量大小设置</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.162Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">123curl -H &quot;Content-Type: application/json&quot; -XPUT &#x27;http://192.168.0.5:9205/_all/_settings?preserve_existing=true&#x27;  -d &#x27;&#123;  &quot;index.max_result_window&quot; : &quot;100000&quot;&#125;&#x27;
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/blog/jumperserver/" title="SSH解决The authenticity of host xxx can't be established.">SSH解决The authenticity of host xxx can't be established.</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.162Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">通道机突然出现了链接不上的情况，最后就直接在SSH的IP约束检查去掉。
+修改配置文件1vim /etc/ssh/ssh_config
+
+
+添加不检查主机的约束的选项12StrictHostKeyChecking noUserKnownHostsFile /dev/null
+
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/blog/iptables/" title="iptables限制IP访问">iptables限制IP访问</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.162Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">设定主机可访问的端口。
+123456iptables -I INPUT -s 192.168.0.5 -p tcp --dport 80 -j ACCEPTiptables -D INPUT -s 192.168.0.5 -p tcp --dport 80 -j ACCEPTiptables -I INPUT -s 192.168.0.5 -p tcp --dport 27017 -j ACCEPTiptables -I INPUT -s 192.168.0.5 -p tcp --dport 27017 -j ACCEPTiptables -I INPUT -s 127.0.0.1 -p tcp --dport 27017 -j ACCEPTiptables -I INPUT -s 192.168.0.5 -p tcp --dport 27017 -j ACCEPT
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/13/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#content-inner">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/#content-inner">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/#content-inner">46</a><a class="extend next" rel="next" href="/page/15/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果的实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="内存管理">内存管理</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/phi-2%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85/" title="phi-2部署安装">phi-2部署安装</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E8%A7%86%E9%A2%91%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%EF%BC%88VideoLCM%EF%BC%89/" title="视频一致性模型（VideoLCM）">视频一致性模型（VideoLCM）</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E6%88%91%E5%B8%8C%E6%9C%9B%E6%9C%89%E4%BA%BA%E5%91%8A%E8%AF%89%E6%88%91%E7%9A%84%E4%BA%8B%E6%83%85/" title="我希望有人告诉我的事情">我希望有人告诉我的事情</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/21/templater/%E5%AE%89%E4%B9%A6%E6%A8%A1%E6%9D%BF/" title="&lt;% tp.file.title %&gt;">&lt;% tp.file.title %&gt;</a><time datetime="2023-12-21T10:24:06.199Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">6</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/conda/"><span class="card-category-list-name">conda</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/"><span class="card-category-list-name">Sec</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/Graylog/"><span class="card-category-list-name">Graylog</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/linux/"><span class="card-category-list-name">linux</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/lua/"><span class="card-category-list-name">lua</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E7%94%B5%E8%84%91%E5%A4%96%E8%AE%BE/" style="font-size: 1.1em; color: #999">电脑外设</a> <a href="/tags/JSON/" style="font-size: 1.1em; color: #999">JSON</a> <a href="/tags/Graylog/" style="font-size: 1.37em; color: #99a4b2">Graylog</a> <a href="/tags/%E4%B8%BB%E6%9D%BF/" style="font-size: 1.1em; color: #999">主板</a> <a href="/tags/%E9%94%AE%E7%9B%98%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%89/" style="font-size: 1.23em; color: #999ea6">键盘（计算机）</a> <a href="/tags/iptables/" style="font-size: 1.1em; color: #999">iptables</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">无线键盘</a> <a href="/tags/lua%E5%BE%AA%E7%8E%AF/" style="font-size: 1.1em; color: #999">lua循环</a> <a href="/tags/python/" style="font-size: 1.1em; color: #999">python</a> <a href="/tags/OpenAI/" style="font-size: 1.1em; color: #999">OpenAI</a> <a href="/tags/x79/" style="font-size: 1.1em; color: #999">x79</a> <a href="/tags/pdf/" style="font-size: 1.1em; color: #999">pdf</a> <a href="/tags/%E5%AE%89%E5%85%A8%E5%9B%BE%E4%B9%A6/" style="font-size: 1.1em; color: #999">安全图书</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">安全技术</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/x99/" style="font-size: 1.1em; color: #999">x99</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%B1%82%E8%81%8C/" style="font-size: 1.1em; color: #999">程序员求职</a> <a href="/tags/%E5%A4%B1%E4%B8%9A/" style="font-size: 1.1em; color: #999">失业</a> <a href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" style="font-size: 1.1em; color: #999">Cherry（键盘）</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全数据运营</a> <a href="/tags/%E7%A3%81%E7%9B%98/" style="font-size: 1.1em; color: #999">磁盘</a> <a href="/tags/moonscript/" style="font-size: 1.1em; color: #999">moonscript</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">二分查找</a> <a href="/tags/GROK/" style="font-size: 1.1em; color: #999">GROK</a> <a href="/tags/lua%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">lua二分查找</a> <a href="/tags/ClickHouse/" style="font-size: 1.1em; color: #999">ClickHouse</a> <a href="/tags/ElasticSearch/" style="font-size: 1.1em; color: #999">ElasticSearch</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.23em; color: #999ea6">Web安全</a> <a href="/tags/Split/" style="font-size: 1.1em; color: #999">Split</a> <a href="/tags/%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">折半查找</a> <a href="/tags/OpenResty/" style="font-size: 1.1em; color: #999">OpenResty</a> <a href="/tags/LLM/" style="font-size: 1.5em; color: #99a9bf">LLM</a> <a href="/tags/picgo/" style="font-size: 1.1em; color: #999">picgo</a> <a href="/tags/obsidian/" style="font-size: 1.37em; color: #99a4b2">obsidian</a> <a href="/tags/%E7%94%B5%E5%AD%90%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE/" style="font-size: 1.1em; color: #999">电子工业出版社</a> <a href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" style="font-size: 1.1em; color: #999">运维记录</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全运营</a> <a href="/tags/conda/" style="font-size: 1.1em; color: #999">conda</a> <a href="/tags/mount/" style="font-size: 1.1em; color: #999">mount</a> <a href="/tags/ChatGPT/" style="font-size: 1.1em; color: #999">ChatGPT</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">147</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2017/09/"><span class="card-archive-list-date">九月 2017</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/09/"><span class="card-archive-list-date">九月 2016</span><span class="card-archive-list-count">307</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">457</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-12-25T10:56:02.038Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 糖果的实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

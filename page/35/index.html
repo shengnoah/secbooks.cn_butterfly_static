@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua基础入门教程</title><meta name="author" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Lua基础入门教程">
+<meta property="og:url" content="https://lua.ren/page/35/index.html">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="糖果的实验室 备案:辽ICP备16003836号-5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/page/35/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua基础入门教程',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-25 18:56:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Lua基础入门教程"><span class="site-name">Lua基础入门教程</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Lua基础入门教程</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/307/" title="Socket 编程发展">Socket 编程发展</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">Socket 编程发展Linux Socket 编程领域，为了处理大量连接请求场景，需要使用非阻塞 I/O 和复用。select、poll 和 epoll 是 Linux API 提供的 I/O 复用方式，自从 Linux 2.6 中加入了 epoll 之后，高性能服务器领域得到广泛的应用，现在比较出名的 Nginx 就是使用 epoll 来实现 I/O 复用支持高并发，目前在高并发的场景下，Nginx 越来越收到欢迎。
+据 w3techs 在2015年8月10日的统计数据表明，在全球 Top 1000 的网站中，有 43.7% 的网站在使用 Nginx，这使得 Nginx 超越了 Apache，成为了高流量网站最信任的 Web 服务器足足有两年时间。已经确定在使用Nginx的站点有：Wikipedia，WordPress，Reddit，Tumblr，Pinterest，Dropbox，Slideshare，Stackexchange 等，可以持续罗列好几个小时，他们太多了。
+下图是统计数据：
+
+select 模型下面是 select 函数接口：
+12int select (int n ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/308/" title="简介">简介</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">简介OpenResty（也称为 ngx_openresty）是一个全功能的 Web 应用服务器。它打包了标准的 Nginx 核心，很多的常用的第三方模块，以及它们的大多数依赖项。
+通过糅合众多设计良好的 Nginx 模块，OpenResty 有效地把 Nginx 服务器转变为一个强大的 Web 应用服务器，基于它开发人员可以使用 Lua 编程语言对 Nginx 核心以及现有的各种 Nginx C 模块进行脚本编程，构建出可以处理一万以上并发请求的极端高性能的 Web 应用。
+OpenResty 致力于将你的服务器端应用完全运行于 Nginx 服务器中，充分利用 Nginx 的事件模型来进行非阻塞 I/O 通信。不仅仅是和 HTTP 客户端间的网络通信是非阻塞的，与MySQL、PostgreSQL、Memcached 以及 Redis 等众多远方后端之间的网络通信也是非阻塞的。
+因为 OpenResty 软件包的维护者也是其中打包的许多 Nginx 模块的作者，所以 OpenResty 可以确保所包含的所有组件可以可靠地协同工作。
+OpenResty 最早是雅虎中国的一个公司项目，起步于 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/309/" title="子查询">子查询</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">子查询Nginx 子请求是一种非常强有力的方式，它可以发起非阻塞的内部请求访问目标 location。目标 location 可以是配置文件中其他文件目录，或 任何 其他 nginx C 模块，包括 ngx_proxy、ngx_fastcgi、ngx_memc、ngx_postgres、ngx_drizzle，甚至 ngx_lua 自身等等 。
+需要注意的是，子请求只是模拟 HTTP 接口的形式， 没有 额外的 HTTP/TCP 流量，也 没有 IPC (进程间通信) 调用。所有工作在内部高效地在 C 语言级别完成。
+子请求与 HTTP 301/302 重定向指令 (通过 ngx.redirect) 完全不同，也与内部重定向 ((通过 ngx.exec) 完全不同。
+在发起子请求前，用户程序应总是读取完整的 HTTP 请求体 (通过调用 ngx.req.read_body 或设置 lua_need_request_body 指令为 on).
+该 API 方法（ngx.location.capture_multi 也一样）总是缓冲整个请求体到内存中。因此，当需要处理一个大的子请求响应，用 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/310/" title="不同阶段共享变量">不同阶段共享变量</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">不同阶段共享变量在 OpenResty 的体系中，可以通过共享内存的方式完成不同工作进程的数据共享，可以通过 Lua 模块方式完成单个进程内不同请求的数据共享。如何完成单个请求内不同阶段的数据共享呢？最典型的例子，估计就是在 log 阶段记录一些请求的特殊变量。
+ngx.ctx 表就是为了解决这类问题而设计的。参考下面例子：
+1234567891011location /test &#123;     rewrite_by_lua &#x27;         ngx.ctx.foo = 76     &#x27;;     access_by_lua &#x27;         ngx.ctx.foo = ngx.ctx.foo + 3     &#x27;;     content_by_lua &#x27;         ngx.say(ngx.ctx.foo)     &#x27;; &#125;
+
+首先 ngx.ctx 是一个表，所以我们可以对他添加、修改。它用来存储基于请求的 Lua 环境数据，其生存周期与当前请求相同 (类似 Nginx 变量)。它有一个最重要的特性： ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/312/" title="日志输出">日志输出</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">日志输出你如何测试和调试你的代码呢？Lua 的两个主力作者是这样回复的：
+Luiz Henrique de Figueiredo：我主要是一块一块的构建，分块测试。我很少使用调试器。即使用调试器，也只是调试 C 代码。我从不用调试器调试 Lua 代码。对于 Lua 来说，在适当的位置放几条打印语句通常就可以胜任了。
+Roberto Ierusalimschy：我差不多也是这样。当我使用调试器时，通常只是用来查找代码在哪里崩溃了。对于 C 代码，有个像 Valgrind 或者 Purify 这样的工具是必要的。
+摘自《编程之魂 – 采访 Lua 发明人的一篇文章》。
+由此可见掌握日志输出是多么重要，下至入门同学，上至 Lua 作者，使用日志输出来确定问题，是很必要的基本手段。
+标准日志输出OpenResty 的标准日志输出原句为 ngx.log(log_level, ...) ，几乎可以在任何 ngx_lua 阶段进行日志的输出。
+请看下面的示例：
+1234567891011121314151617181920212223242526#user  nobody;worker_proces ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/311/" title="与其他 location 配合">与其他 location 配合</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">与其他 location 配合nginx 世界的 location 是异常强大的，毕竟 nginx 的主要应用场景是在负载均衡、API server，在不同 server、location 之间跳转更是家常便饭。利用不同 location 的功能组合，我们可以完成内部调用、流水线方式跳转、外部重定向等几大不同方式，下面将给大家介绍几个主要应用，就当抛砖引玉。
+内部调用例如对数据库、内部公共函数的统一接口，可以把它们放到统一的 location 中。通常情况下，为了保护这些内部接口，都会把这些接口设置为 internal 。这么做的最主要好处就是可以让这个内部接口相对独立，不受外界干扰。
+示例代码：
+1234567891011121314151617181920location = /sum &#123;    # 只允许内部调用    internal;    # 这里做了一个求和运算只是一个例子，可以在这里完成一些数据库、    # 缓存服务器的操作，达到基础模块和业务逻辑分离目的    content_by_lua_block &#123;        local args =  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/313/" title="cosocket.md">cosocket.md</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">怎样理解 cosockettodo: waiting to todo
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/314/" title="helloworld">helloworld</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">HelloWorldHelloWorld 是我们亘古不变的第一个入门程序。但是 OpenResty 不是一门编程语言，跟其他编程语言的 HelloWorld 不一样，让我们看看都有哪些不一样吧。
+创建工作目录OpenResty 安装之后就有配置文件及相关的目录的，为了工作目录与安装目录互不干扰，并顺便学下简单的配置文件编写，我们另外创建一个 OpenResty 的工作目录来练习，并且另写一个配置文件。我选择在当前用户目录下创建 openresty-test 目录，并在该目录下创建 logs 和 conf 子目录分别用于存放日志和配置文件。
+12345678$ mkdir ~/openresty-test ~/openresty-test/logs/ ~/openresty-test/conf/$$ tree ~/openresty-test/Users/yuansheng/openresty-test├── conf└── logs2 directories, 0 files
+
+创建配置文件在 conf 目录下创建一个文本文件作为配置文件，命名为 nginx.conf，文件内容如下:
+ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/316/" title="简单API Server框架">简单API Server框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">简单API Server框架实现一个最最简单的数学计算：加、减、乘、除，给大家演示如何搭建简单的 API Server。
+按照前面几章的写法，先来看看加法、减法示例代码：
+123456789101112131415161718192021222324252627282930313233343536373839404142worker_processes  1;        #nginx worker 数量error_log logs/error.log;   #指定错误日志文件路径events &#123;    worker_connections 1024;&#125;http &#123;    server &#123;        listen 80;        # 加法        location /addition &#123;           content_by_lua_block &#123;                local args = ngx.req.get_uri_args()                ngx.say(args. ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/topic/318/" title="获取 uri 参数">获取 uri 参数</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">获取 uri 参数上一章节，主要介绍了一下如何使用不同 location 进行协作，对 location 进行糅合，往往都是要需要参数的二次调整。如何正确获取传递参数、设置参数，就是你的必修课了。本章目的是给出在 OpenResty 的世界中，我们如何正确获取、设置 uri 参数。
+获取请求 uri 参数首先看一下官方 API 文档，获取一个 uri 有两个方法：ngx.req.get_uri_args、ngx.req.get_post_args，二者主要的区别是参数来源有区别。
+参考下面例子：
+12345678910111213141516171819server &#123;   listen    80;   server_name  localhost;   location /print_param &#123;       content_by_lua_block &#123;           local arg = ngx.req.get_uri_args()           for k,v in pairs(arg) do               ngx.s ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/34/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/#content-inner">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/#content-inner">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/#content-inner">46</a><a class="extend next" rel="next" href="/page/36/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果的实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="内存管理">内存管理</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/phi-2%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85/" title="phi-2部署安装">phi-2部署安装</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E8%A7%86%E9%A2%91%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%EF%BC%88VideoLCM%EF%BC%89/" title="视频一致性模型（VideoLCM）">视频一致性模型（VideoLCM）</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E6%88%91%E5%B8%8C%E6%9C%9B%E6%9C%89%E4%BA%BA%E5%91%8A%E8%AF%89%E6%88%91%E7%9A%84%E4%BA%8B%E6%83%85/" title="我希望有人告诉我的事情">我希望有人告诉我的事情</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/21/templater/%E5%AE%89%E4%B9%A6%E6%A8%A1%E6%9D%BF/" title="&lt;% tp.file.title %&gt;">&lt;% tp.file.title %&gt;</a><time datetime="2023-12-21T10:24:06.199Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">6</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/conda/"><span class="card-category-list-name">conda</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/"><span class="card-category-list-name">Sec</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/Graylog/"><span class="card-category-list-name">Graylog</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/linux/"><span class="card-category-list-name">linux</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/lua/"><span class="card-category-list-name">lua</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E7%94%B5%E8%84%91%E5%A4%96%E8%AE%BE/" style="font-size: 1.1em; color: #999">电脑外设</a> <a href="/tags/JSON/" style="font-size: 1.1em; color: #999">JSON</a> <a href="/tags/Graylog/" style="font-size: 1.37em; color: #99a4b2">Graylog</a> <a href="/tags/%E4%B8%BB%E6%9D%BF/" style="font-size: 1.1em; color: #999">主板</a> <a href="/tags/%E9%94%AE%E7%9B%98%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%89/" style="font-size: 1.23em; color: #999ea6">键盘（计算机）</a> <a href="/tags/iptables/" style="font-size: 1.1em; color: #999">iptables</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">无线键盘</a> <a href="/tags/lua%E5%BE%AA%E7%8E%AF/" style="font-size: 1.1em; color: #999">lua循环</a> <a href="/tags/python/" style="font-size: 1.1em; color: #999">python</a> <a href="/tags/OpenAI/" style="font-size: 1.1em; color: #999">OpenAI</a> <a href="/tags/x79/" style="font-size: 1.1em; color: #999">x79</a> <a href="/tags/pdf/" style="font-size: 1.1em; color: #999">pdf</a> <a href="/tags/%E5%AE%89%E5%85%A8%E5%9B%BE%E4%B9%A6/" style="font-size: 1.1em; color: #999">安全图书</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">安全技术</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/x99/" style="font-size: 1.1em; color: #999">x99</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%B1%82%E8%81%8C/" style="font-size: 1.1em; color: #999">程序员求职</a> <a href="/tags/%E5%A4%B1%E4%B8%9A/" style="font-size: 1.1em; color: #999">失业</a> <a href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" style="font-size: 1.1em; color: #999">Cherry（键盘）</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全数据运营</a> <a href="/tags/%E7%A3%81%E7%9B%98/" style="font-size: 1.1em; color: #999">磁盘</a> <a href="/tags/moonscript/" style="font-size: 1.1em; color: #999">moonscript</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">二分查找</a> <a href="/tags/GROK/" style="font-size: 1.1em; color: #999">GROK</a> <a href="/tags/lua%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">lua二分查找</a> <a href="/tags/ClickHouse/" style="font-size: 1.1em; color: #999">ClickHouse</a> <a href="/tags/ElasticSearch/" style="font-size: 1.1em; color: #999">ElasticSearch</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.23em; color: #999ea6">Web安全</a> <a href="/tags/Split/" style="font-size: 1.1em; color: #999">Split</a> <a href="/tags/%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">折半查找</a> <a href="/tags/OpenResty/" style="font-size: 1.1em; color: #999">OpenResty</a> <a href="/tags/LLM/" style="font-size: 1.5em; color: #99a9bf">LLM</a> <a href="/tags/picgo/" style="font-size: 1.1em; color: #999">picgo</a> <a href="/tags/obsidian/" style="font-size: 1.37em; color: #99a4b2">obsidian</a> <a href="/tags/%E7%94%B5%E5%AD%90%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE/" style="font-size: 1.1em; color: #999">电子工业出版社</a> <a href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" style="font-size: 1.1em; color: #999">运维记录</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全运营</a> <a href="/tags/conda/" style="font-size: 1.1em; color: #999">conda</a> <a href="/tags/mount/" style="font-size: 1.1em; color: #999">mount</a> <a href="/tags/ChatGPT/" style="font-size: 1.1em; color: #999">ChatGPT</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">147</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2017/09/"><span class="card-archive-list-date">九月 2017</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/09/"><span class="card-archive-list-date">九月 2016</span><span class="card-archive-list-count">307</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">457</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-12-25T10:56:02.038Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 糖果的实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

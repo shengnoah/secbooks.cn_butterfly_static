@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua基础入门教程</title><meta name="author" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Lua基础入门教程">
+<meta property="og:url" content="https://lua.ren/page/11/index.html">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="糖果的实验室 备案:辽ICP备16003836号-5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/page/11/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua基础入门教程',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-25 18:56:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Lua基础入门教程"><span class="site-name">Lua基础入门教程</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Lua基础入门教程</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/%E5%AE%89%E5%85%A8%E7%BD%91%E6%A0%BC/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.167Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">网络安全中的安全网格指的是什么？
+安全网格是一种网络安全架构，旨在提高网络的可靠性、可扩展性和安全性。它通过将网络划分为多个区域，并在每个区域中部署安全设备和控制机制，来实现对整个网络的保护。每个区域被称为一个网格节点，它们之间通过安全网关进行连接。安全网格可以帮助组织实现对网络流量的监控、访问控制、威胁检测和防御等功能，从而增强网络的安全性。
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/%E6%A2%85%E5%AD%90%E9%9D%92%E5%93%A5%E7%AA%91_%E5%86%B2%E7%AA%81%E6%96%87%E4%BB%B6_root_20231115114817/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.167Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">梅子青哥窑与弟窑有什么区别？
+梅子青哥窑与弟窑是中国古代青瓷窑口的两个代表。它们的区别主要体现在以下几个方面：
+
+地理位置：梅子青哥窑位于河南省开封市尉氏县梅子山区，而弟窑位于河南省郑州市新郑市。
+
+历史时期：梅子青哥窑是北宋时期的一个重要制瓷窑口，而弟窑则出现在明朝万历年间。
+
+窑瓷特点：梅子青哥窑以其独特的“梅子青”釉色而闻名，釉色深浅不一，呈现出深蓝、浅蓝、碧绿等多种色调。而弟窑则以其“弟红”为特色，红色鲜艳而温润。
+
+窑器形制：梅子青哥窑主要生产器型为盘、碗、盏等小型器皿，以及壶、罐等大型器皿；而弟窑则主要生产各类盘碗、盏、壶罐等。
+
+釉面装饰：两者的装饰风格也有所不同。梅子青哥窑的釉面装饰以刻花、划花、浮雕等技法为主，图案多为植物纹样和人物故事；弟窑则采用了红彩绘画技法，以花鸟、山水等题材作为装饰。
+
+
+总体来说，梅子青哥窑和弟窑在地理位置、历史时期、窑瓷特点、器型和装饰风格等方面有所差异。但它们都是中国古代制瓷的重要代表，对后世的陶瓷制作有着深远影响。
+梅子青瓷器是一种什么样的瓷器？
+梅子青瓷器是一种传统的中国瓷器，以其特殊的青色釉料而闻名。它通常具有细腻的质地和光滑的表面 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85conda/" title="如何安装Conda">如何安装Conda</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.167Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AIGC/">AIGC</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/AIGC/conda/">conda</a></span></div><div class="content">在ubuntu上如何安装conda
+要在Ubuntu上安装conda，可以按照以下步骤进行操作：
+
+首先，打开终端窗口。
+
+下载Miniconda的安装脚本。在终端中运行以下命令：
+
+
+1wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+
+接下来，运行以下命令来运行安装脚本：
+
+1bash Miniconda3-latest-Linux-x86_64.sh
+
+
+安装过程会提示你接受许可协议，按照提示进行操作。然后会询问你是否要将conda初始化设置为默认的shell解释器，可以选择yes或no。
+
+安装完成后，关闭终端窗口并重新打开一个新的终端窗口。
+
+验证conda是否已成功安装。在新的终端窗口中运行以下命令：
+
+
+1conda --version
+
+如果成功显示版本号，则表示conda已成功安装。
+现在，你已经成功在Ubuntu上安装了conda。你可以使用conda命令来管理和创建Python环境。
+用conda 创建一个新的Python虚拟环境，用python3.8.10要使用 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/X79%E5%92%8CX99%E4%B8%BB%E6%9D%BF%E4%B9%8B%E9%97%B4%E5%B7%AE%E5%A4%9A%E5%B0%91%EF%BC%9F/" title="X79和X99主板之间差多少？">X79和X99主板之间差多少？</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.166Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%B8%BB%E6%9C%BA%E7%A1%AC%E4%BB%B6/">主机硬件</a></span></div><div class="content">X79和X99主板之间差多少？
+X79和X99主板之间的差异主要体现在以下几个方面：
+
+芯片组：X79主板采用的是Intel X79芯片组，而X99主板采用的是Intel X99芯片组。X99芯片组相对于X79芯片组有更高级别的功能和性能。
+
+处理器支持：X79主板支持LGA 2011接口的Intel Sandy Bridge-E和Ivy Bridge-E系列处理器，而X99主板支持LGA 2011-3接口的Intel Haswell-E和Broadwell-E系列处理器。因此，X99主板具有更好的处理器兼容性。
+
+内存支持：X79主板最多支持4个内存插槽，最高支持64GB DDR3内存；而X99主板最多支持8个内存插槽，最高支持128GB DDR4内存。因此，X99主板具有更高的内存扩展性。
+
+PCIe通道数量：X79主板通常具有较少的PCIe插槽，并且不支持PCIe 3.0标准；而X99主板通常具有更多的PCIe插槽，并且支持PCIe 3.0标准。因此，X99主板具有更好的扩展性能。
+
+
+总体来说，相对于X79主板，X99主板在处理器兼容性、内存扩展性和扩展性能方面更加先进和强大。 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/gitee%E4%B8%8Epico%E5%81%9A%E6%88%90%E7%9A%84%E5%9B%BE%E5%BA%8A%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E7%BD%91%E7%AB%99%E5%BC%95%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%B6%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.166Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">gitee与pico做成的图床图片文件网站引入图片时无法显示怎么解决？
+如果在gitee或pico搭建的图床图片文件网站中，引入的图片无法显示，可能有以下几种解决方法：
+
+检查图片链接是否正确：确保引入图片时使用的是正确的链接地址。可以尝试在浏览器中直接打开该链接来确认图片是否能够正常显示。
+
+检查图片权限设置：如果你使用的是私有仓库，需要确保你有足够的权限来访问该图片。可以检查一下仓库或文件夹的权限设置，并确保你具有访问权限。
+
+检查网络连接和防火墙设置：由于网络问题或防火墙配置，可能导致无法加载外部资源。建议检查网络连接是否正常，并且确保没有任何防火墙或安全软件阻止了该网站加载图片。
+
+检查图床服务商是否可用：如果你使用第三方图床服务商（如sm.ms、imgur等），可以尝试打开该服务商的官方网站来确认是否能够正常访问和上传图片。
+
+尝试替换其他图床服务商：如果上述方法都没有解决问题，可以考虑更换其他图床服务商。目前有很多免费的图床服务可供选择，例如GitHub、ImgBB等。
+
+
+综上所述，通过检查链接、权限设置、网络连接和更换图床服务商等方法，应该能够解决无法显示图片的问题。
+ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/hexo%E6%98%BE%E7%A4%BAgitee%E5%9B%BE%E5%BA%8A%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA%E5%9B%BE/" title="hexo显示gitee图床图片">hexo显示gitee图床图片</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.166Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Sec/">Sec</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Sec/Graylog/">Graylog</a></span></div><div class="content">\themes\butterfly\layout\includes目录下有一个head.pug文件，修改该文件的meta信息，会使生成的所有页面都带有该head。
+1meta(name=&quot;referrer&quot; content=&quot;no-referrer&quot;)
+
+新测，这种方式是好用的， 直接修改要主体的文件加入这个设定后，图片就可以正常的显示了。
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.166Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">用C语言描述一个人工神经网络。
+人工神经网络是一种基于生物神经网络的计算模型，用来模拟人脑的学习和决策过程。在C语言中，可以使用结构体和数组来实现一个简单的人工神经网络。
+首先，我们需要定义神经元的结构体：
+1234typedef struct Neuron &#123;    double input;  // 输入值    double output; // 输出值&#125; Neuron;
+每个神经元都有一个输入值和一个输出值。
+接下来，我们定义神经网络的结构体：
+123456789typedef struct NeuralNetwork &#123;    int num_inputs;        // 输入层神经元数量    int num_hidden_layers; // 隐藏层数量    int num_outputs;       // 输出层神经元数量        Neuron **input_layer;        // 输入层    Neuron ***hidden_layers;     // 隐藏层    Neuron **output_laye ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%BF%80%E6%B4%BB%E7%AE%97%E6%B3%95/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.166Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">人工神经网络激活算法的作用是什么？
+人工神经网络激活算法的作用是将输入信号转换为输出信号，从而模拟生物神经元的激活过程，使神经网络能够学习和处理复杂的非线性关系。激活算法通常在每个神经元中应用，通过对输入信号进行加权求和，并通过激活函数对结果进行非线性映射，生成输出信号。这样可以引入非线性特性，增强网络的表达能力，使其能够适应更复杂的数据模式和任务。常见的激活函数包括sigmoid函数、ReLU函数、tanh函数等。不同的激活函数具有不同的特性和适用范围，选择合适的激活函数可以提高神经网络的性能和效果。
+如何将一些URL集合数据，转换成LSTM神经网络可以用于训练的数据，用Pythoi语言实现。
+要将URL集合数据转换成LSTM神经网络可以用于训练的数据，可以按照以下步骤进行：
+
+导入必要的库和模块：
+1234import numpy as npfrom keras.preprocessing.sequence import pad_sequencesfrom keras.preprocessing.text import Tokenizerfrom keras.utils impor ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.166Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">如何通过开源的以太坊项目，通过提供编码或者技术赚钱？
+通过开源的以太坊项目，可以通过以下几种方式提供编码或技术来赚钱：
+
+提供定制化的智能合约开发：以太坊是一个智能合约平台，可以创建各种类型的智能合约来满足不同业务需求。你可以提供定制化的智能合约开发服务，为企业或个人创建他们需要的智能合约，并收取相应的费用。
+
+参与去中心化应用（DApp）开发：以太坊上有许多去中心化应用（DApp），你可以选择参与这些项目的开发。作为开发者，你可以通过贡献代码、解决bug、添加新功能等方式来为这些项目提供技术支持，并获得相应的奖励或报酬。
+
+提供安全审计服务：在以太坊上部署的智能合约存在一定的风险，可能会被黑客攻击或存在漏洞。作为安全审计专家，你可以对智能合约进行审计，识别潜在的安全风险并提供解决方案。这样做不仅可以帮助保护用户资产安全，也可以为你带来收入。
+
+创建和销售自己的以太坊相关产品：除了参与项目开发，你还可以开发自己的以太坊相关产品并销售。例如，你可以创建一个以太坊钱包应用或交易所应用，并通过应用内购买、广告等方式来获得收益。
+
+提供培训和咨询服务：由于以太坊技术相对复杂，许多人可能需要学习 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/21/kanbanfiles/%E5%8E%9F%E9%81%93%E8%80%B3%E6%9C%BA%E7%BB%8F%E5%85%B8%E7%9A%84%E5%9E%8B%E5%8F%B7%E6%9C%89%E9%82%A3%E4%BA%9B%EF%BC%9F/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-12-21T10:24:06.166Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="content">原道耳机经典的型号有那些？
+原道耳机经典的型号包括：
+
+EP630：这是一款入门级的耳塞式耳机，具有出色的音质和舒适的佩戴感。
+EP830：这款耳塞式耳机在音质和佩戴舒适度上更进一步，采用了高品质的材料和设计。
+EP-630i：这是一款专为iOS设备设计的耳塞式耳机，具有内置麦克风和音量控制功能。
+HP-610：这是一款经典的头戴式耳机，提供出色的音质和舒适的佩戴感。
+HP-800：这款头戴式耳机采用了高品质的材料和设计，提供卓越的音质和强大的低频响应。
+EP-630i Plus：这款半入耳式耳机具有更好的隔音效果和佩戴稳定性，同时支持iOS设备。
+HP-900：这是一款专业级头戴式耳机，采用了高保真技术和舒适的设计，适合音乐制作和专业监听。以上是原道耳机经典型号中的几个代表性产品。
+
+原道的mx500的耳机怎么样？
+MX500耳机是Sennheiser（森海塞尔）公司旗下的一款入耳式耳机。它采用了经典的开放式设计，具有出色的音质和舒适的佩戴感。
+MX500耳机拥有清晰、细腻的音质表现，中高频表现出色，声音细节丰富。低频也相对平衡，不会过分强调，适合多种类型的音乐欣赏。它还具有较好的空 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/10/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#content-inner">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/#content-inner">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/#content-inner">46</a><a class="extend next" rel="next" href="/page/12/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果的实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">457</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="内存管理">内存管理</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/phi-2%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85/" title="phi-2部署安装">phi-2部署安装</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E8%A7%86%E9%A2%91%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%EF%BC%88VideoLCM%EF%BC%89/" title="视频一致性模型（VideoLCM）">视频一致性模型（VideoLCM）</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/weibo/%E6%88%91%E5%B8%8C%E6%9C%9B%E6%9C%89%E4%BA%BA%E5%91%8A%E8%AF%89%E6%88%91%E7%9A%84%E4%BA%8B%E6%83%85/" title="我希望有人告诉我的事情">我希望有人告诉我的事情</a><time datetime="2023-12-25T10:53:20.907Z" title="发表于 2023-12-25 18:53:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/21/templater/%E5%AE%89%E4%B9%A6%E6%A8%A1%E6%9D%BF/" title="&lt;% tp.file.title %&gt;">&lt;% tp.file.title %&gt;</a><time datetime="2023-12-21T10:24:06.199Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">6</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/conda/"><span class="card-category-list-name">conda</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/"><span class="card-category-list-name">Sec</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Sec/Graylog/"><span class="card-category-list-name">Graylog</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/linux/"><span class="card-category-list-name">linux</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/lua/"><span class="card-category-list-name">lua</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E7%94%B5%E8%84%91%E5%A4%96%E8%AE%BE/" style="font-size: 1.1em; color: #999">电脑外设</a> <a href="/tags/JSON/" style="font-size: 1.1em; color: #999">JSON</a> <a href="/tags/Graylog/" style="font-size: 1.37em; color: #99a4b2">Graylog</a> <a href="/tags/%E4%B8%BB%E6%9D%BF/" style="font-size: 1.1em; color: #999">主板</a> <a href="/tags/%E9%94%AE%E7%9B%98%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%89/" style="font-size: 1.23em; color: #999ea6">键盘（计算机）</a> <a href="/tags/iptables/" style="font-size: 1.1em; color: #999">iptables</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">无线键盘</a> <a href="/tags/lua%E5%BE%AA%E7%8E%AF/" style="font-size: 1.1em; color: #999">lua循环</a> <a href="/tags/python/" style="font-size: 1.1em; color: #999">python</a> <a href="/tags/OpenAI/" style="font-size: 1.1em; color: #999">OpenAI</a> <a href="/tags/x79/" style="font-size: 1.1em; color: #999">x79</a> <a href="/tags/pdf/" style="font-size: 1.1em; color: #999">pdf</a> <a href="/tags/%E5%AE%89%E5%85%A8%E5%9B%BE%E4%B9%A6/" style="font-size: 1.1em; color: #999">安全图书</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">安全技术</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/x99/" style="font-size: 1.1em; color: #999">x99</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%B1%82%E8%81%8C/" style="font-size: 1.1em; color: #999">程序员求职</a> <a href="/tags/%E5%A4%B1%E4%B8%9A/" style="font-size: 1.1em; color: #999">失业</a> <a href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" style="font-size: 1.1em; color: #999">Cherry（键盘）</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全数据运营</a> <a href="/tags/%E7%A3%81%E7%9B%98/" style="font-size: 1.1em; color: #999">磁盘</a> <a href="/tags/moonscript/" style="font-size: 1.1em; color: #999">moonscript</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">二分查找</a> <a href="/tags/GROK/" style="font-size: 1.1em; color: #999">GROK</a> <a href="/tags/lua%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">lua二分查找</a> <a href="/tags/ClickHouse/" style="font-size: 1.1em; color: #999">ClickHouse</a> <a href="/tags/ElasticSearch/" style="font-size: 1.1em; color: #999">ElasticSearch</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.23em; color: #999ea6">Web安全</a> <a href="/tags/Split/" style="font-size: 1.1em; color: #999">Split</a> <a href="/tags/%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE/" style="font-size: 1.23em; color: #999ea6">折半查找</a> <a href="/tags/OpenResty/" style="font-size: 1.1em; color: #999">OpenResty</a> <a href="/tags/LLM/" style="font-size: 1.5em; color: #99a9bf">LLM</a> <a href="/tags/picgo/" style="font-size: 1.1em; color: #999">picgo</a> <a href="/tags/obsidian/" style="font-size: 1.37em; color: #99a4b2">obsidian</a> <a href="/tags/%E7%94%B5%E5%AD%90%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE/" style="font-size: 1.1em; color: #999">电子工业出版社</a> <a href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" style="font-size: 1.1em; color: #999">运维记录</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全运营</a> <a href="/tags/conda/" style="font-size: 1.1em; color: #999">conda</a> <a href="/tags/mount/" style="font-size: 1.1em; color: #999">mount</a> <a href="/tags/ChatGPT/" style="font-size: 1.1em; color: #999">ChatGPT</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">147</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2017/09/"><span class="card-archive-list-date">九月 2017</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/09/"><span class="card-archive-list-date">九月 2016</span><span class="card-archive-list-count">307</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">457</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-12-25T10:56:02.038Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 糖果的实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>
