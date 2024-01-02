@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua基础入门教程 | Lua基础入门教程</title><meta name="author" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="为什么Github的Git Page服务总是返回304状态码 当客户端向GitHub服务器发出请求时，服务器会检查请求中的条件，如果满足以下条件之一，则会返回304状态码：  客户端发送的请求是一个GET请求。 请求中包含了一个有效的If-None-Match或If-Modified-Since头字段。 服务器上的资源自上次请求以来没有发生变化。  返回304状态码表示资源未修改，服务器不会返回实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua基础入门教程">
+<meta property="og:url" content="https://lua.ren/2024/01/02/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/index.html">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:description" content="为什么Github的Git Page服务总是返回304状态码 当客户端向GitHub服务器发出请求时，服务器会检查请求中的条件，如果满足以下条件之一，则会返回304状态码：  客户端发送的请求是一个GET请求。 请求中包含了一个有效的If-None-Match或If-Modified-Since头字段。 服务器上的资源自上次请求以来没有发生变化。  返回304状态码表示资源未修改，服务器不会返回实">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-01-02T06:28:55.853Z">
+<meta property="article:modified_time" content="2024-01-02T06:32:12.958Z">
+<meta property="article:author" content="糖果的实验室 备案:辽ICP备16003836号-5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/2024/01/02/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua基础入门教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-01-02 14:32:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">482</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Lua基础入门教程"><span class="site-name">Lua基础入门教程</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-02T06:28:55.853Z" title="发表于 2024-01-02 14:28:55">2024-01-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-02T06:32:12.958Z" title="更新于 2024-01-02 14:32:12">2024-01-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>为什么Github的Git Page服务总是返回304状态码</p>
+<p>当客户端向GitHub服务器发出请求时，服务器会检查请求中的条件，如果满足以下条件之一，则会返回304状态码：</p>
+<ol>
+<li>客户端发送的请求是一个GET请求。</li>
+<li>请求中包含了一个有效的If-None-Match或If-Modified-Since头字段。</li>
+<li>服务器上的资源自上次请求以来没有发生变化。</li>
+</ol>
+<p>返回304状态码表示资源未修改，服务器不会返回实际的资源内容。相反，它将在响应头中包含一个空的响应体，并告诉客户端使用其缓存副本。</p>
+<p>这样做有几个好处：</p>
+<ul>
+<li>减少了网络流量：如果资源没有更改，客户端无需下载整个响应体，从而减少了数据传输量。</li>
+<li>提高性能：客户端可以直接使用缓存副本而无需进行额外的网络请求。</li>
+<li>减轻服务器负载：不必每次都生成和传输完整的响应体。</li>
+</ul>
+<p>总之，返回304状态码是为了优化性能和提高效率。04</p>
+<p>为什么Github的Git Page服务总是返回304状态码</p>
+<p>GitHub的Git Page服务返回304状态码是因为它采用了缓存机制。当用户访问一个网页时，GitHub会检查该网页是否已经缓存，并通过比较请求中的If-Modified-Since头部字段和服务器上文件的最后修改时间来确定是否需要返回新的内容。</p>
+<p>如果服务器上的文件没有发生变化，则会返回304状态码，表示客户端可以使用本地缓存。这样可以减少带宽和服务器负载，并提高页面加载速度。</p>
+<p>只有当服务器上的文件发生了变化，或者用户明确要求刷新页面时，GitHub才会返回新的内容和200状态码。</p>
+<p>Github的 pages服务，为什么返回的页面是空白页面，上面什么也没有显示？</p>
+<p>有几个可能的原因导致Github Pages返回空白页面：</p>
+<ol>
+<li><p>没有正确配置Github Pages：在项目仓库的设置中，需要确保已启用Github Pages，并选择正确的分支和文件夹作为源代码和发布目录。</p>
+</li>
+<li><p>没有正确设置主页文件：默认情况下，Github Pages会寻找一个名为index.html的文件作为主页。确保你的仓库中有一个正确命名的主页文件，并且其内容是有效的HTML代码。</p>
+</li>
+<li><p>仓库没有发布任何内容：如果你的项目仓库中没有任何文件或代码，或者你还没有执行推送操作将本地更改推送到远程仓库，则Github Pages将返回空白页面。</p>
+</li>
+<li><p>页面存在错误或缺失资源：检查你的主页文件以及它所引用的任何资源（例如CSS、JavaScript文件）是否存在错误或缺失。可以在浏览器的开发者工具中查看控制台日志以获取更多信息。</p>
+</li>
+<li><p>缓存问题：在对项目进行更改后，可能需要等待一段时间才能看到更新后的页面。尝试清除浏览器缓存并重新加载页面。</p>
+</li>
+</ol>
+<p>如果以上方法都无法解决问题，请检查Github Pages服务状态以确定是否存在服务器方面的问题。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果的实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/2024/01/02/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/">https://lua.ren/2024/01/02/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">Lua基础入门教程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/02/math/%E3%80%8A%E7%BA%AF%E6%95%B0%E5%AD%A6%E8%AF%BE%E7%A8%8B%E3%80%8B-%E5%93%88%E4%BB%A3%20LaTeX%20%E4%BB%A3%E7%A0%81%E4%B8%8B%E8%BD%BD/" title="《纯数学课程》-哈代 LaTeX 代码下载"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">《纯数学课程》-哈代 LaTeX 代码下载</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果的实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">482</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/" title="无题">无题</a><time datetime="2024-01-02T06:28:55.853Z" title="发表于 2024-01-02 14:28:55">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/math/%E3%80%8A%E7%BA%AF%E6%95%B0%E5%AD%A6%E8%AF%BE%E7%A8%8B%E3%80%8B-%E5%93%88%E4%BB%A3%20LaTeX%20%E4%BB%A3%E7%A0%81%E4%B8%8B%E8%BD%BD/" title="《纯数学课程》-哈代 LaTeX 代码下载">《纯数学课程》-哈代 LaTeX 代码下载</a><time datetime="2024-01-02T05:58:10.619Z" title="发表于 2024-01-02 13:58:10">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/%E8%B7%9D%E7%A6%BB%E6%9C%BA%E5%99%A8%E4%BA%BA%20AI%20%E7%9A%84%20ChatGPT%20%E6%97%B6%E5%88%BB%E5%A4%A7%E7%BA%A6%E8%BF%98%E6%9C%89%203%20%E5%B9%B4%E6%97%B6%E9%97%B4/" title="距离机器人 AI 的 ChatGPT 时刻大约还有 3 年时间">距离机器人 AI 的 ChatGPT 时刻大约还有 3 年时间</a><time datetime="2024-01-02T05:35:33.792Z" title="发表于 2024-01-02 13:35:33">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/AI%20%E8%82%A1%E7%A5%A8%E4%BA%A4%E6%98%93/" title="AI 股票交易">AI 股票交易</a><time datetime="2024-01-02T05:33:14.494Z" title="发表于 2024-01-02 13:33:14">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/%E6%96%B0%E5%B9%B4%E5%B9%B8%E7%A6%8F%E7%A7%98%E8%AF%80%EF%BC%9A%E4%B8%8D%E8%A6%81%E8%BF%87%E5%8A%B3/" title="新年幸福秘诀：不要过劳">新年幸福秘诀：不要过劳</a><time datetime="2024-01-02T04:46:31.252Z" title="发表于 2024-01-02 12:46:31">2024-01-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果的实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

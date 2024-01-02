@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua迭代器 | Lua基础入门教程</title><meta name="author" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lua 迭代器迭代器是用于遍历集合或容器中元素的一种结构。在 Lua 语言中，集合往往指的是可以用来创建各种数据结构的表。比如，数组就是用表来创建的。   通用迭代器通用迭代器可以访问集合中的键值对。下面是通用迭代器的一个简单例子：   12345678910array &#x3D; &amp;#123;&quot;Lua&quot;, &quot;Tutorial&quot;&amp;#125;for key,value">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua迭代器">
+<meta property="og:url" content="https://lua.ren/lua_guide/iterators/index.html">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:description" content="Lua 迭代器迭代器是用于遍历集合或容器中元素的一种结构。在 Lua 语言中，集合往往指的是可以用来创建各种数据结构的表。比如，数组就是用表来创建的。   通用迭代器通用迭代器可以访问集合中的键值对。下面是通用迭代器的一个简单例子：   12345678910array &#x3D; &amp;#123;&quot;Lua&quot;, &quot;Tutorial&quot;&amp;#125;for key,value">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-12-21T10:24:06.170Z">
+<meta property="article:modified_time" content="2023-12-21T10:24:06.170Z">
+<meta property="article:author" content="糖果的实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/lua_guide/iterators/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua迭代器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-21 18:24:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">482</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Lua基础入门教程"><span class="site-name">Lua基础入门教程</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Lua迭代器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-21T10:24:06.170Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-21T10:24:06.170Z" title="更新于 2023-12-21 18:24:06">2023-12-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/lua-guide/">lua_guide</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Lua迭代器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Lua-迭代器"><a href="#Lua-迭代器" class="headerlink" title="Lua 迭代器"></a>Lua 迭代器</h1><p>迭代器是用于遍历集合或容器中元素的一种结构。在 Lua 语言中，集合往往指的是可以用来创建各种数据结构的表。比如，数组就是用表来创建的。  </p>
+<h2 id="通用迭代器"><a href="#通用迭代器" class="headerlink" title="通用迭代器"></a>通用迭代器</h2><p>通用迭代器可以访问集合中的键值对。下面是通用迭代器的一个简单例子：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">array = &#123;&quot;Lua&quot;, &quot;Tutorial&quot;&#125;</span><br><span class="line"></span><br><span class="line">for key,value in ipairs(array) </span><br><span class="line">do</span><br><span class="line">   print(key, value)</span><br><span class="line">end</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">执行的上面的代码，我们可以得到如下的输出结果：  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>1  Lua<br>2  Tutorial</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面的例子中使用了 Lua 提供的默认迭代器函数 ipairs。 </span><br><span class="line"> </span><br><span class="line">在 Lua 语言中，我们使用函数表示迭代器。根据是否在迭代器函数中是否维护状态信息，我们将迭代器分为以下两类：  </span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">	&lt;li&gt;无状态迭代器&lt;/li&gt;  </span><br><span class="line">	&lt;li&gt;有状态迭代器&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;  </span><br><span class="line"></span><br><span class="line">## 无状态迭代器  </span><br><span class="line"></span><br><span class="line">由此迭代器的名称就可以看出来，这一类的迭代器函数中不会保存任何中间状态。 </span><br><span class="line"> </span><br><span class="line">让我们一起来看一下下面这个例子。在这个例子中，我们用一个简单的函数创建了一个自己的迭代器。这个迭代器用以输出 n 个数的平方值。  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>function square(iteratorMaxCount,currentNumber)<br>   if currentNumber&lt;iteratorMaxCount<br>   then<br>      currentNumber = currentNumber+1<br>   return currentNumber, currentNumber*currentNumber<br>   end<br>end</p>
+<p>for i,n in square,3,0<br>do<br>   print(i,n)<br>end</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">执行上面的代码，我们可以得到如下的输出结果：  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>1    1<br>2    4<br>3    9</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">我们可以稍微的修改一下上面的代码，使得此迭代器可以像 ipairs 那样工作。如下所示：  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>function square(iteratorMaxCount,currentNumber)<br>   if currentNumber&lt;iteratorMaxCount<br>   then<br>      currentNumber = currentNumber+1<br>   return currentNumber, currentNumber*currentNumber<br>   end<br>end</p>
+<p>function squares(iteratorMaxCount)<br>   return square,iteratorMaxCount,0<br>end  </p>
+<p>for i,n in squares(3)<br>do<br>    print(i,n)<br>end</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">执行上面的代码，我们可以得到如下的输出结果：  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>1    1<br>2    4<br>3    9</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 有状态迭代器  </span><br><span class="line"></span><br><span class="line">前面的例子使用的迭代器函数是不保存状态的。每次调用迭代器函数时，函数基于传入函数的第二个变量访问集合的下一个元素。在 Lua 中可以使用闭包来存储当前元素的状态。闭包通过函数调用得到变量的值。为了创建一个新的闭包，我们需创建两个函数，包括闭包函数本身和一个工厂函数，其中工厂函数用于创建闭包。  </span><br><span class="line"></span><br><span class="line">下面的示例中，我们将使用闭包来创建我们的迭代器。  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>array = {“Lua”, “Tutorial”}</p>
+<p>function elementIterator (collection)<br>   local index = 0<br>   local count = #collection<br>   – 返回闭包函数<br>   return function ()<br>      index = index + 1<br>      if index &lt;= count<br>      then<br>         – 返回迭代器的当前元素<br>         return collection[index]<br>      end<br>   end<br>end</p>
+<p>for element in elementIterator(array)<br>do<br>   print(element)<br>end</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">执行上面的代码，我们可以得到如下的输出结果：  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Lua<br>Tutorial</p>
+<p>```  </p>
+<p>上面的例子中我们可以看到，在　elementIterator 函数内定义了另外一个匿名函数。此匿名函数中使用了一个外部变量 index (译注：此变量在匿名函数之外，elementIterator 函数内)。每次内部的匿名函数被调用时，都会将 index 的值增加 1，并统计数返回的每个元素。 </p>
+<p>我们可以参照上面的方法使用闭包创建一个迭代器函数。每次我们使用迭代器遍历集合时，它都可以返回多个元素。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果的实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/lua_guide/iterators/">https://lua.ren/lua_guide/iterators/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">Lua基础入门教程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua/">lua</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/lua_guide/statement/" title="Lua中的 if...else 语句"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua中的 if...else 语句</div></div></a></div><div class="next-post pull-right"><a href="/lua_guide/loop/" title="LUA的Loop循环"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">LUA的Loop循环</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/lua_guide/statement/" title="Lua中的if语句"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">Lua中的if语句</div></div></a></div><div><a href="/lua_guide/arrays/" title="数组"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">数组</div></div></a></div><div><a href="/lua_guide/break/" title="Break语句"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">Break语句</div></div></a></div><div><a href="/lua_guide/types/" title="数据类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">数据类型</div></div></a></div><div><a href="/lua_guide/syntax/" title="Lua基本语法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">Lua基本语法</div></div></a></div><div><a href="/lua_guide/access/" title="Lua数据库访问"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-21</div><div class="title">Lua数据库访问</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果的实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">482</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lua-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">Lua 迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">通用迭代器</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/" title="无题">无题</a><time datetime="2024-01-02T06:28:55.853Z" title="发表于 2024-01-02 14:28:55">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/math/%E3%80%8A%E7%BA%AF%E6%95%B0%E5%AD%A6%E8%AF%BE%E7%A8%8B%E3%80%8B-%E5%93%88%E4%BB%A3%20LaTeX%20%E4%BB%A3%E7%A0%81%E4%B8%8B%E8%BD%BD/" title="《纯数学课程》-哈代 LaTeX 代码下载">《纯数学课程》-哈代 LaTeX 代码下载</a><time datetime="2024-01-02T05:58:10.619Z" title="发表于 2024-01-02 13:58:10">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/%E8%B7%9D%E7%A6%BB%E6%9C%BA%E5%99%A8%E4%BA%BA%20AI%20%E7%9A%84%20ChatGPT%20%E6%97%B6%E5%88%BB%E5%A4%A7%E7%BA%A6%E8%BF%98%E6%9C%89%203%20%E5%B9%B4%E6%97%B6%E9%97%B4/" title="距离机器人 AI 的 ChatGPT 时刻大约还有 3 年时间">距离机器人 AI 的 ChatGPT 时刻大约还有 3 年时间</a><time datetime="2024-01-02T05:35:33.792Z" title="发表于 2024-01-02 13:35:33">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/AI%20%E8%82%A1%E7%A5%A8%E4%BA%A4%E6%98%93/" title="AI 股票交易">AI 股票交易</a><time datetime="2024-01-02T05:33:14.494Z" title="发表于 2024-01-02 13:33:14">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/%E6%96%B0%E5%B9%B4%E5%B9%B8%E7%A6%8F%E7%A7%98%E8%AF%80%EF%BC%9A%E4%B8%8D%E8%A6%81%E8%BF%87%E5%8A%B3/" title="新年幸福秘诀：不要过劳">新年幸福秘诀：不要过劳</a><time datetime="2024-01-02T04:46:31.252Z" title="发表于 2024-01-02 12:46:31">2024-01-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果的实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua基础入门教程 | Lua基础入门教程</title><meta name="author" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果的实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如何将URL字符串转换成张量，并转转成对应的Python数据结构类型 要将URL字符串转换为张量，您需要执行以下步骤：  导入必要的库：  12import torchimport urllib   使用urllib库中的urlopen()函数打开URL并读取数据：  12url &#x3D; &amp;#x27;your_url_string&amp;#x27;data &#x3D; urllib.request.urlopen(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua基础入门教程">
+<meta property="og:url" content="https://lua.ren/2023/12/21/math/%E5%BC%A0%E9%87%8F/index.html">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:description" content="如何将URL字符串转换成张量，并转转成对应的Python数据结构类型 要将URL字符串转换为张量，您需要执行以下步骤：  导入必要的库：  12import torchimport urllib   使用urllib库中的urlopen()函数打开URL并读取数据：  12url &#x3D; &amp;#x27;your_url_string&amp;#x27;data &#x3D; urllib.request.urlopen(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-12-21T10:24:06.172Z">
+<meta property="article:modified_time" content="2023-12-21T10:24:06.172Z">
+<meta property="article:author" content="糖果的实验室 备案:辽ICP备16003836号-5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/2023/12/21/math/%E5%BC%A0%E9%87%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua基础入门教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-21 18:24:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">482</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Lua基础入门教程"><span class="site-name">Lua基础入门教程</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-21T10:24:06.172Z" title="发表于 2023-12-21 18:24:06">2023-12-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-21T10:24:06.172Z" title="更新于 2023-12-21 18:24:06">2023-12-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>如何将URL字符串转换成张量，并转转成对应的Python数据结构类型</p>
+<p>要将URL字符串转换为张量，您需要执行以下步骤：</p>
+<ol>
+<li>导入必要的库：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> urllib</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用<code>urllib</code>库中的<code>urlopen()</code>函数打开URL并读取数据：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&#x27;your_url_string&#x27;</span></span><br><span class="line">data = urllib.request.urlopen(url).read()</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>将数据转换为张量：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor_data = torch.from_numpy(data)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，这只适用于二进制数据。如果您要处理文本数据，可以使用<code>urlopen().read().decode(&#39;utf-8&#39;)</code>将字节数据解码为字符串。</p>
+<p>要将张量转换回Python数据结构类型，可以使用<code>.tolist()</code>方法。例如，如果要将张量转换为Python列表，请执行以下操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list_data = tensor_data.tolist()</span><br></pre></td></tr></table></figure>
+
+<p>这样，您就可以将URL字符串转换为张量并将其转换回对应的Python数据结构类型。</p>
+<p>张量和向量的区别</p>
+<p>张量和向量是线性代数中的概念，它们之间有一些区别。</p>
+<ol>
+<li><p>维度：向量是一维的，即只有一个维度。而张量可以是多维的，可以有多个维度。</p>
+</li>
+<li><p>元素个数：向量只包含一个元素组成的序列。而张量可以包含多个元素组成的序列。</p>
+</li>
+<li><p>表示方式：向量通常用列向量或行向量表示。而张量可以用矩阵、数组等方式表示。</p>
+</li>
+<li><p>运算规则：在线性代数中，向量与标量的乘法和加法是定义过的。而对于张量来说，除了与标量的乘法和加法外，还有更复杂的运算规则，如张量积、外积等。</p>
+</li>
+</ol>
+<p>总之，张量是对向量概念的扩展和推广，它可以表示更高维度、更复杂结构的数据。</p>
+<p>张量的定义</p>
+<p>张量的定义是一个多维数组或矩阵的扩展，它可以用于表示向量、矩阵和更高维度的数组。在数学和物理学中，张量是一种具有多个索引的对象，可以根据不同的变换规则进行运算。在机器学习和深度学习领域，张量是存储和处理数据的主要数据结构。</p>
+<p>张量可以有任意多个维度，每个维度可以有任意大小。例如，一个二维矩阵可以被视为一个2阶张量，其中第一个维度表示行数，第二个维度表示列数。一个三维数组可以被视为一个3阶张量，其中第一个维度表示高度，第二个维度表示行数，第三个维度表示列数。</p>
+<p>在机器学习和深度学习中，张量通常用来表示输入数据、权重和输出数据。通过对这些张量进行运算，我们可以构建神经网络模型，并进行训练和预测。</p>
+<p>总之，张量是一种多维数组或矩阵的扩展，在数学、物理学以及机器学习和深度学习中都具有重要的应用价值。</p>
+<p>用python计算一个曲线函数的导数</p>
+<p>要计算一个曲线函数的导数，可以使用Python中的数值微分方法或符号计算方法。</p>
+<ol>
+<li><p>数值微分方法：<br>数值微分是通过计算函数在给定点附近的差商来近似求解导数。常见的数值微分方法包括前向差分、后向差分和中心差分。</p>
+<ul>
+<li>前向差分：<br>定义函数f(x)，则f’(x) ≈ (f(x+h) - f(x)) / h<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">derivative</span>(<span class="params">f, x, h</span>):</span><br><span class="line">    <span class="keyword">return</span> (f(x + h) - f(x)) / h</span><br></pre></td></tr></table></figure></li>
+<li>后向差分：<br>定义函数f(x)，则f’(x) ≈ (f(x) - f(x-h)) / h<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">derivative</span>(<span class="params">f, x, h</span>):</span><br><span class="line">    <span class="keyword">return</span> (f(x) - f(x - h)) / h</span><br></pre></td></tr></table></figure></li>
+<li>中心差分：<br>定义函数f(x)，则f’(x) ≈ (f(x+h) - f(x-h)) / (2h)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">derivative</span>(<span class="params">f, x, h</span>):</span><br><span class="line">    <span class="keyword">return</span> (f(x + h) - f(x - h)) / (<span class="number">2</span> * h)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>符号计算方法：<br>符号计算是使用符号代数进行导数计算，可以利用Python中的符号计算库（如SymPy）实现。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sympy <span class="keyword">import</span> symbols, diff</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">derivative</span>(<span class="params">f, x</span>):</span><br><span class="line">    x = symbols(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> diff(f, x)</span><br></pre></td></tr></table></figure>
+
+<p>在使用符号计算方法时，需要先定义一个符号变量x，并使用diff函数对函数f进行求导。</p>
+</li>
+</ol>
+<p>示例：<br>假设要计算函数f(x) = x^2 + 3x - 2在x=2处的导数，可以使用中心差分方法进行数值微分计算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x**<span class="number">2</span> + <span class="number">3</span>*x - <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">derivative</span>(<span class="params">f, x, h</span>):</span><br><span class="line">    <span class="keyword">return</span> (f(x + h) - f(x - h)) / (<span class="number">2</span> * h)</span><br><span class="line"></span><br><span class="line">x = <span class="number">2</span></span><br><span class="line">h = <span class="number">0.001</span></span><br><span class="line">result = derivative(f, x, h)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果为：7.000000000000002</p>
+<p>用Python求得一个函数的导数</p>
+<p>用LSTM算法实现对恶意URL的判断。</p>
+<p>LSTM（Long Short-Term Memory）是一种递归神经网络（RNN）的变体，它在处理序列数据时具有记忆功能。在恶意URL判断问题中，可以使用LSTM算法进行建模和分类。</p>
+<p>下面是一个使用Python和Keras库实现恶意URL判断的例子：</p>
+<ol>
+<li><p>数据预处理：<br>首先，将URL数据集划分为训练集和测试集。然后，对URL进行标记化处理，将每个字符映射为一个整数，并对长度不足的URL进行填充。</p>
+</li>
+<li><p>LSTM模型构建：<br>使用Keras库构建一个包含嵌入层、LSTM层和全连接层的神经网络模型。嵌入层用于将整数映射到向量表示，LSTM层用于学习序列信息，并最终通过全连接层输出分类结果。</p>
+</li>
+<li><p>模型训练：<br>使用训练集对构建好的LSTM模型进行训练。可以选择合适的损失函数（如交叉熵）、优化器（如Adam）和评估指标（如准确率）。</p>
+</li>
+<li><p>模型评估：<br>使用测试集对训练好的LSTM模型进行评估。计算模型在测试集上的准确率、精确率、召回率等指标来评估其性能。</p>
+</li>
+<li><p>模型应用：<br>将新的URL输入到训练好的LSTM模型中，根据输出进行恶意URL的判断。</p>
+</li>
+</ol>
+<p>这只是一个简单的实现例子，具体的实现过程还需要根据具体的数据集和需求进行调整和优化。</p>
+<p>给出一段用Python用LSTM实现恶意URL分析有代码</p>
+<p>下面是一个使用Python和LSTM来实现恶意URL分析的示例代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> LSTM, Dense, Embedding</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.sequence <span class="keyword">import</span> pad_sequences</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_data</span>():</span><br><span class="line">    urls = []</span><br><span class="line">    labels = []</span><br><span class="line">    <span class="comment"># 从文件中读取URL和标签，将其添加到urls和labels列表中</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> file:</span><br><span class="line">            url, label = line.strip().split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">            urls.append(url)</span><br><span class="line">            labels.append(<span class="built_in">int</span>(label))</span><br><span class="line">    <span class="keyword">return</span> urls, labels</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建词汇表（字符级别）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_vocab</span>(<span class="params">urls</span>):</span><br><span class="line">    chars = <span class="built_in">set</span>()</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">        chars.update(url)</span><br><span class="line">    char2idx = &#123;char: idx+<span class="number">1</span> <span class="keyword">for</span> idx, char <span class="keyword">in</span> <span class="built_in">enumerate</span>(chars)&#125;</span><br><span class="line">    <span class="keyword">return</span> char2idx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将URL转换为字符索引序列</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encode_urls</span>(<span class="params">urls, char2idx</span>):</span><br><span class="line">    encoded_urls = []</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">        encoded_url = [char2idx[char] <span class="keyword">for</span> char <span class="keyword">in</span> url]</span><br><span class="line">        encoded_urls.append(encoded_url)</span><br><span class="line">    <span class="keyword">return</span> encoded_urls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 填充序列到固定长度</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pad_sequences</span>(<span class="params">encoded_urls, max_length</span>):</span><br><span class="line">    padded_urls = pad_sequences(encoded_urls, maxlen=max_length, padding=<span class="string">&#x27;post&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> padded_urls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建LSTM模型</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build_model</span>(<span class="params">vocab_size, max_length</span>):</span><br><span class="line">    model = Sequential()</span><br><span class="line">    model.add(Embedding(vocab_size+<span class="number">1</span>, <span class="number">32</span>))  <span class="comment"># 将字符索引映射为32维向量表示</span></span><br><span class="line">    model.add(LSTM(<span class="number">64</span>))</span><br><span class="line">    model.add(Dense(<span class="number">1</span>, activation=<span class="string">&#x27;sigmoid&#x27;</span>))</span><br><span class="line">    model.<span class="built_in">compile</span>(loss=<span class="string">&#x27;binary_crossentropy&#x27;</span>, optimizer=<span class="string">&#x27;adam&#x27;</span>, metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line">urls, labels = load_data()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建词汇表（字符级别）</span></span><br><span class="line">char2idx = create_vocab(urls)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将URL转换为字符索引序列</span></span><br><span class="line">encoded_urls = encode_urls(urls, char2idx)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 填充序列到固定长度</span></span><br><span class="line">max_length = <span class="built_in">max</span>(<span class="built_in">len</span>(url) <span class="keyword">for</span> url <span class="keyword">in</span> urls)</span><br><span class="line">padded_urls = pad_sequences(encoded_urls, max_length)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 划分训练集和测试集</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(padded_urls, labels, test_size=<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建模型</span></span><br><span class="line">model = build_model(<span class="built_in">len</span>(char2idx), max_length)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line">model.fit(X_train, y_train, epochs=<span class="number">10</span>, batch_size=<span class="number">64</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 评估模型</span></span><br><span class="line">loss, accuracy = model.evaluate(X_test, y_test)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Test loss:&#x27;</span>, loss)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Test accuracy:&#x27;</span>, accuracy)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，此示例仅提供了一个基本的框架，您可能需要根据自己的数据和需求进行适当的调整和修改。</p>
+<p>给出一段用Python用LSTM实现恶意URL分析有代码，并判断某个URL是不是恶意URL，还是正常URL</p>
+<p>以下是一个使用Python和LSTM模型实现恶意URL分析的代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> LSTM, Dense, Embedding</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.sequence <span class="keyword">import</span> pad_sequences</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义LSTM模型</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_model</span>(<span class="params">vocab_size</span>):</span><br><span class="line">    model = Sequential()</span><br><span class="line">    model.add(Embedding(vocab_size, <span class="number">32</span>))</span><br><span class="line">    model.add(LSTM(<span class="number">32</span>, dropout=<span class="number">0.2</span>, recurrent_dropout=<span class="number">0.2</span>))</span><br><span class="line">    model.add(Dense(<span class="number">1</span>, activation=<span class="string">&#x27;sigmoid&#x27;</span>))</span><br><span class="line">    model.<span class="built_in">compile</span>(loss=<span class="string">&#x27;binary_crossentropy&#x27;</span>, optimizer=<span class="string">&#x27;adam&#x27;</span>, metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载训练数据和标签</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_data</span>(<span class="params">filename</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">    urls = []</span><br><span class="line">    labels = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        url, label = line.strip().split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        urls.append(url)</span><br><span class="line">        labels.append(<span class="built_in">int</span>(label))</span><br><span class="line">    <span class="keyword">return</span> urls, labels</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建词汇表并将URL转化为数字序列</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build_vocab</span>(<span class="params">urls</span>):</span><br><span class="line">    vocab = <span class="built_in">set</span>()</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">        vocab.update(url)</span><br><span class="line">    vocab = <span class="built_in">sorted</span>(<span class="built_in">list</span>(vocab))</span><br><span class="line">    char_to_idx = &#123;char: idx + <span class="number">1</span> <span class="keyword">for</span> idx, char <span class="keyword">in</span> <span class="built_in">enumerate</span>(vocab)&#125;</span><br><span class="line">    </span><br><span class="line">    sequences = []</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">        sequence = [char_to_idx[char] <span class="keyword">for</span> char <span class="keyword">in</span> url]</span><br><span class="line">        sequences.append(sequence)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sequences</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载训练数据和标签</span></span><br><span class="line">train_urls, train_labels = load_data(<span class="string">&#x27;train.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建词汇表并将URL转化为数字序列</span></span><br><span class="line">sequences = build_vocab(train_urls)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对URL进行填充，使得所有序列长度相同</span></span><br><span class="line">max_len = <span class="built_in">max</span>(<span class="built_in">len</span>(seq) <span class="keyword">for</span> seq <span class="keyword">in</span> sequences)</span><br><span class="line">padded_sequences = pad_sequences(sequences, maxlen=max_len)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将标签转化为numpy数组</span></span><br><span class="line">train_labels = np.array(train_labels)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练LSTM模型</span></span><br><span class="line">model = create_model(<span class="built_in">len</span>(char_to_idx) + <span class="number">1</span>)</span><br><span class="line">model.fit(padded_sequences, train_labels, epochs=<span class="number">10</span>, batch_size=<span class="number">32</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载测试数据</span></span><br><span class="line">test_urls, test_labels = load_data(<span class="string">&#x27;test.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将测试URL转化为数字序列并进行填充</span></span><br><span class="line">test_sequences = build_vocab(test_urls)</span><br><span class="line">padded_test_sequences = pad_sequences(test_sequences, maxlen=max_len)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测测试数据的标签</span></span><br><span class="line">pred_labels = model.predict_classes(padded_test_sequences)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断某个URL是恶意URL还是正常URL</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">predict_malicious</span>(<span class="params">url</span>):</span><br><span class="line">    sequence = [char_to_idx[char] <span class="keyword">for</span> char <span class="keyword">in</span> url]</span><br><span class="line">    padded_sequence = pad_sequences([sequence], maxlen=max_len)</span><br><span class="line">    pred_label = model.predict_classes(padded_sequence)[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> pred_label == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;恶意URL&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;正常URL&quot;</span></span><br><span class="line"></span><br><span class="line">url_to_predict = <span class="string">&#x27;http://www.example.com&#x27;</span></span><br><span class="line">prediction_result = predict_malicious(url_to_predict)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;该URL为：<span class="subst">&#123;prediction_result&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，上述代码仅提供了一个简单的示例，实际情况中可能需要更多的特征工程和模型调优。此外，训练数据和测试数据应该包含足够数量的恶意URL和正常URL样本以获得更准确的预测结果。</p>
+<p>如何用Python代码实现画出一个函数曲线的图像</p>
+<p>要画出一个函数曲线的图像，可以使用Python中的matplotlib库。下面是一个简单的示例代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> np.sin(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成x轴数据</span></span><br><span class="line">x = np.linspace(-np.pi, np.pi, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成y轴数据</span></span><br><span class="line">y = func(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制图像</span></span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Function Curve&#x27;</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>这段代码会绘制出一个正弦函数的图像。首先定义了一个<code>func</code>函数，用于计算y值。然后通过<code>np.linspace</code>生成一组x轴数据，再调用<code>func</code>函数计算对应的y值。最后使用<code>plt.plot</code>将x和y传入，绘制出曲线图像。通过设置标签、标题和网格等属性，可以美化图像的展示效果。最后调用<code>plt.show()</code>显示图像。</p>
+<p>你也可以根据需要修改函数和参数来绘制其他函数曲线的图像。</p>
+<p>plt.show()可以在linux的命令行上显示吗？</p>
+<p>不可以。plt.show()是用于在Python脚本中显示绘图的函数，它会创建一个新的窗口来显示图形。在Linux的命令行上无法直接显示这个窗口。如果要在Linux的命令行上显示图形，可以使用其他工具如Xming或VcXsrv来实现远程图形显示。</p>
+<p>用Python实现一段，在函数曲线上画割线的代码</p>
+<p>下面是一个用Python实现的绘制函数曲线和割线的代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_curve_derivative</span>(<span class="params">func, x_range, num_points=<span class="number">100</span></span>):</span><br><span class="line">    x = np.linspace(x_range[<span class="number">0</span>], x_range[<span class="number">1</span>], num_points)</span><br><span class="line">    y = func(x)</span><br><span class="line"></span><br><span class="line">    plt.figure(figsize=(<span class="number">8</span>, <span class="number">6</span>))</span><br><span class="line">    plt.plot(x, y, label=<span class="string">&#x27;Function Curve&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 随机选择两个点</span></span><br><span class="line">    x1 = np.random.choice(x)</span><br><span class="line">    x2 = np.random.choice(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算斜率（割线的斜率）</span></span><br><span class="line">    slope = (func(x2) - func(x1)) / (x2 - x1)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算割线方程</span></span><br><span class="line">    line_func = <span class="keyword">lambda</span> x: slope * (x - x1) + func(x1)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制割线</span></span><br><span class="line">    plt.plot(x, line_func(x), label=<span class="string">&#x27;Tangent Line&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    plt.xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">    plt.title(<span class="string">&#x27;Function Curve and Tangent Line&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例函数：f(x) = x^3 + 2x^2 - 3x + 4</span></span><br><span class="line">func = <span class="keyword">lambda</span> x: x**<span class="number">3</span> + <span class="number">2</span>*x**<span class="number">2</span> - <span class="number">3</span>*x + <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制函数曲线和割线</span></span><br><span class="line">plot_curve_derivative(func, (-<span class="number">5</span>, <span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+
+<p>这段代码使用了NumPy和Matplotlib库。首先定义了一个<code>plot_curve_derivative</code>函数，该函数接受三个参数：<code>func</code>表示要绘制的函数，<code>x_range</code>表示绘图的x轴范围，<code>num_points</code>表示绘制曲线的点数（默认为100）。</p>
+<p>在函数内部，首先使用<code>np.linspace</code>函数生成x轴上的等间距点，并根据给定的函数计算对应的y值。然后使用Matplotlib库绘制函数曲线。</p>
+<p>接下来，随机选择两个点（x1和x2），并根据这两个点计算割线的斜率。然后定义一个割线方程，并根据该方程绘制割线。</p>
+<p>最后，设置坐标轴标签、标题和图例，并使用<code>plt.show()</code>函数显示图形。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果的实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/2023/12/21/math/%E5%BC%A0%E9%87%8F/">https://lua.ren/2023/12/21/math/%E5%BC%A0%E9%87%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">Lua基础入门教程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/lua_guide/coroutines/" title="Lua协程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua协程</div></div></a></div><div class="next-post pull-right"><a href="/2023/12/21/math/%E5%87%BD%E6%95%B0/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果的实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">482</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/" title="无题">无题</a><time datetime="2024-01-02T06:28:55.853Z" title="发表于 2024-01-02 14:28:55">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/math/%E3%80%8A%E7%BA%AF%E6%95%B0%E5%AD%A6%E8%AF%BE%E7%A8%8B%E3%80%8B-%E5%93%88%E4%BB%A3%20LaTeX%20%E4%BB%A3%E7%A0%81%E4%B8%8B%E8%BD%BD/" title="《纯数学课程》-哈代 LaTeX 代码下载">《纯数学课程》-哈代 LaTeX 代码下载</a><time datetime="2024-01-02T05:58:10.619Z" title="发表于 2024-01-02 13:58:10">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/%E8%B7%9D%E7%A6%BB%E6%9C%BA%E5%99%A8%E4%BA%BA%20AI%20%E7%9A%84%20ChatGPT%20%E6%97%B6%E5%88%BB%E5%A4%A7%E7%BA%A6%E8%BF%98%E6%9C%89%203%20%E5%B9%B4%E6%97%B6%E9%97%B4/" title="距离机器人 AI 的 ChatGPT 时刻大约还有 3 年时间">距离机器人 AI 的 ChatGPT 时刻大约还有 3 年时间</a><time datetime="2024-01-02T05:35:33.792Z" title="发表于 2024-01-02 13:35:33">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/AI%20%E8%82%A1%E7%A5%A8%E4%BA%A4%E6%98%93/" title="AI 股票交易">AI 股票交易</a><time datetime="2024-01-02T05:33:14.494Z" title="发表于 2024-01-02 13:33:14">2024-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/02/weibo/%E6%96%B0%E5%B9%B4%E5%B9%B8%E7%A6%8F%E7%A7%98%E8%AF%80%EF%BC%9A%E4%B8%8D%E8%A6%81%E8%BF%87%E5%8A%B3/" title="新年幸福秘诀：不要过劳">新年幸福秘诀：不要过劳</a><time datetime="2024-01-02T04:46:31.252Z" title="发表于 2024-01-02 12:46:31">2024-01-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果的实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>
