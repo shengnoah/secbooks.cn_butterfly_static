@@ -1,306 +1,1591 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>糖果AIGC实验室-LUA - AIGC</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AIGC">
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+<!-- Global site tag (gtag.js) - Baidu Analytics -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- End Baidu Analytics -->
+
+  
+
+  
+  <title>糖果AIGC实验室-LUA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="AIGC">
 <meta property="og:type" content="website">
 <meta property="og:title" content="糖果AIGC实验室-LUA">
 <meta property="og:url" content="https://lua.ren/page/13/index.html">
 <meta property="og:site_name" content="糖果AIGC实验室-LUA">
 <meta property="og:description" content="AIGC">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
 <meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/page/13/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-
-
-
-</script><script>(function () {
-  var meta = document.createElement('meta');
-  meta.content = 'no-referrer';
-  meta.name = 'referrer';
-  document.getElementsByTagName('head')[0].appendChild(meta);
-})();</script><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
-  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '糖果AIGC实验室-LUA',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2024-04-03 15:15:21'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
+    <link rel="alternate" href="/atom.xml" title="糖果AIGC实验室-LUA" type="application/atom+xml">
   
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
   
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+  
+  
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
+<div id="banner" class=" is_home ">
+  <img src="https://saicaca.github.io/vivia-preview/assets/banner.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=" is_home "  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>糖果AIGC实验室-LUA </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">主页</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">主页</a>
+    
+      <a class="nav-dropdown-link" href="/archives">归档</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=https://saicaca.github.io/vivia-preview/assets/avatar.jpg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">糖果的实验室-LUA教程 </div>
+      <div class="dot"></div>
+      <div class="subtitle">Lua基础入门教程 </div>
+      <div class="link-list">
         
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/AIGC/">
+                AIGC
+                <div class="category-count">117</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/AIGC/weibo/">
+                weibo
+                <div class="category-count">59</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Gradio/">
+                Gradio
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/rag/">
+                rag
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/rtx4090/">
+                rtx4090
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/gihub/">
+                gihub
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/huaggingface/">
+                huaggingface
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/math/">
+                math
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/ollama/">
+                ollama
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/news/">
+                news
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/github/">
+                github
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%A7%98%E7%B1%8D/">
+                提示词秘籍
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/AI-gateway/">
+                AI gateway
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/prompting-guide/">
+                prompting guide
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Quiver/">
+                Quiver
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/honeypot/">
+                honeypot
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/python/">
+                python
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/chatglm3/">
+                chatglm3
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/RAG/">
+                RAG
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/stablediffusion/">
+                stablediffusion
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/comfyui/">
+                comfyui
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/llamaindex-cli/">
+                llamaindex-cli
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/gfpgan/">
+                gfpgan
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/sora/">
+                sora
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/SonicVisionLM/">
+                SonicVisionLM
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/AnimateAnyone/">
+                AnimateAnyone
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/WhisperSpeech/">
+                WhisperSpeech
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/music/">
+                music
+                <div class="category-count">2</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/AIGC/music/Mubert-API/">
+                Mubert API
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/AIGC/AudioCraft/">
+                AudioCraft
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Amphion/">
+                Amphion
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Riffusion/">
+                Riffusion
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/TTS/">
+                TTS
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/audio/">
+                audio
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/AIGC/audio/WavJourney/">
+                WavJourney
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/AIGC/prime-select/">
+                prime-select
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/conda/">
+                conda
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/ChatGLM/">
+                ChatGLM
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Mixtral-8x7B/">
+                Mixtral-8x7B
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/cuDNN/">
+                cuDNN
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/langchain/">
+                langchain
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/linux/">
+                linux
+                <div class="category-count">10</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/linux/rsync/">
+                rsync
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/linux/lsof/">
+                lsof
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E7%BF%BB%E8%AF%91/">
+                翻译
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%96%87%E7%AB%A0/">
+                文章
+                <div class="category-count">25</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E4%B9%A6%E7%B1%8D/">
+                书籍
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E8%AF%BE%E7%A8%8B/">
+                课程
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                数据库
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/books/">
+                books
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/books/publish/">
+                publish
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E5%87%BA%E7%89%88%E7%89%A9/">
+                出版物
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E5%AE%89%E5%85%A8/">
+                安全
+                <div class="category-count">38</div>
+            </a>
+        
+            <a class="category-link" href="/categories/database/">
+                database
+                <div class="category-count">4</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/database/vector/">
+                vector
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                开源项目
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E8%82%B2%E5%84%BF/">
+                育儿
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Sec/">
+                Sec
+                <div class="category-count">5</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/Sec/AIGC/">
+                AIGC
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Sec/Graylog/">
+                Graylog
+                <div class="category-count">3</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/publish/">
+                publish
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/ChatGLM/">
+                ChatGLM
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/nvidia/">
+                nvidia
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/obsidian/">
+                obsidian
+                <div class="category-count">8</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/obsidian/hexo/">
+                hexo
+                <div class="category-count">3</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E4%B8%BB%E6%9C%BA%E7%A1%AC%E4%BB%B6/">
+                主机硬件
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/python/">
+                python
+                <div class="category-count">4</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/python/%E5%8A%A0%E5%AF%86%E5%BA%93/">
+                加密库
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/python/conda/">
+                conda
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/ruby/">
+                ruby
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%9F%A5%E8%AF%86/">
+                知识
+                <div class="category-count">11</div>
+            </a>
+        
+            <a class="category-link" href="/categories/lua/">
+                lua
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Mac/">
+                Mac
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/git/">
+                git
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">
+                教程
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/lua-guide/">
+                lua_guide
+                <div class="category-count">34</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/lua-guide/lua%E6%95%99%E7%A8%8B/">
+                lua教程
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/lua-guide/LUA%E6%95%99%E7%A8%8B/">
+                LUA教程
+                <div class="category-count">2</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6/">
+                数学
+                <div class="category-count">4</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                深度学习
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Lua/">
+                Lua
+                <div class="category-count">2</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/Lua/Redis/">
+                Redis
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/gitee/">
+                gitee
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/LLM/">
+                LLM
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/english/">
+                english
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/OPENRESTY/">
+                OPENRESTY
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%BF%BB%E8%AF%91%E5%8E%9F%E6%96%87/">
+                翻译原文
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/topic/">
+                topic
+                <div class="category-count">1446</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/topic/mysql/">
+                mysql
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/tools/">
+                tools
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/tools/nccopy/">
+                nccopy
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/AI/">
+                AI
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%BD%91%E5%85%B3/">
+                网关
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E5%8A%A8%E6%80%81%E5%BA%93/">
+                动态库
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/allinone/">
+                allinone
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/classical/">
+                classical
+                <div class="category-count">6</div>
+            </a>
+        
+            <a class="category-link" href="/categories/sd/">
+                sd
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/sd/photo/">
+                photo
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E7%AC%94%E8%AE%B0/">
+                笔记
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/gpt4all/">
+                gpt4all
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/InternLM2/">
+                InternLM2
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/kali/">
+                kali
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/kali/nmap/">
+                nmap
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/github/">
+                github
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AGI/" rel="tag">AGI</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AI-gateway/" rel="tag">AI gateway</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/API/" rel="tag">API</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ASCII%E6%94%BB%E5%87%BB/" rel="tag">ASCII攻击</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ATTCK/" rel="tag">ATTCK</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Amphion/" rel="tag">Amphion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AnimateAnyone/" rel="tag">AnimateAnyone</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AudioCraft/" rel="tag">AudioCraft</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/CAPEC/" rel="tag">CAPEC</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/CVE/" rel="tag">CVE</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ChatGLM/" rel="tag">ChatGLM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ChatGLM2/" rel="tag">ChatGLM2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ChatGPT/" rel="tag">ChatGPT</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" rel="tag">Cherry（键盘）</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ClickHouse/" rel="tag">ClickHouse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Cortex/" rel="tag">Cortex</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ElasticSearch/" rel="tag">ElasticSearch</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/GPT/" rel="tag">GPT</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/GROK/" rel="tag">GROK</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Gradio/" rel="tag">Gradio</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Graylog/" rel="tag">Graylog</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/IOC/" rel="tag">IOC</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/InternLM2/" rel="tag">InternLM2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/JSON/" rel="tag">JSON</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LUA/" rel="tag">LUA</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LUA%E6%95%99%E7%A8%8B/" rel="tag">LUA教程</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Lapis/" rel="tag">Lapis</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Luna/" rel="tag">Luna</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/MISP/" rel="tag">MISP</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Mixtral-8x7B/" rel="tag">Mixtral-8x7B</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Mubert-API/" rel="tag">Mubert API</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/NPM/" rel="tag">NPM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OOTDiffusion/" rel="tag">OOTDiffusion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OTX/" rel="tag">OTX</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ObsidianAddict/" rel="tag">ObsidianAddict</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OpenCTI/" rel="tag">OpenCTI</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Prompting-Guide/" rel="tag">Prompting Guide</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Quiver/" rel="tag">Quiver</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/RAG/" rel="tag">RAG</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/RESTY-HTTP/" rel="tag">RESTY-HTTP</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/RE%E4%B8%8ECT%E6%A1%86%E6%9E%B6/" rel="tag">RE与CT框架</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Riffusion/" rel="tag">Riffusion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Ruby/" rel="tag">Ruby</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/SIEM/" rel="tag">SIEM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/SOAR/" rel="tag">SOAR</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Shuffle/" rel="tag">Shuffle</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/SonicVisionLM/" rel="tag">SonicVisionLM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Split/" rel="tag">Split</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Suricata/" rel="tag">Suricata</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/TTPs/" rel="tag">TTPs</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/TTS/" rel="tag">TTS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/TheHive/" rel="tag">TheHive</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ThreatIngestor/" rel="tag">ThreatIngestor</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/WavJourney/" rel="tag">WavJourney</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Web%E5%AE%89%E5%85%A8/" rel="tag">Web安全</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/WhisperFusion/" rel="tag">WhisperFusion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/WhisperSpeech/" rel="tag">WhisperSpeech</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/abc/" rel="tag">abc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/allinone/" rel="tag">allinone</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/apisix/" rel="tag">apisix</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/article/" rel="tag">article</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/basic/" rel="tag">basic</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/book/" rel="tag">book</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/books/" rel="tag">books</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/c/" rel="tag">c</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/chatglm3/" rel="tag">chatglm3</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/chromadb/" rel="tag">chromadb</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/clickhouse/" rel="tag">clickhouse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/comfyui/" rel="tag">comfyui</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/conda/" rel="tag">conda</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/cpu/" rel="tag">cpu</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/cuDNN/" rel="tag">cuDNN</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/cuda/" rel="tag">cuda</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dashboard/" rel="tag">dashboard</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dataview/" rel="tag">dataview</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/datetime/" rel="tag">datetime</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dev/" rel="tag">dev</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/fishell/" rel="tag">fishell</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/flink/" rel="tag">flink</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/fuser/" rel="tag">fuser</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/fzf/" rel="tag">fzf</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/galah/" rel="tag">galah</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gateway/" rel="tag">gateway</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gfpgan/" rel="tag">gfpgan</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gitee/" rel="tag">gitee</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gpt4all/" rel="tag">gpt4all</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gpustat/" rel="tag">gpustat</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/huaggingface/" rel="tag">huaggingface</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/iftop/" rel="tag">iftop</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/iptables/" rel="tag">iptables</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/jekyll/" rel="tag">jekyll</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/jupyter/" rel="tag">jupyter</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/langchain/" rel="tag">langchain</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lapis/" rel="tag">lapis</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lazygit/" rel="tag">lazygit</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/libreoffice/" rel="tag">libreoffice</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/llama/" rel="tag">llama</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/llamaindex-cli/" rel="tag">llamaindex-cli</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lsof/" rel="tag">lsof</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua-json/" rel="tag">lua json</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/luarocks/" rel="tag">luarocks</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">lua二分查找</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua%E5%BE%AA%E7%8E%AF/" rel="tag">lua循环</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86/" rel="tag">lua循环遍历</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/miniconda/" rel="tag">miniconda</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/moonscript/" rel="tag">moonscript</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/mount/" rel="tag">mount</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/music/" rel="tag">music</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/n8n/" rel="tag">n8n</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nc/" rel="tag">nc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ncat/" rel="tag">ncat</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nccopy/" rel="tag">nccopy</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ncopy/" rel="tag">ncopy</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/netstat/" rel="tag">netstat</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/news/" rel="tag">news</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nmap/" rel="tag">nmap</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nvidia/" rel="tag">nvidia</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nvidia-smi/" rel="tag">nvidia-smi</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/obsidian/" rel="tag">obsidian</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ollama/" rel="tag">ollama</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openresty/" rel="tag">openresty</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openssl/" rel="tag">openssl</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/osv/" rel="tag">osv</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/pdf/" rel="tag">pdf</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/photo/" rel="tag">photo</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/picgo/" rel="tag">picgo</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/prime-select/" rel="tag">prime-select</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/riggrep/" rel="tag">riggrep</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rsync/" rel="tag">rsync</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rtx4090/" rel="tag">rtx4090</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/scirius/" rel="tag">scirius</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/sigama/" rel="tag">sigama</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/soc/" rel="tag">soc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/sora/" rel="tag">sora</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/stablediffusion/" rel="tag">stablediffusion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/starship/" rel="tag">starship</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/templater/" rel="tag">templater</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/tengine/" rel="tag">tengine</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ubuntu20/" rel="tag">ubuntu20</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ubuntu22/" rel="tag">ubuntu22</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/weibo/" rel="tag">weibo</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/whisper/" rel="tag">whisper</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/x79/" rel="tag">x79</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/x99/" rel="tag">x99</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/zip/" rel="tag">zip</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/zsh/" rel="tag">zsh</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87/" rel="tag">不支持中文</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%B8%BB%E6%9D%BF/" rel="tag">主板</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BA%92%E8%81%94%E7%BD%91/" rel="tag">互联网</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BA%BA%E6%B0%91%E9%82%AE%E7%94%B5%E5%87%BA%E7%89%88%E7%A4%BE/" rel="tag">人民邮电出版社</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" rel="tag">人际关系</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%86%85%E5%AD%98/" rel="tag">内存</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E4%B9%A6/" rel="tag">图书</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">图数据库</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" rel="tag">大数据安全</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%A4%B1%E4%B8%9A/" rel="tag">失业</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E5%9B%BE%E4%B9%A6/" rel="tag">安全图书</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" rel="tag">安全工具</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" rel="tag">安全技术</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E8%BF%90%E8%90%A5/" rel="tag">安全数据运营</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" rel="tag">安全运营</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B9%B3%E6%96%B9%E5%92%8C%E5%85%AC%E5%BC%8F/" rel="tag">平方和公式</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B9%B3%E6%96%B9%E5%B7%AE%E5%85%AC%E5%BC%8F/" rel="tag">平方差公式</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%BF%83%E9%87%8C%E5%AD%A6/" rel="tag">心里学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE/" rel="tag">折半查找</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%A7%98%E7%B1%8D/" rel="tag">提示词秘籍</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E9%94%AE%E7%9B%98/" rel="tag">无线键盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98/" rel="tag">机械键盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98%E9%80%89%E8%B4%AD/" rel="tag">机械键盘选购</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">正则表达式</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" rel="tag">激活函数</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%94%B5%E5%AD%90%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE/" rel="tag">电子工业出版社</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E5%A4%96%E8%AE%BE/" rel="tag">电脑外设</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%99%BE%E5%BA%A6AI/" rel="tag">百度AI</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98/" rel="tag">硬盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A3%81%E7%9B%98/" rel="tag">磁盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A7%8D%E8%8A%B1/" rel="tag">种花</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%B1%82%E8%81%8C/" rel="tag">程序员求职</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%93%9D%E7%89%99%E9%94%AE%E7%9B%98/" rel="tag">蓝牙键盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E6%9E%81%E9%99%90/" rel="tag">表达式与极限</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" rel="tag">运维记录</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%94%AE%E7%9B%98%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%89/" rel="tag">键盘（计算机）</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%9D%99%E7%94%B5%E5%AE%B9%E5%BC%8F%E9%94%AE%E7%9B%98/" rel="tag">静电容式键盘</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+      
+   
+
+
+<article id="blog-blog/为什么Github返回304" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/">为什么Github返回304</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.394Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/AIGC/">AIGC</a>><a class="meta-cate-link" href="/categories/AIGC/weibo/">weibo</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.1k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/weibo/" rel="tag">weibo</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+               为什么Github返回304
+为什么Github的Git Page服务总是返回304状态码
+当客户端向GitHub服务器发出请求时，服务器会检查请求中的条件，如果满足以下条件之一，则会返回304状态码：
+
+
+客户端发送的请求是一个GET请求。
+
+
+请求中包含了一个有效的If-None-Match或If-Modified-Since头字段。
+
+
+服务器上的资源自上次请求以来没有发生变化。
+
+
+返回304状态码表示资源未修改，服务器不会返回实际的资源内容。相反，它将在响应头中包含一个空的响应体，并告诉客户端使用其缓存副本。
+这样做有几个好处：
+
+
+减少了网络流量：如果资源没有更改，客户端无需下载整个响应体，从而减少了数据传输量。
+
+
+提高性能：客户端可以直接使用缓存副本而无需进行额外的网络请求。
+
+
+减轻服务器负载：不必每次都生成和传输完整的响应体。
+
+
+总之，返回304状态码是为了优化性能和提高效率。04
+为什么Github的Git Page服务总是返回304状态码
+GitHub的Git Page服务返回304状态码是因为它采用了缓存机制。当用户访问一个网页时，GitHub会检查...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/%E4%B8%BA%E4%BB%80%E4%B9%88Github%E8%BF%94%E5%9B%9E304/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/clickhouse" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/clickhouse/">Clickhouse的Docker版本查询</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.393Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            418 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClickHouse/" rel="tag">ClickHouse</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              Clickhouse的Docker版本查询。
+select service, count(service) as cnt from x_main_all where date &gt; &#39;2021-01-01&#39;  and date &lt;&#39;2022-01-27&#39;    group by service  order by cnt desc limit 1000;
+select product, count(product) as cnt from x_main_all where date &gt; &#39;2021-01-01&#39;  and date &lt;&#39;2022-01-27&#39;    group by product  order by cnt desc limit 1000;
+docker run -it --rm yandex&#x2F;clickhouse-client -h xxx.cn --port 9000 -m -u username --password passwd -d usern
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/clickhouse/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/proxyman" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/proxyman/">手机代理软件</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.393Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            37 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" rel="tag">大数据安全</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              向网友们询问手机代理软件，大家推荐的： proxyman、charless。
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/proxyman/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/regular" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/regular/">Graylog几种数据格式规范方法</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.393Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.4k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GROK/" rel="tag">GROK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graylog/" rel="tag">Graylog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/" rel="tag">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Split/" rel="tag">Split</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">正则表达式</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              Graylog对数据格式规范有很几种手段，其中最实用的三种:Split、GROK、Regular。
+ 分割符号(Split)
+Split：这个不用多介绍，就是利用分隔符切字段，最好理解。
+ JSON
+JSON: JSON格式也是最简单，几乎不用配置，设备发过来JSON格式，直接按JSON格式解开就行了。
+ GROK模式
+GROK：属于模块化，分装了一些现成的正则表达式，相当于给固定模式正则表达式起了别名。
+%&#123;IPV4:SrcIP&#125;
+通过这个GROK，获取某个字符串当中的IP。
+原则字符串，如下：
+10.10.10.01:5678(test)-&gt;10.10.01.05:1235(test),
+结果，如下：
+SrcIP
+    10.10.10.01
+这其中的IPV4，用的就是GROK。
+ 正则表达式（Regular）
+GROK和Split的方法，都有自己的局限，而正则表达式，正弥补这两个方式的解决不了一些细节问题，或者能解决，但是比较麻烦。
+举例，在告警的IOC信息里，找到CVE号。
+原始数据,如下：
+XXXXXXXXXXXXXXXXXXXXXXX(CV...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/regular/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/cdn-ip" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/cdn-ip/">绕过CDN查找真实IP方法</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.392Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            3.6k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" rel="tag">安全技术</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              相信大家平时在做渗透测试时，经常会碰到部署了CDN的网站，我们有时候想要获取某站的源站ip，方法有很多，今天我给大家总结一下，赠人玫瑰，手有余香。
+ CDN简介：
+CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。
+
+ 域名解析过程:
+传统访问：用户访问域名–&gt;解析IP–&gt;访问目标主机
+CDN模式：用户访问域名–&gt;CDN节点–&gt;真实IP–&gt;目标主机
+ 验证网站有无CDN方法:
+利用“全球Ping”快速检测目标网址是否存在CDN，如果返回域名解析对应多个 IP 地址多半是使用了 CDN,如果得到的IP归属地是某CDN服务商，或者每个地区得到的IP地址不一样则说明可能存在CDN，可用以下几个网站检测！
+http://ping.chinaz.com
+http://ping.aizhan.com/
+...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/cdn-ip/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/sec-operation" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/sec-operation/">安全运营项目的工作方法</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.392Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            12k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" rel="tag">安全运营</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              作者：李瑞
+本文信息量巨大，阅读大约需要二十分钟左右，建议加关注收藏后阅读。
+日常工作中对接研发同学的一次漏洞答疑，写代码优化敏感数据的识别统计指标，处理应急响应，安全BP发起弱口令治理，日常的补丁管理，组织大型的国家级“HVV”专项，都属于典型的安全运营类的项目范畴。
+
+ 安全运营是工作的一部分
+我们做了大量的安全运营工作，这些事情以项目论起来有大有小，不同公司对这些从事这些一线运营工作的内容描述有“拿结果”、“push”、“落地”、“打法”、&quot;主导&quot;不同的说法，我比较认可“推动”的说法，通过运营专项推动工作达到预定的治理效果，”推“和”动“很形象地说明关于安全运营的主要工作：需要主动“推一推才动”，安全的特点确实是要做成一件事，合作方确实有很少的意愿去配合，所以需要有科学的办法去运营这些事情。
+零零总总完成工作总是很容易的，但是首先要理解它为什么能完成？顺利和困难是偶然还是必然？是无意做出的决策还是有意遵循了什么逻辑？做到”知其然然后知其所以然“很难，虽然明面上运营这类事情有PMO( Program Management Officer 项目管理办公室)参...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/sec-operation/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/iptables" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/iptables/">iptables限制IP访问</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.392Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            321 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iptables/" rel="tag">iptables</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              设定主机可访问的端口。
+iptables -I INPUT -s 192.168.0.5 -p tcp --dport 80 -j ACCEPT
+iptables -D INPUT -s 192.168.0.5 -p tcp --dport 80 -j ACCEPT
+iptables -I INPUT -s 192.168.0.5 -p tcp --dport 27017 -j ACCEPT
+iptables -I INPUT -s 192.168.0.5 -p tcp --dport 27017 -j ACCEPT
+iptables -I INPUT -s 127.0.0.1 -p tcp --dport 27017 -j ACCEPT
+iptables -I INPUT -s 192.168.0.5 -p tcp --dport 27017 -j ACCEPT
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/iptables/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/baimaozijianganquan" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/baimaozijianganquan/">白帽子讲Web安全</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.391Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E4%B9%A6%E7%B1%8D/">书籍</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            386 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web%E5%AE%89%E5%85%A8/" rel="tag">Web安全</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%B5%E5%AD%90%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE/" rel="tag">电子工业出版社</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+               购买链接： 点击购买
+
+ 作者： 吴翰清
+ 内容简介：
+在互联网时代，数据安全与个人隐私受到了前所未有的挑战，各种新奇的攻击技术层出不穷。如何才能更好地保护我们的数据？《白帽子讲Web安全》将带你走进web安全的世界，让你了解Web安全的方方面面。黑客不再变得神秘，攻击技术原来我也可以会，小网站主自己也能找到正确的安全道路。大公司是怎么做安全的，为什么要选择这样的方案呢？你能在《白帽子讲Web安全》中找到答案。详细的剖析，让你不仅能“知其然”，更能“知其所以然”。 　　《白帽子讲Web安全》是根据作者吴翰清若干年实际工作中积累下来的丰富经验而写成的，在解决方案上具有极强的可操作性，深入分析了各种错误的解决方案与误区，对安全工作者有很好的参考价值。安全开发流程与运营的介绍，对同行业的工作具有指导意义。
+ 推荐理由：
+本书对Web安全各个方面都进行了较详细的分析，在掌握基本知识后阅读此书更佳。
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/baimaozijianganquan/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/edgelang" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/edgelang/">一种小语言Edgelang</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.391Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            758 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              找回了当时测试时用OpenResty Edgelang的代码。
+uri contains "SQL"=>
+	set-upstream('HoneyPot_1');	
+	req-header("Content-Type") contains "multipart/form-data",
+	req-header("Content-Type") !contains rx&#123;^multipart/form-data[\s\S]+&#125; =>
+	waf-mark-evil(message: "CVE-2017-5638 Struts", level: "super"),
+	set-upstream('HoneyPot_2');
+
+uri("/shop"), client-province('Guangdong'),
+	ua-is-mobile() =>
+	limit-req-rate(key: client-addr, target-rate: 5 [r/s], reject-rate: 10 [r/s]), limit-resp-data-rate(441 [mB/s]);...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/edgelang/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="blog-blog/jumperserver" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/jumperserver/">SSH解决The authenticity of host xxx can&#39;t be established.</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.391Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            151 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" rel="tag">运维记录</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              通道机突然出现了链接不上的情况，最后就直接在SSH的IP约束检查去掉。
+ 修改配置文件
+vim &#x2F;etc&#x2F;ssh&#x2F;ssh_config
+ 添加不检查主机的约束的选项
+StrictHostKeyChecking no
+UserKnownHostsFile &#x2F;dev&#x2F;null
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/jumperserver/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+  <nav id="page-nav">
+    <!-- 在第二页时 page.prev_link 不知为何无法返回正确的链接 -->
+    <a id="prev-btn" class="page-nav-btn " href=" /page/12/  ">
+      <i class="fa-solid fa-angle-left"></i>
+    </a>
+    <div id="num-bar">
+      <a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/179/">179</a>  
+    </div>
+    <a id="next-btn" class="page-nav-btn " href="/page/14/">
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+  </nav>
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 糖果的实验室-LUA教程<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
     }
-    detectApple()
-    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1788</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">212</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">104</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-894_%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E8%BF%9B%E8%A1%8Clua%E8%A1%A8%E7%9A%84%E5%88%B6%E4%BD%9C/" title="如何快速进行lua表的制作"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何快速进行lua表的制作"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-894_%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E8%BF%9B%E8%A1%8Clua%E8%A1%A8%E7%9A%84%E5%88%B6%E4%BD%9C/" title="如何快速进行lua表的制作">如何快速进行lua表的制作</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.164Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">在日常的开发中, 或多或少会遇到将大量的, 需要初始化的数据制作到luatable里面,将花费很多的精力, 还往往由于打错字、打错标点符号浪费了大量的时间.经过一段时间的思考, 决定编写一个工具来配合excel表进行制作这类的大量的重复的数据由于现在项目都是android和ios并行开发, 隧使用python语言进行工具的编写, 下面贴出python代码:(如果缺少xlrd库的话 pip install xlrd)
-代码:
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-893_Lua%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE/" title="Lua知识回顾"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua知识回顾"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-893_Lua%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE/" title="Lua知识回顾">Lua知识回顾</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.164Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">学习 Lua 编程语言的比较
-无聊之余，想要找个东西来打发时间和排解心中的百无聊赖，于是乎，想要重新玩一下 corona 这个游戏开发引擎。当然，第一步就是重温下以前学过的 lua 编程语言，这次我打算在 Windows 操作系统上摆弄下这玩意。
-首先进入lua 官网找到二进制文件的下载地址，下载好了之后，解压后先把文件夹里的luax.ext(x 代表版本号)文件修改为lua.exe，然后将该目录添加到 Path 系统变量中，在终端输入lua -v检查是否配置完成。
-注意点
-调用函数时，被调用的函数一定要在调用者之前定义
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
 
-变量变量的作用域：
-
-全局变量：除非显式声明为 local，其它所有变量都是全局变量；
-本地变量：使用 local 来声明变量
-表(table)变量:特殊类型的变量，值不可以为 nil
-
-容易混淆的例子：
-local a, b = 1, 2 --该写法正确
-local a = 1, b = 2 --该写法错误
-数据类型Lua 是动态类型语言，变量没有类型，只有值有类型，下面是数据类型：
-
-nil
-boolean
-number
-string
-function
-user ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-890_Evaluation%20measure%20of%20pose%20estimation/" title="Evaluation measure of pose estimation"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluation measure of pose estimation"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-890_Evaluation%20measure%20of%20pose%20estimation/" title="Evaluation measure of pose estimation">Evaluation measure of pose estimation</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.163Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">单人检测单人姿态估计的评估标准。
-PCKPCK(Percentage of Correct Keypoints)正确关键点的比例。
-PCK的思想是，关键点坐标pred与groundtrue之间的归一化距离小于一定阈值时，视为正确估计，以正确估计的关键点的比例作为评估标准。
-从定义可以看出，PCk的变量有两个：
-
-如何归一化
-阈值是多少
-
-以PCKh为例，PCKh采用头部长度（head segment length）作为归一化参考。
-即：对于每个人
-
-计算所有关键点pred与groundtrue之间的欧氏距离pg_length；
-计算头部长度head_length；
-计算归一化距离norm_length=pg_lenght/head_length；
-当这个距离小于规定的阈值时，比如说0.5，则认为估计正确；否则认为错误。
-
-参考代码：stacked hourglass network - pckh.py</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-891_Lua%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95%E5%92%8C%E5%8E%9F%E7%90%86/" title="Lua实现继承方法和原理"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua实现继承方法和原理"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-891_Lua%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95%E5%92%8C%E5%8E%9F%E7%90%86/" title="Lua实现继承方法和原理">Lua实现继承方法和原理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.163Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">原理 � 查找表元表的三个步骤:
-
-在表中查找，如果找到，返回该元素，找不到则继续
-判断该表是否有元表，如果没有元表，返回nil，有元表则继续
-判断元表有没有 __index 方法，如果 __index 方法为nil，则返回nil；如果__index 方法是一个表，则重复1、2、3；如果 __index 方法是一个函数，则返回该函数的返回值
-</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-889_lua%E5%AD%A6%E4%B9%A01/" title="lua学习1"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua学习1"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-889_lua%E5%AD%A6%E4%B9%A01/" title="lua学习1">lua学习1</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.162Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">类型与值Lua是一种动态语言，没有定义类型的语法，每个值都携带了自身的类型信息。
-Lua中有8种基础类型：nil、boolean、number、string、userdata、function、thread、table。函数type可以返回值的类型。
-123456print(type(&#34;hello&#34;))           print(type(1))                 --&gt; numberprint(type(print))             --&gt; functionprint(type(true))              --&gt; booleanprint(type(nil))               --&gt; nilprint(type(type(X))            
-注：最后一行永远返回string。因为type函数总是返回一个字符串。
-nilnil是一种类型，它只有一个值nil。
-booleanboolean类型有两个可选值：false和true。在Lua中任何值都可以表示一个条件，只有当false和n ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-88_Read%20Lua%20Source%20CodeRead%20Lua%20Source%20Code/" title="Read Lua Source CodeRead Lua Source Code"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Read Lua Source CodeRead Lua Source Code"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-88_Read%20Lua%20Source%20CodeRead%20Lua%20Source%20Code/" title="Read Lua Source CodeRead Lua Source Code">Read Lua Source CodeRead Lua Source Code</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.162Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content"> Lua logo
-介绍
-Lua 应用比较广泛，主要是作为插件解释器。例如mysql proxy，VLC 等。Lua 源代码比较规范，代码也不长，2w 多行，分布也是比较均匀的，就想看一看，顺便在这里做个笔记。
-lua 5.2.3 源码树
-[will@iF8sg:~DOWN]% tree lua-5.2.3
-lua-5.2.3
-├── Makefile
-├── README
-├── doc
-│   ├── contents.html
-│   ├── logo.gif
-│   ├── lua.1
-│   ├── lua.css
-│   ├── luac.1
-│   ├── manual.css
-│   ├── manual.html
-│   ├── osi-certified-72x60.png
-│   └── readme.html
-└── src
-    ├── Makefile
-    ├── lapi.c
-    ├── lapi.h
-    ├── lauxlib.c
-    ├── lauxlib.h
-    ├── lbaselib.c
-    ├── lbitlib.c
- ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-885_Lua%E4%B8%AD%E7%9A%84%E5%8D%8F%E7%A8%8B/" title="Lua中的协程"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua中的协程"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-885_Lua%E4%B8%AD%E7%9A%84%E5%8D%8F%E7%A8%8B/" title="Lua中的协程">Lua中的协程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.157Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">Lua中的协程和其他变量一样，都是第一类值（first-class alue），可以被保存在变量中，可以被作为参数传递，可以被函数返回。
-协程有4种状态：挂起（suspended），运行（running），死亡（dead）和正常（normal）。
-Lua为协程提供了3个基础接口：create，resume和yield。
-#coroutine.create
-
-  创建一个新的协程，并为它的运行分配一个独立的栈
-  协程处于挂起状态（suspended）
-  接受一个函数作为参数，这个函数就是协程的主程序块
-  返回这个协程
-  挂起点被设置为主程序块的第一句
-
-#coroutine.resume
-
-  启动一个协程（第一次启动或从暂停状态启动）
-  自身（如果是协程的话）处于正常状态，被启动的协程处于运行状态
-  第一个参数为所要启动的协程
-  协程从它的挂起点开始执行
-  一直执行到被挂起或终止
-  导致协程终止的情况有两种：它的主程序块正常返回、运行过程中出错
-  执行结束后，控制权递交给此协程被激活的地方
-
-#coroutine.yield
-
-  挂起一个协程
-  协程处于挂起状态 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-886_LuaTable%E5%87%BD%E6%95%B0%E5%BA%93/" title="LuaTable函数库"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LuaTable函数库"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-886_LuaTable%E5%87%BD%E6%95%B0%E5%BA%93/" title="LuaTable函数库">LuaTable函数库</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.157Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">1234567table.insert(table,[ pos,] value) table.remove(table[, pos]) table.concat(table[, sep[, i[, j]]]) table.sort(table[, comp]) // 见Lua排序table.getn() //5.0费table.maxn() //5.2费
-#####insert, remove
-insert 和 remove 只能用于数组元素的插入和移出， 进行插入和移出时，会将后面的元素对齐起来。  所以在 for 循环中进行 insert 和 remove 的时候要注意插入和移除时是否漏掉了某些项：    local t = {1,2,3,3,5,3,6}    for i,v in ipairs(t) do      if v == 3 then        table.remove(t,i)      end    end    – 错误，第四个 3 没有被移除，ipairs 内部会维护一个变量记录遍历的位置，remove 掉第三个数字 3 之后，ipairs 下一个返回的值 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-887_Programming%20in%20Lua%E6%91%98%E5%BD%95/" title="Programming in Lua摘录"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Programming in Lua摘录"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-887_Programming%20in%20Lua%E6%91%98%E5%BD%95/" title="Programming in Lua摘录">Programming in Lua摘录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.157Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">“袁承志知道若再谦逊，那就是瞧人不起，展开五行拳，发拳当胸打去。荣彩和旁观三人本来都以为他武功有独到之秘，哪知使出来的竟是武林中最寻常不过的五行拳。
-敌对三人登时意存轻视，温青脸上不自禁露出失望的神色。
-“荣彩心中暗喜，双拳如风，连抢三下攻势，满拟自己的大力魔爪手江南独步，三四招之间就可破去对方五行拳，那知袁承志轻描淡写的一一化解。再拆数招，荣彩暗暗吃惊，原来对方所使虽是极寻常的拳术，但每一招均是含劲不吐，意在拳先，举手抬足 之间隐含极浑厚的内力。”
-——金庸《碧血剑》——金庸《碧血剑》</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-888_Pose%20Estimation%20Evaluation%20(Metric)/" title="Pose Estimation Evaluation (Metric)"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pose Estimation Evaluation (Metric)"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-888_Pose%20Estimation%20Evaluation%20(Metric)/" title="Pose Estimation Evaluation (Metric)">Pose Estimation Evaluation (Metric)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:36.157Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">对于人体骨骼关键点算法来说，如何有效的衡量一个算法的好坏非常重要，他不像分类问题那样可以很容易采用一些常用指标，例如precise、error、F-score等进行计算。因为在衡量的过程中，我们无法有效的将预测结果与真实值一一对应，无法知道他们之前的对应关系，更加无法知道当前的某个预测结果是否出现了误检或者漏检的情况。因此，构建一个合适的人体关键点的度量指标很重要。
-本文目前涉及 oks、AP、mAP、PCK、PCKh、PDJ，后续碰到新的会继续补充
-
-一、oks目前最为常用的就是OKS（Object Keypoint Similarity）指标，这个指标启发于目标检测中的IoU指标，目的就是为了计算真值和预测人体关键点的相似度。
-OKS
-其中：
- 表示groudtruth中，人的id
- 表示key point的id
- 表示groudtruth中每个人和预测的每个人的关键点的欧氏距离
- 表示当前人的尺度因子，这个值等于此人在groundtruth中所占面积的平方根，即 
- 表示第 i 个骨骼点的归一化因子，这个因此是通过对数据集中所有groundtruth计算的标准差而得到的，反映出当 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/12/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/#content-inner">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/#content-inner">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/179/#content-inner">179</a><a class="extend next" rel="next" href="/page/14/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1788</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">212</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">104</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/topic/%E5%9C%A8Mac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E5%B0%86%E9%BB%98%E8%AE%A4%E7%9A%84GCC%E5%88%87%E6%8D%A2%E5%88%B0LLVM%E7%9A%84Clang/" title="在Mac系统上将默认的GCC切换到LLVM的Clang"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在Mac系统上将默认的GCC切换到LLVM的Clang"/></a><div class="content"><a class="title" href="/topic/%E5%9C%A8Mac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E5%B0%86%E9%BB%98%E8%AE%A4%E7%9A%84GCC%E5%88%87%E6%8D%A2%E5%88%B0LLVM%E7%9A%84Clang/" title="在Mac系统上将默认的GCC切换到LLVM的Clang">在Mac系统上将默认的GCC切换到LLVM的Clang</a><time datetime="2024-04-03T06:54:26.659Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/Lazygit%E7%9A%84%E5%AE%89%E8%A3%85/" title="Lazygit的安装"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lazygit的安装"/></a><div class="content"><a class="title" href="/topic/Lazygit%E7%9A%84%E5%AE%89%E8%A3%85/" title="Lazygit的安装">Lazygit的安装</a><time datetime="2024-04-03T06:54:26.658Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/hello-world/" title="Hello World"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/topic/hello-world/" title="Hello World">Hello World</a><time datetime="2024-04-03T06:54:26.658Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85Conda%E7%9A%84%E6%AD%A5%E9%AA%A4/" title="CentOS8下安装Conda的步骤"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CentOS8下安装Conda的步骤"/></a><div class="content"><a class="title" href="/topic/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85Conda%E7%9A%84%E6%AD%A5%E9%AA%A4/" title="CentOS8下安装Conda的步骤">CentOS8下安装Conda的步骤</a><time datetime="2024-04-03T06:54:26.657Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/ChatGPT-lua-unit/" title="用ChatGPT生成Lua单体测试代码"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用ChatGPT生成Lua单体测试代码"/></a><div class="content"><a class="title" href="/topic/ChatGPT-lua-unit/" title="用ChatGPT生成Lua单体测试代码">用ChatGPT生成Lua单体测试代码</a><time datetime="2024-04-03T06:54:26.656Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
-            <i class="fas fa-folder-open"></i>
-            <span>分类</span>
-            <a class="card-more-btn" href="/categories/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a>
-            </div>
-            <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">117</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AI-gateway/"><span class="card-category-list-name">AI gateway</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Amphion/"><span class="card-category-list-name">Amphion</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AnimateAnyone/"><span class="card-category-list-name">AnimateAnyone</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AudioCraft/"><span class="card-category-list-name">AudioCraft</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Gradio/"><span class="card-category-list-name">Gradio</span><span class="card-category-list-count">1</span></a></li></ul></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" style="font-size: 1.1em; color: #999">激活函数</a> <a href="/tags/%E5%AE%89%E5%85%A8%E5%9B%BE%E4%B9%A6/" style="font-size: 1.1em; color: #999">安全图书</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 1.1em; color: #999">内存</a> <a href="/tags/fzf/" style="font-size: 1.1em; color: #999">fzf</a> <a href="/tags/OpenResty/" style="font-size: 1.23em; color: #999ea6">OpenResty</a> <a href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" style="font-size: 1.1em; color: #999">Cherry（键盘）</a> <a href="/tags/miniconda/" style="font-size: 1.1em; color: #999">miniconda</a> <a href="/tags/cpu/" style="font-size: 1.1em; color: #999">cpu</a> <a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.1em; color: #999">索引</a> <a href="/tags/zsh/" style="font-size: 1.1em; color: #999">zsh</a> <a href="/tags/gpt4all/" style="font-size: 1.1em; color: #999">gpt4all</a> <a href="/tags/osv/" style="font-size: 1.1em; color: #999">osv</a> <a href="/tags/comfyui/" style="font-size: 1.1em; color: #999">comfyui</a> <a href="/tags/github/" style="font-size: 1.5em; color: #99a9bf">github</a> <a href="/tags/soc/" style="font-size: 1.23em; color: #999ea6">soc</a> <a href="/tags/chromadb/" style="font-size: 1.1em; color: #999">chromadb</a> <a href="/tags/%E8%93%9D%E7%89%99%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">蓝牙键盘</a> <a href="/tags/WhisperFusion/" style="font-size: 1.1em; color: #999">WhisperFusion</a> <a href="/tags/zip/" style="font-size: 1.1em; color: #999">zip</a> <a href="/tags/Lapis/" style="font-size: 1.1em; color: #999">Lapis</a> <a href="/tags/CVE/" style="font-size: 1.1em; color: #999">CVE</a> <a href="/tags/OpenSSL/" style="font-size: 1.1em; color: #999">OpenSSL</a> <a href="/tags/mount/" style="font-size: 1.1em; color: #999">mount</a> <a href="/tags/music/" style="font-size: 1.23em; color: #999ea6">music</a> <a href="/tags/%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%A7%98%E7%B1%8D/" style="font-size: 1.1em; color: #999">提示词秘籍</a> <a href="/tags/Graylog/" style="font-size: 1.37em; color: #99a4b2">Graylog</a> <a href="/tags/%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87/" style="font-size: 1.1em; color: #999">不支持中文</a> <a href="/tags/c/" style="font-size: 1.23em; color: #999ea6">c</a> <a href="/tags/openssl/" style="font-size: 1.1em; color: #999">openssl</a> <a href="/tags/TTS/" style="font-size: 1.1em; color: #999">TTS</a> <a href="/tags/mongodb/" style="font-size: 1.1em; color: #999">mongodb</a> <a href="/tags/ThreatIngestor/" style="font-size: 1.1em; color: #999">ThreatIngestor</a> <a href="/tags/x79/" style="font-size: 1.1em; color: #999">x79</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 1.23em; color: #999ea6">翻译</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">深度学习</a> <a href="/tags/AudioCraft/" style="font-size: 1.1em; color: #999">AudioCraft</a> <a href="/tags/llamaindex-cli/" style="font-size: 1.23em; color: #999ea6">llamaindex-cli</a> <a href="/tags/Shuffle/" style="font-size: 1.23em; color: #999ea6">Shuffle</a> <a href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" style="font-size: 1.1em; color: #999">运维记录</a> <a href="/tags/flink/" style="font-size: 1.1em; color: #999">flink</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1142</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">324</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/12/"><span class="card-archive-list-date">十二月 2019</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/05/"><span class="card-archive-list-date">五月 2019</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">1788</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-04-03T07:15:14.935Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
-  var meta = document.createElement('meta');
-  meta.content = 'no-referrer';
-  meta.name = 'referrer';
-  document.getElementsByTagName('head')[0].appendChild(meta);
-})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

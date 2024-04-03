@@ -1,309 +1,1636 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>糖果AIGC实验室-LUA - AIGC</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AIGC">
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+<!-- Global site tag (gtag.js) - Baidu Analytics -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- End Baidu Analytics -->
+
+  
+
+  
+  <title>糖果AIGC实验室-LUA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="AIGC">
 <meta property="og:type" content="website">
 <meta property="og:title" content="糖果AIGC实验室-LUA">
 <meta property="og:url" content="https://lua.ren/page/96/index.html">
 <meta property="og:site_name" content="糖果AIGC实验室-LUA">
 <meta property="og:description" content="AIGC">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
 <meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/page/96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-
-
-
-</script><script>(function () {
-  var meta = document.createElement('meta');
-  meta.content = 'no-referrer';
-  meta.name = 'referrer';
-  document.getElementsByTagName('head')[0].appendChild(meta);
-})();</script><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
-  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '糖果AIGC实验室-LUA',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2024-04-03 15:15:21'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
+    <link rel="alternate" href="/atom.xml" title="糖果AIGC实验室-LUA" type="application/atom+xml">
   
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
   
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+  
+  
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+<div id="banner" class=" is_home ">
+  <img src="https://saicaca.github.io/vivia-preview/assets/banner.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=" is_home "  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>糖果AIGC实验室-LUA </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1788</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">212</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">104</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-117_lua%20learning/" title="lua learning"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua learning"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-117_lua%20learning/" title="lua learning">lua learning</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.026Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">https://www.runoob.com/lua/lua-miscellaneous-operator.html
-
-data struture:
-
-nil
-boolean
-number: 双精度的实浮点数
-string
-funcion: 由C或lua编写的函数
-userdata: 任意存储在变量中的C数据解雇
-thread: 表示执行的独立线路，用于执行协同程序
-table: 关联数据
-type() 查看类型
-
-
-
-
-variable
-
-global
-local
-表中的索引 A.b, A[b], gettable_event(t, i)
-
-
-loop
-
-while (true)  do  执行体  end
-do () while() end
-for
-数值
-for var=exp1, exp2, exp3 do  执行体  end
-
-
-泛型循环 相当于foreach
-for i, v in ipairs(a) do  print(i, v)  endfor k, v in pairs(table) do  print(k, v)  end
-
-
-
-
-
-
-if: process cont ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-1180_%E4%BD%BF%E7%94%A8%20git%20hook%20%E5%9C%A8%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%89%8D%E9%80%9A%E8%BF%87%20luacheck%20%E8%87%AA%E5%8A%A8%E6%A3%80%E6%9F%A5%E5%BE%85%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81/" title="使用 git hook 在提交代码前通过 luacheck 自动检查待提交代码"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用 git hook 在提交代码前通过 luacheck 自动检查待提交代码"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1180_%E4%BD%BF%E7%94%A8%20git%20hook%20%E5%9C%A8%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%89%8D%E9%80%9A%E8%BF%87%20luacheck%20%E8%87%AA%E5%8A%A8%E6%A3%80%E6%9F%A5%E5%BE%85%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81/" title="使用 git hook 在提交代码前通过 luacheck 自动检查待提交代码">使用 git hook 在提交代码前通过 luacheck 自动检查待提交代码</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.026Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">
-
-  23 Oct 2019
-- &lt;a href=&quot;/authors/zhouyan.html&quot;&gt;周岩&lt;/a&gt;
-
-
-Preface
-由于脚本语言解释执行的特性，很多低级错误在运行到问题代码时才会报错，而不是像 C++ 这种静态语言那样在编译期就能由编译器检查出来，这就导致有很多本来在开发期就可以避免的问题，拖到线上才被发现。这里给出一个方案，可以在提交代码前，通过 Git 的 hook/pre-commit 机制，去做一些脚本代码的静态检查。
-我用 Lua 比较多，这里就以 Lua 为例来进行说明。Lua 的静态检查工具基本上只有一个 luacheck 可用, 安装很简单，可以使用 luarocks 安装（类似 python 的 pip, 是一个 Lua 的包管理器）：
-luarocks install luacheck
-
-安装好以后可以直接在终端使用:
-luacheck your_lua_file.lua
-
-luacheck 的配置
-默认的 luacheck 配置比较严格，会报很多警告，比如我们自定义的一些全局变量和函数，这当然是我们不希 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-1181_build%20system,%20lazy%20evaluation,%20and%20incremental%20com/" title="build system, lazy evaluation, and incremental computation"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="build system, lazy evaluation, and incremental computation"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1181_build%20system,%20lazy%20evaluation,%20and%20incremental%20com/" title="build system, lazy evaluation, and incremental computation">build system, lazy evaluation, and incremental computation</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.026Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">
-  NOTE: I wrote this based on the same casual tech talk I gave in USTC and SJTU.
-The talk is recorded in Chinese, thus I wrote this to share the ideas to more people :)
-
-
-Why am I speaking about these three things? First, they are often paid poor attention in the regular CS education curriculum; second, they are subtly sharing some commonalities, which might not be intuitive at the first sight.
-Build System
-
-First, what is a build system? It is a tool that transforms and composes the source cod ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-1175_%E3%80%8C%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%8D%2019.%20Partial%20Evaluation/" title="19. Partial Evaluation"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="19. Partial Evaluation"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1175_%E3%80%8C%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%8D%2019.%20Partial%20Evaluation/" title="19. Partial Evaluation">19. Partial Evaluation</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.025Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">TBD
-            &lt;hr style=&quot;visibility: hidden;&quot;/&gt;
-            
-            &lt;hr style=&quot;visibility: hidden;&quot;/&gt;
-
-</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-1176_uva%2011724%20-%20evaluate%20the%20expression/" title="uva 11724 - evaluate the expression"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="uva 11724 - evaluate the expression"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1176_uva%2011724%20-%20evaluate%20the%20expression/" title="uva 11724 - evaluate the expression">uva 11724 - evaluate the expression</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.025Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">
-              contents
-          &lt;/div&gt;
+      <a class="main-nav-link" href="/">主页</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">主页</a>
+    
+      <a class="nav-dropdown-link" href="/archives">归档</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
       
-    
-      &lt;h2 id=&quot;Problem&quot;&gt;Problem&lt;/h2&gt;
-
-每個變數皆為正整數，給定一個算術表達式和變數之間的大小關係，請問最少產生出來的答案為何。
-Sample Input
-1234567891011123a+b*c2a&gt;bc&gt;bz*(x+y)3z&gt;xx&gt;yz&gt;ya+b+c+a0
-Sample Output
-123Case 1: 4Case 2: 9Case 3: 4
-Solution
-先使用 spfa 找到根據 greedy 策略分配的變數值，如果發生負環情況直接輸出 -1。
-然後使用矩陣鏈乘積的 DP 方法進行找到最小答案。
-12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-1177_lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="lua学习笔记"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1177_lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="lua学习笔记">lua学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.025Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">输出、注释、全局变量12345678910print(&#34;hello world&#34;)--[[abcd is hhhasdassadd]]--print(b)   --nilb=10print(b)   --10
-数据类型12345678nil			--相当于其他语言的null（python中的None），（在表达式中相当于false）boolean     --true false   numberstringfunctionuserdata    --表示任意存储在变量中的C数据结构 threadtable		--在lua中，table是一个关联数组，索引可以是数字和字符串，可以由{}构造
-获取类型的函数：type（和python一样）</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-1178_cse201w4_queryevaluation/" title="cse201w4_queryevaluation"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cse201w4_queryevaluation"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1178_cse201w4_queryevaluation/" title="cse201w4_queryevaluation">cse201w4_queryevaluation</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.025Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">查询处理概述查询处理的基本步骤：
-
-语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。
-优化查询执行引擎（query-execution engine）接受一个查询执行计划（query-execution engine），执行该计划并把结果返回给查询。给定查询的不同执行计划会有不同的代价。我们不能寄希望于用户写出具有最高效率执行计划的查询语句。相反，构造具有最小查询执行代价的查询执行计划应当是系统的责任。这项工作叫作查询优化。
-执行
-
-查询代价的度量查询处理的代价可以通过该查询对各种资源的使用情况进行度量，这些资源包括磁盘存取、执行一个查询所用CPU时间，还有在并行/分布式数据库系统中的通信代价在大型数据库系统中，在磁盘上存取数据的代价通常是最主要的代价，因为磁盘存取比内存操作速度慢。此外，CPU速度的提升比磁盘速度的提升要快的多，这样很可能花费在磁盘存取上的时间仍将决 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-1172_lua%20non-preemptive%20multithreading/" title="lua non-preemptive multithreading"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua non-preemptive multithreading"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1172_lua%20non-preemptive%20multithreading/" title="lua non-preemptive multithreading">lua non-preemptive multithreading</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.024Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">
-    
-      Lua Coroutine
-Lua Coroutine is a kind of collaborative multithreading, equivalent to a thread. A pair yield-resume switches control from one thread to another.
-However, unlike “real” multithreading, coroutines are non preemptive. A coroutine only suspends its execution by explicitly calling a yield function.
-Coroutine Grammar
+        <image src=https://saicaca.github.io/vivia-preview/assets/avatar.jpg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">糖果的实验室-LUA教程 </div>
+      <div class="dot"></div>
+      <div class="subtitle">Lua基础入门教程 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
 
   
+  <div class="sticky">
     
-      Method
-      Description
-    
-  
-  
-    
-      coroutine.create (f)
-      Creates a new coroutine, with f must be a function, Returns this new co ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/zl/2016-01-01-1173_lua%20tutorial/" title="lua tutorial"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua tutorial"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1173_lua%20tutorial/" title="lua tutorial">lua tutorial</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.024Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">
-    
-      What is Lua ?
+      
 
-Lua is a powerful, efficient, lightweight, embeddable scripting language, 用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。
-Lua 是巴西里约热内卢天主教大学（Pontifical Catholic University of Rio de Janeiro）里的一个研究小组，由Roberto Ierusalimschy、Waldemar Celes 和 Luiz Henrique de Figueiredo所组成并于1993年开发。
-Lua supports procedural programming, object-oriented programming, functional programming, data-driven programming, and data description.
-Installation
-curl -R -O http://www.lua.org/ftp/lu ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/zl/2016-01-01-1174_centos%20%E5%AE%89%E8%A3%85lua%205.3/" title="centos 安装lua 5.3"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="centos 安装lua 5.3"></a></div><div class="recent-post-info"><a class="article-title" href="/zl/2016-01-01-1174_centos%20%E5%AE%89%E8%A3%85lua%205.3/" title="centos 安装lua 5.3">centos 安装lua 5.3</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-03T03:47:33.024Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">按照官网教程，执行以下命令1234curl -R -O http://www.lua.org/ftp/lua-5.3.3.tar.gztar zxf lua-5.3.3.tar.gzcd lua-5.3.3make linux test
-但其实lua并未安装，许多博文都是建立软链接，但其实makefile文件中已经写好了，只需install就可以了1make linux install
-升级lua版本之后，会导致luarock无法使用，需要重新编译安装。1234wget http://luarocks.org/releases/luarocks-2.4.1.tar.gztar zxpf luarocks-2.4.1.tar.gzcd luarocks-2.4.1./configure; sudo make bootstrap</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/95/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/95/#content-inner">95</a><span class="page-number current">96</span><a class="page-number" href="/page/97/#content-inner">97</a><span class="space">&hellip;</span><a class="page-number" href="/page/179/#content-inner">179</a><a class="extend next" rel="next" href="/page/97/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1788</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">212</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">104</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/topic/%E5%9C%A8Mac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E5%B0%86%E9%BB%98%E8%AE%A4%E7%9A%84GCC%E5%88%87%E6%8D%A2%E5%88%B0LLVM%E7%9A%84Clang/" title="在Mac系统上将默认的GCC切换到LLVM的Clang"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在Mac系统上将默认的GCC切换到LLVM的Clang"/></a><div class="content"><a class="title" href="/topic/%E5%9C%A8Mac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E5%B0%86%E9%BB%98%E8%AE%A4%E7%9A%84GCC%E5%88%87%E6%8D%A2%E5%88%B0LLVM%E7%9A%84Clang/" title="在Mac系统上将默认的GCC切换到LLVM的Clang">在Mac系统上将默认的GCC切换到LLVM的Clang</a><time datetime="2024-04-03T06:54:26.659Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/Lazygit%E7%9A%84%E5%AE%89%E8%A3%85/" title="Lazygit的安装"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lazygit的安装"/></a><div class="content"><a class="title" href="/topic/Lazygit%E7%9A%84%E5%AE%89%E8%A3%85/" title="Lazygit的安装">Lazygit的安装</a><time datetime="2024-04-03T06:54:26.658Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/hello-world/" title="Hello World"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/topic/hello-world/" title="Hello World">Hello World</a><time datetime="2024-04-03T06:54:26.658Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85Conda%E7%9A%84%E6%AD%A5%E9%AA%A4/" title="CentOS8下安装Conda的步骤"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CentOS8下安装Conda的步骤"/></a><div class="content"><a class="title" href="/topic/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85Conda%E7%9A%84%E6%AD%A5%E9%AA%A4/" title="CentOS8下安装Conda的步骤">CentOS8下安装Conda的步骤</a><time datetime="2024-04-03T06:54:26.657Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/ChatGPT-lua-unit/" title="用ChatGPT生成Lua单体测试代码"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用ChatGPT生成Lua单体测试代码"/></a><div class="content"><a class="title" href="/topic/ChatGPT-lua-unit/" title="用ChatGPT生成Lua单体测试代码">用ChatGPT生成Lua单体测试代码</a><time datetime="2024-04-03T06:54:26.656Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
-            <i class="fas fa-folder-open"></i>
-            <span>分类</span>
-            <a class="card-more-btn" href="/categories/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a>
-            </div>
-            <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">117</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AI-gateway/"><span class="card-category-list-name">AI gateway</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Amphion/"><span class="card-category-list-name">Amphion</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AnimateAnyone/"><span class="card-category-list-name">AnimateAnyone</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AudioCraft/"><span class="card-category-list-name">AudioCraft</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Gradio/"><span class="card-category-list-name">Gradio</span><span class="card-category-list-count">1</span></a></li></ul></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" style="font-size: 1.1em; color: #999">激活函数</a> <a href="/tags/%E5%AE%89%E5%85%A8%E5%9B%BE%E4%B9%A6/" style="font-size: 1.1em; color: #999">安全图书</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 1.1em; color: #999">内存</a> <a href="/tags/fzf/" style="font-size: 1.1em; color: #999">fzf</a> <a href="/tags/OpenResty/" style="font-size: 1.23em; color: #999ea6">OpenResty</a> <a href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" style="font-size: 1.1em; color: #999">Cherry（键盘）</a> <a href="/tags/miniconda/" style="font-size: 1.1em; color: #999">miniconda</a> <a href="/tags/cpu/" style="font-size: 1.1em; color: #999">cpu</a> <a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.1em; color: #999">索引</a> <a href="/tags/zsh/" style="font-size: 1.1em; color: #999">zsh</a> <a href="/tags/gpt4all/" style="font-size: 1.1em; color: #999">gpt4all</a> <a href="/tags/osv/" style="font-size: 1.1em; color: #999">osv</a> <a href="/tags/comfyui/" style="font-size: 1.1em; color: #999">comfyui</a> <a href="/tags/github/" style="font-size: 1.5em; color: #99a9bf">github</a> <a href="/tags/soc/" style="font-size: 1.23em; color: #999ea6">soc</a> <a href="/tags/chromadb/" style="font-size: 1.1em; color: #999">chromadb</a> <a href="/tags/%E8%93%9D%E7%89%99%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">蓝牙键盘</a> <a href="/tags/WhisperFusion/" style="font-size: 1.1em; color: #999">WhisperFusion</a> <a href="/tags/zip/" style="font-size: 1.1em; color: #999">zip</a> <a href="/tags/Lapis/" style="font-size: 1.1em; color: #999">Lapis</a> <a href="/tags/CVE/" style="font-size: 1.1em; color: #999">CVE</a> <a href="/tags/OpenSSL/" style="font-size: 1.1em; color: #999">OpenSSL</a> <a href="/tags/mount/" style="font-size: 1.1em; color: #999">mount</a> <a href="/tags/music/" style="font-size: 1.23em; color: #999ea6">music</a> <a href="/tags/%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%A7%98%E7%B1%8D/" style="font-size: 1.1em; color: #999">提示词秘籍</a> <a href="/tags/Graylog/" style="font-size: 1.37em; color: #99a4b2">Graylog</a> <a href="/tags/%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87/" style="font-size: 1.1em; color: #999">不支持中文</a> <a href="/tags/c/" style="font-size: 1.23em; color: #999ea6">c</a> <a href="/tags/openssl/" style="font-size: 1.1em; color: #999">openssl</a> <a href="/tags/TTS/" style="font-size: 1.1em; color: #999">TTS</a> <a href="/tags/mongodb/" style="font-size: 1.1em; color: #999">mongodb</a> <a href="/tags/ThreatIngestor/" style="font-size: 1.1em; color: #999">ThreatIngestor</a> <a href="/tags/x79/" style="font-size: 1.1em; color: #999">x79</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 1.23em; color: #999ea6">翻译</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">深度学习</a> <a href="/tags/AudioCraft/" style="font-size: 1.1em; color: #999">AudioCraft</a> <a href="/tags/llamaindex-cli/" style="font-size: 1.23em; color: #999ea6">llamaindex-cli</a> <a href="/tags/Shuffle/" style="font-size: 1.23em; color: #999ea6">Shuffle</a> <a href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" style="font-size: 1.1em; color: #999">运维记录</a> <a href="/tags/flink/" style="font-size: 1.1em; color: #999">flink</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1142</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">324</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/12/"><span class="card-archive-list-date">十二月 2019</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/05/"><span class="card-archive-list-date">五月 2019</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">1788</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-04-03T07:15:14.935Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
-  var meta = document.createElement('meta');
-  meta.content = 'no-referrer';
-  meta.name = 'referrer';
-  document.getElementsByTagName('head')[0].appendChild(meta);
-})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/AIGC/">
+                AIGC
+                <div class="category-count">117</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/AIGC/weibo/">
+                weibo
+                <div class="category-count">59</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Gradio/">
+                Gradio
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/rag/">
+                rag
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/rtx4090/">
+                rtx4090
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/gihub/">
+                gihub
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/huaggingface/">
+                huaggingface
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/math/">
+                math
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/ollama/">
+                ollama
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/news/">
+                news
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/github/">
+                github
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%A7%98%E7%B1%8D/">
+                提示词秘籍
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/AI-gateway/">
+                AI gateway
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/prompting-guide/">
+                prompting guide
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Quiver/">
+                Quiver
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/honeypot/">
+                honeypot
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/python/">
+                python
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/chatglm3/">
+                chatglm3
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/RAG/">
+                RAG
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/stablediffusion/">
+                stablediffusion
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/comfyui/">
+                comfyui
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/llamaindex-cli/">
+                llamaindex-cli
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/gfpgan/">
+                gfpgan
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/sora/">
+                sora
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/SonicVisionLM/">
+                SonicVisionLM
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/AnimateAnyone/">
+                AnimateAnyone
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/WhisperSpeech/">
+                WhisperSpeech
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/music/">
+                music
+                <div class="category-count">2</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/AIGC/music/Mubert-API/">
+                Mubert API
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/AIGC/AudioCraft/">
+                AudioCraft
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Amphion/">
+                Amphion
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Riffusion/">
+                Riffusion
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/TTS/">
+                TTS
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/audio/">
+                audio
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/AIGC/audio/WavJourney/">
+                WavJourney
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/AIGC/prime-select/">
+                prime-select
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/conda/">
+                conda
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/ChatGLM/">
+                ChatGLM
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/Mixtral-8x7B/">
+                Mixtral-8x7B
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/cuDNN/">
+                cuDNN
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/AIGC/langchain/">
+                langchain
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/linux/">
+                linux
+                <div class="category-count">10</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/linux/rsync/">
+                rsync
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/linux/lsof/">
+                lsof
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E7%BF%BB%E8%AF%91/">
+                翻译
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%96%87%E7%AB%A0/">
+                文章
+                <div class="category-count">25</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E4%B9%A6%E7%B1%8D/">
+                书籍
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E8%AF%BE%E7%A8%8B/">
+                课程
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                数据库
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/books/">
+                books
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/books/publish/">
+                publish
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E5%87%BA%E7%89%88%E7%89%A9/">
+                出版物
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E5%AE%89%E5%85%A8/">
+                安全
+                <div class="category-count">38</div>
+            </a>
+        
+            <a class="category-link" href="/categories/database/">
+                database
+                <div class="category-count">4</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/database/vector/">
+                vector
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                开源项目
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E8%82%B2%E5%84%BF/">
+                育儿
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Sec/">
+                Sec
+                <div class="category-count">5</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/Sec/AIGC/">
+                AIGC
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Sec/Graylog/">
+                Graylog
+                <div class="category-count">3</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/publish/">
+                publish
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/ChatGLM/">
+                ChatGLM
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/nvidia/">
+                nvidia
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/obsidian/">
+                obsidian
+                <div class="category-count">8</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/obsidian/hexo/">
+                hexo
+                <div class="category-count">3</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E4%B8%BB%E6%9C%BA%E7%A1%AC%E4%BB%B6/">
+                主机硬件
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/python/">
+                python
+                <div class="category-count">4</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/python/%E5%8A%A0%E5%AF%86%E5%BA%93/">
+                加密库
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/python/conda/">
+                conda
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/ruby/">
+                ruby
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%9F%A5%E8%AF%86/">
+                知识
+                <div class="category-count">11</div>
+            </a>
+        
+            <a class="category-link" href="/categories/lua/">
+                lua
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Mac/">
+                Mac
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/git/">
+                git
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">
+                教程
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/lua-guide/">
+                lua_guide
+                <div class="category-count">34</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/lua-guide/lua%E6%95%99%E7%A8%8B/">
+                lua教程
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/lua-guide/LUA%E6%95%99%E7%A8%8B/">
+                LUA教程
+                <div class="category-count">2</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6/">
+                数学
+                <div class="category-count">4</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                深度学习
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Lua/">
+                Lua
+                <div class="category-count">2</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/Lua/Redis/">
+                Redis
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/gitee/">
+                gitee
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/LLM/">
+                LLM
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/english/">
+                english
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/OPENRESTY/">
+                OPENRESTY
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%BF%BB%E8%AF%91%E5%8E%9F%E6%96%87/">
+                翻译原文
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/topic/">
+                topic
+                <div class="category-count">1446</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/topic/mysql/">
+                mysql
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/tools/">
+                tools
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/tools/nccopy/">
+                nccopy
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/AI/">
+                AI
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%BD%91%E5%85%B3/">
+                网关
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E5%8A%A8%E6%80%81%E5%BA%93/">
+                动态库
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/allinone/">
+                allinone
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/classical/">
+                classical
+                <div class="category-count">6</div>
+            </a>
+        
+            <a class="category-link" href="/categories/sd/">
+                sd
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/sd/photo/">
+                photo
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E7%AC%94%E8%AE%B0/">
+                笔记
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/gpt4all/">
+                gpt4all
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/InternLM2/">
+                InternLM2
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/kali/">
+                kali
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/kali/nmap/">
+                nmap
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/github/">
+                github
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AGI/" rel="tag">AGI</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AI-gateway/" rel="tag">AI gateway</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/API/" rel="tag">API</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ASCII%E6%94%BB%E5%87%BB/" rel="tag">ASCII攻击</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ATTCK/" rel="tag">ATTCK</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Amphion/" rel="tag">Amphion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AnimateAnyone/" rel="tag">AnimateAnyone</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AudioCraft/" rel="tag">AudioCraft</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/CAPEC/" rel="tag">CAPEC</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/CVE/" rel="tag">CVE</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ChatGLM/" rel="tag">ChatGLM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ChatGLM2/" rel="tag">ChatGLM2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ChatGPT/" rel="tag">ChatGPT</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" rel="tag">Cherry（键盘）</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ClickHouse/" rel="tag">ClickHouse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Cortex/" rel="tag">Cortex</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ElasticSearch/" rel="tag">ElasticSearch</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/GPT/" rel="tag">GPT</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/GROK/" rel="tag">GROK</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Gradio/" rel="tag">Gradio</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Graylog/" rel="tag">Graylog</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/IOC/" rel="tag">IOC</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/InternLM2/" rel="tag">InternLM2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/JSON/" rel="tag">JSON</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LUA/" rel="tag">LUA</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LUA%E6%95%99%E7%A8%8B/" rel="tag">LUA教程</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Lapis/" rel="tag">Lapis</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Luna/" rel="tag">Luna</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/MISP/" rel="tag">MISP</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Mixtral-8x7B/" rel="tag">Mixtral-8x7B</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Mubert-API/" rel="tag">Mubert API</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/NPM/" rel="tag">NPM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OOTDiffusion/" rel="tag">OOTDiffusion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OTX/" rel="tag">OTX</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ObsidianAddict/" rel="tag">ObsidianAddict</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OpenCTI/" rel="tag">OpenCTI</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Prompting-Guide/" rel="tag">Prompting Guide</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Quiver/" rel="tag">Quiver</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/RAG/" rel="tag">RAG</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/RESTY-HTTP/" rel="tag">RESTY-HTTP</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/RE%E4%B8%8ECT%E6%A1%86%E6%9E%B6/" rel="tag">RE与CT框架</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Riffusion/" rel="tag">Riffusion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Ruby/" rel="tag">Ruby</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/SIEM/" rel="tag">SIEM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/SOAR/" rel="tag">SOAR</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Shuffle/" rel="tag">Shuffle</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/SonicVisionLM/" rel="tag">SonicVisionLM</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Split/" rel="tag">Split</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Suricata/" rel="tag">Suricata</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/TTPs/" rel="tag">TTPs</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/TTS/" rel="tag">TTS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/TheHive/" rel="tag">TheHive</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ThreatIngestor/" rel="tag">ThreatIngestor</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/WavJourney/" rel="tag">WavJourney</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Web%E5%AE%89%E5%85%A8/" rel="tag">Web安全</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/WhisperFusion/" rel="tag">WhisperFusion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/WhisperSpeech/" rel="tag">WhisperSpeech</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/abc/" rel="tag">abc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/allinone/" rel="tag">allinone</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/apisix/" rel="tag">apisix</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/article/" rel="tag">article</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/basic/" rel="tag">basic</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/book/" rel="tag">book</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/books/" rel="tag">books</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/c/" rel="tag">c</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/chatglm3/" rel="tag">chatglm3</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/chromadb/" rel="tag">chromadb</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/clickhouse/" rel="tag">clickhouse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/comfyui/" rel="tag">comfyui</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/conda/" rel="tag">conda</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/cpu/" rel="tag">cpu</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/cuDNN/" rel="tag">cuDNN</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/cuda/" rel="tag">cuda</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dashboard/" rel="tag">dashboard</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dataview/" rel="tag">dataview</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/datetime/" rel="tag">datetime</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dev/" rel="tag">dev</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/fishell/" rel="tag">fishell</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/flink/" rel="tag">flink</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/fuser/" rel="tag">fuser</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/fzf/" rel="tag">fzf</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/galah/" rel="tag">galah</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gateway/" rel="tag">gateway</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gfpgan/" rel="tag">gfpgan</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gitee/" rel="tag">gitee</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gpt4all/" rel="tag">gpt4all</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/gpustat/" rel="tag">gpustat</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/huaggingface/" rel="tag">huaggingface</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/iftop/" rel="tag">iftop</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/iptables/" rel="tag">iptables</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/jekyll/" rel="tag">jekyll</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/jupyter/" rel="tag">jupyter</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/langchain/" rel="tag">langchain</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lapis/" rel="tag">lapis</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lazygit/" rel="tag">lazygit</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/libreoffice/" rel="tag">libreoffice</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/llama/" rel="tag">llama</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/llamaindex-cli/" rel="tag">llamaindex-cli</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lsof/" rel="tag">lsof</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua-json/" rel="tag">lua json</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/luarocks/" rel="tag">luarocks</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">lua二分查找</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua%E5%BE%AA%E7%8E%AF/" rel="tag">lua循环</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86/" rel="tag">lua循环遍历</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/miniconda/" rel="tag">miniconda</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/moonscript/" rel="tag">moonscript</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/mount/" rel="tag">mount</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/music/" rel="tag">music</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/n8n/" rel="tag">n8n</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nc/" rel="tag">nc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ncat/" rel="tag">ncat</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nccopy/" rel="tag">nccopy</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ncopy/" rel="tag">ncopy</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/netstat/" rel="tag">netstat</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/news/" rel="tag">news</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nmap/" rel="tag">nmap</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nvidia/" rel="tag">nvidia</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/nvidia-smi/" rel="tag">nvidia-smi</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/obsidian/" rel="tag">obsidian</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ollama/" rel="tag">ollama</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openresty/" rel="tag">openresty</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openssl/" rel="tag">openssl</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/osv/" rel="tag">osv</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/pdf/" rel="tag">pdf</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/photo/" rel="tag">photo</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/picgo/" rel="tag">picgo</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/prime-select/" rel="tag">prime-select</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/riggrep/" rel="tag">riggrep</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rsync/" rel="tag">rsync</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rtx4090/" rel="tag">rtx4090</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/scirius/" rel="tag">scirius</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/sigama/" rel="tag">sigama</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/soc/" rel="tag">soc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/sora/" rel="tag">sora</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/stablediffusion/" rel="tag">stablediffusion</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/starship/" rel="tag">starship</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/templater/" rel="tag">templater</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/tengine/" rel="tag">tengine</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ubuntu20/" rel="tag">ubuntu20</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/ubuntu22/" rel="tag">ubuntu22</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/weibo/" rel="tag">weibo</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/whisper/" rel="tag">whisper</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/x79/" rel="tag">x79</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/x99/" rel="tag">x99</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/zip/" rel="tag">zip</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/zsh/" rel="tag">zsh</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87/" rel="tag">不支持中文</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%B8%BB%E6%9D%BF/" rel="tag">主板</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BA%92%E8%81%94%E7%BD%91/" rel="tag">互联网</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BA%BA%E6%B0%91%E9%82%AE%E7%94%B5%E5%87%BA%E7%89%88%E7%A4%BE/" rel="tag">人民邮电出版社</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" rel="tag">人际关系</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%86%85%E5%AD%98/" rel="tag">内存</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E4%B9%A6/" rel="tag">图书</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">图数据库</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" rel="tag">大数据安全</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%A4%B1%E4%B8%9A/" rel="tag">失业</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E5%9B%BE%E4%B9%A6/" rel="tag">安全图书</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" rel="tag">安全工具</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" rel="tag">安全技术</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E8%BF%90%E8%90%A5/" rel="tag">安全数据运营</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" rel="tag">安全运营</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B9%B3%E6%96%B9%E5%92%8C%E5%85%AC%E5%BC%8F/" rel="tag">平方和公式</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B9%B3%E6%96%B9%E5%B7%AE%E5%85%AC%E5%BC%8F/" rel="tag">平方差公式</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%BF%83%E9%87%8C%E5%AD%A6/" rel="tag">心里学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE/" rel="tag">折半查找</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%A7%98%E7%B1%8D/" rel="tag">提示词秘籍</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E9%94%AE%E7%9B%98/" rel="tag">无线键盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98/" rel="tag">机械键盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98%E9%80%89%E8%B4%AD/" rel="tag">机械键盘选购</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">正则表达式</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" rel="tag">激活函数</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%94%B5%E5%AD%90%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE/" rel="tag">电子工业出版社</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E5%A4%96%E8%AE%BE/" rel="tag">电脑外设</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%99%BE%E5%BA%A6AI/" rel="tag">百度AI</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98/" rel="tag">硬盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A3%81%E7%9B%98/" rel="tag">磁盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A7%8D%E8%8A%B1/" rel="tag">种花</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%B1%82%E8%81%8C/" rel="tag">程序员求职</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%93%9D%E7%89%99%E9%94%AE%E7%9B%98/" rel="tag">蓝牙键盘</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E6%9E%81%E9%99%90/" rel="tag">表达式与极限</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4%E8%AE%B0%E5%BD%95/" rel="tag">运维记录</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%94%AE%E7%9B%98%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%89/" rel="tag">键盘（计算机）</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%9D%99%E7%94%B5%E5%AE%B9%E5%BC%8F%E9%94%AE%E7%9B%98/" rel="tag">静电容式键盘</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+      
+   
+
+
+<article id="post-zl/2016-01-01-166_lua 字节码(bytecode)" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-166_lua%20%E5%AD%97%E8%8A%82%E7%A0%81(bytecode)/">lua 字节码(bytecode)</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.011Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            3.8k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+  lua字节码
+  字节码格式    
+      源码案例：
+      对应字节码：
+      指令解释：
+    
+  
+  指令分类
+  所有指令
+
+lua字节码
+lua虚拟机最终执行的是经过lua编译器编译的字节码，这里暂不关系Chunk生成字节码过程，
+只关系字节码本身，字节码的格式到底是什么样？具体的含义是什么？
+字节码格式
+lua字节码指令是由4个字节32位组成, 这时32是如何规划的，简单说那些位代表这个指令是
+什么，那些位是操作数据，这里通过一个案例来看看bytecode结构，然后再解释bytecode具
+体的结构。
+源码案例：
+--test function 1
+function max(num1, num2)
+   if (num1 &gt; num2) then
+	  r = num1
+   else
+	  r = num2
+   end
+   return r
+end
+--test function 2
+function add(num1, num2)
+	return num1 + num2
+end
+print(&#34;hello world&...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-166_lua%20%E5%AD%97%E8%8A%82%E7%A0%81(bytecode)/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-312_热更新之xLua" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-312_%E7%83%AD%E6%9B%B4%E6%96%B0%E4%B9%8BxLua/">热更新之xLua</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.011Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.7k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              思考并回答以下问题：1.Lua有哪两种作用？2.如何安装xLua？
+Unity热更新有两大流派，C#派和lua派，那lua派是啥样的呢？
+lua是一门历史悠久的脚本语言，从端游那个年代就被广泛应用在游戏开发中，所以到了现在的手游时代，有很多团队也让lua技术再次发展了起来。
+Lua 是一个小巧的脚本语言，于1993年开发。
+Lua设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。Lua由标准C编写而成，几乎在所有操作系统和平台上都可以编译运行。Lua并没有提供强大的库，因为它的定位就是作为嵌入的脚本语言，所以Lua不适合开发独立应用程序。Lua有一个同时进行的JIT项目，提供在特定平台上的即时编译功能。
+Lua脚本可以很容易的被C/C++代码调用，也可以反过来调用C/C++的函数，这使得Lua在应用程序中可以被广泛应用，特别是在端游阶段，游戏几乎都是使用C/C++开发的，lua给游戏开发带来了极大的便利性。
+不仅仅作为扩展脚本，lua也可以作为普通的配置文件，代替XML、JSON、ini等文件格式，并且很容易理解和维护。Lua由标准C编写而成，代码简洁优美，几...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-312_%E7%83%AD%E6%9B%B4%E6%96%B0%E4%B9%8BxLua/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-784_Lua" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-784_Lua/">Lua</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.011Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.2k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              table 操作
+
+
+
+
+函数
+解释
+
+
+
+
+table.concat (table [, step [, start [, end]]])
+函数列出参数中指定table的数组部分从start位置到end位置的所有元素, 元素间以指定的分隔符(step)隔开
+
+
+table.insert (table, [pos,] value)
+在table的数组部分指定位置(pos)插入值为value的一个元素. pos参数可选, 默认为数组部分末尾
+
+
+table.maxn(table)
+指定table中所有正数key值中最大的key值. 如果不存在key值为正数的元素, 则返回0。(Lua5.2之后该方法已经不存在了)
+
+
+table.remove (table [, pos])
+返回table数组部分位于pos位置的元素. 其后的元素会被前移. pos参数可选, 默认为table长度, 即从最后一个元素删起。
+
+
+table.sort (table [, comp])
+对给定的table进行升序排序。
+
+
+table.getn(tableName)
+获取表的长度
+
+
+
+
+操作示例
+ta...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-784_Lua/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-1150_luarocks quickstart" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-1150_luarocks%20quickstart/">luarocks quickstart</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.010Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.4k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+    &lt;p&gt;Here is the &lt;a href=&quot;https://luarocks.org/&quot; target=&quot;_blank&quot; rel=&quot;external noopener noreferrer&quot;&gt;official website of LuaRocks&lt;/a&gt;. LuaRocks is the package manager for Lua moduels, which means that we can use it to install or uninstall some specific Lua libraries like LuaMySQL and LuaMongoDB.&lt;/p&gt;
+
+Below is the tutorial to install LuaRocks.
+Install LuaRocksHere we use Centos 7. We will install LuaRocks through command lines as follows ...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-1150_luarocks%20quickstart/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-325_Modelling and Evaluation of CCN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-325_Modelling%20and%20Evaluation%20of%20CCN/">Modelling and Evaluation of CCN</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.010Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.4k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+			&lt;div class=&quot;m-article-content js-article-content&quot; itemprop=&quot;articleBody&quot;&gt;&lt;h2 id=&quot;综述&quot;&gt;综述&lt;/h2&gt;
+
+基本信息
+Author: Ioannis Psaras, Richard G. Clegg, Raul Landa, Wei Koong Chai, and George Pavlou
+Year: 2011
+Journal: NETWORKING
+Url: click here
+单节点建模
+$lambda$：使得内容PoI来到缓存顶部的请求的到达速率（对内容PoI请求的到达速率）。
+$mu$：使得内容PoI下移的请求的到达速率。
+$pi=(pi_1,pi_2,dots,pi_{N+1})$：链的均衡概率，或者PoI在该位置花费的时间比例，有：
+pi_i=frac{lambda}{mu}big[frac{mu}{mu+lambda}big]^i
+pi_{N+1}=big[frac{mu}{mu+...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-325_Modelling%20and%20Evaluation%20of%20CCN/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-970_Centos7安装Nginx整合Lua" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-970_Centos7%E5%AE%89%E8%A3%85Nginx%E6%95%B4%E5%90%88Lua/">Centos7安装Nginx整合Lua</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.009Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.2k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              (adsbygoogle=window.adsbygoogle||[]).push({})背景Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。现在通常把lua迁入nginx中，根据lua脚本规则，强化nginx的能力。本文介绍在centos7中安装nginx整合lua。环境centos7安装关闭防火墙12systemctl stop firewalld.service systemctl disable firewalld.service #禁止firewall开机启动安装依赖环境1yum -y install yum-utils gcc zlib zlib-devel pcre-devel openssl openssl-devel wget安装LuaJIT1234wget http://luajit.org/download/LuaJIT-2.0.2.tar.gztar -xvf LuaJIT-2.0.2.tar.gzcd LuaJIT-2.0.2make install安装ngi...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-970_Centos7%E5%AE%89%E8%A3%85Nginx%E6%95%B4%E5%90%88Lua/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-106_Lua 中的随机数 " class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-106_Lua%20%E4%B8%AD%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0%20/">Lua 中的随机数</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.008Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.9k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              Lua 随机数算法用的是 libc 中的 rand, 也就是 LCG。然而这个算法的随机性一般。尤其是在一些平台上，当随机种子变化非常小的时候，产生的随机数变化也非常小。这样再经过 Lua 的精度取舍之后，产生的随机序列仍然很相似（伪随机的结果变成可预知性）。
+lua-l 上也讨论过这个问题 msg00564，lua 的作者之一 lhf 给出的解决方案是先弹出前面几个看起来「不怎么随机」的随机数。另外，作者也写过一个基于 MT 算法的 c lib: lrandim, 有兴趣的同学可以去看下。
+然而在 lua-wiki 上有一种更为巧妙的实现（这个用例同样是有缺陷的，这里只是为了引出上面的问题。以后我会单独讨论这个问题）：
+local seed = 123456
+for i=1,2 do
+    math.randomseed(seed + (i-1)/10)
+    local num = &#123;&#125;
+    for j=1,10 do
+        table.insert(num, math.random(100))
+    end
+    print(tab...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-106_Lua%20%E4%B8%AD%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0%20/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-793_lua 与 C 交互" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-793_lua%20%E4%B8%8E%20C%20%E4%BA%A4%E4%BA%92/">lua 与 C 交互</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.008Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            4.3k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              lua和C交互的核心就是lua栈，lua和C的所有数据交互都是通过lua栈来完成的。
+一. C调用luaC调用lua很简单，通常C以lua作为配置脚本，在运行时读取脚本数据，主要步骤：
+
+加载脚本    luaL_loadfile 
+运行脚本  lua_pcall 
+获取数据  lua_getglobal …. 
+使用数据  lua_tostring lua_pcall …
+
+二. 在lua脚本中调用C：在C程序中，使用lua作为脚本，但是要在运行脚本时，访问C中定义的一些变量或函数。
+
+将C变量或函数(遵从指定函数原型，见下面三 Step 1)push到lua栈中
+通过lua_setglobal为当前lua栈顶的函数或变量命名，这样在lua中可通过该名字完成对变量或函数的使用
+之后可在加载的lua脚本中使用C变量或函数
+
+三. 将C函数封装为一个库，为lua所用将C函数编译为动态库文件，这样可以在lua主程序中，加载这个库文件，并使用其中的C函数。
+Step 1. 在mylib.c中定义给lua调用的C函数 函数原型为： int (lua_State*)如：
+static in...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-793_lua%20%E4%B8%8E%20C%20%E4%BA%A4%E4%BA%92/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-846_lua table只读" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-846_lua%20table%E5%8F%AA%E8%AF%BB/">lua table只读</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.008Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            8.4k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+function read_only(inputTable)
+    local travelled_tables = &#123;&#125;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__read_only&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tbl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span cla...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-846_lua%20table%E5%8F%AA%E8%AF%BB/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-zl/2016-01-01-597_Lua代码规范" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-597_Lua%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">Lua代码规范</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.007Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            5.5k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              在公司整理了一份Lua语言的代码规范，分享一下。
+
+写代码如同写文章，每个人或多或少都有自己的风格。我们在进行产品开发的过程中，更多的是团队上的协作与交流而非单打独斗。所以，为了 提高开发效率，降低维护成本，促进团队合作，代码的审查，整理出这篇文章。
+借助于《Python风格指南》中的警告词，在此处引用一下：代码的阅读频率比编写的要高得多，本风格指南旨在通过一致性提高代码的可读性。一致性在不断增加的度量中，与其他项目、项目内以及单个模块或功能内是重要的。但是最重要的是:知道什么时候不一致，并运用你最好的判断——有时风格指南并不适用。当应用规则会降低代码的可读性时，最好打破规则。
+最后，一句话送给大家：
+
+Programming style is an art.
+
+
+
+
+1. 版式1.1 基础
+所有文件均采用: UTF-8 无 BOM 格式
+
+程序块要采用 缩进风格 编写，缩进的空格数为 4个 ，对齐使用 空格键，禁用TAB键 
+
+避免使用不同编辑器阅读程序时，因TAB键设置的空格数不同而造成程序布局不整齐。
+
+
+函数内代码不超过 50行 , 单行代码不超过 80列
+
+长表达式要在...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-597_Lua%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+  <nav id="page-nav">
+    <!-- 在第二页时 page.prev_link 不知为何无法返回正确的链接 -->
+    <a id="prev-btn" class="page-nav-btn " href=" /page/95/  ">
+      <i class="fa-solid fa-angle-left"></i>
+    </a>
+    <div id="num-bar">
+      <a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/94/">94</a><a class="page-number" href="/page/95/">95</a><span class="page-number current">96</span><a class="page-number" href="/page/97/">97</a><a class="page-number" href="/page/98/">98</a><span class="space">&hellip;</span><a class="page-number" href="/page/179/">179</a>  
+    </div>
+    <a id="next-btn" class="page-nav-btn " href="/page/97/">
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+  </nav>
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 糖果的实验室-LUA教程<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
