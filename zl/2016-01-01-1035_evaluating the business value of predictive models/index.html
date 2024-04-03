@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>evaluating the business value of predictive models in python and r | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="By Jurriaan Nagelkerke, Data Science Consultant, and Pieter Marcus, Data Scientist   Why ROC curves are a bad idea to explain your model to business people   Summary  In this blog we explain four most">
+<meta property="og:type" content="article">
+<meta property="og:title" content="evaluating the business value of predictive models in python and r">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-1035_evaluating%20the%20business%20value%20of%20predictive%20models/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="By Jurriaan Nagelkerke, Data Science Consultant, and Pieter Marcus, Data Scientist   Why ROC curves are a bad idea to explain your model to business people   Summary  In this blog we explain four most">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:32.975Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:32.975Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-1035_evaluating%20the%20business%20value%20of%20predictive%20models/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'evaluating the business value of predictive models in python and r',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">evaluating the business value of predictive models in python and r</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:32.975Z" title="发表于 2024-04-03 11:47:32">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:32.975Z" title="更新于 2024-04-03 11:47:32">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="evaluating the business value of predictive models in python and r"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p><strong>By Jurriaan Nagelkerke, Data Science Consultant, and Pieter Marcus, Data Scientist</strong></p>
+<p> </p>
+<h3 id="why-roc-curves-are-a-bad-idea-to-explain-your-model-to-business-people">Why ROC curves are a bad idea to explain your model to business people</h3>
+<p> </p>
+<h3 id="summary">Summary</h3>
+<p> In this blog we explain four most valuable evaluation plots to assess the business value of a predictive model. These plots are cumulative gains, cumulative lift, response and cumulative response. Since these visualisations are not included in most popular model building packages or modules in R and Python, we show how you can easily create these plots for your own predictive models with our modelplotpy python module and our modelplotr R package (Prefer R? Read all about modelplotr here!). This will help you to explain your model’s business value in laymans terms to non-techies.</p>
+<p> </p>
+<h3 id="intro">Intro</h3>
+<p> <img src="https://modelplot.github.io/img/cartoonrocplot.jpg" alt=""/></p>
+<blockquote>
+  <p>‘…And as we can see clearly on this ROC plot, the sensitivity of the model at the value of 0.2 on one minus the specificity is quite high! Right?…’.</p>
+</blockquote>
+<p>If your fellow business colleagues didn’t already wander away during your presentation about your fantastic predictive model, it will definitely push them over the edge when you start talking like this. Why? Because the ROC curve is not easy to quickly explain and also difficult to translate into answers on the business questions your spectators have. And these business questions were the reason you’ve built a model in the first place!</p>
+<p>What business questions? We build all kinds of supervised classification problems. Such as predictive models to select the best records in a dataset, which can be customers, leads, items, events… For instance: You want to know which of your active customers have the highest probability to churn; you need to select those prospects that are most likely to respond to an offer; you have to identify transactions that have a high risk to be fraudulent. During your presentation, your audience is therefore mainly focused on answering questions like <em>Does your model enable us to our target audience? How much better are we, using your model? What will the expected response on our campaign be?</em></p>
+<p>During our model building efforts, we should already be focused on verifying how well the model performs. Often, we do so by training the model parameters on a selection or subset of records and test the performance on a holdout set or external validation set. We look at a set of performance measures like the ROC curve and the AUC value. These plots and statistics are very helpful to check during model building and optimization whether your model is under- or overfitting and what set of parameters performs best on test data. However, these statistics are not that valuable in assessing the business value the model you developed.</p>
+<p>One reason that the ROC curve is not that useful in explaining the business value of your model, is because it’s quite hard to explain the interpretation of ‘area under the curve’, ‘specificity’ or ‘sensitivity’ to business people. Another important reason that these statistics and plots are useless in your business meetings is that they don’t help in determining how to apply your predictive model: What percentage of records should we select based on the model? Should we select only the best 10% of cases? Or should we stop at 30%? Or go on until we have selected 70%?… This is something you want to decide <em>together</em>with your business colleague to best match the business plans and campaign targets they have to meet. The four plots - cumulative gains, cumulative lift, response and cumulative response - we are about to introduce are in our view the best ones for that cause.</p>
+<p> </p>
+<h3 id="get-modelplotpy-working-on-your-machine">Get modelplotpy working on your machine</h3>
+<p> Let’s start this tutorial with installing the <strong>modelplotpy</strong> module. Modelplotpy is already available from Github, but currently it is not possible to install through the Python Package Index (PyPI) repository.</p>
+<p>For some users we encountered that GitHub needs to be installed on your machine first. If you don’t have GitHub installed on your machine yet, it can be downloaded from here. After installing GitHub on your machine, it helps to restart and then continue with this tutorial.</p>
+<p>Modelplotpy has to be installed through the command-line. On machines operating on macOS or Linux open the terminal and on Windows machines search for cmd.exe and hit enter. Copy and paste the command below and hit enter.</p>
+<p>Once you have been able to install modelplotpy, it’s time to open Python and load it into the working directory and continue this tutorial! This tutorial has been written in Python 3.6.4 and may not work fully in Python 2.x.</p>
+<p>Now we’re ready to use modelplotpy. In another post, we’ll go into much more detail on our modelplot packages in r and python and all its functionalities. Here, we’ll focus on using modelplotpy with a business example.</p>
+<p> </p>
+<h3 id="example-predictive-models-fromsklearnon-thebank-marketing-data-set">Example: Predictive models from <em>sklearn</em>on the <em>Bank Marketing Data Set</em></h3>
+<p> Let’s get down to business! When we introduce the plots, we’ll show you how to use them with a business example. This example is based on a publicly available dataset, called the Bank Marketing Data Set. It is one of the most popular datasets which is made available on the UCI Machine Learning Repository. The data set comes from a Portugese bank and deals with a frequently-posed marketing question: whether a customer did or did not acquire a term deposit, a financial product. There are 4 datasets available and the <strong>bank-additional-full.csv</strong> is the one we use. It contains the information of 41.188 customers and 21 columns of information.</p>
+<p>To illustrate how to use modelplotpy, let’s say that we work for this bank and our marketing colleagues have asked us to help to select the customers that are most likely to respond to a term deposit offer. For that purpose, we will develop a predictive model and create the plots to discuss the results with our marketing colleagues. Since we want to show you how to build the plots, not how to build a perfect model, we’ll use six of these columns in our example. Here’s a short description on the data we use:</p>
+<p><strong>y</strong>: has the client subscribed a term deposit?
+<strong>duration</strong>: last contact duration, in seconds (numeric)
+<strong>campaign</strong>: number of contacts performed during this campaign and for this client
+<strong>pdays</strong>: number of days that passed by after the client was last contacted from a previous campaign
+<strong>previous</strong>: number of contacts performed before this campaign and for this client (numeric)
+<strong>euribor3m</strong>: euribor 3 month rate</p>
+<p>Let’s load the data and have a quick look at it:</p>
+<p>On this data, we’ve applied some predictive modeling techniques from the <strong>sklearn module</strong>. This well known module is a wrapper for many predictive modeling techniques, such as logistic regression, random forest and many, many others. Lets train a few models to evaluate with our plots.</p>
+<p>In another post, we’ll go into much more detail on our modelplot packages in R and Python and all its functionalities. For now, we focus on explaining to our marketing colleagues how good our predictive model can help them select customers for their term deposit campaign.</p>
+<p>What just happened? In the <strong>modelplotpy</strong> a class is instantiated and the <strong>plotting_scope</strong> function specifies the scope of the plots you want to show. In general, there are 3 methods (functions) that can be applied to the modelplotpy class but you don’t have to specify them since they are chained to each other. These functions are:</p>
+<p><strong>prepare_scores_and_deciles</strong>: scores the customers in the train dataset and test dataset with their probability to acquire a term deposit
+<strong>aggregate_over_deciles</strong>: aggregates all scores to deciles and calculates the information to show
+<strong>plotting_scope</strong>. allows you to specify the scope of the analysis.</p>
+<p>In the second line of code, we specified the scope of the analysis. We’ve not specified the “scope” parameter, therefore the default - <em>no comparison</em> - is chosen. As the output notes, you can use modelplotpy to evaluate your model(s) from several perspectives:</p>
+<p>Interpret just one model (the default)
+Compare the model performance across different datasets
+Compare the performance across different models
+Compare the performance across different target classes</p>
+<p>Here, we will keep it simple and evaluate - from a business perspective - how well a selected model will perform in a selected dataset for one target class. We did specify values for some parameters, to focus on the <strong>random forest</strong> model on the <strong>test data</strong>. The default value for the target class is <strong>term deposit</strong> ; since we want to focus on customers that do take term deposits, this default is perfect.</p>
+<p> </p>
+<h3 id="lets-introduce-the-gains-lift-and-cumulative-response-plots">Let’s introduce the Gains, Lift and (cumulative) Response plots.</h3>
+<p> Before we throw more code and output at you, let’s get you familiar with the plots we so strongly advocate to use to assess a predictive model’s business value. Although each plot sheds light on the business value of your model from a different angle, they all use the same data:</p>
+<p>Predicted probability for the target class
+Equally sized groups based on this predicted probability
+Actual number of observed target class observations in these groups</p>
+<p>It’s common practice to split the data to score into 10 equally large groups and call these groups deciles. Observations that belong to the top-10% with highest model probability in a set, are in decile 1 of that set; the next group of 10% with high model probability are decile 2 and finally the 10% observations with the lowest model probability on the target class belong to decile 10.</p>
+<p>Each of our four plots places the deciles on the x axis and another measure on the y axis. The deciles are plotted from left to right so the observations with the highest model probability are on the left side of the plot. This results in plots like this:</p>
+<p><img src="https://modelplot.github.io/img/decileplot.png" alt=""/></p>
+<p>Now that it’s clear what is on the horizontal axis of each of the plots, we can go into more detail on the metrics for each plot on the vertical axis. For each plot, we’ll start with a brief explanation what insight you gain with the plot from a business perspective. After that, we apply it to our banking data and show some neat features of modelplotpy to help you explain the value of your wonderful predictive models to others.</p>
+<p><strong>1. Cumulative gains plot</strong></p>
+<p>The cumulative gains plot - often named ‘gains plot’ - helps you answer the question:</p>
+<p><strong><em>When we apply the model and select the best X deciles, what % of the actual target class observations can we expect to target?</em></strong></p>
+<p>Hence, the cumulative gains plot visualises the percentage of the target class members you have selected if you would decide to select up until decile X. This is a very important business question, because in most cases, you want to use a predictive model to target a <strong>subset</strong> of observations - customers, prospects, cases,… - instead of targeting all cases. And since we won’t build perfect models all the time, we will miss some potential. And that’s perfectly all right, because if we are not willing to accept that, we should not use a model in the first place. Or build a perfect model, that scores all actual target class members with a 100% probability and all the cases that do not belong to the target class with a 0% probability. However, if you’re such a wizard, you don’t need these plots any way or you should have a careful look at your model - maybe you’re cheating?….</p>
+<p>So, we’ll have to accept we will lose some. <em>What percentage</em> of the actual target class members you do select with your model at a given decile, that’s what the cumulative gains plot tells you. The plot comes with two reference lines to tell you how good/bad your model is doing: The <em>random model line</em> and the <em>wizard model line</em>. The random model line tells you what proportion of the actual target class you would expect to select when no model is used at all. This vertical line runs from the origin (with 0% of cases, you can only have 0% of the actual target class members) to the upper right corner (with 100% of the cases, you have 100% of the target class members). It’s the rock bottom of how your model can perform; are you close to this, then your model is not much better than a coin flip. The wizard model is the upper bound of what your model can do. It starts in the origin and rises as steep as possible towards 100%. If less than 10% of all cases belong to the target category, this means that it goes steep up from the origin to the value of decile 1 and cumulative gains of 100% and remains there for all other deciles as it is a cumulative measure. Your model will always move between these two reference lines - closer to a wizard is always better - and looks like this:</p>
+<p><img src="https://modelplot.github.io/img/cumgainsplot.png" alt=""/></p>
+<p>Back to our business example. How many of the term deposit buyers can we select with the top-20% of our predictive models? Let’s find out! To generate the cumulative gains plot, we can simply call the function <strong>plot_cumgains()</strong>:</p>
+<p><img src="https://image.ibb.co/cMGLip/modelplotpy_1.png" alt=""/></p>
+<p>We only have to specify the input with the plotting_scope output. There are several parameters available to customize the plot, though. If we want to emphasize the model performance at a given point, we can add both highlighting to the plot and add some explanatory text below the plot. Both are optional, though:</p>
+<p><img src="https://image.ibb.co/f4ZUb9/modelplotpy_2.png" alt=""/></p>
+<p>Our ‘highlight_decile’ parameter adds some guiding elements to the plot at decile 2 as well as a text box below the graph with the interpretation of the plot at decile 2 in words. This interpretation is also printed to the console. Our simple model - only 6 pedictors were used - seems to do a nice job selecting the customers interested in buying term deposites. <em>When we select 20% with the highest probability according to random forest, this selection holds 79% of all term deposit cases in test data.</em> With a perfect model, we would have selected 100%, since less than 20% of all customers in the test set buy term deposits. A random pick would only hold 20% of the customers with term deposits. How much better than random we do, brings us to plot number 2!</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-1035_evaluating%20the%20business%20value%20of%20predictive%20models/">https://lua.ren/zl/2016-01-01-1035_evaluating%20the%20business%20value%20of%20predictive%20models/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-1036_amazon%20sagemaker%20neural%20topic%20model%20now%20supports%20a/" title="amazon sagemaker neural topic model now supports auxiliary vocabulary channel, new topic evaluation metrics, and training subsampling"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">amazon sagemaker neural topic model now supports auxiliary vocabulary channel, new topic evaluation metrics, and training subsampling</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-1032_bayes,%20statistics,%20and%20reproducibility%EF%BC%9A%20%20%E2%80%9Cmany%20ser/" title="bayes, statistics, and reproducibility：  “many serious problems with statistics in practice arise from bayesian inference that is not bayesian enough, or frequentist evaluation that is not frequentist enough, in both cases using replication distributions that do not make scientific sense or do not reflect the actual procedures being performed on the data.”"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">bayes, statistics, and reproducibility：  “many serious problems with statistics in practice arise from bayesian inference that is not bayesian enough, or frequentist evaluation that is not frequentist enough, in both cases using replication distributions that do not make scientific sense or do not reflect the actual procedures being performed on the data.”</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#why-roc-curves-are-a-bad-idea-to-explain-your-model-to-business-people"><span class="toc-number">1.</span> <span class="toc-text">Why ROC curves are a bad idea to explain your model to business people</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#summary"><span class="toc-number">2.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#intro"><span class="toc-number">3.</span> <span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get-modelplotpy-working-on-your-machine"><span class="toc-number">4.</span> <span class="toc-text">Get modelplotpy working on your machine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#example-predictive-models-fromsklearnon-thebank-marketing-data-set"><span class="toc-number">5.</span> <span class="toc-text">Example: Predictive models from sklearnon the Bank Marketing Data Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lets-introduce-the-gains-lift-and-cumulative-response-plots"><span class="toc-number">6.</span> <span class="toc-text">Let’s introduce the Gains, Lift and (cumulative) Response plots.</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

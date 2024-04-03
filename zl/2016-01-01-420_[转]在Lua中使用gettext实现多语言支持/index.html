@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>在Lua中使用gettext实现多语言支持 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文系转载，原文链接：http:&#x2F;&#x2F;zengrong.net&#x2F;post&#x2F;1986.htm感谢原作者无私分享。 在Lua中使用gettext实现多语言支持 2016-06-07更新：加入gettext包含的工具简介。  GNU gettext 是一套优秀的国际化工具。在 linux 中被大量采用。wordpress 也使用 gettext 实现多语言支持。 本文介绍如何在 quick-cocos2d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Lua中使用gettext实现多语言支持">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-420_[%E8%BD%AC]%E5%9C%A8Lua%E4%B8%AD%E4%BD%BF%E7%94%A8gettext%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="本文系转载，原文链接：http:&#x2F;&#x2F;zengrong.net&#x2F;post&#x2F;1986.htm感谢原作者无私分享。 在Lua中使用gettext实现多语言支持 2016-06-07更新：加入gettext包含的工具简介。  GNU gettext 是一套优秀的国际化工具。在 linux 中被大量采用。wordpress 也使用 gettext 实现多语言支持。 本文介绍如何在 quick-cocos2d">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.711Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.711Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-420_[%E8%BD%AC]%E5%9C%A8Lua%E4%B8%AD%E4%BD%BF%E7%94%A8gettext%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '在Lua中使用gettext实现多语言支持',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">在Lua中使用gettext实现多语言支持</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.711Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.711Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="在Lua中使用gettext实现多语言支持"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>本文系<strong>转载</strong>，原文链接：<a href="http://zengrong.net/post/1986.htm" target="_blank" rel="external noopener noreferrer">http://zengrong.net/post/1986.htm</a><br/>感谢原作者无私分享。</p>
+<p><a href="http://zengrong.net/post/1986.htm" target="_blank" rel="external noopener noreferrer">在Lua中使用gettext实现多语言支持</a></p>
+<p><strong>2016-06-07更新</strong>：加入gettext包含的工具简介。</p>
+<hr/>
+<p><a href="http://www.gnu.org/software/gettext/" target="_blank" rel="external noopener noreferrer">GNU gettext</a> 是一套优秀的国际化工具。在 linux 中被大量采用。wordpress 也使用 gettext 实现多语言支持。</p>
+<p>本文介绍如何在 quick-cocos2d-x 中使用 gettext 做多语言支持。同时介绍多语言翻译工具 <a href="http://www.poedit.net" target="_blank" rel="external noopener noreferrer">poedit</a> 对 Lua 语言的支持。</p>
+<h2 id="gettext-简介"><a href="#gettext-简介" class="headerlink" title="gettext 简介"></a>gettext 简介</h2><p>gettext 是一套工具集的名称。这套工具集包含 xgettext/msginit/msgfmt 等一套建立模版(POT)、创建PO文件和编译MO文件的工具。</p>
+<p>gettext 包含的工具如下：</p>
+<ul>
+<li>xgettext 从源码中生成POT模版或直接生成PO文件；</li>
+<li>msginit 基于POT文件生成待翻译的PO文件；</li>
+<li>msgfmt 将PO文件编译成二进制的MO文件；</li>
+<li>msgunfmt 顾名思义，将MO文件反编译成PO文件；</li>
+<li>msgmerge 将POT模版文件与PO文件合并。用于在源码更新之后将新的待翻译内容更新到已经翻译的PO文件中；</li>
+<li>msgcat 将多个PO文件合并在一起。</li>
+</ul>
+<p>使用 gettext 需要涉及这样几个概念：</p>
+<ul>
+<li>源码<br/>程序的源代码，本文中是 lua 文件；</li>
+<li>POT 文件<br/>从源码中扫描得到的翻译模版文件，原始语言取决于源码字符串中使用的自然语言，建议使用英文。纯文本格式；</li>
+<li>PO 文件<br/>根据 POT 文件建立的各种语言版本的待翻译文件，其中包含原始语言和被翻译的目标语言。纯文本格式；</li>
+<li>MO 文件<br/>供最终软件实际使用的文件，使用 PO 编译而成。二进制格式。</li>
+</ul>
+<p>一般的工作流程是这样的：</p>
+<ol>
+<li>在源码中使用约定的语法来书写字符串，C语言默认是 <code>gettext(&#34;my text&#34;)</code>。在本文中，将使用 <code>_(&#34;my text&#34;)</code> ；</li>
+<li>使用 xgettext 从源码中扫描出需要翻译的文本，建立 POT 文件；</li>
+<li>使用 msginit 命令根据 POT 文件建立 PO 文件。或者直接在上一步也可以直接建立 PO 文件；</li>
+<li>进行人工翻译（当然也可以进行机器翻译），翻译的结果保存在 PO 文件中；</li>
+<li>使用 msgfmt 命令将 PO 文件编译成 MO 文件；</li>
+<li>在程序中实现调用命令，本文中是 <code>_</code> 函数，这个函数将读取并解析 MO 文件，根据调用的原始语言文本返回翻译之后的文本。</li>
+</ol>
+<h2 id="Poedit-简介"><a href="#Poedit-简介" class="headerlink" title="Poedit 简介"></a>Poedit 简介</h2><p>gettext 提供的工具集都是基于命令行的，有些程序员并不习惯命令行。它也没有提供用于翻译工作者的对照翻译工具。</p>
+<p>而 <a href="http://www.poedit.net" target="_blank" rel="external noopener noreferrer">Poedit</a> 则提供了一切。</p>
+<p>Poedit 可以从源码中提取文本生成 PO 文件，也提供了一个GUI界面用于对照翻译。它还可以直接生成最终的 MO 文件。</p>
+<p>当然，在GUI之后，它依然是使用 gettext 来处理的，但这些具体的细节被隐藏了。</p>
+<h2 id="使用-Poedit-生成和翻译-PO-文件"><a href="#使用-Poedit-生成和翻译-PO-文件" class="headerlink" title="使用 Poedit 生成和翻译 PO 文件"></a>使用 Poedit 生成和翻译 PO 文件</h2><h3 id="软件设置"><a href="#软件设置" class="headerlink" title="软件设置"></a>软件设置</h3><p>1.开启 Poedit，执行 File - Preferences 命令，填入自己的个人信息。</p>
+<p><img src="https://sgamerw.github.io/poedit4.png" alt="Preferences"/></p>
+<p>2.切换到 Editor tab，选中 Automatically compile .mo file on save 和 Show summary after catalog update 两项。</p>
+<p><img src="https://sgamerw.github.io/poedit5.png" alt="Editor"/></p>
+<p>3.切换到 Parsers tab，这里提供了几种源码解析器，但默认没有Lua。我们下面将加入Lua源码解析。</p>
+<p><img src="https://sgamerw.github.io/poedit6.png" alt="Parses"/></p>
+<p>4.点击 New 新建一个源码解析器，进行如下图的设置。</p>
+<p><img src="https://sgamerw.github.io/poedit7.png" alt="Parse setup"/></p>
+<p>这些设置基本上与 C/C++ 的设置一致，只是修改了扩展名支持以及 Parser command 栏位。在 xgettext 命令的参数中，-C 就是 –language=C 的简写。</p>
+<p>接下来将新建一个项目进行设置。</p>
+<h3 id="项目设置"><a href="#项目设置" class="headerlink" title="项目设置"></a>项目设置</h3><p>1.执行 File - New catelog… 命令，在 Translation properties tab 中加入自己的信息。这里的 Language 选项只是个显示选项而已，并不能决定你使用的是何种语言，也不和刚才的软件设置中的 Parsers 相关。</p>
+<p><img src="https://sgamerw.github.io/poedit1.png" alt="Translation properties"/></p>
+<p>2.设定源代码路径，这个非常重要。</p>
+<p>我采用 quick 默认的目录风格，所有的源码放在 scripts 中。同时我建立了一个新的 i18n 目录，这个目录与 scripts 目录同级。生成的 PO 文件将保存在这个目录中。</p>
+<p>那么对于当前正在编辑的 PO 文件来说， Base path 就应该设置成 <code>..scripts</code> ， 下面的 Paths 就应该加入 . 这个路径。注意在 Windows 下， Base path 的路径分隔符必须采用 Windows 的格式（反斜杠  ），而不应该使用 / 。</p>
+<p><img src="https://sgamerw.github.io/poedit2.png" alt="Sources paths"/></p>
+<p>3.设定源代码关键词</p>
+<p>前面我们已经确定了自己的关键词，那就是 <code>_</code> 。当然我们也可以使用 C 语言的默认关键词 <code>gettext</code> ，但那样未免长了一点。</p>
+<p><img src="https://sgamerw.github.io/poedit3.png" alt="Sources paths"/></p>
+<p>4.设定完毕后，将项目保存为 <code>i18n/zh_CN.po</code> ，请注意我上面强调过的第2步。</p>
+<h3 id="解析源码"><a href="#解析源码" class="headerlink" title="解析源码"></a>解析源码</h3><p>一切设定成功之后，直接按下主界面上的 <code>Update</code> 按钮即可解析源码。Poedit 会将源码中解析到的使用 <code>_(&#34;my text&#34;)</code> 格式的关键词，将其中的字符串提取处理显示在主界面中。</p>
+<p>我们可以在主界面中对关键词进行翻译。</p>
+<p><img src="https://sgamerw.github.io/poedit8.png" alt="main scene"/></p>
+<p>如果源码有更新，再次单击 <code>Update</code> 按钮重新解析源码。这是如果解析到新的字符串，或者有字符串不再使用，Poedit都会进行提示。</p>
+<p><img src="https://sgamerw.github.io/poedit9.png" alt="New string"/><br/><img src="https://sgamerw.github.io/poedit10.png" alt="Obsolete string"/></p>
+<p>需要注意的一点是，在 Lua 的注释中不要包含半角的单引号。</p>
+<p>这是由于 Lua 的注释使用 – 符号，而 C 语言使用 // ，所以 gettext 会认为 Lua 中的注释是代码的一部分而不会忽略解析。在一般情况没有什么问题，但如果在注释中包含了半角的单引号（这是在 C 语言中代表字面值），gettext 就会认为语法错误因此产生解析错误。</p>
+<h3 id="生成-MO-文件"><a href="#生成-MO-文件" class="headerlink" title="生成 MO 文件"></a>生成 MO 文件</h3><p>在软件设置中，我们设置了在保存项目的时候自动生成 MO 文件，所以这点不用操心了。生成的 MO 文件与 PO 文件在相同的目录。</p>
+<h2 id="在-Lua-中解析-MO-文件"><a href="#在-Lua-中解析-MO-文件" class="headerlink" title="在 Lua 中解析 MO 文件"></a>在 Lua 中解析 MO 文件</h2><p>MO 是个二进制格式的文件，我们的程序在读取它的时候，需要分析 <a href="http://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/MO-Files.html" target="_blank" rel="external noopener noreferrer">它的结构</a> ，将它解析成 <code>原始文本 - 翻译文本</code> 的键值对形式，供我们使用。</p>
+<p>许多语言中已经包含了 MO 文件的解析库，但是 Lua 没有。所以我们需要自己写一个。</p>
+<p>不过 <a href="http://lua-users.org/lists/lua-l/2010-04/msg00005.html" target="_blank" rel="external noopener noreferrer">J.J?rgen von Bargen</a> 已经完成了这件事，我将他的代码进行了简单封装，将其放在我的 lua 库中了，名称是 <a href="https://github.com/zrong/lua#Gettext" target="_blank" rel="external noopener noreferrer">utils.Gettext</a>。</p>
+<p>由于要支持跨平台的原因，读取 MO 文件采用的是 CCFileUtils ，如果要在其他环境中使用，可以改用 io 库。我在 <code>Gettext._getFileData</code> 中保留了使用 io 库的代码，只是将其注释了。</p>
+<h2 id="综合范例"><a href="#综合范例" class="headerlink" title="综合范例"></a>综合范例</h2><p>使用这种方法，MO 文件会被解析成功一个 table 返回：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> mo_data=<span class="built_in">assert</span>(<span class="built_in">require</span>(<span class="string">&#34;utils.Gettext&#34;</span>).loadMOFromFile(<span class="string">&#34;res/zh_CN.mo&#34;</span>))</div><div class="line"><span class="built_in">print</span>(mo_data[<span class="string">&#34;Hello World!&#34;</span>])</div><div class="line"></div><div class="line"><span class="built_in">print</span>(mo_data[<span class="string">&#34;Foobar&#34;</span>])</div><div class="line"><span class="comment">-- nil</span></div></pre></td></tr></tbody></table></figure>
+<p>更通用的方法是这样：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">_ = <span class="built_in">assert</span>(<span class="built_in">require</span>(<span class="string">&#34;utils.Gettext&#34;</span>).gettextFromFile(<span class="string">&#34;res/zh_CN.mo&#34;</span>))</div><div class="line"><span class="built_in">print</span>(_(<span class="string">&#34;Hello World!&#34;</span>))</div></pre></td></tr></tbody></table></figure>
+<p>在我的游戏中，则是这样使用的：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">LANG = <span class="string">&#34;res/zh_CN.mo&#34;</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="params">(__text)</span></span></div><div class="line">    <span class="keyword">return</span> __text</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="keyword">if</span> CCFileUtils:sharedFileUtils():isFileExist(LANG) <span class="keyword">then</span></div><div class="line">    _ = <span class="built_in">assert</span>(<span class="built_in">require</span>(<span class="string">&#34;utils.Gettext&#34;</span>).gettextFromFile(LANG))</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></tbody></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-420_[%E8%BD%AC]%E5%9C%A8Lua%E4%B8%AD%E4%BD%BF%E7%94%A8gettext%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/">https://lua.ren/zl/2016-01-01-420_[%E8%BD%AC]%E5%9C%A8Lua%E4%B8%AD%E4%BD%BF%E7%94%A8gettext%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-423_leetcode150.Evaluate%20Reverse%20Polish%20Notation/" title="leetcode150.Evaluate Reverse Polish Notation"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">leetcode150.Evaluate Reverse Polish Notation</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-421_lua%E4%B8%89%E7%A7%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" title="lua三种字符串拼接性能分析"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">lua三种字符串拼接性能分析</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gettext-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">gettext 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Poedit-%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">Poedit 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Poedit-%E7%94%9F%E6%88%90%E5%92%8C%E7%BF%BB%E8%AF%91-PO-%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">使用 Poedit 生成和翻译 PO 文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">软件设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">项目设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90%E6%BA%90%E7%A0%81"><span class="toc-number">3.3.</span> <span class="toc-text">解析源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90-MO-%E6%96%87%E4%BB%B6"><span class="toc-number">3.4.</span> <span class="toc-text">生成 MO 文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-Lua-%E4%B8%AD%E8%A7%A3%E6%9E%90-MO-%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">在 Lua 中解析 MO 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%BC%E5%90%88%E8%8C%83%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">综合范例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

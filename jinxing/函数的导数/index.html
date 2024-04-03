@@ -1,0 +1,475 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>糖果AIGC实验室-LUA | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是函数的导数？导数在数值坐标上的几何意义是什么？ 函数的导数是描述函数变化率的概念。对于函数f(x)，其导数表示了在x点处函数值的变化速率。 导数在数值坐标上的几何意义是函数曲线在某一点处的切线斜率。具体地说，导数可以告诉我们函数曲线在该点的陡峭程度和方向。如果导数为正，表示曲线向上倾斜；如果导数为负，表示曲线向下倾斜；如果导数为零，表示曲线在该点处平坦。此外，导数的绝对值越大，表示曲线变化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="糖果AIGC实验室-LUA">
+<meta property="og:url" content="https://lua.ren/jinxing/%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="什么是函数的导数？导数在数值坐标上的几何意义是什么？ 函数的导数是描述函数变化率的概念。对于函数f(x)，其导数表示了在x点处函数值的变化速率。 导数在数值坐标上的几何意义是函数曲线在某一点处的切线斜率。具体地说，导数可以告诉我们函数曲线在该点的陡峭程度和方向。如果导数为正，表示曲线向上倾斜；如果导数为负，表示曲线向下倾斜；如果导数为零，表示曲线在该点处平坦。此外，导数的绝对值越大，表示曲线变化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-03-14T07:45:09.122Z">
+<meta property="article:modified_time" content="2024-03-14T07:45:09.123Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/jinxing/%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '糖果AIGC实验室-LUA',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-14 15:45:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-14T07:45:09.122Z" title="发表于 2024-03-14 15:45:09">2024-03-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-14T07:45:09.123Z" title="更新于 2024-03-14 15:45:09">2024-03-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h4 id="什么是函数的导数导数在数值坐标上的几何意义是什么"><a class="markdownIt-Anchor" href="#什么是函数的导数导数在数值坐标上的几何意义是什么"></a> 什么是函数的导数？导数在数值坐标上的几何意义是什么？</h4>
+<p>函数的导数是描述函数变化率的概念。对于函数f(x)，其导数表示了在x点处函数值的变化速率。</p>
+<p>导数在数值坐标上的几何意义是函数曲线在某一点处的切线斜率。具体地说，导数可以告诉我们函数曲线在该点的陡峭程度和方向。如果导数为正，表示曲线向上倾斜；如果导数为负，表示曲线向下倾斜；如果导数为零，表示曲线在该点处平坦。此外，导数的绝对值越大，表示曲线变化越快；导数接近于零，表示曲线变化缓慢。</p>
+<p>通过研究函数的导数，我们可以了解函数在不同点上的行为，并推断函数图像的形状和趋势。这对于解决实际问题、优化函数以及理解物理、经济等领域中的变化过程非常重要。</p>
+<h4 id="如何求一个函数的导数"><a class="markdownIt-Anchor" href="#如何求一个函数的导数"></a> 如何求一个函数的导数</h4>
+<p>要求一个函数的导数，可以按以下步骤进行：</p>
+<ol>
+<li class="lvl-3">
+<p>确定函数的形式。假设函数为f(x)，并确定其表达式。</p>
+</li>
+<li class="lvl-3">
+<p>使用导数的定义来计算导数。导数的定义是lim(h→0) [f(x+h) - f(x)] / h，其中h代表变量的微小增量。</p>
+</li>
+<li class="lvl-3">
+<p>将函数表达式带入导数定义中，并进行化简。</p>
+</li>
+<li class="lvl-3">
+<p>取极限，即令h趋近于零。这样就可以得到函数在某个点x处的导数。</p>
+</li>
+<li class="lvl-3">
+<p>如果需要求整个函数的导数，则需要对每个点都进行上述计算。</p>
+</li>
+<li class="lvl-3">
+<p>如果函数具有复杂结构或包含多个变量，可以使用常见的求导法则来简化计算过程。常见的求导法则包括常数法则、幂法则、和差法则、乘积法则、商法则、链式法则等。</p>
+</li>
+<li class="lvl-3">
+<p>在计算过程中，可能还需要使用一些基本的微积分技巧，如分部积分、换元积分等。</p>
+</li>
+<li class="lvl-3">
+<p>最后得到的结果就是所求函数的导数。</p>
+</li>
+</ol>
+<h4 id="函数的导数公式是什么"><a class="markdownIt-Anchor" href="#函数的导数公式是什么"></a> 函数的导数公式是什么</h4>
+<p>函数的导数公式是指通过求导运算得到函数的导数表达式。对于一元函数，导数可以通过极限定义或基本的求导法则来计算。其中最基本的导数公式包括：</p>
+<ol>
+<li class="lvl-3">
+<p>常数函数：如果f(x) = c，其中c是一个常数，则f’(x) = 0。</p>
+</li>
+<li class="lvl-3">
+<p>幂函数：如果f(x) = x^n，其中n是任意实数，则f’(x) = nx^(n-1)。</p>
+</li>
+<li class="lvl-3">
+<p>指数函数：如果f(x) = a^x，其中a是正实数且a ≠ 1，则f’(x) = ln(a) * a^x。</p>
+</li>
+<li class="lvl-3">
+<p>对数函数：如果f(x) = log_a(x)，其中a是正实数且a ≠ 1，则f’(x) = 1 / (ln(a) * x)。</p>
+</li>
+<li class="lvl-3">
+<p>三角函数：对于常见的三角函数sin(x)，cos(x)，tan(x)，其导数分别为cos(x)，-sin(x)，sec^2(x)，其中sec(x)表示secant函数。</p>
+</li>
+<li class="lvl-3">
+<p>反三角函数：对于常见的反三角函数arcsin(x)，arccos(x)，arctan(x)，其导数分别为1 / √(1 - x^2)，-1 / √(1 - x^2)，1 / (1 + x^2)。</p>
+</li>
+</ol>
+<p>除了以上这些基本的导数公式外，还有一些组合规则和链式法则等用于求解复杂函数的导数。</p>
+<h4 id="函数的积分如何计算函数的积分是几何意义是什么"><a class="markdownIt-Anchor" href="#函数的积分如何计算函数的积分是几何意义是什么"></a> 函数的积分如何计算，函数的积分是几何意义是什么</h4>
+<p>函数的积分可以通过积分算法或数值积分方法进行计算。常见的积分算法包括不定积分和定积分。</p>
+<p>不定积分是指对函数进行求导的逆过程，即找到一个原函数，使得其导数等于给定函数。这个原函数称为不定积分，通常用符号∫表示。计算不定积分时，需要考虑常数项，因为对于同一个导数来说，可能存在多个原函数。</p>
+<p>定积分是指在给定区间上计算函数曲线与x轴之间的有向面积。它可以看作是将曲线下方的面积减去曲线上方的面积，并考虑了曲线所在位置的正负情况。定积分通常用符号∫a^b f(x) dx表示，其中f(x)为被积函数，a和b为区间的起始点和终点。</p>
+<p>几何意义上，函数的不定积分表示了曲线下方与x轴之间的面积与位置关系。它可以用来求解曲线长度、质心、转动惯量等几何问题。而函数的定积分则表示了曲线所围成的有向面积，在物理学中可以用来求解质量、能量、功等概念。</p>
+<p>总之，函数的积分在数学和物理学中具有重要的应用，可以用来解决各种几何和物理问题。</p>
+<h4 id="微积分中的积指是积是什么数"><a class="markdownIt-Anchor" href="#微积分中的积指是积是什么数"></a> 微积分中的积指是积是什么数</h4>
+<p>在微积分中，积指是指对一个函数进行积分运算后得到的结果。积指可以是一个实数或复数，取决于被积函数和积分区间的性质。</p>
+<h4 id="微积分中的积分是什么运算"><a class="markdownIt-Anchor" href="#微积分中的积分是什么运算"></a> 微积分中的积分是什么运算？</h4>
+<p>积分是微积分中的一种运算，它可以用来计算曲线下面的面积、计算函数的定积分、求函数的原函数等。在数学上，积分是对函数进行求和的逆过程，通过将函数划分成无穷小的小矩形或小梯形，并将其面积相加来近似计算。当划分越来越细时，即无穷小时，这个近似变得越来越精确，从而得到准确的积分值。</p>
+<h4 id="曲线的斜率公式是什么"><a class="markdownIt-Anchor" href="#曲线的斜率公式是什么"></a> 曲线的斜率公式是什么</h4>
+<p>曲线的斜率公式是：dy/dx = lim(h-&gt;0) [f(x+h)-f(x)]/h，其中dy/dx表示曲线在某一点处的斜率，f(x)表示曲线上的函数</p>
+<h4 id="不是曲线函数有没有斜率"><a class="markdownIt-Anchor" href="#不是曲线函数有没有斜率"></a> 不是曲线函数，有没有斜率</h4>
+<p>不是曲线函数的函数，也可以有斜率。斜率是指函数图像上某一点处的切线的斜率，可以用导数来表示。对于非曲线函数，例如直线函数，其图像是一条直线，而且在每个点处都有相同的斜率。</p>
+<h4 id="有没有不连续的函数"><a class="markdownIt-Anchor" href="#有没有不连续的函数"></a> 有没有不连续的函数</h4>
+<p>是的，有不连续的函数。一个函数在某个点上不连续，当且仅当在该点处没有定义或者定义的值与左右极限不相等。例如，阶梯函数是一个经典的不连续函数，在每个跳变点都不连续。另外，绝对值函数在x = 0处也是不连续的。</p>
+<h4 id="不连续的函数能不能求导"><a class="markdownIt-Anchor" href="#不连续的函数能不能求导"></a> 不连续的函数，能不能求导</h4>
+<p>不连续的函数不能在不连续点处求导。求导是一个连续函数的操作，要求函数在所求导的点附近有定义且连续。而对于不连续的点，由于其定义域上没有足够接近该点的连续部分，无法进行求导操作。</p>
+<h4 id="斜线斜率功式"><a class="markdownIt-Anchor" href="#斜线斜率功式"></a> 斜线斜率功式</h4>
+<p>积分和导数关系是什么</p>
+<h4 id="卷积神经网络里用了那此线性代数矩阵运算的知识"><a class="markdownIt-Anchor" href="#卷积神经网络里用了那此线性代数矩阵运算的知识"></a> 卷积神经网络里，用了那此线性代数，矩阵运算的知识</h4>
+<p>卷积神经网络（Convolutional Neural Network, CNN）在处理图像和其他类型的数据时，使用了许多线性代数和矩阵运算的知识。以下是一些常见的应用：</p>
+<ol>
+<li class="lvl-3">
+<p>卷积操作：卷积层是CNN的核心组件之一。它通过将输入数据与卷积核进行卷积运算来提取特征。这个过程可以看作是一个二维矩阵的乘法运算。</p>
+</li>
+<li class="lvl-3">
+<p>线性激活函数：在CNN中，经常使用ReLU（Rectified Linear Unit）作为激活函数。ReLU函数将输入的负值设为零，保留正值不变。这可以看作是对矩阵进行逐元素比较和替换的操作。</p>
+</li>
+<li class="lvl-3">
+<p>全连接层：在CNN的最后几层，通常会包含全连接层。全连接层将前一层的输出展平成一个向量，并与权重矩阵进行乘法运算，得到最终的分类结果。</p>
+</li>
+<li class="lvl-3">
+<p>池化操作：池化层用于减小特征图尺寸并保留重要信息。常见的池化操作有最大池化和平均池化，它们可以看作是对矩阵进行降采样的操作。</p>
+</li>
+<li class="lvl-3">
+<p>批量归一化：批量归一化是对CNN中间层输出进行归一化的操作，旨在加速训练过程和提高模型的鲁棒性。它涉及到对矩阵进行均值和方差计算。</p>
+</li>
+<li class="lvl-3">
+<p>损失函数：CNN的训练过程通常使用损失函数来度量模型输出与真实标签之间的差异。常见的损失函数有平方损失函数、交叉熵损失函数等，它们涉及到对矩阵进行逐元素计算和求和。</p>
+</li>
+</ol>
+<p>总之，线性代数和矩阵运算是CNN中各个组件实现的基础，通过这些操作，CNN可以有效地从图像和其他类型数据中提取特征并进行分类、识别等任务。</p>
+<h4 id="微积分中的求和符号转换成python3的循环求和代码怎么写"><a class="markdownIt-Anchor" href="#微积分中的求和符号转换成python3的循环求和代码怎么写"></a> 微积分中的求和符号，转换成Python3的循环求和代码怎么写</h4>
+<p>在微积分中，求和符号<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo></mrow><annotation encoding="application/x-tex">\sum</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="base textstyle uncramped"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span></span></span></span>用于表示一系列数值的累加。在Python中，可以使用循环结构来实现求和符号的功能。</p>
+<p>假设有一个求和式<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></msubsup><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i=1}^{n} a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.0500099999999999em;vertical-align:-0.30001em;"></span><span class="base textstyle uncramped"><span class="mop"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="vlist"><span style="top:0.30001em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.364em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>是一个与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span>有关的数值表达式。将该求和式转换为Python3的循环求和代码可以按照以下步骤进行：</p>
+<ol>
+<li class="lvl-3">
+<p>首先，创建一个变量<code>total</code>并初始化为0，用于存储累加的结果。</p>
+</li>
+<li class="lvl-3">
+<p>使用<code>for</code>循环结构遍历从1到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>的整数。在每次迭代中，将当前的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>值加到<code>total</code>中。</p>
+</li>
+<li class="lvl-3">
+<p>循环结束后，变量<code>total</code>即为求和结果。</p>
+</li>
+</ol>
+<p>下面是示例代码：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">n <span class="token operator">=</span> <span class="token number">10</span>  <span class="token comment"># 假设n的值为10</span>
+total <span class="token operator">=</span> <span class="token number">0</span>  <span class="token comment"># 初始化累加结果为0</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    ai <span class="token operator">=</span> i<span class="token operator">**</span><span class="token number">2</span>  <span class="token comment"># 假设a_i的表达式是i的平方</span>
+    total <span class="token operator">+=</span> ai
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>total<span class="token punctuation">)</span>  <span class="token comment"># 打印累加结果</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上代码将计算并打印出<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>1</mn><mn>2</mn></msup><mo>+</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><mo>…</mo><mo>+</mo><mn>1</mn><msup><mn>0</mn><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1^2 + 2^2 + \ldots + 10^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">1</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="minner">…</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>的结果。根据实际情况，你可以根据需要修改变量<code>n</code>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>表达式以及打印输出方式。</p>
+<h4 id="微积分函数如何用python代码实现如何实现请举例"><a class="markdownIt-Anchor" href="#微积分函数如何用python代码实现如何实现请举例"></a> 微积分函数如何用Python代码实现，如何实现请举例</h4>
+<p>要实现微积分函数，可以使用Python中的数学库，如numpy和sympy。以下是一些示例：</p>
+<ol>
+<li class="lvl-3">
+<p>导入数学库</p>
+</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> sympy <span class="token keyword">as</span> sp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li class="lvl-3">
+<p>定义函数</p>
+</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x<span class="token operator">**</span><span class="token number">2</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token operator">*</span>x <span class="token operator">+</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
+<li class="lvl-3">
+<p>求导数</p>
+</li>
+</ol>
+<p>使用sympy库可以直接求导数：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">x <span class="token operator">=</span> sp<span class="token punctuation">.</span>symbols<span class="token punctuation">(</span><span class="token string">'x'</span><span class="token punctuation">)</span>
+f_expr <span class="token operator">=</span> x<span class="token operator">**</span><span class="token number">2</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token operator">*</span>x <span class="token operator">+</span> <span class="token number">1</span>
+f_prime <span class="token operator">=</span> sp<span class="token punctuation">.</span>diff<span class="token punctuation">(</span>f_expr<span class="token punctuation">,</span> x<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f_prime<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果为：2*x + 3</p>
+<ol start="4">
+<li class="lvl-3">
+<p>求不定积分</p>
+</li>
+</ol>
+<p>使用sympy库可以直接求不定积分：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">x <span class="token operator">=</span> sp<span class="token punctuation">.</span>symbols<span class="token punctuation">(</span><span class="token string">'x'</span><span class="token punctuation">)</span>
+f_expr <span class="token operator">=</span> x<span class="token operator">**</span><span class="token number">2</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token operator">*</span>x <span class="token operator">+</span> <span class="token number">1</span>
+f_integral <span class="token operator">=</span> sp<span class="token punctuation">.</span>integrate<span class="token punctuation">(</span>f_expr<span class="token punctuation">,</span> x<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f_integral<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果为：(1/3)*x<strong>3 + (3/2)*x</strong>2 + x</p>
+<ol start="5">
+<li class="lvl-3">
+<p>数值积分</p>
+</li>
+</ol>
+<p>使用numpy库可以进行数值积分：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token keyword">def</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x<span class="token operator">**</span><span class="token number">2</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token operator">*</span>x <span class="token operator">+</span> <span class="token number">1</span>
+
+a <span class="token operator">=</span> <span class="token number">0</span>   <span class="token comment"># 积分下限</span>
+b <span class="token operator">=</span> <span class="token number">1</span>   <span class="token comment"># 积分上限</span>
+n <span class="token operator">=</span> <span class="token number">100</span> <span class="token comment"># 分割数目</span>
+
+x_values <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+y_values <span class="token operator">=</span> f<span class="token punctuation">(</span>x_values<span class="token punctuation">)</span>
+integral_value <span class="token operator">=</span> np<span class="token punctuation">.</span>trapz<span class="token punctuation">(</span>y_values<span class="token punctuation">,</span> x_values<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>integral_value<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果为：2.333333333333334</p>
+<h4 id="切线斜率和割线斜率的定义是什么"><a class="markdownIt-Anchor" href="#切线斜率和割线斜率的定义是什么"></a> 切线斜率和割线斜率的定义是什么</h4>
+<p>切线斜率是指曲线上某一点的切线与x轴正方向的夹角的正切值。在数学中，它可以通过求曲线在该点的导数来求得。</p>
+<p>割线斜率是指曲线上两个不同点之间的割线与x轴正方向的夹角的正切值。它可以通过求两个不同点处切线斜率的差分（即导数）来求得。</p>
+<h4 id="正切值是定义是什么"><a class="markdownIt-Anchor" href="#正切值是定义是什么"></a> 正切值是定义是什么</h4>
+<p>正切值是一个三角函数，表示一个角的正弦值与余弦值的比值。在直角三角形中，正切值等于对边长度与邻边长度的比值。在单位圆上，一个角的正切值等于该角对应的点到原点的纵坐标与横坐标的比值。在数学中，正切函数被定义为tan(x) = sin(x) / cos(x)，其中x为任意实数。</p>
+<h4 id="三解函数sin是那个边比那个边"><a class="markdownIt-Anchor" href="#三解函数sin是那个边比那个边"></a> 三解函数sin是那个边比那个边</h4>
+<p>三角函数sin是指在一个直角三角形中，正弦值是对边与斜边的比值。具体来说，对于一个直角三角形，如果我们将其中一个锐角定义为θ，则sinθ等于对边长度除以斜边长度。</p>
+<h4 id="三解函数cos是那个边比那个边"><a class="markdownIt-Anchor" href="#三解函数cos是那个边比那个边"></a> 三解函数cos是那个边比那个边</h4>
+<p>三角函数cos是邻边除以斜边的比值。</p>
+<h4 id="如何画曲线上某一点的切线"><a class="markdownIt-Anchor" href="#如何画曲线上某一点的切线"></a> 如何画曲线上某一点的切线</h4>
+<p>要画曲线上某一点的切线，可以按照以下步骤进行：</p>
+<ol>
+<li class="lvl-3">
+<p>找到曲线上要画切线的点，并确定该点的坐标。</p>
+</li>
+<li class="lvl-3">
+<p>在该点附近选择一个相对较小的区间，并取几个点作为近似于该点的邻近点。</p>
+</li>
+<li class="lvl-3">
+<p>使用这些邻近点，计算出通过它们的拟合曲线。可以使用插值或拟合方法，如线性拟合、二次拟合等。</p>
+</li>
+<li class="lvl-3">
+<p>在图纸上绘制原始曲线和通过邻近点拟合出来的曲线。</p>
+</li>
+<li class="lvl-3">
+<p>在原始曲线上找到要画切线的点，并确定该点在拟合曲线上对应的位置。</p>
+</li>
+<li class="lvl-3">
+<p>在该位置处绘制一条与拟合曲线相切的直线，作为切线。可以使用斜率来确定直线的方向和倾斜程度。</p>
+</li>
+<li class="lvl-3">
+<p>确定切线在图纸上适当的长度，并绘制出来。</p>
+</li>
+</ol>
+<p>请注意，这种方法是通过近似方法来绘制切线，在某些情况下可能存在误差。如果需要更精确地绘制切线，请考虑使用微积分中求导数的方法来计算切线斜率，并利用斜率和给定点确定切线方程。</p>
+<h5 id="笛卡尔积"><a class="markdownIt-Anchor" href="#笛卡尔积"></a> 笛卡尔积</h5>
+<p>笛卡尔积是集合论中的一个概念，表示两个集合中所有可能的有序对的集合。</p>
+<p>假设有两个集合A和B，其元素分别为{a1, a2, … , an}和{b1, b2, … , bm}，那么A和B的笛卡尔积记作A × B，表示包含所有可能的有序对{(a1, b1), (a1, b2), … , (an, bm)}的集合。</p>
+<p>例如，如果A={1, 2}，B={3, 4}，那么A × B = {(1, 3), (1, 4), (2, 3), (2, 4)}。</p>
+<p>笛卡尔积在数学、计算机科学等领域有广泛应用。在关系数据库中，笛卡尔积可以用来实现多表联接操作；在编程中，可以用来生成排列组合等。</p>
+<h5 id="牛顿对微分的定义与莱布尼茨对微分的定义"><a class="markdownIt-Anchor" href="#牛顿对微分的定义与莱布尼茨对微分的定义"></a> 牛顿对微分的定义与莱布尼茨对微分的定义</h5>
+<p>牛顿对微分的定义是基于物理上的运动观察和速度概念。他认为微分是一种极限过程，即当变量无限接近某一特定值时的变化率。他将微分符号表示为&quot;d&quot;，表示变量的无穷小增量。</p>
+<p>莱布尼茨对微分的定义则是基于数学上的代数和函数观点。他提出了微分的基本原理，即将函数表示为无穷小元素之和，并通过求导来确定这些元素之间的关系。他将微分符号表示为&quot;dx&quot;，其中&quot;d&quot;表示无穷小变化，&quot;x&quot;表示自变量。</p>
+<p>两种定义都构成了微积分领域中微分的重要概念，并在不同学科领域中得到广泛应用。</p>
+<p>求出了函数的导数，是不是就求出了函数积分？</p>
+<p>不一定。虽然导数和积分是互为逆运算的概念，但是求出了函数的导数并不代表就求出了函数的积分。要求出函数的积分，需要使用积分运算来进行计算。虽然在某些情况下，函数的导数和积分有一定的关系，比如如果一个函数在某个区间上连续，并且在该区间上的导数存在，则该函数在该区间上是可积的，但这并不意味着导数和积分是完全等价的运算。</p>
+<h4 id="什么是点的切线"><a class="markdownIt-Anchor" href="#什么是点的切线"></a> 什么是点的切线</h4>
+<p>点的切线是指在给定点上与曲线相切的直线。在数学中，对于一条光滑的曲线，可以通过求取曲线在该点的导数来确定该点的切线。切线与曲线在给定点处有相同的斜率，并且只接触曲线一次。切线可以用于研究曲线在某一点的斜率和变化率。</p>
+<h4 id="如何画函数的切线"><a class="markdownIt-Anchor" href="#如何画函数的切线"></a> 如何画函数的切线</h4>
+<p>要画函数的切线，可以按照以下步骤进行：</p>
+<ol>
+<li class="lvl-3">
+<p>确定函数的表达式。如果已经给出了函数的表达式，可以直接使用。如果没有给出，可以根据问题描述或者已知条件来确定函数。</p>
+</li>
+<li class="lvl-3">
+<p>找到要画切线的点。选择一个特定的x值作为切线点。这个点应该在函数定义域内，并且是你感兴趣的位置。</p>
+</li>
+<li class="lvl-3">
+<p>计算函数在该点的导数。使用求导法则计算函数在选定点处的导数值。</p>
+</li>
+<li class="lvl-3">
+<p>根据导数值和选定点，确定切线方程。使用切线方程y = mx + b，其中m是导数值，b是通过选定点计算得到的常量。</p>
+</li>
+<li class="lvl-3">
+<p>在坐标系中画出函数曲线和切线。根据所得到的切线方程，在坐标系中绘制出对应于选定x值处的直线。</p>
+</li>
+</ol>
+<p>需要注意的是，当你选择不同的x值时，会得到不同位置处的切线。所以你可以通过重复上述步骤来绘制多个切线，并观察它们在整个函数曲线上的分布和变化情况。</p>
+<h4 id="给定了函数的曲线如何画函数曲线的切线"><a class="markdownIt-Anchor" href="#给定了函数的曲线如何画函数曲线的切线"></a> 给定了函数的曲线，如何画函数曲线的切线</h4>
+<p>要画出函数曲线的切线，可以按照以下步骤进行：</p>
+<ol>
+<li class="lvl-3">
+<p>首先，选择一个点作为切点，该点应该位于函数曲线上。可以根据需要选择切点的位置。</p>
+</li>
+<li class="lvl-3">
+<p>然后，计算函数在该点的斜率。可以使用微积分中的导数来计算斜率，即求函数在该点处的导数。</p>
+</li>
+<li class="lvl-3">
+<p>使用斜率和切点来确定切线方程。切线方程可以表示为 y = mx + b 的形式，其中 m 是斜率，b 是常数项。</p>
+</li>
+<li class="lvl-3">
+<p>根据确定的切线方程，在给定范围内绘制切线。可以选择一段范围，并根据切线方程计算相应的 x 和 y 值来绘制切线。</p>
+</li>
+</ol>
+<p>重复以上步骤，可以在所需位置上画出多个切线。</p>
+<h4 id="函数斜率的概念"><a class="markdownIt-Anchor" href="#函数斜率的概念"></a> 函数斜率的概念</h4>
+<p>函数斜率是描述函数曲线在某一点上的变化率的概念。在数学中，斜率可以用来衡量函数图像上两点之间的变化程度。具体来说，对于一条曲线上的两个点A和B，斜率可以通过计算这两个点之间的纵坐标变化与横坐标变化的比值来得到。</p>
+<p>设函数为f(x)，点A的坐标为(x1, f(x1))，点B的坐标为(x2, f(x2))，则函数在点A和B之间的斜率可以表示为：</p>
+<p>斜率 = (f(x2) - f(x1)) / (x2 - x1)</p>
+<p>当两个点越接近时，这个比值越能够近似地描述曲线在该点附近的变化情况。因此，在一些情况下，我们也可以使用极限来定义一个函数在某一点上的斜率。</p>
+<p>需要注意的是，这里所讨论的斜率是指切线斜率。对于曲线上任意一点处存在无数条切线，每条切线都有一个不同的斜率。因此，在不同位置处，同一个函数具有不同的斜率。</p>
+<p>纵坐标变化除以横坐标的变化（dy/dx）   对边比上临边，得到斜率</p>
+<h4 id="几何中的正切是那个边比那个边"><a class="markdownIt-Anchor" href="#几何中的正切是那个边比那个边"></a> 几何中的正切，是那个边比那个边</h4>
+<p>正切是指直角三角形中，斜边和与直角相邻的边的比值。也就是说，正切等于直角三角形中对边与邻边的比值。</p>
+<h4 id="几何学的中对边比临边求的是什么"><a class="markdownIt-Anchor" href="#几何学的中对边比临边求的是什么"></a> 几何学的中对边比临边，求的是什么</h4>
+<p>在几何学中，对边比临边是指一个三角形中的两条边与其对应的两个内角的比值。这个比值被称为正弦。</p>
+<p>具体来说，对于一个三角形ABC，其中∠A是顶点A对应的内角，a是边BC的长度（也就是临边），b是边AC的长度（也就是对边），c是边AB的长度（也就是斜边）。那么，正弦定理可以表示为：</p>
+<p>sin A = b / c</p>
+<p>这个定理可以用来求解三角形中的各种未知量，例如已知两条边和它们之间的夹角，可以通过正弦定理计算出第三条边的长度。</p>
+<h4 id="导数"><a class="markdownIt-Anchor" href="#导数"></a> 导数</h4>
+<h5 id="导数-2"><a class="markdownIt-Anchor" href="#导数-2"></a> 导数</h5>
+<p>导数就是求函数曲线图像上，两个点之间，（x,y） 和（x1,y1）的这段曲线上两点的割线斜率求极限（dx无限小）， 就是求dy/dx， 几何意义是，对边比临边的正切比值，通过求曲线上两点割线斜率，求极限得出某一点的切线斜率。</p>
+<h4 id="微分"><a class="markdownIt-Anchor" href="#微分"></a> 微分</h4>
+<p>这两个点， 函数f(x) 微小变化量df(x)比上x的微小变化量dx，也表示导数：df(x)/dx。df(x) 这个f(x)函数的微小变化量，是函数f(x)的微分。dx，是x是微分。微小变化量。</p>
+<h4 id="积分"><a class="markdownIt-Anchor" href="#积分"></a> 积分</h4>
+<p>积分中的s就是sum，表示循环累加，很多时候Python的代码片段的解释，要比数学公式更直观，数学公式更简洁，两者都是求和， 都是表示一个动态计算的过程，代码可以更有空间感和方向感，也啰嗦一些。</p>
+<p>S(a…b)f(x)dx就是积分，求的是曲边梯形的面积。f(x)就是函数曲线某点之间的y：高，dx，是从x开始的x的变化量：长，高x长，就是函数曲线图像两个点之间，高x长的面积，把这些小的面积，最后累加求和，就是曲线下面的，曲边梯形的总面积，积分。</p>
+<h4 id="导数的定义是什么"><a class="markdownIt-Anchor" href="#导数的定义是什么"></a> 导数的定义是什么</h4>
+<p>导数的定义是一个函数在某一点的变化率，即函数在该点附近的斜率。对于一个函数f(x)，它在点x=a处的导数可以用以下极限来定义：</p>
+<p>f’(a) = lim┬(h→0)⁡((f(a+h) - f(a))/h)</p>
+<p>其中，h表示自变量x的增量，当h趋近于0时，表示取得该点附近的极限。这个极限就是函数f(x)在点x=a处的导数。导数表示了函数在该点附近的斜率，可以用来描述函数曲线在该点上升或下降的速度。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/jinxing/%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0/">https://lua.ren/jinxing/%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/linux/rsync%E5%90%8C%E6%AD%A5%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="rsync同步本地文件到远程服务器"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">rsync同步本地文件到远程服务器</div></div></a></div><div class="next-post pull-right"><a href="/jinxing/%E6%B5%B7%E6%B7%80%E5%8C%BA/" title=""><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0%E5%AF%BC%E6%95%B0%E5%9C%A8%E6%95%B0%E5%80%BC%E5%9D%90%E6%A0%87%E4%B8%8A%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text"> 什么是函数的导数？导数在数值坐标上的几何意义是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%B1%82%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text"> 如何求一个函数的导数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0%E5%85%AC%E5%BC%8F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">3.</span> <span class="toc-text"> 函数的导数公式是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86%E6%98%AF%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">4.</span> <span class="toc-text"> 函数的积分如何计算，函数的积分是几何意义是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E7%A7%AF%E6%8C%87%E6%98%AF%E7%A7%AF%E6%98%AF%E4%BB%80%E4%B9%88%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text"> 微积分中的积指是积是什么数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E7%A7%AF%E5%88%86%E6%98%AF%E4%BB%80%E4%B9%88%E8%BF%90%E7%AE%97"><span class="toc-number">6.</span> <span class="toc-text"> 微积分中的积分是什么运算？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%96%9C%E7%8E%87%E5%85%AC%E5%BC%8F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">7.</span> <span class="toc-text"> 曲线的斜率公式是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E6%98%AF%E6%9B%B2%E7%BA%BF%E5%87%BD%E6%95%B0%E6%9C%89%E6%B2%A1%E6%9C%89%E6%96%9C%E7%8E%87"><span class="toc-number">8.</span> <span class="toc-text"> 不是曲线函数，有没有斜率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E6%B2%A1%E6%9C%89%E4%B8%8D%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">9.</span> <span class="toc-text"> 有没有不连续的函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%87%BD%E6%95%B0%E8%83%BD%E4%B8%8D%E8%83%BD%E6%B1%82%E5%AF%BC"><span class="toc-number">10.</span> <span class="toc-text"> 不连续的函数，能不能求导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%9C%E7%BA%BF%E6%96%9C%E7%8E%87%E5%8A%9F%E5%BC%8F"><span class="toc-number">11.</span> <span class="toc-text"> 斜线斜率功式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%87%8C%E7%94%A8%E4%BA%86%E9%82%A3%E6%AD%A4%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="toc-number">12.</span> <span class="toc-text"> 卷积神经网络里，用了那此线性代数，矩阵运算的知识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E6%B1%82%E5%92%8C%E7%AC%A6%E5%8F%B7%E8%BD%AC%E6%8D%A2%E6%88%90python3%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%B1%82%E5%92%8C%E4%BB%A3%E7%A0%81%E6%80%8E%E4%B9%88%E5%86%99"><span class="toc-number">13.</span> <span class="toc-text"> 微积分中的求和符号，转换成Python3的循环求和代码怎么写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E5%87%BD%E6%95%B0%E5%A6%82%E4%BD%95%E7%94%A8python%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%AF%B7%E4%B8%BE%E4%BE%8B"><span class="toc-number">14.</span> <span class="toc-text"> 微积分函数如何用Python代码实现，如何实现请举例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%87%E7%BA%BF%E6%96%9C%E7%8E%87%E5%92%8C%E5%89%B2%E7%BA%BF%E6%96%9C%E7%8E%87%E7%9A%84%E5%AE%9A%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">15.</span> <span class="toc-text"> 切线斜率和割线斜率的定义是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%88%87%E5%80%BC%E6%98%AF%E5%AE%9A%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">16.</span> <span class="toc-text"> 正切值是定义是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E8%A7%A3%E5%87%BD%E6%95%B0sin%E6%98%AF%E9%82%A3%E4%B8%AA%E8%BE%B9%E6%AF%94%E9%82%A3%E4%B8%AA%E8%BE%B9"><span class="toc-number">17.</span> <span class="toc-text"> 三解函数sin是那个边比那个边</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E8%A7%A3%E5%87%BD%E6%95%B0cos%E6%98%AF%E9%82%A3%E4%B8%AA%E8%BE%B9%E6%AF%94%E9%82%A3%E4%B8%AA%E8%BE%B9"><span class="toc-number">18.</span> <span class="toc-text"> 三解函数cos是那个边比那个边</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%BB%E6%9B%B2%E7%BA%BF%E4%B8%8A%E6%9F%90%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%87%E7%BA%BF"><span class="toc-number">19.</span> <span class="toc-text"> 如何画曲线上某一点的切线</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF"><span class="toc-number">19.1.</span> <span class="toc-text"> 笛卡尔积</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%9B%E9%A1%BF%E5%AF%B9%E5%BE%AE%E5%88%86%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%AF%B9%E5%BE%AE%E5%88%86%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">19.2.</span> <span class="toc-text"> 牛顿对微分的定义与莱布尼茨对微分的定义</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%82%B9%E7%9A%84%E5%88%87%E7%BA%BF"><span class="toc-number">20.</span> <span class="toc-text"> 什么是点的切线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%BB%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%87%E7%BA%BF"><span class="toc-number">21.</span> <span class="toc-text"> 如何画函数的切线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%99%E5%AE%9A%E4%BA%86%E5%87%BD%E6%95%B0%E7%9A%84%E6%9B%B2%E7%BA%BF%E5%A6%82%E4%BD%95%E7%94%BB%E5%87%BD%E6%95%B0%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%88%87%E7%BA%BF"><span class="toc-number">22.</span> <span class="toc-text"> 给定了函数的曲线，如何画函数曲线的切线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%96%9C%E7%8E%87%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">23.</span> <span class="toc-text"> 函数斜率的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%87%E6%98%AF%E9%82%A3%E4%B8%AA%E8%BE%B9%E6%AF%94%E9%82%A3%E4%B8%AA%E8%BE%B9"><span class="toc-number">24.</span> <span class="toc-text"> 几何中的正切，是那个边比那个边</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E5%AD%A6%E7%9A%84%E4%B8%AD%E5%AF%B9%E8%BE%B9%E6%AF%94%E4%B8%B4%E8%BE%B9%E6%B1%82%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">25.</span> <span class="toc-text"> 几何学的中对边比临边，求的是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E6%95%B0"><span class="toc-number">26.</span> <span class="toc-text"> 导数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%BC%E6%95%B0-2"><span class="toc-number">26.1.</span> <span class="toc-text"> 导数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%88%86"><span class="toc-number">27.</span> <span class="toc-text"> 微分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%AF%E5%88%86"><span class="toc-number">28.</span> <span class="toc-text"> 积分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">29.</span> <span class="toc-text"> 导数的定义是什么</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

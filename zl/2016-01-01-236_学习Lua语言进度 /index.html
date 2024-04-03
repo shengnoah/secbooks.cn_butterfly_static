@@ -1,0 +1,523 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>学习Lua语言进度 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="&lt;h3 id&#x3D;&quot;时间2016年8月11日-天气晴sunny&quot;&gt;时间:2016年8月11日 天气:晴:sunny:&lt;&#x2F;h3&gt;  Author:冬之晓:dizzy_face: Email: 347916416@qq.com MyAppearance:        今天上午，陈博士过来找我，问我学习Lua语言学习的进度。说了惭愧，我最">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习Lua语言进度">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-236_%E5%AD%A6%E4%B9%A0Lua%E8%AF%AD%E8%A8%80%E8%BF%9B%E5%BA%A6%20/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="&lt;h3 id&#x3D;&quot;时间2016年8月11日-天气晴sunny&quot;&gt;时间:2016年8月11日 天气:晴:sunny:&lt;&#x2F;h3&gt;  Author:冬之晓:dizzy_face: Email: 347916416@qq.com MyAppearance:        今天上午，陈博士过来找我，问我学习Lua语言学习的进度。说了惭愧，我最">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:33.107Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:33.107Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-236_%E5%AD%A6%E4%B9%A0Lua%E8%AF%AD%E8%A8%80%E8%BF%9B%E5%BA%A6%20/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '学习Lua语言进度',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">学习Lua语言进度</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:33.107Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:33.107Z" title="更新于 2024-04-03 11:47:33">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="学习Lua语言进度"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><pre><code>            &lt;h3 id=&quot;时间2016年8月11日-天气晴sunny&quot;&gt;时间:2016年8月11日 天气:晴:sunny:&lt;/h3&gt;
+</code></pre>
+<h5 id="author冬之晓dizzy_face">Author:冬之晓:dizzy_face:</h5>
+<h5 id="email-347916416qqcom">Email: 347916416@qq.com</h5>
+<h5 id="myappearance-">MyAppearance: <img src="https://github.com/Dongzhixiao/PictureCache/raw/master/MyPicture.JPG" alt="MyAppearance" title="我的头像"></h5>
+<hr>
+<pre>
+    今天上午，陈博士过来找我，问我学习Lua语言学习的进度。说了惭愧，我最近一
+直在看C++那一块的源代码，而且发现代码里面的注释块做的不好，因此研究了一下文档
+的标准写法。并且在读代码的同时将里面的注释顺便改成标准格式，但是这样就耽误了Lu
+a语言的学习进度。为了赶上下来的任务，我需要每天抽出一段时间来进行Lua语言的学习
+了。但是文档的内容还没有完全学完，因此这几天晚上继续文档学习，完成之后会研究一
+段Lua语言。
+</pre>
+<h4 id="小节指示命令">小节指示命令</h4>
+<p><strong>小节指示命令都比较常用，要多多学习！</strong></p>
+<ul>
+  <li>@attention { attention text }</li>
+</ul>
+<p>开始一个可输入需要处理信息的段落，次段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@attention</code>命令将被组合到一个单独的段落中，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@attention</code>将终止。</p>
+<ul>
+  <li>@author { list of authors }</li>
+</ul>
+<p>开始一个可输入一个或者多个作者名的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@author</code>命令将被组合到一个单独的段落中，每个作者描述都将开启一个新行，另外一个   <code class="highlighter-rouge">@author</code>命令可能会有若干个作者，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@author</code>将终止。例如：</p>
+<pre><code class="language-C++">/*!  
+ *  @brief     Pretty nice class. 
+ *  @details   This class is used to demonstrate a number of section commands. 
+ *  @author    John Doe 
+ *  @author    Jan Doe 
+ *  @version   4.1a *  date      1990-2011 
+ *  @pre       First initialize the system.
+ *  @bug       Not all memory is freed when deleting an object of this class. 
+ *  @warning   Improper use can crash your application
+ *  @copyright GNU Public License. 
+ */
+class SomeNiceClass &#123;&#125;;
+</code></pre>
+<ul>
+  <li>@authors { list of authors }</li>
+</ul>
+<p>同<code class="highlighter-rouge">@author</code>等价</p>
+<ul>
+  <li>@brief { brief description }</li>
+</ul>
+<p>开始一个作为简明描述的段落，在文档页的起始部分可使用类和文档的简明描述的列表，可在细节描述的前端和成员声明处放置类成员和文档成员的简明描述。一个简明描述可能需要若干行(尽管建议它保持简明的风格)。当遇到一个空白行或者是其他的小节命令，那么简明描述将终止。如果出现多个<code class="highlighter-rouge">@brief</code>命令，那么它们将被组合在一起。查看命令<code class="highlighter-rouge">@authhor</code>的例子。等同于命令<code class="highlighter-rouge">@short</code></p>
+<ul>
+  <li>@bug { bug description }</li>
+</ul>
+<p>开始一个可报告一个或多个bug的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@bug</code>命令将被组合到一个单独的段落中，每个bug都将开启一个新行，另外一个   <code class="highlighter-rouge">@bug</code>命令可能会有若干个bug，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@bug</code>将终止。查看命令<code class="highlighter-rouge">@authhor</code>的例子。</p>
+<ul>
+  <li>@cond [(section-label)]</li>
+</ul>
+<p>开始一个带条件的小节，使用命令<code class="highlighter-rouge">@endcond</code>来终止该小节，通常在其他的注释块中可查找到<code class="highlighter-rouge">@endcond</code>。此对命令的目的是，(条件化)在处理中将一部分文档排除。</p>
+<p>小节将包含在命令<code class="highlighter-rouge">@cond</code>和<code class="highlighter-rouge">@endcond</code>之间，并将小节的标号加入到配置选项<code class="highlighter-rouge">ENABLED_SECTIONS </code>中，如果标号被忽略，该小节也将在处理中被无条件忽略。</p>
+<p>在注释块中的条件小节，可使用一个<code class="highlighter-rouge">@if...@endif</code>块。</p>
+<p>条件小节能被嵌套，在这种情况下，如果它和嵌套的小节都包含在其中，那么只有被嵌套的小节才会显示。例如：</p>
+<pre><code class="language-C++">/** An interface */
+class Intf
+&#123;
+  public:
+    /** A method */
+    virtual void func() = 0;
+
+    /// @cond TEST
+
+    /** A method used for testing */
+    virtual void test() = 0;
+
+    /// @endcond
+&#125;;
+
+/// @cond DEV
+/*
+ *  The implementation of the interface
+ */
+class Implementation : public Intf
+&#123;
+  public:
+    void func();
+
+    /// @cond TEST
+    void test();
+    /// @endcond
+
+    /// @cond
+    /** This method is obsolete and does
+     *  not show up in the documentation.
+     */
+    void obsolete();
+    /// @endcond
+&#125;;
+
+/// @endcond
+</code></pre>
+<ul>
+  <li>@copyright { copyright description }</li>
+</ul>
+<p>开始描述一个实体的版权的段落，这个段落收到约束，这个段落的内容没有特殊的内部结构。查看命令<code class="highlighter-rouge">@authhor</code>的例子。</p>
+<ul>
+  <li>@date { date description }</li>
+</ul>
+<p>开始一个可可输入一个或多个日期的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@date</code>命令将被组合到一个单独的段落中，每个date都将开启一个新行，另外一个   <code class="highlighter-rouge">@date</code>命令可能会有若干个date，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@date</code>将终止。查看命令<code class="highlighter-rouge">@authhor</code>的例子。</p>
+<ul>
+  <li>@deprecated { description }</li>
+</ul>
+<p>开始一个指示文档块是否弃用的段落，可用于描述替代方法，预定生命周期等</p>
+<ul>
+  <li>@details { detailed description }</li>
+</ul>
+<p>如同<code class="highlighter-rouge">@brief</code>开始一个简明描述，<code class="highlighter-rouge">@details</code>将开始一个细节描述，你也可以开始一个新段落(加入空白行)，而无需加入命令<code class="highlighter-rouge">@details</code>。</p>
+<ul>
+  <li>@else</li>
+</ul>
+<p>开始一个条件小节，如果前一个条件小节无效。前一个小节可使用命令<code class="highlighter-rouge">@if,@ifnot,@elseif</code>开始。</p>
+<ul>
+  <li>@elseif (section-label)</li>
+</ul>
+<p>开始一个条件小节，如果前一个条件小节无效。当条件小节默认为无效时，你必须放置该命令的<code class="highlighter-rouge">section-label</code>到配置标记<code class="highlighter-rouge">ENABLED_SECTIONS</code>中使得命令<code class="highlighter-rouge">@elseif</code>有效。条件块可以嵌套，如果所有嵌套的条件都有效，那么也只有做内层的嵌套小节才会被读取。</p>
+<ul>
+  <li>@endcond</li>
+</ul>
+<p>结束一个由<code class="highlighter-rouge">@cond</code>开始的条件小节。</p>
+<ul>
+  <li>@endif</li>
+</ul>
+<p>结束一个由<code class="highlighter-rouge">@if或@ifnot</code>开始的条件小节，每个<code class="highlighter-rouge">@if或@ifnot</code>只能一一对应匹配之后的<code class="highlighter-rouge">@endif</code>。</p>
+<ul>
+  <li>@exception <exception-object> { exception description }</exception-object></li>
+</ul>
+<p>为一个名字为<code class="highlighter-rouge">&lt;exception-object&gt;</code>异常对象而开始一个描述，其次是此异常的描述。不会去检查是否存在这个异常对象。段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@exception</code>命令将被组合到一个单独的段落中，每个参数的描述都将开启一个新行，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@exception</code>将终止。
+与<code class="highlighter-rouge">@exception</code>一样。</p>
+<ul>
+  <li>@if (section-label)</li>
+</ul>
+<p>开始一个条件化的文档小节，并使用一个匹配的命令<code class="highlighter-rouge">@endif</code>结束。当条件小节默认为无效时，你必须放置该命令的<code class="highlighter-rouge">section-label</code>到配置标记<code class="highlighter-rouge">ENABLED_SECTIONS</code>中使得命令<code class="highlighter-rouge">@if</code>有效。条件块可以嵌套，如果所有嵌套的条件都有效，那么也只有做内层的嵌套小节才会被读取。例如：</p>
+<pre><code class="language-C++">/*! Unconditionally shown documentation.
+   *  if Cond1
+   *    Only included if Cond1 is set.
+   *  endif
+   *  if Cond2
+   *    Only included if Cond2 is set.
+   *    if Cond3
+   *      Only included if Cond2 and Cond3 are set.
+   *    endif
+   *    More text.
+   *  endif
+   *  Unconditional text.
+   */
+</code></pre>
+<p>如果你在alias中使用了条件命令，如果在两种语言中文档化一个类，你可以这样使用：</p>
+<pre><code class="language-C++">/*! english
+ *  This is English.
+ *  endenglish
+ *  dutch
+ *  Dit is Nederlands.
+ *  enddutch
+ */
+class Example
+&#123;
+&#125;;
+</code></pre>
+<p>一下是配置文档中的alias：</p>
+<pre><code class="language-C++">ALIASES  = "english=if english" 
+           "endenglish=endif" 
+           "dutch=if dutch" 
+           "enddutch=endif"
+</code></pre>
+<p>那么<code class="highlighter-rouge">ENABLED_SECTIONS</code>即可有效english也可有效dutch</p>
+<ul>
+  <li>@ifnot (section-label)</li>
+</ul>
+<p>开始一个条件化的文档小节，并使用一个匹配的命令<code class="highlighter-rouge">@endif</code>结束。当条件小节默认为有效时，你必须放置该命令的<code class="highlighter-rouge">section-label</code>到配置标记<code class="highlighter-rouge">ENABLED_SECTIONS</code>中使得命令<code class="highlighter-rouge">@ifnot</code>无效。</p>
+<ul>
+  <li>@invariant { description of invariant }</li>
+</ul>
+<p>开始一个可描述不变式的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@invariant</code>命令将被组合到一个单独的段落中，每个invariant描述都将开启一个新行，另外一个<code class="highlighter-rouge">@invariant</code>命令可能会有若干个不变式，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@exception</code>将终止。</p>
+<ul>
+  <li>@note { text }</li>
+</ul>
+<p>开始一个输入提示的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@note</code>命令将被组合到一个单独的段落中，每个note描述都将开启一个新行，另外一个<code class="highlighter-rouge">@note</code>命令可能会有若干个提示，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@note</code>将终止。查看<code class="highlighter-rouge">@par</code>命令的例子。</p>
+<ul>
+  <li>@par [(paragraph title)] { paragraph }</li>
+</ul>
+<p>如果一个段落标题已经给定，此命令将开始一个用户自定义的段头。段头将会占用一行，命令后的段头将会缩排。</p>
+<p>如果段落标题未给出，此命令将开始一个新段落，也可插入其他段落命令(如@param或@warning)来终止该命令。</p>
+<p>段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@par</code>将终止。例如：</p>
+<pre><code class="language-C++">/*! @class Par_Test 
+ * Normal text. 
+ * 
+ * @par User defined paragraph: 
+ * Contents of the paragraph. 
+ * 
+ * @par 
+ * New paragraph under the same heading. 
+ *
+ * @note 
+ * This note consists of two paragraphs. 
+ * This is the first paragraph. 
+ * 
+ * @par 
+ * And this is the second paragraph. 
+ *
+ * More normal text. 
+ */ 
+class Par_Test &#123;&#125;;
+</code></pre>
+<ul>
+  <li>@param [(dir)] <parameter-name> { parameter description }</parameter-name></li>
+</ul>
+<p>为一个名字为<code class="highlighter-rouge">&lt;parameter-name&gt;</code>函数参数开始一个参数描述，将会去检查是否存在。如果在函数声明或定义中，该参数(或其他参数)的文档丢失或未出现，将会给出一个警告。</p>
+<p><code class="highlighter-rouge">@param</code>命令有一个可选属性，能指定参数的方向属性，可为<code class="highlighter-rouge">into或out</code>，这有一个例子：</p>
+<pre><code class="language-C++">/*! * Copies bytes from a source memory area to a destination memory area, 
+ * where both areas may not overlap. 
+ * @param[out] dest The memory area to copy to.
+ * @param[in]  src  The memory area to copy from.
+ * @param[in]  n    The number of bytes to copy 
+ */void 
+memcpy(void *dest, const void *src, size_t n);
+</code></pre>
+<p>如果参数既可以输入也可输出，则使用[in,out]指定方向属性，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@param</code>命令将被组合到一个单独的段落中，每个参数描述都将开启一个新行，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@param</code>将终止。</p>
+<ul>
+  <li>@parblock</li>
+</ul>
+<p>不像那些评论单一段落的参数( @par, @param 和 @warning)，@parblock可以作为一个跨越多行段落描述的命令，并且以<code class="highlighter-rouge">endparblock</code>结束。例如：</p>
+<pre><code class="language-C++">/** Example of a param command with a description consisting of two paragraphs
+ *  param p 
+ *  parblock
+ *  First paragraph of the param description.
+ *
+ *  Second paragraph of the param description.
+ *  endparblock
+ *  Rest of the comment block continues.
+ */
+</code></pre>
+<ul>
+  <li>@endparblock</li>
+</ul>
+<p>结束一个以<code class="highlighter-rouge">@parblock</code>开头的段落块。</p>
+<ul>
+  <li>@tparam <template-parameter-name> { description }</template-parameter-name></li>
+</ul>
+<p>为一个名字为<code class="highlighter-rouge">&lt;template-parameter-name&gt;</code>类或函数模板参数开始一个模板参数描述，等同于<code class="highlighter-rouge">@cmdparam</code></p>
+<ul>
+  <li>@post { description of the postcondition }</li>
+</ul>
+<p>开始一个可描述的后置条件的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@post</code>命令将被组合到一个单独的段落中，每个后置描述都将开启一个新行，另外一个<code class="highlighter-rouge">@post</code>命令可能会有若干个提示，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@post</code>将终止。</p>
+<ul>
+  <li>@pre { description of the precondition }</li>
+</ul>
+<p>开始一个可描述的前置条件的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@pre</code>命令将被组合到一个单独的段落中，每个前置条件描述都将开启一个新行，另外一个<code class="highlighter-rouge">@pre</code>命令可能会有若干个提示，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@pre</code>将终止。</p>
+<ul>
+  <li>@remark { remark text }</li>
+</ul>
+<p>开始一个可输入一个或多个备注的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@remark</code>命令将被组合到一个单独的段落中，每个备注都将开启一个新行，另外一个<code class="highlighter-rouge">@remark</code>命令可能会有若干个提示，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@remark</code>将终止。</p>
+<ul>
+  <li>@remarks { remark text }</li>
+</ul>
+<p>同<code class="highlighter-rouge">@remark</code>。</p>
+<ul>
+  <li>@result { description of the result value }</li>
+</ul>
+<p>同<code class="highlighter-rouge">@return</code>。</p>
+<ul>
+  <li>@return { description of the return value }</li>
+</ul>
+<p>开始一个可输入一个或多个备注的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@remark</code>将终止。参考<code class="highlighter-rouge">@fn</code>命令中的例子。</p>
+<ul>
+  <li>@returns { description of the return value }</li>
+</ul>
+<p>同<code class="highlighter-rouge">@return</code>。</p>
+<ul>
+  <li>@retval <return value=""> { description }</return></li>
+</ul>
+<p>为一个名字为<code class="highlighter-rouge">&lt;return value&gt;</code>函数开始一个返回值的描述，段落的文本不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@retval</code>命令将被组合到一个单独的段落中，每个备注都将开启一个新行，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@retval</code>将终止。</p>
+<ul>
+  <li>@sa { references }</li>
+</ul>
+<p>为指定的类、函数、方法、变量、文档、URL的一个或多个交叉引用开始一个段落，使用<code class="highlighter-rouge">::或者#</code>作为类和它的一个成员的引用连接符来组合上述两个名称。在方法名称之后包含一个带括号的参数类型列表，用于若干个重载方法或者构造器的选择。</p>
+<ul>
+  <li>@see { references }</li>
+</ul>
+<p>为了兼容JavaDoc，等同于<code class="highlighter-rouge">@sa</code>。</p>
+<ul>
+  <li>@short { short description }</li>
+</ul>
+<p>同<code class="highlighter-rouge">@brief</code>。</p>
+<ul>
+  <li>@since { text }</li>
+</ul>
+<p>用于指定一个有效的版本和时间，<code class="highlighter-rouge">@since</code>之后的段落不会指定一个内部结构，所有视觉增强的命令可以放置到该段落中，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@since</code>将终止。</p>
+<ul>
+  <li>@test { paragraph describing a test case }</li>
+</ul>
+<p>开始一个可描述的测试用例的段落，此描述会添加这个测试用例到一个单独的测试列表中，而这两种描述将可交叉引用。在测试列表中的每一个测试用例的前端，都还有一个指明它出处的头。</p>
+<ul>
+  <li>@throw <exception-object> { exception description }</exception-object></li>
+</ul>
+<p>同<code class="highlighter-rouge">@exception</code>。</p>
+<ul>
+  <li>@throws <exception-object> { exception description }</exception-object></li>
+</ul>
+<p>同<code class="highlighter-rouge">@throw</code>。</p>
+<ul>
+  <li>@todo { paragraph describing what is to be done }</li>
+</ul>
+<p>开始一个可描述的todo条目的段落，此描述会添加这个条目到一个单独的todo列表中，而这两种描述将可交叉引用。在测试列表中的每一个测试用例的前端，都还有一个指明它出处的头。</p>
+<ul>
+  <li>@version { version number }</li>
+</ul>
+<p>开始一个可可输入一个或多个版本字符串的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@version</code>命令将被组合到一个单独的段落中，每个版本描述将开启一个新行，另外一个   <code class="highlighter-rouge">@version</code>命令可能会有若干个版本字符串，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@version</code>将终止。查看命令<code class="highlighter-rouge">@authhor</code>的例子。</p>
+<ul>
+  <li>@warning { warning message }</li>
+</ul>
+<p>开始一个可可输入一个或多个警告信息的段落，此段落将会缩排，段落的文本不会指定一个内部结构，所有视觉增强命令可以放置到该段落中，多个相邻的<code class="highlighter-rouge">@warning</code>命令将被组合到一个单独的段落中，每个版本描述将开启一个新行，另外一个   <code class="highlighter-rouge">@warning</code>命令可能会有若干个警告，当遇到一个空白行或者是其他的小节命令，那么<code class="highlighter-rouge">@warning</code>将终止。查看命令<code class="highlighter-rouge">@authhor</code>的例子。</p>
+<ul>
+  <li>@xrefitem <key> "(heading)" "(list title)" { text }</key></li>
+</ul>
+<p>此命令是一个类似于<code class="highlighter-rouge">@todo,@bug</code>的集合，用于创建用户自定义文本小节，它会在连接点与关联页面之间自动生成交叉引用，并且能搜集关联页面中的所有相同类型的小节。第一个参数<key>是一个表述小节类型的唯一标识，第二个参数是一个加了引号的字符串，它用于表述第四个参数放置文本下的小节头，为包含同一个标识的所有条目相关页面，第三个参数将作为一个标题来使用，一些已经预定义的标识：`todo,test,bug,deprecated`。</key></p>
+<p>想想如果使用<code class="highlighter-rouge">@xrefitem</code>命令和它运行后的结果，如果只考虑todo列表，它看上去更像是一个alias：</p>
+<p><code class="highlighter-rouge">xrefitem todo "Todo" "Todo List" </code></p>
+<p>为每个小节都将重复该命令的前三个参数，这使得它非常易错，该命令也可用于合并配置文档中的<code class="highlighter-rouge">ALIAES</code>选项，如果定义一个新命令<code class="highlighter-rouge">@reminder</code>，可添加一下内容到配置文档：</p>
+<p><code class="highlighter-rouge">ALIASES += "reminder=xrefitem reminders "Reminder" "Reminders"" </code></p>
+<p>注意：命令中第二和第三参数使用转义引号。</p>
+<p>万一参数”(heading)”是一个空字符串则没有heading生成。当和<code class="highlighter-rouge">@page</code>命令联合使用时这非常有用。例如：</p>
+<pre><code class="language-C++">/** @page my_errors My Errors
+ *  @brief Errors page
+ *
+ *  Errors page contents.
+ */
+
+/** error ERROR 101: in case a file can not be opened.
+    Check about file system read/write access. */
+#define MY_ERR_CANNOT_OPEN_FILE                   101
+
+/** error ERROR 102: in case a file can not be closed.
+    Check about file system read/write access. */
+#define MY_ERR_CANNOT_CLOSE_FILE                  102
+</code></pre>
+<p>里面的<code class="highlighter-rouge">@error</code>定义为：</p>
+<p><code class="highlighter-rouge">ALIASES += "error=xrefitem my_errors "" """</code></p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-236_%E5%AD%A6%E4%B9%A0Lua%E8%AF%AD%E8%A8%80%E8%BF%9B%E5%BA%A6%20/">https://lua.ren/zl/2016-01-01-236_%E5%AD%A6%E4%B9%A0Lua%E8%AF%AD%E8%A8%80%E8%BF%9B%E5%BA%A6%20/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-235_%E5%9F%BA%E4%BA%8EAndroLua_Pro%E7%9A%84Android%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/" title="基于AndroLua_Pro的Android开发代码示例"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">基于AndroLua_Pro的Android开发代码示例</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-237_Lua_on_Nginx/" title="Lua_on_Nginx"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua_on_Nginx</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#author%E5%86%AC%E4%B9%8B%E6%99%93dizzy_face"><span class="toc-number">1.</span> <span class="toc-text">Author:冬之晓:dizzy_face:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#email-347916416qqcom"><span class="toc-number">2.</span> <span class="toc-text">Email: 347916416@qq.com</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#myappearance-"><span class="toc-number">3.</span> <span class="toc-text">MyAppearance: </span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E8%8A%82%E6%8C%87%E7%A4%BA%E5%91%BD%E4%BB%A4"><span class="toc-number"></span> <span class="toc-text">小节指示命令</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

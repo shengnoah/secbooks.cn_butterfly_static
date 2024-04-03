@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>evaluation of deep learning toolkits | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Abstract. In this study, I evaluate some popular deep learning toolkits. The candidates are listed in alphabetical order: Caffe, CNTK, TensorFlow, Theano, and Torch. This is a dynamic document and the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="evaluation of deep learning toolkits">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-1038_evaluation%20of%20deep%20learning%20toolkits/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="Abstract. In this study, I evaluate some popular deep learning toolkits. The candidates are listed in alphabetical order: Caffe, CNTK, TensorFlow, Theano, and Torch. This is a dynamic document and the">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:32.976Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:32.977Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-1038_evaluation%20of%20deep%20learning%20toolkits/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'evaluation of deep learning toolkits',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">evaluation of deep learning toolkits</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:32.976Z" title="发表于 2024-04-03 11:47:32">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:32.977Z" title="更新于 2024-04-03 11:47:32">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="evaluation of deep learning toolkits"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p><strong>Abstract.</strong> In this study, I evaluate some popular deep learning toolkits. The candidates are listed in alphabetical order: <a href="https://github.com/BVLC/caffe" target="_blank" rel="noopener noreferrer">Caffe</a>, <a href="https://cntk.codeplex.com/" target="_blank" rel="noopener noreferrer">CNTK</a>, <a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener noreferrer">TensorFlow</a>, <a href="https://github.com/Theano/Theano" target="_blank" rel="noopener noreferrer">Theano</a>, and <a href="https://github.com/torch/torch7" target="_blank" rel="noopener noreferrer">Torch</a>. This is a dynamic document and the evaluation, to the best of my knowledge, is based on the current state of their code.</p>
+<p>I also provide ratings in some areas because for a lot of people, ratings are useful. However, keep in mind that ratings are inherently subjective [1].</p>
+<p>If you find something wrong or inadequate, please help improve by filing an issue.</p>
+<p><strong>Table of contents</strong></p>
+<ol>
+<li><a href="#modeling-capability">Modeling Capability</a></li>
+</ol>
+<ul>
+<li><a href="#interfaces">Interfaces</a></li>
+<li><a href="#model-deployment">Model Deployment</a></li>
+<li><a href="#performance">Performance</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#ecosystem">Ecosystem</a></li>
+<li><a href="#cross-platform">Cross-platform</a> </li>
+</ul>
+<hr/>
+<h2 id="Modeling-Capability"><a href="#Modeling-Capability" class="headerlink" title="Modeling Capability"></a>Modeling Capability</h2><p>In this section, we evaluate each toolkit’s ability to train common and state-of-the-art networks <u>without writing too much code</u>. Some of these networks are:</p>
+<ul>
+<li>ConvNets: AlexNet, OxfordNet, GoogleNet</li>
+<li>RecurrentNets: plain RNN, LSTM/GRU, bidirectional RNN</li>
+<li>Sequential modeling with attention.</li>
+</ul>
+<p>In addition, we also evaluate the flexibility to create a new type of model.</p>
+<h4 id="Caffe"><a href="#Caffe" class="headerlink" title="Caffe "></a>Caffe <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png"/></h4><p>Caffe is perhaps the first mainstream industry-grade deep learning toolkit, started in late 2013, due to its excellent convnet implementation (at the time). It is still the most popular toolkit within the computer vision community, with many extensions being actively added. </p>
+<p>However, its support for recurrent networks and language modeling in general is poor, due to its legacy architecture, which’s limitations are detailed in the <a href="#architecture">architecture section</a>.</p>
+<h4 id="CNTK"><a href="#CNTK" class="headerlink" title="CNTK "></a>CNTK <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_2_stars.png"/></h4><p>CNTK is a deep learning system started by the speech people who <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.185.1908&amp;rep=rep1&amp;type=pdf" target="_blank" rel="noopener noreferrer">started the deep learning craze</a> and grown into a more general platform-independent deep learning system. It is better known in the speech community than in the general deep learning community.</p>
+<p>In CNTK (as in TensorFlow and Theano), a network is specified as a symbolic graph of vector operations, such as matrix add/multiply or convolution. A layer is just a composition of those operations. The fine granularity of the building blocks (operations) allows users to invent new complex layer types without implementing them in a low-level language (as in Caffe).</p>
+<p>As of today, CNTK is not usable for a variety of tasks such as sequence-2-sequence.</p>
+<h4 id="TensorFlow"><a href="#TensorFlow" class="headerlink" title="TensorFlow "></a>TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png"/></h4><p><strong>State-of-the-art models</strong></p>
+<ul>
+<li>RNN API and implementation are suboptimal. The team also commented about it <a href="https://github.com/tensorflow/tensorflow/issues/7" target="_blank" rel="noopener noreferrer">here</a> and <a href="https://groups.google.com/a/tensorflow.org/forum/?utm_medium=email&amp;utm_source=footer#!msg/discuss/B8HyI0tVtPY/aR43OIuUAwAJ" target="_blank" rel="noopener noreferrer">here</a>.</li>
+<li>Bidirectional RNN <a href="https://groups.google.com/a/tensorflow.org/forum/?utm_medium=email&amp;utm_source=footer#!msg/discuss/lwgaL7WEuW4/UXaL4bYkAgAJ" target="_blank" rel="noopener noreferrer">not available yet</a></li>
+<li>No 3D convolution, which is useful for video recognition</li>
+</ul>
+<p><strong>New models</strong><br/>Since TF uses symbolic graph of vector operations approach, specifying a new network is fairly easy. Although it doesn’t support symbolic loop yet (at least not well tested/documented, as of 05/2016), RNNs can be made easy and efficient using the <a href="https://www.tensorflow.org/versions/r0.8/tutorials/seq2seq/index.html#bucketing-and-padding" target="_blank" rel="noopener noreferrer">bucketing trick</a>.</p>
+<p>However, TF has a major weakness in terms of modeling flexibility. Every computational flow has be constructed as a static graph. That makes some computations difficult, such as <a href="https://github.com/tensorflow/tensorflow/issues/654" target="_blank" rel="noopener noreferrer">beam search</a> (which is used frequently in sequence prediction tasks). </p>
+<h4 id="Theano"><a href="#Theano" class="headerlink" title="Theano "></a>Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png"/></h4><p><strong>State-of-the-art models.</strong> Theano has implementation for most state-of-the-art networks, either in the form of a higher-level framework (e.g. <a href="https://github.com/mila-udem/blocks" target="_blank" rel="noopener noreferrer">Blocks</a>, <a href="https://github.com/fchollet/keras" target="_blank" rel="noopener noreferrer">Keras</a>, etc.) or in pure Theano.</p>
+<p><strong>New models.</strong> Theano pioneered the trend of using symbolic graph for programming a network. Theano’s symbolic API supports looping control, so-called <a href="http://deeplearning.net/software/theano/tutorial/loop.html" target="_blank" rel="noopener noreferrer">scan</a>, which makes implementing RNNs easy and efficient. Users don’t always have to define a new model at the tensor operations level. There are a few higher-level frameworks, mentioned above, which make model definition and training simpler.</p>
+<h4 id="Torch"><a href="#Torch" class="headerlink" title="Torch "></a>Torch <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png"/></h4><p><strong>State-of-the-art models</strong></p>
+<ul>
+<li>Excellent for conv nets. It’s worth noting that temporal convolution can be done in TensorFlow/Theano via <code>conv2d</code> but that’s a trick. The native interface for temporal convolution  in Torch makes it slightly more intuitive to use. </li>
+<li>Rich set of RNNs available through a <a href="https://github.com/Element-Research/rnn" target="_blank" rel="noopener noreferrer">non-official extension</a> [2]</li>
+</ul>
+<p><strong>New models.</strong> In Torch, there are multiple ways (stack of layers or graph of layers) to define a network but essentially, a network is defined as a graph of layers. Because of this coarser granularity, Torch is sometimes considered less flexible because for new layer types, users have to implement the full forward, backward, and gradient input update.</p>
+<p>However, unlike Caffe, defining a new layer in Torch is much easier because you don’t have to program in C++. Plus, in Torch, the difference between new layer definition and network definition is minimal. In Caffe, layers are defined in C++ while networks are defined via <code>Protobuf</code>.</p>
+<p>Torch is more flexible than TensorFlow and Theano in that it is imperative while TF/Theano are declarative (i.e. one has to declare a computational graph). That makes some operations, e.g. beam search, much easier to do in Torch.</p>
+<hr/>
+<center><br/><img src="http://i.snag.gy/0loNv.jpg" height="450"/>  <img src="https://camo.githubusercontent.com/49ac7d0f42e99d979c80a10d0ffd125f4b3df0ea/68747470733a2f2f7261772e6769746875622e636f6d2f6b6f7261796b762f746f7263682d6e6e67726170682f6d61737465722f646f632f6d6c70335f666f72776172642e706e67" height="450"/><br/><br/><i>Left: graph model of CNTK/Theano/TensorFlow; Right: graph model of Caffe/Torch</i><br/></center>
+<h2 id="Interfaces"><a href="#Interfaces" class="headerlink" title="Interfaces"></a>Interfaces</h2><h4 id="Caffe-1"><a href="#Caffe-1" class="headerlink" title="Caffe "></a>Caffe <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png"/></h4><p>Caffe has <code>pycaffe</code> interface but that’s a mere secondary alternative to the command line interface. The model has to be defined in protobuf (usually with a plain text editor), even if you use <code>pycaffe</code>.</p>
+<h4 id="CNTK-1"><a href="#CNTK-1" class="headerlink" title="CNTK "></a>CNTK <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_2_and_a_half_stars.png"/></h4><p>The way to use CNTK, similar to Caffe, is to specify a config file and run command line. CNTK is slightly worse than Caffe because there’s no Python or any other high-level language interface.</p>
+<h4 id="TensorFlow-1"><a href="#TensorFlow-1" class="headerlink" title="TensorFlow "></a>TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png"/></h4><p>TF supports two interfaces: Python and C++. This means that you can do experiments in a rich, high-level environment and deploy your model in an environment that requires native code or low latency.  </p>
+<p>It would be perfect if TF supports <code>F#</code> or <code>TypeScript</code>. The lack of static type in Python is just … painful :).</p>
+<h4 id="Theano-1"><a href="#Theano-1" class="headerlink" title="Theano "></a>Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_stars.png"/></h4><p>Python</p>
+<h4 id="Torch-1"><a href="#Torch-1" class="headerlink" title="Torch "></a>Torch <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_stars.png"/></h4><p>Torch runs on LuaJIT, which is amazingly fast (comparable with industrial languages such as C++/C#/Java). Hence developers don’t have to think about symbolic programming, which can be limited. They can just write all kinds of computations without worrying about performance penalty.</p>
+<p>However, let’s face it, Lua is not yet a mainstream language.</p>
+<h2 id="Model-Deployment"><a href="#Model-Deployment" class="headerlink" title="Model Deployment"></a>Model Deployment</h2><p>How easy to deploy a new model?</p>
+<h4 id="Caffe-2"><a href="#Caffe-2" class="headerlink" title="Caffe "></a>Caffe <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png"/></h4><p>Caffe is C++ based, which can be compiled on a variety of devices. It is cross-platform (windows port is available and maintained <a href="https://github.com/MSRDL/caffe" target="_blank" rel="noopener noreferrer">here</a>). Which makes Caffe the best choice with respect deployment.</p>
+<h4 id="CNTK-2"><a href="#CNTK-2" class="headerlink" title="CNTK "></a>CNTK <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png"/></h4><p>Like Caffe, CNTK is also C++ based and is cross-platform. Hence, deployment should be easy in most cases. However, to my understanding, it doesn’t work on ARM architecture, which limits its its capability on mobile devices. </p>
+<h4 id="TensorFlow-2"><a href="#TensorFlow-2" class="headerlink" title="TensorFlow "></a>TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png"/></h4><p>TF supports C++ interface and the library can be compiled/optimized on ARM architectures because it uses <a href="http://eigen.tuxfamily.org" target="_blank" rel="noopener noreferrer">Eigen</a> (instead of a BLAS library). This means that you can deploy your trained models on a variety of devices (servers or mobile devices) without having to implement a separate model decoder or load Python/LuaJIT interpreter [3].</p>
+<p>TF doesn’t work on Windows yet so TF models can’t be deployed on Windows devices though.</p>
+<h4 id="Theano-2"><a href="#Theano-2" class="headerlink" title="Theano "></a>Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png"/></h4><p>The lack of low-level interface and the inefficiency of Python interpreter makes Theano less attractive for industrial users. For a large model, the overhead of Python isn’t too bad but the dogma is still there.</p>
+<p>The cross-platform nature (mentioned below) enables a Theano model to be deployed in a Windows environment. Which helps it gain some points.</p>
+<h4 id="Torch-2"><a href="#Torch-2" class="headerlink" title="Torch "></a>Torch <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png"/></h4><p>Torch require LuaJIT to run models. This makes it less attractive than bare bone C++ support of Caffe/CNTK/TF. It’s not just the performance overhead, which is minimal. The bigger problem is integration, at API level, with a larger production pipeline.</p>
+<h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><h3 id="Single-GPU"><a href="#Single-GPU" class="headerlink" title="Single-GPU"></a>Single-GPU</h3><p>All of these toolkits call cuDNN so as long as there’s no major computations or memory allocations at the outer level, they should perform similarly.</p>
+<p>Soumith@FB has done some <a href="https://github.com/soumith/convnet-benchmarks" target="_blank" rel="noopener noreferrer">benchmarking for ConvNets</a>. Deep Learning is not just about feedforward convnets, not just about ImageNet, and certainly not just about a few passes over the network. However, Soumith’s benchmark is the only notable one as of today. So we will base the Single-GPU performance rating based on his benchmark.</p>
+<h4 id="TensorFlow-and-Torch"><a href="#TensorFlow-and-Torch" class="headerlink" title="TensorFlow and Torch "></a>TensorFlow and Torch <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png"/></h4><p>TensorFlow used to be slow when it first came out but as of 05/2016, it has reached the ballpark of other frameworks in terms of ConvNet speed. This is not surprising because every framework nowadays calls CuDNN for the actual computations.</p>
+<p>Here’s my latest micro benchmark of TensorFlow 0.8 vs before. The measurement is latency, in milliseconds, for one full minibatch forward-backward pass on a single Titan X GPU. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Network</th>
+<th style="text-align:center">TF 0.6 [<a href="https://github.com/soumith/convnet-benchmarks/blob/efb3d9321d14856f49951980dbea2f554190161a/README.md" target="_blank" rel="noopener noreferrer">ref</a>]</th>
+<th style="text-align:right">TF 0.8 [my run]</th>
+<th style="text-align:right">Torch FP32 [my run]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">AlexNet</td>
+<td style="text-align:center">292</td>
+<td style="text-align:right">97</td>
+<td style="text-align:right">81</td>
+</tr>
+<tr>
+<td style="text-align:center">Inception v1</td>
+<td style="text-align:center">1237</td>
+<td style="text-align:right">518</td>
+<td style="text-align:right">470</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Theano-3"><a href="#Theano-3" class="headerlink" title="Theano "></a>Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png"/></h4><p>On big networks, Theano’s performance is on par with Torch7, according to <a href="http://arxiv.org/pdf/1211.5590v1.pdf" target="_blank" rel="noopener noreferrer">this benchmark</a>. The main issue of Theano is startup time, which is terrible, because Theano has to compile C/CUDA code to binary. We don’t always train big models. In fact, DL researchers often spend more time debugging than training big models. TensorFlow doesn’t have this problem. It simply maps the symbolic tensor operations to the already-compiled corresponding function calls.</p>
+<p>Even <code>import theano</code> takes time because this <code>import</code> apparently does a lot of stuffs. Also, after <code>import Theano</code>, you are stuck with a pre-configured device (e.g. <code>GPU0</code>).</p>
+<h3 id="Multi-GPU"><a href="#Multi-GPU" class="headerlink" title="Multi-GPU"></a>Multi-GPU</h3><p>TBD </p>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p>Developer Zone</p>
+<h4 id="Caffe-3"><a href="#Caffe-3" class="headerlink" title="Caffe "></a>Caffe <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png"/></h4><p>Caffe’s architecture was considered excellent when it was born but in the modern standard, it is considered average. The main pain points of Caffe are its layer-wise design in C++ and the protobuf interface for model definition.</p>
+<p><strong>Layer-wise design.</strong> The building block of a network in Caffe is layer. </p>
+<ul>
+<li>For new layer types, you have to define the full forward, backward, and gradient update. You can see an  already <a href="https://github.com/BVLC/caffe/tree/master/src/caffe/layers" target="_blank" rel="noopener noreferrer">long-list of layers implemented in (official) caffe</a>.</li>
+<li>What’s worse is that if you want to support both CPU and GPU, you need to implement extra functions, e.g. <a href="https://github.com/BVLC/caffe/blob/master/src/caffe/layers/cudnn_conv_layer.cu" target="_blank" rel="noopener noreferrer"><code>Forward_gpu</code> and <code>Backward_gpu</code></a>.</li>
+<li>Worse, you need to assign an int id to your layer type and add that to the <a href="https://github.com/BVLC/caffe/blob/master/src/caffe/proto/caffe.proto#L1046" target="_blank" rel="noopener noreferrer">proto file</a>. If your pull request is not merged early, you may need to change the id because someone else already claims that.</li>
+</ul>
+<p><strong>Protobuf.</strong> Caffe has <code>pycaffe</code> interface but that’s a mere replacement of the command line interface. The model has to be defined in protobuf (usually with a plain text editor), even if you use <code>pycaffe</code>.</p>
+<p>[<em>Copied from <a href="https://www.quora.com/How-is-TensorFlow-architected-differently-from-Caffe" target="_blank" rel="noopener noreferrer">my own answer on Quora</a></em>]</p>
+<h3 id="CNTK-3"><a href="#CNTK-3" class="headerlink" title="CNTK"></a>CNTK</h3><p>To be updated …</p>
+<h4 id="TensorFlow-3"><a href="#TensorFlow-3" class="headerlink" title="TensorFlow "></a>TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png"/></h4><p>TF has a clean, modular architecture with multiple frontends and execution platforms. Details are in the <a href="http://download.tensorflow.org/paper/whitepaper2015.pdf" target="_blank" rel="noopener noreferrer">white paper</a>.</p>
+<p><img src="http://i.snag.gy/sJlZe.jpg" width="500"/></p>
+<h4 id="Theano-4"><a href="#Theano-4" class="headerlink" title="Theano "></a>Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png"/></h4><p>The architecture is fairly hacky: the whole code base is Python where C/CUDA code is packaged as Python string. This makes it hard to navigate, debug, refactor, and hence contribute as developers.</p>
+<h4 id="Torch-3"><a href="#Torch-3" class="headerlink" title="Torch "></a>Torch <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png"/></h4><p>Torch7 and nn libraries are also well-designed with clean, modular interfaces.</p>
+<h2 id="Ecosystem"><a href="#Ecosystem" class="headerlink" title="Ecosystem"></a>Ecosystem</h2><ul>
+<li>Caffe and CNTK: C++</li>
+<li>TensorFlow: Python and C++</li>
+<li>Theano: Python</li>
+<li>Torch: Lua is not a mainstream language and hence libraries built for it are not as rich as ones built for Python.</li>
+</ul>
+<h2 id="Cross-platform"><a href="#Cross-platform" class="headerlink" title="Cross-platform"></a>Cross-platform</h2><p>Caffe, CNTK, and Theano work on all OSes. TensorFlow and Torch do not work on Windows and there’s no known plan to port from either camp.</p>
+<p><br/></p>
+<hr/>
+<p><strong>Footnotes</strong></p>
+<p>[1] Note that I don’t aggregate ratings because different users/developers have different priorities.</p>
+<p>[2] Disclaimer: I haven’t analyzed this extension carefully.</p>
+<p>[3] See my <a href="http://www.kentran.net/2014/12/challenges-in-machine-learning-practice.html" target="_blank" rel="noopener noreferrer">blog post</a> for why this is desirable.</p>
+<hr/>
+<ul>
+<li>原文链接：<a href="https://github.com/zer0n/deepframeworks" target="_blank" rel="noopener noreferrer">Evaluation of Deep Learning Frameworks</a></li>
+</ul></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-1038_evaluation%20of%20deep%20learning%20toolkits/">https://lua.ren/zl/2016-01-01-1038_evaluation%20of%20deep%20learning%20toolkits/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-1037_leetcode%20150.%20evaluate%20reverse%20polish%20notation/" title="leetcode 150. evaluate reverse polish notation"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">leetcode 150. evaluate reverse polish notation</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-1036_amazon%20sagemaker%20neural%20topic%20model%20now%20supports%20a/" title="amazon sagemaker neural topic model now supports auxiliary vocabulary channel, new topic evaluation metrics, and training subsampling"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">amazon sagemaker neural topic model now supports auxiliary vocabulary channel, new topic evaluation metrics, and training subsampling</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Modeling-Capability"><span class="toc-number">1.</span> <span class="toc-text">Modeling Capability</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Caffe"><span class="toc-number">1.0.1.</span> <span class="toc-text">Caffe </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CNTK"><span class="toc-number">1.0.2.</span> <span class="toc-text">CNTK </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TensorFlow"><span class="toc-number">1.0.3.</span> <span class="toc-text">TensorFlow </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Theano"><span class="toc-number">1.0.4.</span> <span class="toc-text">Theano </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Torch"><span class="toc-number">1.0.5.</span> <span class="toc-text">Torch </span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Interfaces"><span class="toc-number">2.</span> <span class="toc-text">Interfaces</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Caffe-1"><span class="toc-number">2.0.1.</span> <span class="toc-text">Caffe </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CNTK-1"><span class="toc-number">2.0.2.</span> <span class="toc-text">CNTK </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TensorFlow-1"><span class="toc-number">2.0.3.</span> <span class="toc-text">TensorFlow </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Theano-1"><span class="toc-number">2.0.4.</span> <span class="toc-text">Theano </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Torch-1"><span class="toc-number">2.0.5.</span> <span class="toc-text">Torch </span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Model-Deployment"><span class="toc-number">3.</span> <span class="toc-text">Model Deployment</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Caffe-2"><span class="toc-number">3.0.1.</span> <span class="toc-text">Caffe </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CNTK-2"><span class="toc-number">3.0.2.</span> <span class="toc-text">CNTK </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TensorFlow-2"><span class="toc-number">3.0.3.</span> <span class="toc-text">TensorFlow </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Theano-2"><span class="toc-number">3.0.4.</span> <span class="toc-text">Theano </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Torch-2"><span class="toc-number">3.0.5.</span> <span class="toc-text">Torch </span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Performance"><span class="toc-number">4.</span> <span class="toc-text">Performance</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Single-GPU"><span class="toc-number">4.1.</span> <span class="toc-text">Single-GPU</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TensorFlow-and-Torch"><span class="toc-number">4.1.1.</span> <span class="toc-text">TensorFlow and Torch </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Theano-3"><span class="toc-number">4.1.2.</span> <span class="toc-text">Theano </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multi-GPU"><span class="toc-number">4.2.</span> <span class="toc-text">Multi-GPU</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Architecture"><span class="toc-number">5.</span> <span class="toc-text">Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Caffe-3"><span class="toc-number">5.0.1.</span> <span class="toc-text">Caffe </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CNTK-3"><span class="toc-number">5.1.</span> <span class="toc-text">CNTK</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TensorFlow-3"><span class="toc-number">5.1.1.</span> <span class="toc-text">TensorFlow </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Theano-4"><span class="toc-number">5.1.2.</span> <span class="toc-text">Theano </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Torch-3"><span class="toc-number">5.1.3.</span> <span class="toc-text">Torch </span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ecosystem"><span class="toc-number">6.</span> <span class="toc-text">Ecosystem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cross-platform"><span class="toc-number">7.</span> <span class="toc-text">Cross-platform</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

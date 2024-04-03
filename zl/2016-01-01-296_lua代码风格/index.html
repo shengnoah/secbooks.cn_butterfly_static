@@ -1,0 +1,644 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>lua代码风格 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="&lt;&#x2F;header&gt; &lt;div class&#x3D;&quot;entry&quot;&gt;        &lt;h1 id&#x3D;&quot;目录&quot;&gt;&lt;a href&#x3D;&quot;#目录&quot; class&#x3D;&quot;headerlink&quot; title&#x3D;&quot;目录&quot;&gt;&lt;&#x2F;a&gt;目录&lt;&#x2F;h1&gt;&lt;ul&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lua代码风格">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-296_lua%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="&lt;&#x2F;header&gt; &lt;div class&#x3D;&quot;entry&quot;&gt;        &lt;h1 id&#x3D;&quot;目录&quot;&gt;&lt;a href&#x3D;&quot;#目录&quot; class&#x3D;&quot;headerlink&quot; title&#x3D;&quot;目录&quot;&gt;&lt;&#x2F;a&gt;目录&lt;&#x2F;h1&gt;&lt;ul&amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:33.153Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:33.153Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-296_lua%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'lua代码风格',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">lua代码风格</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:33.153Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:33.153Z" title="更新于 2024-04-03 11:47:33">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="lua代码风格"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><header>
+<div class="clear"></div>
+<pre><code>&lt;/header&gt;
+&lt;div class=&quot;entry&quot;&gt;
+  
+    &lt;h1 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h1&gt;&lt;ul&gt;
+</code></pre>
+<li><a href="#1">一、程序的版式</a><ul>
+<li><a href="#1.1">1.1 空行</a></li>
+<li><a href="#1.2">1.2 空格</a></li>
+<li><a href="#1.3">1.3 长行拆分</a></li>
+<li><a href="#1.4">1.4 使用缩进</a></li>
+</ul>
+</li>
+<li><a href="#2">二、命名规则</a><ul>
+<li><a href="#2.1">2.1 共性规则</a></li>
+<li><a href="#2.2">2.2 文件命名</a></li>
+<li><a href="#2.3">2.3 类的命名</a>    </li>
+<li><a href="#2.4">2.4 变量命名</a></li>
+<li><a href="#2.5">2.5 常量，事件名的命名</a></li>
+<li><a href="#2.5">2.5 枚举</a></li>
+</ul>
+</li>
+<li><a href="#2">三、文件组织</a><ul>
+<li><a href="#3.1">3.1 文件描述</a></li>
+<li><a href="#3.2">3.2 文件中变量的定义</a></li>
+<li><a href="#3.3">3.3 类变量的定义</a></li>
+<li><a href="#3.4">3.4 函数参数的定义</a></li>
+<li><a href="#3.5">3.5 函数的定义规则</a></li>
+<li><a href="#3.6">3.6 注释的使用</a></li>
+</ul>
+</li>
+<li><a href="#3">三、分隔和缩进</a><ul>
+<li><a href="#3.1">3.1 使用空行</a></li>
+<li><a href="#3.2">3.2 使用空格符</a></li>
+<li><a href="#3.3">3.3 使用换行符</a></li>
+<li><a href="#3.4">3.4 使用小括号</a></li>
+<li><a href="#3.5">3.5 使用缩进</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="#4">四、编程技巧</a><ul>
+<li><a href="#4.1">4.1 应该尽量使用local变量而非global变量</a></li>
+<li><a href="#4.2">4.2 临时变量的处理</a></li>
+<li><a href="#4.3">4.3 利用逻辑运算的短路效应</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="#5">五、代码建议</a><ul>
+<li><a href="#5.1">5.1 代码的调试</a></li>
+<li><a href="#5.2">5.2 复杂度和性能问题</a></li>
+<li><a href="#5.3">5.3 函数的优化思考</a></li>
+<li><a href="#5.4">5.4 提交代码的检查</a></li>
+<li><a href="#5.5">5.5 表结构的引用</a></li>
+</ul>
+</li>
+</ul>
+<p><span id="1"></span></p>
+<h2 id="一、程序的版式"><a href="#一、程序的版式" class="headerlink" title="一、程序的版式"></a>一、程序的版式</h2><blockquote>
+<p>Code is read much more often than it is written.</p>
+<p>Programming style is an art.</p>
+</blockquote>
+<p><span id="1.1"></span></p>
+<h3 id="1-1-空行"><a href="#1-1-空行" class="headerlink" title="1.1 空行"></a>1.1 空行</h3><ul>
+<li>需加空行：<ul>
+<li>函数之间都要加空行；</li>
+<li>函数内部代码概念与逻辑之间，逻辑段落小节之间，都应该加空行；</li>
+<li>注释行之前。</li>
+</ul>
+</li>
+<li>不加空行：<ul>
+<li>在一个函数体内，逻揖上密切相关的语句之间不加空行；</li>
+<li>多行注释解释参数的时候，注释之间不加空行。</li>
+</ul>
+</li>
+</ul>
+<p><span id="1.2"></span></p>
+<h3 id="1-2-空格"><a href="#1-2-空格" class="headerlink" title="1.2 空格"></a>1.2 空格</h3><ul>
+<li><p>需加空格：</p>
+<ul>
+<li>“<code>and</code>“，”<code>or</code>“等关键字前后留<code>一个</code>空格，便于辨析；</li>
+<li>逗号”<code>,</code>“后面要留<code>一个</code>空格；</li>
+<li>赋值操作符、比较操作符、算术操作符如”<code>=</code>“、 “<code>==</code>“、”<code>~=</code>“、”<code>&gt;=</code>“、”<code>&lt;=</code>“、”<code>&gt;</code>“、”<code>&lt;</code>“、”<code>+</code>“、”<code>-</code>“、”<code>*</code>“、”<code>/</code>“、”<code>%</code>“、”<code>^</code>“,等二元操作符的<code>前后</code>应当加空格；</li>
+<li><code>if</code>、<code>for</code>、<code>while</code>等关键字之后如果要加左括号”<code>(</code>“，关键字与左括号之间应留一个空格，以突出关键字；  </li>
+</ul>
+</li>
+<li><p>不加空格：</p>
+<ul>
+<li>函数名之后不要留空格，紧跟左括号”<code>(</code>“；</li>
+<li>左括号”<code>(</code>“ 向<code>后</code>紧跟，紧跟处不留空格；</li>
+<li>右括号”<code>)</code>“、逗号”<code>,</code>“、分号”<code>;</code>“，向<code>前</code>紧跟，紧跟处不留空格；</li>
+<li>字符串连接符”<code>..</code>“前后不加空格；</li>
+<li>“<code>:</code>“，”<code>.</code>“，”<code>[</code>“，”<code>]</code>“这类操作符前后不加空格；</li>
+</ul>
+</li>
+</ul>
+<pre><code>a &gt; b and a or b           -- 良好的风格
+a &gt; b  and a or  b         -- 不良的风格
+<p>local a, b, c, max         – 良好的风格<br />
+local a,b,c,max            – 不良的风格</p>
+<p>if a &gt; b then              – 良好的风格<br />
+max = a<br />
+end<br />
+if a&gt;b then max=a end      – 不良的风格</p>
+<p>data = dataTable[index]    – 良好的风格<br />
+data = dataTable [ index ] – 不良的风格</p>
+<p>function(posX, posY)       – 良好的风格<br />
+function (posX,posY)       – 不良的风格<br />
+</code></pre><p><span id="1.3"></span></p></p>
+<h3 id="1-3-长行拆分"><a href="#1-3-长行拆分" class="headerlink" title="1.3 长行拆分"></a>1.3 长行拆分</h3><ul>
+<li>代码行最大长度宜控制在70至80个字符以内。代码行不要过长，否则眼睛看不过来，也不便于打印；</li>
+<li><p>长表达式要在低优先级操作符处拆分成新行，操作符放在新行之首（以便突出操作符）。</p>
+<pre><code>-- 良好的风格
+local newBuindingBtn = UI.newButton(&#123;             
+    text = btnName,
+    x = self.x,
+    y = self.y,
+    parent = self, 
+    style = &#123;
+        normal = ResConfig.png.commonBtnBlue
+    &#125;
+&#125;)
+<p>– 不良的风格<br />
+local newBuindingBtn = UI.newButton(&#123;text = btnName,x = self.x,y = self.y,parent = self, style = &#123;normal = ResConfig.png.commonBtnBlue&#125;&#125;)<br />
+</code></pre></li></p>
+</ul>
+<pre><code>-- 良好的风格
+if veryLongerVariable1 &gt;= veryLongerVariable2
+    and veryLongerVariable3 &lt;= veryLongerVariable5
+    and veryLongerVariable4 &lt;= veryLongerVariable6 then
+    doo()
+end
+<p>– 不良的风格<br />
+if veryLongerVariable1 &gt;= veryLongerVariable2 and veryLongerVariable3 &lt;= veryLongerVariable5 and veryLongerVariable4 &lt;= veryLongerVariable6 then<br />
+doo()<br />
+end<br />
+</code></pre><p><span id="1.4"></span></p></p>
+<h3 id="1-4-使用缩进"><a href="#1-4-使用缩进" class="headerlink" title="1.4 使用缩进"></a>1.4 使用缩进</h3><ul>
+<li>类中的成分</li>
+<li>方法体或语句块中的成分</li>
+<li>换行时的非起始行 </li>
+</ul>
+<h2 id="—"><a href="#—" class="headerlink" title="—"></a>—</h2><p><span id="2"></span></p>
+<h2 id="二、命名规则"><a href="#二、命名规则" class="headerlink" title="二、命名规则"></a>二、命名规则</h2><blockquote>
+<p>三思而命名。</p>
+</blockquote>
+<p><span id="2.1"></span></p>
+<h3 id="2-1-共性规则"><a href="#2-1-共性规则" class="headerlink" title="2.1 共性规则"></a>2.1 共性规则</h3><ul>
+<li>命名应当直观且可拼读，可望文知意；</li>
+<li>标识符的长度应当符合“min-length &amp;&amp; max-information”原则；</li>
+<li>采用英文单词或单词组合，英文单词不要复杂，但用词需准确，<code>切忌使用汉语拼音命名</code>；</li>
+<li>切勿为了避免命名过长而随意截取单词，以丢失可读性；</li>
+<li>所有命名都不要与－x已有的命名风格冲突，例如不要以CC，UI开头；</li>
+</ul>
+<p><span id="2.2"></span></p>
+<h3 id="2-2-文件命名"><a href="#2-2-文件命名" class="headerlink" title="2.2 文件命名"></a>2.2 文件命名</h3><ul>
+<li>所有Lua文件的命名时使用大驼峰法；</li>
+<li>根据文件的特性，一般以文件里的模块名或者类名作为同名文件名；</li>
+<li><p>确定命名前，请检查下，不要跟其他文件同名；</p>
+<pre><code>CCArmature.lua    -- 不良的风格
+UILayout.lua      -- 不良的风格
+</code></pre></li>
+</ul>
+<p><span id="2.3"></span></p>
+<h3 id="2-3-类的命名"><a href="#2-3-类的命名" class="headerlink" title="2.3 类的命名"></a>2.3 类的命名</h3><ul>
+<li>所有类命名时使用大驼峰法；</li>
+<li>类名一般由”名词”或”多名词”组成，不要简写；</li>
+<li><p>根据类的特性，加上相关的后缀或者前缀；</p>
+<pre><code>后缀：  
+管理类  Manager
+缓存类  Cache
+控制类  Controller
+模块    Module
+网络类  Proxy
+</code></pre></li>
+</ul>
+<p><span id="2.4"></span></p>
+<h3 id="2-4-变量命名"><a href="#2-4-变量命名" class="headerlink" title="2.4 变量命名"></a>2.4 变量命名</h3><ul>
+<li><p>通用规则</p>
+<ul>
+<li>使用 “名词” 或是 “形容词+名词” 命名；</li>
+<li>使用小驼峰法命名；</li>
+<li>为了可读性，尽量避免变量名中出现标号，如value1， value2；</li>
+<li>不要出现仅靠部分字母大小写区分的相似的变量；</li>
+<li>除非是局部变量功能等价全局变量，不然局部变量不要与已有的全局变量同名；</li>
+<li><p>尽量不要使用已有的类名作为变量名；</p>
+<pre><code>local data          -- 良好的风格  
+local oldData       -- 良好的风格 
+local newData       -- 良好的风格     
+local pairs = pairs -- 良好的风格
+<p>local posx,posX     – 不良的风格<br />
+local btn1,btn2     – 不良的风格<br />
+local TABLE = &#123;&#125;    – 不良的风格<br />
+local uILabel       – 不良的风格<br />
+</code></pre></li></p>
+</ul>
+</li>
+<li><p>类的成员变量</p>
+<ul>
+<li><p>类的成员变量以”self.”开头，以区分于局部变量；</p>
+<pre><code>例如:
+    function init()
+<pre><code>    self.mainPanel = false -- 常用格式
+
+    topPanel = false       -- 这样是全局变量，占用全局资源，而且难以区分于局部变量 
+    ...
+end
+</code></pre>
+<p></code></pre></li></p>
+</ul>
+</li>
+<li><p>全局变量</p>
+<ul>
+<li><p>全局变量使用双下划线(“<code>__</code>“)开头以及结尾，中间的命名以名词拼接，或”形容词＋名词”拼接，不同单词之间用（”<code>_</code>“）隔开；</p>
+<pre><code>例如：
+    __VERSION_CODE__ = &#34;1.0.0.0&#34;            
+</code></pre></li>
+</ul>
+</li>
+<li><p>局部变量</p>
+<ul>
+<li><p>M常用做模块里面表示模块本身</p>
+<pre><code>module(&#34;MainGame.Module.IntegrationTest.MapModule&#34;,package.seeall)
+<p>local M = class(SceneView,&quot;MapScene&quot;)</p>
+<p>–数据的初始化<br />
+function M:init()<br />
+…<br />
+end</p>
+<p>…<br />
+return M<br />
+</code></pre><ul></p>
+<li><p>引用进来的类或模块，用大驼峰法命名，引用路径统一带括号；</p>
+<pre><code>module(&#34;MainGame.Module.IntegrationTest.MapModule&#34;,package.seeall)
+<p>local M = class(SceneView,&quot;MapScene&quot;)<br />
+local Surface = require(&quot;xx.xx&quot;)<br />
+local TestButtonPanel = require(&quot;xx&quot;)<br />
+…<br />
+</code></pre></li></p>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>临时变量</p>
+<ul>
+<li><p>常用下划线”_”作为可以忽略的变量</p>
+<pre><code>for _,v in ipairs(t) do print(v) end
+</code></pre><ul>
+<li><p>i,k,v,t常做临时变量</p>
+<pre><code>for k,v in pairs(t) ... end
+for i,v in ipairs(t) ... end
+mt.__newindex = function(t, k, v) ... end
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><span id="2.5"></span></p>
+<h3 id="2-5-常量，事件名的命名"><a href="#2-5-常量，事件名的命名" class="headerlink" title="2.5 常量，事件名的命名"></a>2.5 常量，事件名的命名</h3><ul>
+<li><p>常量，事件名所用单词均大写，单词用下划线(‘<code>_</code>‘)分割；</p>
+<pre><code>例如：
+    -- 常量 默认宽度
+    LIST_DEFAULT_WIDTH = 100
+<pre><code>-- 事件 添加到场景
+ADDED_TO_STAGE = getId() 
+</code></pre>
+<p></code></pre></li></p>
+</ul>
+<p><span id="2.6"></span></p>
+<h3 id="2-6-枚举的命名"><a href="#2-6-枚举的命名" class="headerlink" title="2.6 枚举的命名"></a>2.6 枚举的命名</h3><ul>
+<li>枚举名命名，与类名命名一致；</li>
+<li><p>枚举值命名，与常量，事件名的命名一致；</p>
+<pre><code>例如：
+    ControllerViewType = &#123;
+        SCENE = &#34;SCENE&#34;,
+        PANEL = &#34;PANEL&#34;,
+        POP =     &#34;POP&#34;,
+    &#125;
+</code></pre></li>
+</ul>
+<h2 id="—-1"><a href="#—-1" class="headerlink" title="—"></a>—</h2><p>##三、文件组织<br/><span id="3.1"></span></p>
+<h3 id="3-1-文件描述"><a href="#3-1-文件描述" class="headerlink" title="3.1 文件描述"></a>3.1 文件描述</h3><ul>
+<li><p>文件开头加上此文件的简要功能作用描述；</p>
+<pre><code>-- MapModule.lua
+--Author:xx
+--Email:xx@flamingo-inc.com
+--20xx年x月x日 xx:xx
+--Using:创建地图       
+module(&#34;MainGame.Module.IntegrationTest.MapModule&#34;,package.seeall)
+...
+</code></pre></li>
+</ul>
+<p><span id="3.2"></span></p>
+<h3 id="3-2-文件中变量的定义"><a href="#3-2-文件中变量的定义" class="headerlink" title="3.2 文件中变量的定义"></a>3.2 文件中变量的定义</h3><ul>
+<li><p>如果在文件中需要多次使用的某些导入文件，可以在文件开头用局部变量存储导入信息，而不是在每次使用的时候都重新导入一次；</p>
+<pre><code>例如:
+    ...
+    local Surface = require(&#34;xx.xx&#34;)
+    local TestButtonPanel = require(&#34;xx&#34;)
+<pre><code>function M:xx()
+    local testBtn = TestButtonPanel.newCC()
+    ...
+end
+
+function M:yy()
+    local panel = TestButtonPanel.newCC()
+    local surface = Surface.newCC()
+    ...
+end
+
+...
+</code></pre>
+<p></code></pre><p><span id="3.3"></span></p></p>
+<h3 id="3-3-类变量的定义"><a href="#3-3-类变量的定义" class="headerlink" title="3.3 类变量的定义"></a>3.3 类变量的定义</h3></li>
+<li>类中的成员变量需要在init中先声明，并赋予初始值，<code>不允许不声明直接使用</code>；</li>
+</ul>
+<p><span id="3.4"></span></p>
+<h3 id="3-4-函数参数的定义"><a href="#3-4-函数参数的定义" class="headerlink" title="3.4 函数参数的定义"></a>3.4 函数参数的定义</h3><ul>
+<li><p>所有函数的参数都用统一的params做参数，并加入如下格式的注释：</p>
+<pre><code>--[[
+    普通按钮 可缩放 scale9
+    @param #string text 按钮名称
+    @param #table style 按钮样式
+]]
+function UI.newButtonScale9(params)
+   ...
+end
+</code></pre></li>
+</ul>
+<p><span id="3.5"></span></p>
+<h3 id="3-5-函数的定义规则"><a href="#3-5-函数的定义规则" class="headerlink" title="3.5 函数的定义规则"></a>3.5 函数的定义规则</h3><ul>
+<li>函数的行数过长(大于 100 行)时,尽量拆分为多个子函数;</li>
+<li>函数中一些晦涩的部分,一定要加上注释；</li>
+</ul>
+<p><span id="2.6"></span></p>
+<h3 id="3-6-注释的使用"><a href="#3-6-注释的使用" class="headerlink" title="3.6 注释的使用"></a>3.6 注释的使用</h3><ul>
+<li>短小的注释用–；</li>
+<li>长注释用–[[]]；</li>
+</ul>
+<h2 id="—-2"><a href="#—-2" class="headerlink" title="—"></a>—</h2><p><span id="4"></span></p>
+<h2 id="四、编码技巧"><a href="#四、编码技巧" class="headerlink" title="四、编码技巧"></a>四、编码技巧</h2><p><span id="4.1"></span></p>
+<h3 id="4-1-应该尽量使用local变量而非global变量"><a href="#4-1-应该尽量使用local变量而非global变量" class="headerlink" title="4.1 应该尽量使用local变量而非global变量"></a>4.1 应该尽量使用<code>local</code>变量而非<code>global</code>变量</h3><ul>
+<li>全局变量实际是放入全局表中，每次调用是用传入变量名作为key去获取，而local变量是直接通过lua的堆栈访问的；</li>
+<li>推荐写法<ul>
+<li>在能用局部变量解决的地方，不要使用全局变量，这点很容易被忽略；    </li>
+<li>多次重复使用的全局接口，可以用局部变量保存下再使用，这样做有两个好处：<ul>
+<li>避免某些类型的全局变量被修改</li>
+<li>提高访问速度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 比如需要多重遍历操作一个大表：
+写法1:
+for k1,v1 in pairs(tbl) do
+    for k2,v2 in pairs(v1) do
+        ...    
+    end
+end
+<p>写法2:<br />
+do<br />
+local pairs = pairs<br />
+for k1,v1 in pairs(tbl) do<br />
+for k2,v2 in pairs(v1) do<br />
+…<br />
+end<br />
+end<br />
+end</p>
+<p>– 由于pairs是一个全局变量应用的函数，所以写法2在这里有稍微效率上的提升，但要是单层遍历的没有这个效果了。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>当作常量来多次使用的全局变量可以存为局部变量使用<br />
+local playerName = Cache.playerCache.username<br />
+…<br />
+local function itemTemplate(data)<br />
+nameLabel:setText(playerName)<br />
+end</p>
+</li>
+</ul>
+<p>local list = NewList.newCC(,&#123;<br />
+itemTemplate = itemTemplate,<br />
+…<br />
+&#125;)<br />
+</code></pre><p><span id="4.2"></span>            </p></p>
+<p>###4.2 临时变量的处理</p>
+<ul>
+<li><p>字符串的连接 .. <br/><br/>由于字符串的管理机制，字符串在使用..连接时，会产生新的对象。由于lua在VM内对相同的string永远只保留一份唯一copy。</p>
+<pre><code>例如:
+local description ＝ &#34;&#34;
+for i = 1,20 do
+    description = description..&#34;xxx&#34;
+end
+-- 这样会生成21份string的copy，但实际上我们只需要最后那一份 
+</code></pre><p> 如果是轻量级的简单连接还是可以使用的，因为影响不大，但要是大量的类似拼接，推荐使用<code>string.format</code></p>
+</li>
+<li><p>类似于字符串的管理机制，表也存在类似的临时变量copy：</p>
+<pre><code>函数传参数
+function func(&#123;x,y&#125;)
+    ...
+end
+</code></pre><p>这种传参方式，每次都会生成一份copy，所以推荐以下的用法：</p>
+<pre><code>function func(x,y)
+    ...
+end
+<p>function func(&#123;posX = x, posY = y&#125;)<br />
+…<br />
+end<br />
+</code></pre></li></p>
+</ul>
+<p><span id="4.3"></span>        </p>
+<p>###4.3 利用逻辑运算的短路效应</p>
+<ul>
+<li><p>and or 的返回值是表达式中的左值或者右值，可用来简化代码</p>
+<pre><code>function foo(arg)
+    arg = arg or &#34;default&#34;
+    ...
+end
+<p>– 但要注意当赋值为bool值时候，容易出bug<br />
+a = a or true  – 错误的写法，当 a 明确写为 false 的时候，也会被改变成 true 。<br />
+a = a ~= false – 正确的写法，当 a 为 nil 的时候，被赋值为 true ；而 false 则不变。<br />
+</code></pre></li></p>
+<li><p>另外，巧妙使用 and or 还可以实现类似 C 语言中的 ?: 三元操作：</p>
+<pre><code>function max(a,b)
+    return a &gt; b and a or b
+end
+<p>– 这里相当于 return (a &gt; b) ? a : b;<br />
+</code></pre></li></p>
+</ul>
+<h2 id="—-3"><a href="#—-3" class="headerlink" title="—"></a>—</h2><h2 id="五、代码建议"><a href="#五、代码建议" class="headerlink" title="五、代码建议"></a>五、代码建议</h2><p><span id="5.1"></span></p>
+<h3 id="5-1-代码的调试"><a href="#5-1-代码的调试" class="headerlink" title="5.1 代码的调试"></a>5.1 代码的调试</h3><ul>
+<li>用Luastudio工具调试，代替Sublime调试Lua代码；</li>
+</ul>
+<p><span id="5.2"></span></p>
+<h3 id="5-2-复杂度和性能问题"><a href="#5-2-复杂度和性能问题" class="headerlink" title="5.2 复杂度和性能问题"></a>5.2 复杂度和性能问题</h3><ul>
+<li>写代码时尽可能写的简单,考虑性能时先做好推断,看看能提升多少,增加的复杂度以及造成的代码晦涩有多严重,然后再决定如何做；</li>
+</ul>
+<p><span id="5.3"></span></p>
+<h3 id="5-3-函数的优化思考"><a href="#5-3-函数的优化思考" class="headerlink" title="5.3 函数的优化思考"></a>5.3 函数的优化思考</h3><ul>
+<li>开销大的函数，调用次数低的话，可以不做优化；</li>
+<li>开销较小的函数，但调用频率很高，则从如何降低调用频率以及减少函数的开销两个角度去思考优化；</li>
+</ul>
+<p><span id="5.4"></span></p>
+<h3 id="5-4-提交代码的检查"><a href="#5-4-提交代码的检查" class="headerlink" title="5.4 提交代码的检查"></a>5.4 提交代码的检查</h3><ul>
+<li>提交代码前，在svn commit中验证提交的代码，去掉或注释掉无关的代码，保证提交的代码无误；</li>
+</ul>
+<p><span id="5.5"></span></p>
+<h3 id="5-5-表结构的引用"><a href="#5-5-表结构的引用" class="headerlink" title="5.5 表结构的引用"></a>5.5 表结构的引用</h3><ul>
+<li>尽量减少表中的成员是另个表的引用；</li>
+</ul>
+<hr/>
+<p>参考资料：</p>
+<p>[1] <a href="https://ldb.googlecode.com/files/lua代码编写规范.pdf" target="_blank" rel="external noopener noreferrer">lua代码编写规范</a></p>
+<p>[2] <a href="http://lua-users.org/wiki/LuaStyleGuide" target="_blank" rel="external noopener noreferrer">Lua Style Guide</a></p>
+<p>[3] <a href="http://blog.codingnow.com/cloud/LuaTips" target="_blank" rel="external noopener noreferrer">Lua 编程技巧</a></p>
+<p>[4] <a href="http://www.codingnow.com/2000/download/lua_manual.html" target="_blank" rel="external noopener noreferrer">Lua 5.1 参考手册</a></p>
+<pre><code>&lt;/div&gt;
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-296_lua%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/">https://lua.ren/zl/2016-01-01-296_lua%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-295_lua%E7%89%88%E6%9C%AC%E5%8F%98%E5%8C%96/" title="lua版本变化"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">lua版本变化</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-297_Evaluating%20Fuzz%20Testing/" title="Evaluating Fuzz Testing"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Evaluating Fuzz Testing</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%89%88%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">一、程序的版式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%A9%BA%E8%A1%8C"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 空行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%A9%BA%E6%A0%BC"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 空格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E9%95%BF%E8%A1%8C%E6%8B%86%E5%88%86"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 长行拆分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E4%BD%BF%E7%94%A8%E7%BC%A9%E8%BF%9B"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 使用缩进</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%80%94"><span class="toc-number">2.</span> <span class="toc-text">—</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="toc-number">3.</span> <span class="toc-text">二、命名规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%85%B1%E6%80%A7%E8%A7%84%E5%88%99"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 共性规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 文件命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%B1%BB%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 类的命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 变量命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E5%B8%B8%E9%87%8F%EF%BC%8C%E4%BA%8B%E4%BB%B6%E5%90%8D%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">3.5.</span> <span class="toc-text">2.5 常量，事件名的命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E6%9E%9A%E4%B8%BE%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">3.6.</span> <span class="toc-text">2.6 枚举的命名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%80%94-1"><span class="toc-number">4.</span> <span class="toc-text">—</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 文件描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%96%87%E4%BB%B6%E4%B8%AD%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 文件中变量的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E7%B1%BB%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">4.3.</span> <span class="toc-text">3.3 类变量的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">4.4.</span> <span class="toc-text">3.4 函数参数的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89%E8%A7%84%E5%88%99"><span class="toc-number">4.5.</span> <span class="toc-text">3.5 函数的定义规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E6%B3%A8%E9%87%8A%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">4.6.</span> <span class="toc-text">3.6 注释的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%80%94-2"><span class="toc-number">5.</span> <span class="toc-text">—</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%BC%96%E7%A0%81%E6%8A%80%E5%B7%A7"><span class="toc-number">6.</span> <span class="toc-text">四、编码技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%BA%94%E8%AF%A5%E5%B0%BD%E9%87%8F%E4%BD%BF%E7%94%A8local%E5%8F%98%E9%87%8F%E8%80%8C%E9%9D%9Eglobal%E5%8F%98%E9%87%8F"><span class="toc-number">6.1.</span> <span class="toc-text">4.1 应该尽量使用local变量而非global变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%80%94-3"><span class="toc-number">7.</span> <span class="toc-text">—</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BB%A3%E7%A0%81%E5%BB%BA%E8%AE%AE"><span class="toc-number">8.</span> <span class="toc-text">五、代码建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E4%BB%A3%E7%A0%81%E7%9A%84%E8%B0%83%E8%AF%95"><span class="toc-number">8.1.</span> <span class="toc-text">5.1 代码的调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="toc-number">8.2.</span> <span class="toc-text">5.2 复杂度和性能问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BC%98%E5%8C%96%E6%80%9D%E8%80%83"><span class="toc-number">8.3.</span> <span class="toc-text">5.3 函数的优化思考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E7%9A%84%E6%A3%80%E6%9F%A5"><span class="toc-number">8.4.</span> <span class="toc-text">5.4 提交代码的检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E5%BC%95%E7%94%A8"><span class="toc-number">8.5.</span> <span class="toc-text">5.5 表结构的引用</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

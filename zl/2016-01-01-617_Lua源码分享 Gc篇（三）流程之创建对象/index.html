@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua源码分享 Gc篇（三）流程之创建对象 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="[TOC] 前面两篇主要介绍一些基础，帮助后面gc流程理解的。像是饭前的开胃菜一般，让你后面容易吃的更多。接下来几篇都是gc流程相关 这里列出几个问题，你可以直接跳过。当然，有所了解的按照自己的理解去回答一下，或许会有一些新的想法。如果你都会回答的很清晰了，那么接下来的系列几乎可以不怎么看了。 （1）对象的颜色变化过程？ （2）新创建对象和gc流程是怎么关联的？ （3）什么时候gc？ （4）增量式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua源码分享 Gc篇（三）流程之创建对象">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-617_Lua%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB%20Gc%E7%AF%87%EF%BC%88%E4%B8%89%EF%BC%89%E6%B5%81%E7%A8%8B%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="[TOC] 前面两篇主要介绍一些基础，帮助后面gc流程理解的。像是饭前的开胃菜一般，让你后面容易吃的更多。接下来几篇都是gc流程相关 这里列出几个问题，你可以直接跳过。当然，有所了解的按照自己的理解去回答一下，或许会有一些新的想法。如果你都会回答的很清晰了，那么接下来的系列几乎可以不怎么看了。 （1）对象的颜色变化过程？ （2）新创建对象和gc流程是怎么关联的？ （3）什么时候gc？ （4）增量式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.840Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.841Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-617_Lua%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB%20Gc%E7%AF%87%EF%BC%88%E4%B8%89%EF%BC%89%E6%B5%81%E7%A8%8B%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua源码分享 Gc篇（三）流程之创建对象',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Lua源码分享 Gc篇（三）流程之创建对象</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.840Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.841Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Lua源码分享 Gc篇（三）流程之创建对象"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>[TOC]</p>
+<p>前面两篇主要介绍一些基础，帮助后面gc流程理解的。像是饭前的开胃菜一般，让你后面容易吃的更多。接下来几篇都是gc流程相关</p>
+<p>这里列出几个问题，你可以直接跳过。当然，有所了解的按照自己的理解去回答一下，或许会有一些新的想法。如果你都会回答的很清晰了，那么接下来的系列几乎可以不怎么看了。</p>
+<p>（1）对象的颜色变化过程？
+（2）新创建对象和gc流程是怎么关联的？
+（3）什么时候gc？
+（4）增量式gc体现在哪？</p>
+<p>gc的流程，按照程序状态分为：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*
+** Possible states of the Garbage Collector
+*/
+#define GCSpause    0
+#define GCSpropagate    1
+#define GCSsweepstring    2
+#define GCSsweep    3
+#define GCSfinalize    4
+</code></pre></div></div>
+<ul>
+  <li>1.初始化阶段</li>
+  <li>2.扫描阶段</li>
+  <li>3.回收阶段（字符串）</li>
+  <li>4.回收阶段</li>
+  <li>5.结束阶段</li>
+</ul>
+<p>接下来，主要讲一下新创建对象是怎么和gc关联的。因为gc所需要的对象都是在某个地方创建出来的，并且在创建的时候就会和<a href="">第二篇</a>提到的数据结构关联上了</p>
+<h1 id="新创建对象">新创建对象</h1>
+<p>测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// main 函数
+    int nCount = 0;
+    while(true)&#123;
+        int bEven = nCount %2 == 0;
+        if(!bEven)
+        &#123;
+            Sleep(1000);
+            ++nCount;
+            continue;
+        &#125;
+        ++nCount;
+        // do something
+        LuaTest();
+    &#125;
+// LuaTest函数
+g_luaReg-&gt;DoScript(&#34;Test.lua&#34;);
+<p>// Test.lua</p>
+<p></code></pre></div></div></p>
+<h2 id="luac_link函数">luaC_link函数</h2>
+<p>这个是新生成对象和gc绑定关系的关键函数，也就是把新创建的对象放在gc链表上[1]：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void luaC_link (lua_State *L, GCObject *o, lu_byte tt) &#123;
+  global_State *g = G(L);
+  o-&gt;gch.next = g-&gt;rootgc;
+  g-&gt;rootgc = o;
+  o-&gt;gch.marked = luaC_white(g);
+  o-&gt;gch.tt = tt;
+&#125;
+</code></pre></div></div>
+<p>这个函数只做了三件事：</p>
+<ul>
+  <li>把新创建的对象放在gc链表的开头，因为是单向链表[1]</li>
+  <li>把新创建的对象标记为当前白色（currentwhite）</li>
+  <li>设置对象的类型</li>
+</ul>
+<p>下面分别介绍一下各需要gc的类型的创建对象部分</p>
+<h2 id="table">table</h2>
+<p>Test.lua中新建一个table测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local t = &#123;1, 2, 3&#125;
+</code></pre></div></div>
+<blockquote>
+  <p>ps:这里给table放了三个元素是为了让自己调试的好找到是创建的这个table。因为虽然Test.lua中只有一行代码，创建了一个table t。但是在虚拟机启动和加载文件的时候，会创建很多其他的table。</p>
+</blockquote>
+<p>源码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Table *luaH_new (lua_State *L, int narray, int nhash) &#123;
+  Table *t = luaM_new(L, Table);
+  luaC_link(L, obj2gco(t), LUA_TTABLE);
+  t-&gt;metatable = NULL;
+  t-&gt;flags = cast_byte(~0);
+  /* temporary values (kept only if some malloc fails) */
+  t-&gt;array = NULL;
+  t-&gt;sizearray = 0;
+  t-&gt;lsizenode = 0;
+  t-&gt;node = cast(Node *, dummynode);
+  setarrayvector(L, t, narray);
+  setnodevector(L, t, nhash);
+  return t;
+&#125;
+</code></pre></div></div>
+<p><strong>说明：</strong></p>
+<ul>
+  <li>new一个table的地方有很多，但是最终都是调用到这个函数，new出来的是一个堆上的一块内存</li>
+  <li>对象类型设置为LUA_TABLE</li>
+  <li>放到gc链表上</li>
+  <li>再把这个指针封装的TValue放到虚拟机的栈上。sethvalue等系列函数，就是把new出来的对象封装到TValue中，然后找到一个栈的元素，把这个value.gc赋值为这个新的对象，看下面代码。有些地方是放在栈顶，那么就需要有栈的操作，比如top++(<em>incr_top(L)</em>)
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define sethvalue(L,obj,x) 
+&#123; TValue *i_o=(obj); 
+  i_o-&gt;value.gc=cast(GCObject *, (x)); i_o-&gt;tt=LUA_TTABLE; 
+  checkliveness(G(L),i_o); &#125;
+</code></pre></div>    </div>
+    <p>可以看到，需要GC的对象都会放在TValue的gc这个字段，在数据结构篇可以看到有解释[1]。</p>
+  </li>
+</ul>
+<h2 id="lua-function">lua function</h2>
+<p>创建函数，测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local a = 3
+function f()
+    local b = a
+    print(&#34;test function&#34;)
+end
+</code></pre></div></div>
+<p>源码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Closure *luaF_newLclosure (lua_State *L, int nelems, Table *e) &#123;
+  Closure *c = cast(Closure *, luaM_malloc(L, sizeLclosure(nelems)));
+  luaC_link(L, obj2gco(c), LUA_TFUNCTION);
+  c-&gt;l.isC = 0;
+  c-&gt;l.env = e;
+  c-&gt;l.nupvalues = cast_byte(nelems);
+  while (nelems--) c-&gt;l.upvals[nelems] = NULL;
+  return c;
+&#125;
+</code></pre></div></div>
+<p><strong>说明：</strong></p>
+<ul>
+  <li>luaC_link放在gc链表上</li>
+  <li>把对象类型为LUA_TFUNCTION</li>
+</ul>
+<h2 id="proto">PROTO</h2>
+<p>目前自己的理解这是一个以文件为单位的chunk，所以每个文件都是以一个个独立的Proto类型在代码里存在的。这一块没有仔细去研究，所以主要是自己理解，以做抛砖引玉之用！</p>
+<p>代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Proto *luaF_newproto (lua_State *L) &#123;
+  Proto *f = luaM_new(L, Proto);
+  luaC_link(L, obj2gco(f), LUA_TPROTO);
+// 省略...
+  return f;
+&#125;
+</code></pre></div></div>
+<p><strong>说明：</strong></p>
+<ul>
+  <li>luaC_link放到gc链表上</li>
+  <li>看<strong>f_parser</strong>函数，发现新建Proto之后，会新建一个lua函数(luaF_newLclosure)。所以，Proto是和Closure绑定的，也很好理解，函数是需要和某个文件有关联的</li>
+</ul>
+<h2 id="thread">THREAD</h2>
+<p>创建携程测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>co = coroutine.create(function (a,b)
+    print(111, a, b)
+end)
+</code></pre></div></div>
+<p>代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LUA_API lua_State *lua_newthread (lua_State *L) &#123;
+  lua_State *L1;
+  lua_lock(L);
+  luaC_checkGC(L);
+  L1 = luaE_newthread(L);
+  setthvalue(L, L-&gt;top, L1);
+  api_incr_top(L);
+  lua_unlock(L);
+  luai_userstatethread(L, L1);
+  return L1;
+&#125;
+</code></pre></div></div>
+<p><strong>说明：</strong></p>
+<ul>
+  <li>放在gc链表的luaC_link是在luaE_newthread中调用的</li>
+</ul>
+<h2 id="string">String</h2>
+<p>代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static TString *newlstr (lua_State *L, const char *str, size_t l,
+                                       unsigned int h) {
+  TString *ts;
+  stringtable *tb;
+  if (l+1 &gt; (MAX_SIZET - sizeof(TString))/sizeof(char))
+    luaM_toobig(L);
+  ts = cast(TString *, luaM_malloc(L, (l+1)*sizeof(char)+sizeof(TString)));
+  ts-&gt;tsv.len = l;
+  ts-&gt;tsv.hash = h;
+  ts-&gt;tsv.marked = luaC_white(G(L));
+  ts-&gt;tsv.tt = LUA_TSTRING;
+  ts-&gt;tsv.reserved = 0;
+  memcpy(ts+1, str, l*sizeof(char));
+  ((char *)(ts+1))[l] = &#39;</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-617_Lua%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB%20Gc%E7%AF%87%EF%BC%88%E4%B8%89%EF%BC%89%E6%B5%81%E7%A8%8B%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1/">https://lua.ren/zl/2016-01-01-617_Lua%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB%20Gc%E7%AF%87%EF%BC%88%E4%B8%89%EF%BC%89%E6%B5%81%E7%A8%8B%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-614_2.3%20lua%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="2.3 lua 表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">2.3 lua 表达式</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-616_Lua%E7%9A%84require%E6%9C%BA%E5%88%B6/" title="Lua的require机制"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua的require机制</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text">新创建对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#luac_link%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.</span> <span class="toc-text">luaC_link函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#table"><span class="toc-number">1.2.</span> <span class="toc-text">table</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lua-function"><span class="toc-number">1.3.</span> <span class="toc-text">lua function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-number">1.4.</span> <span class="toc-text">PROTO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#thread"><span class="toc-number">1.5.</span> <span class="toc-text">THREAD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string"><span class="toc-number">1.6.</span> <span class="toc-text">String</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

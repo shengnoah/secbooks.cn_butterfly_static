@@ -1,0 +1,471 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>深度理解Lua中的table | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lua的table是个很有意思的东西。有些内容平时写代码的时候很少接触到，但是了解一下还是很有意思的。 这篇blog参考MetatableEvents，一个一个边写测试边细说。 __newindex 原文翻译： __newindex用于分配属性，当调用 myTable[key]&#x3D;value时，如果元表中有__newindex并且指向一个function，就会调用这个function，传入的参数为t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度理解Lua中的table">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-672_%E6%B7%B1%E5%BA%A6%E7%90%86%E8%A7%A3Lua%E4%B8%AD%E7%9A%84table/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="Lua的table是个很有意思的东西。有些内容平时写代码的时候很少接触到，但是了解一下还是很有意思的。 这篇blog参考MetatableEvents，一个一个边写测试边细说。 __newindex 原文翻译： __newindex用于分配属性，当调用 myTable[key]&#x3D;value时，如果元表中有__newindex并且指向一个function，就会调用这个function，传入的参数为t">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.898Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.899Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-672_%E6%B7%B1%E5%BA%A6%E7%90%86%E8%A7%A3Lua%E4%B8%AD%E7%9A%84table/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深度理解Lua中的table',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">深度理解Lua中的table</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.898Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.899Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深度理解Lua中的table"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>Lua的table是个很有意思的东西。有些内容平时写代码的时候很少接触到，但是了解一下还是很有意思的。</p>
+<p>这篇blog参考<a target="_blank" rel="noopener" href="http://lua-users.org/wiki/MetatableEvents">MetatableEvents</a>，一个一个边写测试边细说。</p>
+<h2 id="__newindex">__newindex</h2>
+<p>原文翻译：</p>
+<p><code class="highlighter-rouge">__newindex</code>用于分配属性，当调用 <code class="highlighter-rouge">myTable[key]=value</code>时，如果元表中有<code class="highlighter-rouge">__newindex</code>并且指向一个function，就会调用这个function，传入的参数为table, key 和 value</p>
+<ul>
+  <li>用 <code class="highlighter-rouge">rawset(myTable, key, value)</code>可以跳过这个元方法直接给myTable的key属性赋值为value。</li>
+  <li>如果<code class="highlighter-rouge">__newindex</code>指向的方法中，没有调用<code class="highlighter-rouge">rawset</code>方法，传入的键值对（key/value）就不会添加到myTable中。</li>
+</ul>
+<p>测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+    __newindex = function(t, key, value)
+        print(&#34;call __newindex&#34;,t, key, value)
+    end
+&#125;
+<p>local test = &#123;&#125;<br />
+setmetatable(test, meta)</p>
+<p>print(&quot;test&quot;, test)<br />
+print(&quot;meta&quot;, meta)</p>
+<p><a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;t1&quot;<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;t2&quot;<br />
+print(&quot;test.name&quot;, <a target="_blank" rel="noopener" href="http://test.name">test.name</a>)</p>
+<p>---- result output ----<br />
+test	table: 0x7f9c13406f00<br />
+meta	table: 0x7f9c13407240<br />
+call __newindex	table: 0x7f9c13406f00	name	t1<br />
+call __newindex	table: 0x7f9c13406f00	name	t2<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a>	nil<br />
+</code></pre></div></div></p>
+<p>测试代码中，当给t的name的赋值时，就会触发元表中的__newindex指向的function，打印的信息可以看到key和value的值。</p>
+<p><code class="highlighter-rouge">__newindex</code>方法中传进来的参数<code class="highlighter-rouge">t</code>的指针和<code class="highlighter-rouge">test</code>的指针指向同一个地址，说明<code class="highlighter-rouge">__newindex</code>中的参数<code class="highlighter-rouge">t</code>，并不是元表。</p>
+<p>测试代码中对t.name连续赋值时，<code class="highlighter-rouge">__newindex</code>会连续调用，需要留意一下这里，后面的测试会跟这里做一个对比。</p>
+<p>赋值之后打印 t.name 的值是空的。原因是<code class="highlighter-rouge">__newindex</code>并没有给t.name赋值，我们用一个错误的方式给t.name赋值，来加深<code class="highlighter-rouge">__newindex</code>的理解。修改一下测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+    __newindex = function(t, key, value)
+        print(&#34;call __newindex&#34;,t, key, value)
+        t[key] = value
+    end
+&#125;
+<p>local test = &#123;&#125;<br />
+setmetatable(test, meta)</p>
+<p>print(&quot;test&quot;, test)<br />
+print(&quot;meta&quot;, meta)</p>
+<p><a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;t1&quot;<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;t2&quot;<br />
+print(<a target="_blank" rel="noopener" href="http://test.name">test.name</a>)</p>
+<p>---- result output ----<br />
+…<br />
+lua: C stack overflow<br />
+…<br />
+</code></pre></div></div></p>
+<p>报错信息，栈溢出。因为<code class="highlighter-rouge">t[key] = value</code>这段代码会调用t元表中的<code class="highlighter-rouge">__newindex</code>的方法，<code class="highlighter-rouge">__newindex</code>的方法又会调用<code class="highlighter-rouge">t[key] = value</code>，这样就进入了死循环，导致栈溢出。这时就需要用到方法<code class="highlighter-rouge">rawset</code>。</p>
+<p>修改测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+    __newindex = function(t, key, value)
+        print(&#34;call __newindex&#34;,t, key, value)
+        rawset(t, key, value)
+    end
+&#125;
+<p>local test = &#123;&#125;<br />
+setmetatable(test, meta)</p>
+<p><a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;t1&quot;<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;t2&quot;<br />
+print(&quot;test.name&quot;, <a target="_blank" rel="noopener" href="http://test.name">test.name</a>)</p>
+<p>---- result output ----<br />
+call __newindex	table: 0x7fdade404e20	name	t1<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a>	t2<br />
+</code></pre></div></div></p>
+<p>这段代码中信息比较多</p>
+<p>在<code class="highlighter-rouge">__newindex</code>中使用了<code class="highlighter-rouge">rawset</code>方法，可以看到，没有栈溢出的错误了，说明用<code class="highlighter-rouge">rawset</code>给table赋值，不会进入<code class="highlighter-rouge">__newindex</code>
+的方法。</p>
+<p>给t.name连续赋值，会发现只进入<code class="highlighter-rouge">__newindex</code>一次，跟之前不同的是，我们在<code class="highlighter-rouge">__newindex</code>给t.name赋了值。如果t中没有这个key时，才会进入<code class="highlighter-rouge">__newindex</code>方法。否则不会进入。</p>
+<p><code class="highlighter-rouge">__newindex</code>的默认值就是上面<code class="highlighter-rouge">meta.__newindex</code>的代码。如果不需要额外处理，完全可以不写。如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;&#125;
+local test = &#123;&#125;
+setmetatable(test, meta)
+<p><a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;t1&quot;<br />
+print(&quot;test.name&quot;, <a target="_blank" rel="noopener" href="http://test.name">test.name</a>)</p>
+<p>---- result output ----<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a>	t1</p>
+<p></code></pre></div></div></p>
+<h2 id="__index">__index</h2>
+<p>翻译原文</p>
+<p><code class="highlighter-rouge">__index</code>用于控制属性（prototype）的继承，当访问 myTable[key] 时，如果myTable中不存在这个key，但是如果元表（metatable）中有 <code class="highlighter-rouge">__index</code>时：</p>
+<ul>
+  <li>如果<code class="highlighter-rouge">__index</code>是一个<code class="highlighter-rouge">function</code>，传递的参数是<code class="highlighter-rouge">table</code>和<code class="highlighter-rouge">key</code>,<code class="highlighter-rouge">function</code>的返回值作为结果返回。</li>
+  <li>如果<code class="highlighter-rouge">__index</code>是一个<code class="highlighter-rouge">table</code>，就返回这个表中key对应的值。
+    <ul>
+      <li>如果这个<code class="highlighter-rouge">table</code>不存在该<code class="highlighter-rouge">key</code>，但是这个<code class="highlighter-rouge">table</code>有元表，会继续寻找元表中的<code class="highlighter-rouge">__index</code>属性，以此类推。都没有就返回<code class="highlighter-rouge">nil</code></li>
+    </ul>
+  </li>
+  <li>使用 “rawget(myTable,key)” 可以跳过这个元方法（__index）.</li>
+</ul>
+<p>写点测试：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local test = &#123;&#125;
+<p>local meta = &#123;<br />
+__index = function(t, k)<br />
+print(&quot;__index&quot;, k)<br />
+if rawget(t, k) == nil then<br />
+print(&quot;Can't find &quot;… k)<br />
+end</p>
+<pre><code>    return rawget(t, k)
+end,
+</code></pre>
+<p>}</p>
+<p>setmetatable(test, meta)</p>
+<p>print(&quot;test.name1&quot;, <a target="_blank" rel="noopener" href="http://test.name">test.name</a>)<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;hello&quot;<br />
+print(&quot;test.name2&quot;, <a target="_blank" rel="noopener" href="http://test.name">test.name</a>)</p>
+<p>---- result output ----</p>
+<p>__index	name<br />
+Can't find name<br />
+test.name1	nil<br />
+test.name2	hello<br />
+</code></pre></div></div></p>
+<p><code class="highlighter-rouge">__newindex</code>和<code class="highlighter-rouge">__index</code>其实可以类比成setter和getter，这么类比会比较容易理解，但是实际上还是有比较大的区别。</p>
+<p>上面的测试中<code class="highlighter-rouge">__index</code>是个function。当执行test.name时，如果test.name是nil，会调用<code class="highlighter-rouge">__index</code>的function，并返回function的返回值。否则，直接返回test[key]，不会进入<code class="highlighter-rouge">__index</code>。</p>
+<p>再做一个测试，这次<code class="highlighter-rouge">__index</code>是个table</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local test = &#123;&#125;
+<p>local meta = &#123;<br />
+__index = &#123;name=&quot;meta&quot;&#125;,<br />
+&#125;</p>
+<p>setmetatable(test, meta)</p>
+<p>print(&quot;test.name1&quot;, <a target="_blank" rel="noopener" href="http://test.name">test.name</a>)<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;hello&quot;<br />
+print(&quot;test.name2&quot;, <a target="_blank" rel="noopener" href="http://test.name">test.name</a>)</p>
+<p>---- result output ----</p>
+<p>test.name1	meta<br />
+test.name2	hello<br />
+</code></pre></div></div></p>
+<p>这个测试可以看到，访问顺序是先访问test的name，如果没有值，再访问test元表中<code class="highlighter-rouge">__index</code>的table。如果test的元表还有元表，会继续向上访问，Lua继承的实现就是利用这个特性。</p>
+<p>掌握<code class="highlighter-rouge">__newindex</code>和<code class="highlighter-rouge">__index</code>这两个元方法，可以把这两个元方法看做两个事件，那要就要清楚两个方法的触发条件和特性。才能融会贯通。</p>
+<p>举个例子：</p>
+<p>禁用全局变量</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+    __newindex = function(t, k, v)
+        print(&#34;Error! Can&#39;t set globle variable&#34;, k)
+    end,
+<pre><code>-- 默认实现
+-- __index = function(t, k)
+--     return rawget(t, k)
+-- end
+</code></pre>
+<p>}</p>
+<p>setmetatable(_G, meta)</p>
+<p>test = &quot;test&quot;<br />
+print(test)</p>
+<p>---- result output ----</p>
+<p>Error! Can't set globle variable	test<br />
+nil<br />
+</code></pre></div></div></p>
+<h2 id="__mode">__mode</h2>
+<p>原文翻译:</p>
+<p>控制弱引用，用字符<code class="highlighter-rouge">k</code>和<code class="highlighter-rouge">v</code>来代表table的<code class="highlighter-rouge">键</code>和<code class="highlighter-rouge">值</code>是否是弱引用。这个感觉没什么好说的，只写个测试就好了。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;__mode = &#34;k&#34;&#125;
+local test = &#123;&#125;
+setmetatable(test, meta)
+key = &#123;&#125;
+test[key] = 1
+key = &#123;&#125;
+test[key] = 2
+for k,v in pairs(test) do
+    print(v)
+end
+<p>collectgarbage()<br />
+print(&quot;collectgarbage&quot;)</p>
+<p>for k,v in pairs(test) do<br />
+print(v)<br />
+end</p>
+<p>---- result output ----</p>
+<p>1<br />
+2<br />
+collectgarbage<br />
+2<br />
+</code></pre></div></div></p>
+<p>例子中当调用collectgarbage()进行回收后，test表中只剩下一个值。弱引用的key被清理了。我们也可以在__mode中设置<code class="highlighter-rouge">v</code>,<code class="highlighter-rouge">kv</code>来表示<code class="highlighter-rouge">值</code> <code class="highlighter-rouge">键和值</code>都是弱引用。</p>
+<h2 id="__call">__call</h2>
+<p>原文翻译:</p>
+<p>把table当做一个function使用，当table后跟一个圆括号时，而且table的元表中的__call指向一个function，就会调用这个function，table自己做为第一个参数，后面可接任意数量的参数，返回值就是function的返回值。</p>
+<p>测试代码来模拟实现一个构造方法。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+    __call = function(t, ...)
+<pre><code>    local instance = &#123;&#125;
+    for k, v in pairs(t) do
+        instance[k] = v
+    end
+    return instance
+end
+</code></pre>
+<p>}</p>
+<p>local A = setmetatable({}, meta)</p>
+<p>function A:info()<br />
+print(&quot;info&quot;,self)<br />
+end</p>
+<p>local a = A()<br />
+local b = A()</p>
+<p>a:info()<br />
+b:info()</p>
+<p>---- result output ----<br />
+info	table: 0x7f8771e05030<br />
+info	table: 0x7f8771e050a0<br />
+</code></pre></div></div></p>
+<h2 id="__metatable">__metatable</h2>
+<p>原文翻译：</p>
+<p>隐藏真正的元表，当调用<code class="highlighter-rouge">getmetatable</code>时，而且table的元表有<code class="highlighter-rouge">__metatable</code>字段，则返回<code class="highlighter-rouge">__metatable</code>字段中的值。</p>
+<p>测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+    name = &#34;meta&#34;
+&#125;
+<p>local test = setmetatable(&#123;&#125;, meta)<br />
+print(getmetatable(test).name)</p>
+<p>local meta = &#123;<br />
+__metatable = &#123;name = &quot;__metatable&quot;&#125;,<br />
+name = &quot;meta&quot;<br />
+&#125;</p>
+<p>local test = setmetatable(&#123;&#125;, meta)<br />
+print(getmetatable(test).name)</p>
+<p>---- result output ----<br />
+meta<br />
+__metatable<br />
+</code></pre></div></div></p>
+<p>结果很直观不解释了，我另外还做了个的测试，让<code class="highlighter-rouge">__metatable</code>指向了一个function，调用<code class="highlighter-rouge">getmetatable</code>时也会返回这个function。很有意思，但是暂时没想到有什么应用场景。</p>
+<h2 id="__tostring">__tostring</h2>
+<p>原文翻译：</p>
+<p>控制字符串的表现，当调用<code class="highlighter-rouge">tostring(myTable)</code>时，且myTable的元表中有<code class="highlighter-rouge">__tostring</code>字段时，就会调用这个方法。返回值是方法的返回值。</p>
+<p>测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+    __tostring = function(t)
+        return string.format(&#34;My name is %s&#34;, t.name)
+    end
+&#125;
+<p>local test = setmetatable(&#123;&#125;, meta)<br />
+<a target="_blank" rel="noopener" href="http://test.name">test.name</a> = &quot;test&quot;<br />
+print(test)<br />
+print(tostring(test))</p>
+<p>---- result output ----<br />
+My name is test<br />
+My name is test<br />
+</code></pre></div></div></p>
+<p>这个也不做过多说明了，很容易理解。有一点提一下就是print方法会自动调用tostring(test)</p>
+<h2 id="__len">__len</h2>
+<p>原文翻译：</p>
+<p>控制table的长度。当用<code class="highlighter-rouge">#</code>操作符请求长度时，且table的元表有<code class="highlighter-rouge">__len</code>字段指向一个function，就会调用这个function，参数是table自己，返回值是function的返回值。</p>
+<p>写个测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+    __len = function(t)
+        local result = 0
+        for k, v in pairs(t) do
+            result = result + 1
+        end
+        return result
+    end
+&#125;
+<p>local test = &#123;<br />
+[1] = &quot;A&quot;,<br />
+[2] = &quot;B&quot;,<br />
+[3] = &quot;C&quot;,<br />
+[5] = &quot;D&quot;,<br />
+[6] = &quot;E&quot;,<br />
+[8] = &quot;F&quot;,<br />
+&#125;<br />
+print(#test)</p>
+<p>setmetatable(test, meta)<br />
+print(#test)</p>
+<p>---- result output ----<br />
+3<br />
+6<br />
+</code></pre></div></div></p>
+<p>Lua中使用<code class="highlighter-rouge">#</code>获取长度有个特性，就是如果某个key对应的值是nil就结束，上面例子中，test第4个值是nil，那返回的长度为3。我们重新定义了<code class="highlighter-rouge">__len</code>后返回了，用遍历的方式计算长度，返回table内元素的数量为6。</p>
+<h2 id="__gc">__gc</h2>
+<p>原文翻译：</p>
+<p>简单说就是数据被垃圾回收的时候会首先触发<code class="highlighter-rouge">__gc</code>。</p>
+<p>测试代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local meta = &#123;
+<pre><code>__gc = function(t)
+    print(&amp;#34;gc&amp;#34;)
+end
+</code></pre>
+<p>}</p>
+<p>local function test()<br />
+local test = {}<br />
+setmetatable(test, meta)<br />
+end</p>
+<p>test()</p>
+<p>---- result output ----<br />
+gc<br />
+</code></pre></div></div></p>
+<p>Lua table中所有的元方法就分析完了，还有一些操作符重载的，之后再写。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-672_%E6%B7%B1%E5%BA%A6%E7%90%86%E8%A7%A3Lua%E4%B8%AD%E7%9A%84table/">https://lua.ren/zl/2016-01-01-672_%E6%B7%B1%E5%BA%A6%E7%90%86%E8%A7%A3Lua%E4%B8%AD%E7%9A%84table/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-671_Lua%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" title="Lua入门教程：垃圾回收"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua入门教程：垃圾回收</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-670_Lua%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/" title="Lua语言进阶"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua语言进阶</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#__newindex"><span class="toc-number">1.</span> <span class="toc-text">__newindex</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#__index"><span class="toc-number">2.</span> <span class="toc-text">__index</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#__mode"><span class="toc-number">3.</span> <span class="toc-text">__mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#__call"><span class="toc-number">4.</span> <span class="toc-text">__call</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#__metatable"><span class="toc-number">5.</span> <span class="toc-text">__metatable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#__tostring"><span class="toc-number">6.</span> <span class="toc-text">__tostring</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#__len"><span class="toc-number">7.</span> <span class="toc-text">__len</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#__gc"><span class="toc-number">8.</span> <span class="toc-text">__gc</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

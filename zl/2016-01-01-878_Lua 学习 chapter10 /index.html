@@ -1,0 +1,381 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua 学习 chapter10 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="目录    正则表达式   模式匹配相关的函数   URL编码   制表符的展开   诀窍   模式     Just be handsome.  正则表达式    . 任意字符   %a 字母   %c 控制字符   %d 数字   %g 除空格外的可打印字符   %l 小写字母   %p标点符号   %s 空白字符   %u 大写字母   %w 字母和数字   %x 十六进制数字  %它们的大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua 学习 chapter10">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-878_Lua%20%E5%AD%A6%E4%B9%A0%20chapter10%20/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="目录    正则表达式   模式匹配相关的函数   URL编码   制表符的展开   诀窍   模式     Just be handsome.  正则表达式    . 任意字符   %a 字母   %c 控制字符   %d 数字   %g 除空格外的可打印字符   %l 小写字母   %p标点符号   %s 空白字符   %u 大写字母   %w 字母和数字   %x 十六进制数字  %它们的大">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:36.150Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:36.150Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-878_Lua%20%E5%AD%A6%E4%B9%A0%20chapter10%20/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua 学习 chapter10',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Lua 学习 chapter10</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:36.150Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:36.150Z" title="更新于 2024-04-03 11:47:36">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Lua 学习 chapter10"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h3 id="目录">目录</h3>
+<ol>
+  <li>正则表达式</li>
+  <li>模式匹配相关的函数</li>
+  <li>URL编码</li>
+  <li>制表符的展开</li>
+  <li>诀窍</li>
+  <li>模式</li>
+</ol>
+<blockquote>
+  <p>Just be handsome.</p>
+</blockquote>
+<h2 id="正则表达式">正则表达式</h2>
+<ol>
+  <li>. 任意字符</li>
+  <li>%a 字母</li>
+  <li>%c 控制字符</li>
+  <li>%d 数字</li>
+  <li>%g 除空格外的可打印字符</li>
+  <li>%l 小写字母</li>
+  <li>%p标点符号</li>
+  <li>%s 空白字符</li>
+  <li>%u 大写字母</li>
+  <li>%w 字母和数字</li>
+  <li>%x 十六进制数字</li>
+</ol>
+<p>%它们的大写字母表示它们的补集。</p>
+<p>还有一些魔法字符，也可以称之为元字符。</p>
+<p>其中与其他的语言不同的是在lua中%是转义字符而不是’&#39;。</p>
+<ol>
+  <li>+ 重复一次或多次</li>
+  <li>* 重复零次或者多次（最大匹配）</li>
+  <li>- 重复零次或者多次（最小匹配）位于[]中中间表示范围</li>
+  <li>？ 可选</li>
+  <li>^ 位于模式的开头 从头开始匹配  位于[]中开头表示非</li>
+  <li>$ 位于模式的结尾 从尾部向前匹配</li>
+</ol>
+<p>在lua中可以使用()来对匹配到的结果进行返回。这个称之为<strong>捕获</strong>。</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="n">pair</span> <span class="o">=</span> <span class="s2">&#34;name = Anna&#34;</span>
+<span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="nb">string.match</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="s2">&#34;(%a+)%s*=%s*(%a+)&#34;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="c1">-- name Anna</span>
+<p><span class="n">s</span> <span class="o">=</span> <span class="s">[[then he said: &quot;it's al right&quot;!]]</span><br />
+<span class="n">q</span><span class="p">,</span> <span class="n">quotedPart</span> <span class="o">=</span> <span class="nb">string.match</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;(<a href=".-">&quot;</span><span class="s1">'</a>%1&quot;)<br />
+print(quotedPart) – it'</span><span class="n">s</span> <span class="n">al</span> <span class="n">right</span></p>
+<p><span class="c1">–find的使用</span><br />
+<span class="nb">string.find</span><span class="p">(</span><span class="s2">&quot;a [word]&quot;</span><span class="p">,</span><span class="s2">&quot;[&quot;</span><span class="p">)</span><br />
+<span class="c1">– stdin:1: malformed pattern(missing ']')</span><br />
+<span class="nb">string.find</span><span class="p">(</span><span class="s2">&quot;a [word]&quot;</span><span class="p">,</span><span class="s2">&quot;[&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="kc">true</span><span class="p">)</span><br />
+</pre></td></tr></tbody></table></code></pre></div></div></p>
+<h2 id="模式匹配相关的函数">模式匹配相关的函数</h2>
+<ol>
+  <li>string.find(ste,reg) –返回开始和结束的index，find是存在是个参数的，如果寻找的是特殊的字符，例如‘[’是模式匹配中的，那就需要第三个参数和第四个参数，第三个参数表明从哪个位置开始索引，第四个数字表示简单查询。</li>
+  <li>string.match – 返回匹配到的内容</li>
+  <li>string.gmatch –返回一个函数，通过函数可以遍历一个字符串出现的指定模式</li>
+  <li>string.sub –截取字符串</li>
+  <li>string.gsub –替换字符串，当第三个参数是字符串的时候，直接替换。如果是函数，会把匹配的内容作为参数传给函数，将函数的返回值替换原来的值，如果是表，匹配的内容作为键值去取数据。</li>
+</ol>
+<p>string.sub 有三个参数，它的第三个参数不仅仅可以是字符串还可以是函数或者表。</p>
+<p>当时函数的时候每次匹配到合适的字符串的时候就调用函数参数为匹配到的值，用函数的返回值来替换字符串；当是表的时候，将匹配到的字符串作为key值来得到用来替换的字符串。</p>
+<p>%f[char-set]表示前置模式。该模式只有在后一个字符位于char-set内而前一个字符不在时匹配一个空字符串。</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;some string&#34;</span>
+<span class="kd">local</span> <span class="n">words</span> <span class="o">=</span> <span class="p">&#123;&#125;</span>
+<span class="k">for</span> <span class="n">w</span> <span class="k">in</span> <span class="nb">string.gmatch</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&#34;%a+&#34;</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="k">end</span> <span class="c1">-- some string </span>
+<p><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Lua&quot;</span><br />
+<span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;great&quot;</span><br />
+<span class="nb">print</span><span class="p">(</span><span class="n">expend</span><span class="p">(</span><span class="s2">&quot;$name is $status&quot;</span><span class="p">))</span> <span class="c1">–Lua is great	2 其中2表示匹配成功的字符串</span></p>
+<p><span class="c1">–使用%bxy，x和y为任意字符，匹配它们两个中间的字符串</span><br />
+<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;a (enclosed (in) parentheses) line&quot;</span><br />
+<span class="kd">local</span> <span class="n">smatch</span> <span class="o">=</span> <span class="nb">string.match</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;%b()&quot;</span><span class="p">)</span><br />
+<span class="nb">print</span><span class="p">(</span><span class="n">smatch</span><span class="p">)</span><br />
+</pre></td></tr></tbody></table></code></pre></div></div></p>
+<h2 id="url编码">url编码</h2>
+<p>这种编码方式会将特殊字符编码为”%xx”的形式（=、&amp;、+）,会将空格转换为加号”+”。例如字符串”a+b = c”,就会别编码成”a%2Bb+%3D+c”。</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="k">function</span> <span class="nf">unescape</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+	<span class="n">s</span> <span class="o">=</span> <span class="nb">string.gsub</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&#34;+&#34;</span><span class="p">,</span> <span class="s2">&#34; &#34;</span><span class="p">)</span>
+	<span class="n">s</span> <span class="o">=</span> <span class="nb">string.gsub</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&#34;%%(%x%x&#34;</span><span class="p">),</span><span class="k">function</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nb">string.char</span><span class="p">(</span><span class="nb">tonumber</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+	<span class="k">end</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h2 id="制表符的展开">制表符的展开</h2>
+<p>在lua语言中，像”()”这样的空白捕捉具有特殊的含义，表示捕捉模式在目标字符串中的位置。</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="nb">print</span><span class="o">*</span><span class="nb">string.match</span><span class="p">(</span><span class="s2">&#34;hell0&#34;</span><span class="p">,</span> <span class="s2">&#34;()ll()&#34;</span><span class="p">)</span> <span class="c1">--&gt;3  5</span>
+<span class="c1">--输出的是匹配的第一个字符的位置和输出最后一个字符之后的那个字符的位置</span>
+<span class="k">function</span> <span class="nf">expandTabs</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">tab</span><span class="p">)</span>
+	<span class="n">tab</span> <span class="o">=</span> <span class="n">tab</span> <span class="ow">or</span> <span class="mi">8</span>
+	<span class="kd">local</span> <span class="n">corr</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="n">s</span> <span class="o">=</span> <span class="nb">string.gsub</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&#34;()t&#34;</span><span class="p">,</span><span class="k">function</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+		<span class="kd">local</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">tab</span> <span class="o">-</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">corr</span><span class="p">)</span> <span class="o">%</span> <span class="n">tab</span>
+		<span class="n">corr</span> <span class="o">=</span> <span class="n">corr</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">sp</span>
+		<span class="k">return</span> <span class="nb">string.rep</span><span class="p">(</span><span class="s2">&#34; &#34;</span><span class="p">,</span> <span class="n">sp</span><span class="p">)</span>
+	<span class="k">end</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">s</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h2 id="诀窍">诀窍</h2>
+<ol>
+  <li>”(.-)%$”  和 “^(.-)%$”  –前面一种模式的匹配会导致当没有’$’符号时，模式匹配算法会从字符串的第一个位置开始匹配，到尾之后从第二个位置再次匹配，算法的复杂度为n的二次方。</li>
+  <li>“%a*” 会导致空字符串</li>
+</ol>
+<p>所以在使用 “.-“的时候注意会匹配到空字符串。</p>
+<h2 id="模式">模式</h2>
+<p>%bxy匹配成对的字符串和%f[char-set]的前置模式（后一个字符位于模式内，而前一个字符不在模式内）</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;a [word]!&#34;</span>
+<p><span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;a [word]!&quot;</span></p>
+<p><span class="nb">print</span><span class="p">(</span><span class="nb">string.match</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="s2">&quot;()(%b[])()&quot;</span><span class="p">))</span> <span class="c1">–3 [word] 9，()用来捕获输出值，当使用捕获的时候，没有输出捕获的内容，在这里双括号里面没有任何东西的时候，会输出匹配内容的第一个字符的位置和最后一个字符的后一个位置。</span></p>
+<p><span class="nb">print</span><span class="p">(</span><span class="nb">string.sub</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="nb">string.match</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="s2">&quot;()%b<a href=""></a>&quot;</span><span class="p">)))</span> <span class="c1">–[word]!</span></p>
+<p><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;one day i will find one way!&quot;</span></p>
+<p><span class="nb">print</span><span class="p">(</span><span class="nb">string.gmatch</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="s2">&quot;%f[%w][%w*]%f[%W]&quot;</span><span class="p">))</span></p>
+<p><span class="k">for</span> <span class="n">word</span> <span class="k">in</span> <span class="nb">string.gmatch</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="s2">&quot;%f[%w][%w*]%f[%W]&quot;</span><span class="p">)</span> <span class="k">do</span><br />
+<span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><br />
+<span class="k">end</span></p>
+<p><span class="c1">– 只有一个i</span><br />
+<span class="c1">– 如果将[%w*]换成one，将会输出两个one。</span><br />
+</pre></td></tr></tbody></table></code></pre></div></div></p>
+<p>在捕获中，还有一个非常重要的概念，那就是匹配第几次捕捉到的内容，例如匹配双引号或者单引号中的字符串，如果仅仅使用”[&#34;’].-[&#34;’]”,这样的模式，但是遇到”it’s all right!”这样的就会出错。</p>
+<p>所以在这里我们通过通过捕捉，然后使用“%n”这样的形式(表示匹配第n个不会的副本）。</p>
+<p>还可以用在gsub中：</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">s</span> <span class="o">=</span> <span class="s">[[then he said:&#34;it&#39;s all right!&#34;]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">string.match</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="s2">&#34;([&#34;</span><span class="s1">&#39;])(.-)%1&#34;)) --捕获第一个匹配值，和要匹配的内容，其中%1里的内容应该是&#39;</span><span class="s2">&#34;&#39;
+<p>s = &quot;</span><span class="n">hello</span> <span class="n">world</span><span class="err">!</span><span class="s2">&quot;</p>
+<p>print(string.gsub(s,&quot;</span><span class="p">(.)(.)</span><span class="s2">&quot;,&quot;</span><span class="o">%</span><span class="mi">2</span><span class="o">%</span><span class="mi">1</span><span class="s2">&quot;)) --ehll oowlr!d	6，6表示替换发生了几次<br />
+</span></pre></td></tr></tbody></table></code></pre></div></div></p>
+<pre><code>            &lt;hr style=&quot;visibility: hidden;&quot;/&gt;
+            
+            &lt;hr style=&quot;visibility: hidden;&quot;/&gt;
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-878_Lua%20%E5%AD%A6%E4%B9%A0%20chapter10%20/">https://lua.ren/zl/2016-01-01-878_Lua%20%E5%AD%A6%E4%B9%A0%20chapter10%20/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-877_Lua%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E5%80%BC/" title="Lua中的布尔值"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua中的布尔值</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-879_(2)%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81%E7%BC%93%E5%AD%98%E3%80%81HTTPS%E3%80%81Openresty+Lua/" title="(2)静态资源服务器、缓存、HTTPS、Openresty+Lua"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">(2)静态资源服务器、缓存、HTTPS、Openresty+Lua</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number"></span> <span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%9B%B8%E5%85%B3%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number"></span> <span class="toc-text">模式匹配相关的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#url%E7%BC%96%E7%A0%81"><span class="toc-number"></span> <span class="toc-text">url编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B6%E8%A1%A8%E7%AC%A6%E7%9A%84%E5%B1%95%E5%BC%80"><span class="toc-number"></span> <span class="toc-text">制表符的展开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%80%E7%AA%8D"><span class="toc-number"></span> <span class="toc-text">诀窍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F"><span class="toc-number"></span> <span class="toc-text">模式</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

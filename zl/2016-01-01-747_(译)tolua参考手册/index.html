@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>(译)tolua参考手册 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="文章目录       &lt;&#x2F;div&gt;          &lt;p&gt;项目使用Cocos2dx+lua框架做的，用到luabinding实现C++代码绑定到lua层使用，所以学习一下tolua++工具的原理和使用，在这做个记录。&lt;&#x2F;p&gt;  tolua++是tolua的扩展版本，是一款能够集成C&#x2F;C++与lua代码的工具。在面向C++方面，tolu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(译)tolua参考手册">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-747_(%E8%AF%91)tolua%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="文章目录       &lt;&#x2F;div&gt;          &lt;p&gt;项目使用Cocos2dx+lua框架做的，用到luabinding实现C++代码绑定到lua层使用，所以学习一下tolua++工具的原理和使用，在这做个记录。&lt;&#x2F;p&gt;  tolua++是tolua的扩展版本，是一款能够集成C&#x2F;C++与lua代码的工具。在面向C++方面，tolu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.995Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.995Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-747_(%E8%AF%91)tolua%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '(译)tolua参考手册',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">(译)tolua参考手册</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.995Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.995Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="(译)tolua参考手册"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+<pre><code>      &lt;/div&gt;
+    
+    &lt;p&gt;项目使用Cocos2dx+lua框架做的，用到luabinding实现C++代码绑定到lua层使用，所以学习一下tolua++工具的原理和使用，在这做个记录。&lt;/p&gt;
+</code></pre>
+<p>tolua++是tolua的扩展版本，是一款能够集成C/C++与lua代码的工具。在面向C++方面，tolua++包含了一些新的特性比如：</p>
+<ul>
+<li>支持<code>std::string</code>作为基本类型（这个可以由一个命令行选项关闭）</li>
+<li>支持类模板</li>
+</ul>
+<p><a href="http://www.tecgraf.puc-rio.br/~celes/tolua/" target="_blank" rel="external noopener noreferrer">tolua</a>这款工具，极大的简化了C/C++代码与lua代码的集成。基于一个干净的头文件（或者从实际头文件中提取），tolua会自动生成从lua访问C/C++功能的绑定代码。使用Lua API和标记方法设施，tolua解析C/C++常数，外部变量、函数、类和方法绑定到Lua。</p>
+<p><a href="http://webserver2.tecgraf.puc-rio.br/~celes/tolua/" target="_blank" rel="external noopener noreferrer">官网</a><br/><a href="http://webserver2.tecgraf.puc-rio.br/~celes/tolua/tolua-3.2.html" target="_blank" rel="external noopener noreferrer">官网文档</a></p>
+<h3 id="tolua如何工作-How-tolua-works"><a href="#tolua如何工作-How-tolua-works" class="headerlink" title="tolua如何工作 (How tolua works)"></a>tolua如何工作 (How tolua works)</h3><p>使用tolua，我们需要创建一个package文件（译者注：pkg文件），即一个从C/C++实际头文件整理后的头文件，列举出我们想导出到lua环境中的那些常量、变量、函数、类以及方法，然后tolua会解析该文件并且创建自动绑定C/C++代码到lua的C/C++文件，如果将创建的文件同我们的应用链接起来，我们就可以从lua中访问指定的C/C++代码。</p>
+<p>让我们先看一些例子。如果我们指定下面的c头文件作为输入到tolua:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/></pre></td><td class="code"><pre><span class="line">#define FALSE 0</span><br/><span class="line">#define TRUE 1</span><br/><span class="line"></span><br/><span class="line">enum { </span><br/><span class="line"> POINT = 100, </span><br/><span class="line"> LINE, </span><br/><span class="line"> POLYGON</span><br/><span class="line">}</span><br/><span class="line">Object* createObejct (int type);</span><br/><span class="line">void drawObject (Object* obj, double red, double green, double blue);</span><br/><span class="line">int isSelected (Object* obj);</span><br/></pre></td></tr></tbody></table></figure>
+<p>会自动生成一个绑定上面代码到Lua层的C文件。这样，我们在lua代码里就可以访问C代码。如：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><span class="line">...</span><br/><span class="line">myLine = createObject(LINE)</span><br/><span class="line">...</span><br/><span class="line">if isSelected(myLine) == TRUE then</span><br/><span class="line">  drawObject(myLine, 1.0, 0.0, 0.0);</span><br/><span class="line">else</span><br/><span class="line">  drawObject(myLine, 1.0, 1.0, 1.0);</span><br/><span class="line">end</span><br/><span class="line">...</span><br/></pre></td></tr></tbody></table></figure>
+<p>此外，考虑下面类似C++头文件：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/></pre></td><td class="code"><pre><span class="line">#define FALSE 0</span><br/><span class="line">#define TRUE 1</span><br/><span class="line">class Shape</span><br/><span class="line">{</span><br/><span class="line">  void draw (void);</span><br/><span class="line">  void draw (double red, double green, double blue);</span><br/><span class="line">  int isSelected (void);</span><br/><span class="line">};</span><br/><span class="line">class Line : public Shape</span><br/><span class="line">{</span><br/><span class="line"> Line (double x1, double y1, double x2, double y2);</span><br/><span class="line"> ~Line (void);</span><br/><span class="line">};</span><br/></pre></td></tr></tbody></table></figure>
+<p>如果将上面的C++头文件输入给tolua，会自定生成一个Lua层访问C++代码的C++文件。这样，就可以使用如下Lua代码访问C++:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/></pre></td><td class="code"><pre><span class="line">...</span><br/><span class="line">myLine = Line:new (0,0,1,1)</span><br/><span class="line">...</span><br/><span class="line">if myLine:isSelected() == TRUE then</span><br/><span class="line"> myLine:draw(1.0,0.0,0.0)</span><br/><span class="line">else</span><br/><span class="line"> myLine:draw()</span><br/><span class="line">end</span><br/><span class="line">...</span><br/><span class="line">myLine:delete()</span><br/><span class="line">...</span><br/></pre></td></tr></tbody></table></figure>
+<p>传给tolua的package文件(.pkg)不是原本的C/C++头文件，而是手动处理过的版本。例如，外部代码访问的C++方法应该是public的，但并没有public修饰。tolua并没有实现对C/C++代码的完全解析，但它能够导出一些声明用于描述的功能到Lua层。因此，tolua将会提取出用户指定的代码以用于解析头文件。</p>
+<h3 id="tolua的使用-How-to-use-toLua"><a href="#tolua的使用-How-to-use-toLua" class="headerlink" title="tolua的使用 (How to use toLua)"></a>tolua的使用 (How to use toLua)</h3><p>tolua由两部分代码组成：可执行程序和静态库（an executable and a library）。可执行程序用于解析，读入package文件，然后输出C/C++代码，该代码提供了从lua层访问C/C++层的绑定。如果package文件是与C++类似的代码（例如包括类的定义），就会生成一份C++代码。如果package文件是与C类似的代码（例如不包括类），就会生成一份C代码。tolua可接受一些选项。运行<code>tolua -h</code>显示当前可接受的选项。例如，要解析一个名为<code>myfile.pkg</code>生成一个名为<code>myfile.c</code>的绑定代码，我们需要输入：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">tolua -o myfile.c myfile.pkg</span><br/></pre></td></tr></tbody></table></figure>
+<p>生成的代码必须编译并和应用程序链接，才能提供给Lua进行访问。每个被解析的文件代表导出到Lua的package。默认情况下，package的名称就是输入文件的根名称（例子中为<code>myfile</code>），用户可以指定一个不同的名称给package：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">tolua -n pkgname -o myfile.c myfile.pkg</span><br/></pre></td></tr></tbody></table></figure>
+<p>package还应该明确的初始化。为了从C/C++代码中初始化package，我们必须声明和调用初始化函数。初始化函数被定义为：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">int tolua_pkgname_open (void);</span><br/></pre></td></tr></tbody></table></figure>
+<p>其中pkgname表示绑定的package名称。如果我们使用C++，我们可以选择自动初始化：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">tolua -a -n pkgname -o myfile.c myfile.pkg</span><br/></pre></td></tr></tbody></table></figure>
+<p>当前tolua版本还导出绑定的关闭功能，可称为解绑定package：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void tolua_pkgname_close (void);</span><br/></pre></td></tr></tbody></table></figure>
+<p>还有，<code>open</code>和<code>close</code>功能的原型可以输出一个头文件，通过<code>-H</code>选项设置。</p>
+<p>tolua生成的绑定代码使用了一系列tolua库里面的函数。因此，这个库同样需要被链接到应用程序中。<code>tolua.h</code>也是有必须要编译生成的代码。。</p>
+<p>应用程序无需绑定任何package文件也可以使用tolua的面向对象框架。在这种情况下，应用程序必须调用tolua初始化函数（此函数被任何package文件初始化函数调用）：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">int tolua_open (void);</span><br/></pre></td></tr></tbody></table></figure>
+<p>如果要使用多个Lua状态(<code>Lua state</code>)，设置一个Lua状态(<code>Lua state</code>)后，我们需要调用一个函数来恢复tolua内部状态:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void tolua_restorestate (void);</span><br/></pre></td></tr></tbody></table></figure>
+<h3 id="tolua的一些基本概念-Basic-Concepts"><a href="#tolua的一些基本概念-Basic-Concepts" class="headerlink" title="tolua的一些基本概念 (Basic Concepts)"></a>tolua的一些基本概念 (Basic Concepts)</h3><p>使用tolua的第一步就是创建package文件。我们从真正的头文件入手，将想要暴露给lua的特性转换成tolua可以理解的格式。tolua能够理解的格式就是一些简单的C/C++声明。我们从下面几个方面来讨论：</p>
+<h4 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h4><p>一个package文件可以包含另外的package文件。一般格式是：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">$&lt;include_file&gt;</span><br/></pre></td></tr></tbody></table></figure>
+<h4 id="基本类型-Basic-types"><a href="#基本类型-Basic-types" class="headerlink" title="基本类型 (Basic types)"></a>基本类型 (Basic types)</h4><p>tolua会自动映射C/C++的基本类型到lua的基本类型。</p>
+<ul>
+<li><code>char</code>,<code>int</code>,<code>float</code>和<code>double</code>类型被映射为lua中的<code>number</code></li>
+<li><code>char*</code>被映射为lua中的<code>string</code></li>
+<li><code>void*</code>被映射为lua中的<code>userdata</code></li>
+</ul>
+<p>C/C++中的数据类型前面可能有修饰语（如unsigned, static, short, const等等）。然而我们要注意到tolua会忽略基本类型前面的修饰语const。因此，我们给lua传递一个基本类型常量然后再从lua中传递回给C/C++代码，常量到非常量的转换会被悄悄的完成。</p>
+<p>C/C++函数也可以对lua对象进行明确的操作。<code>lua_Object</code>被认为是一个基本类型，任何lua值都符合。</p>
+<p>tolua++新特性：C++中的<code>string</code>类型同样被认为是基本类型，会被当作值传递给lua(使用c_str()方法)。这个功能可以使用命令行选项<code>-S</code>进行关闭。</p>
+<h4 id="用户定义的类型-User-defined-types"><a href="#用户定义的类型-User-defined-types" class="headerlink" title="用户定义的类型 (User defined types)"></a>用户定义的类型 (User defined types)</h4><p>在package文件里的所有其他类型都会被认为是用户自定义类型。它们会映射到lua的userdata类型。lua只能存储指向用户自定义类型的指针；但是，tolua会自动采取措施来处理引用和值。例如，如果一个函数或方法返回一个用户定义类型的值，当这个值返回给lua的时候，tolua会分配一个克隆对象，同时会设置垃圾收集标记，以便在lua不再使用该对象时会自动释放。</p>
+<p>对于用户定义类型，常量是被保留的，因此将用户自定义类型的非常量作为常量传递给一个函数时，会产生类型不匹配的错误。</p>
+<h4 id="NULL和nil-NULL-and-nil"><a href="#NULL和nil-NULL-and-nil" class="headerlink" title="NULL和nil (NULL and nil)"></a>NULL和nil (NULL and nil)</h4><p>C/C++的NULL或0指针映射到lua中的nil类型。反之，nil却可以被指定为任何C/C++指针类型。这对任何类型都有效：<code>char*</code>, <code>void*</code>以及用户自定义类型指针。</p>
+<h4 id="宏定义类型-Typedefs"><a href="#宏定义类型-Typedefs" class="headerlink" title="宏定义类型 (Typedefs)"></a>宏定义类型 (Typedefs)</h4><p>tolua还接受简单类型定义的package文件。任何发生的一种定义是由tolua映射后的基类型。他们是非常有用的，因为几个包定义基本的C/C++类型自己的类型。例如，可以定义一个真正代表两个类型。在这种情况下,真正的可以用来指定变量类型package文件由tolua解释，但前提是我们包括以下定义之前使用的实际类型<code>real</code>。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">typedef double real;</span><br/></pre></td></tr></tbody></table></figure>
+<p>否则，<code>real</code>将被解释为一个用户定义的类型和不会被映射到Lua数字(<code>numbers</code>)。<br/>包含<code>real</code>的头文件(Including real header files)</p>
+<p>在package文件中，我们必须指定哪个是真正(<code>real</code>)的头文件,应包含生成的代码可以访问常量,变量,函数,类具有约束。package文件中的任意行开始<code>$ (except $&lt;...&gt;, $[ , and $] lines)</code>插入到生成绑定C/C++代码没有任何变化，但 <code>$</code> 本身的消除。我们使用这个特性，包括真正(<code>real</code>)的头文件。所以，我们的package文件通常会入手一套 <code>$</code> 开始行指定的文件必须包括在内，也就是说，这些文件是基于package文件。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">/* specify the files to be included */</span><br/><span class="line">$#include &#34;header1.h&#34;                 // include first header</span><br/><span class="line">$#include &#34;header2.h&#34;                 // include second header</span><br/></pre></td></tr></tbody></table></figure>
+<p>额外说明，tolua还接受注释，使用C或C++惯例,包内的文件。也可以使用嵌套C注释。</p>
+<p>在下面几节中,我们描述了如何指定C/C++代码绑定到Lua。格式是简单有效的C/C++语句。它非常简单的将是一个真正的C/C++头文件转换成package文件。</p>
+<h3 id="绑定常量-Binding-constants"><a href="#绑定常量-Binding-constants" class="headerlink" title="绑定常量 (Binding constants)"></a>绑定常量 (Binding constants)</h3><p>绑定常量，tolua支持两种绑定常量的方式：<code>define</code>和 <code>enum</code>。<br/><code>define</code>通常的格式是：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">#define NAME [ VALUE ]</span><br/></pre></td></tr></tbody></table></figure>
+<p>上面的VALUE是可选的。如果这样的代码出现在被解析的文件中，tolua会将<code>NAME</code>作为lua的全局变量，该全局变量是C/C++的常量，值为VALUE。这里只接受数字常量。</p>
+<p>tolua++新特性：所有的其他预处理指令会被忽略。</p>
+<p><code>enum</code>的一般格式：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/></pre></td><td class="code"><pre><span class="line">enum {</span><br/><span class="line">  NAME1 [ = VALUE1 ] ,</span><br/><span class="line">  NAME2 [ = VALUE2 ] ,</span><br/><span class="line">  ...</span><br/><span class="line">  NAMEn [ = VALUEn ]</span><br/><span class="line">};</span><br/></pre></td></tr></tbody></table></figure>
+<p>同样的，tolua会创建一系列全局变量，命名为<code>NAMEi</code>，对应着各自的值。</p>
+<h3 id="绑定外部变量-Binding-external-variables"><a href="#绑定外部变量-Binding-external-variables" class="headerlink" title="绑定外部变量 (Binding external variables)"></a>绑定外部变量 (Binding external variables)</h3><p>全局的外部变量也可以被导出。在package头文件指定为:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">[extern] type var;</span><br/></pre></td></tr></tbody></table></figure>
+<p>tolua绑定这样的声明Lua全局变量。因此，在Lua中，我们自然地可以访问C/C++变量。如果非恒定的变量，我们也可以从Lua变量分配一个新值。全局变量表示数组的值也可以绑定到Lua。数组可以是任何类型的。相应的Lua对象数组是Lua表与数值索引；然而，请注意，指数1在Lua中映射到索引0 C/C++数组。数组必须预先设置长度。例如:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">double v[10];</span><br/></pre></td></tr></tbody></table></figure>
+<h3 id="绑定函数-Binding-functions"><a href="#绑定函数-Binding-functions" class="headerlink" title="绑定函数 (Binding functions)"></a>绑定函数 (Binding functions)</h3><p>函数也指传统C/C++声明:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">type funcname (type1 par1[, type2 par2[,...typeN parN]]);</span><br/></pre></td></tr></tbody></table></figure>
+<p>返回类型可以为空(void)，这意味着没有返回值。一个函数也可以没有参数。在这种情况下，void可能的列表中指定的参数。参数类型必须遵守已经发布的规则。tolua会创建一个Lua函数绑定C/C++函数。从Lua调用一个函数时，参数类型必须匹配相应的C/C++类型，否则，tolua会生成一个错误报告指定的参数是错误的。如果省略参数名称，tolua会自动命名，但类型应该是基本类型(basic type)或之前使用过的用户类型(user type)。</p>
+<h4 id="Arrays-数组"><a href="#Arrays-数组" class="headerlink" title="Arrays (数组)"></a>Arrays (数组)</h4><p>tolua也处理函数或方法参数表示数组的值。阵列的优点是，它们的值更新相应的Lua表如果C/C++函数改变数组的内容。<br/>数组必须指定大小。例如:<br/></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void func (double a[3]);</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>是一个有效的函数声明为tolua和从Lua不调用这个函数，例如:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">p = {1.0,1.5,8.6} </span><br/><span class="line">func (p)</span><br/></pre></td></tr></tbody></table></figure>
+<p>数组维数不需要一个常数表达式，指定的大小也可以由任何表达式，可以在运行时进行。例如:<br/></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void func (int n, int m, double image[n*m]);</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>也有效的自表达式<code>n * m</code>绑定函数范围是有效的。然而，请注意，tolua使用动态分配绑定这个函数，能降低性能。</p>
+<p>尽管大小规范，重要的是要知道所有数组传递给实际的C/C++函数在本地绑定函数的范围。所以，如果C/C++函数被称为需要保存数组指针以备后用，绑定的代码将无法正常工作。</p>
+<h4 id="Overloaded-functions-重载函数"><a href="#Overloaded-functions-重载函数" class="headerlink" title="Overloaded functions (重载函数)"></a>Overloaded functions (重载函数)</h4><p>函数重载是支持的。记住名称相同的两个函数之间的区别是基于映射到Lua的参数类型。所以，尽管<br/></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">void func (int a); </span><br/><span class="line">void func (double a);</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>代表两个不同的函数在C++中，他们是tolua相同的函数，因为int和double映射到相同的Lua类型:数字。</p>
+<p>另一个棘手的情况发生在导出指针。假设:<br/></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line">void func (char* s);</span><br/><span class="line">void func (void* p);</span><br/><span class="line">void func (Object1* ptr);</span><br/><span class="line">void func (Object2* prt);</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>虽然这四个函数代表不同的函数在C++中,Lua声明:<br/></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">func(nil)</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>匹配所有的函数。</p>
+<p>重要的是要知道tolua决定函数将调用在运行时，试图匹配每个提供的函数。tolua首先试图调用指定的函数;如果失败了，tolua然后试之前一个。重复这个过程，直到一个函数调用代码匹配或第一个函数。出于这个原因，失配误差信息，当它发生时，是基于第一个函数规范。当然性能是很重要的，我们可以指定最常用函数作为最后一个，因为它将放在第一位。</p>
+<p>tolua允许使用重载函数在C语言中，查看详细<a href="http://webserver2.tecgraf.puc-rio.br/~celes/tolua/tolua-3.2.html#renaming" target="_blank" rel="external noopener noreferrer">Renaming</a></p>
+<h4 id="Default-parameter-values-默认参数值"><a href="#Default-parameter-values-默认参数值" class="headerlink" title="Default parameter values (默认参数值)"></a>Default parameter values (默认参数值)</h4><p>最后一个函数参数可以有相关联的默认值。在这种情况下，如果用更少的参数，函数被调用的默认值。格式指定默认值是一样的一个用于C++代码:<br/></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">type funcname (..., typeN-1 parN-1 [= valueN-1], typeN parN [= valueN]);</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>toLua实现这个功能没有使用任何C++机制;因此，它也可以使用绑定C函数。</p>
+<p>我们也可以指定数组的元素的默认值(没有办法为数组本身，指定一个默认值)。例如:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void func (int a[5]=0);</span><br/></pre></td></tr></tbody></table></figure>
+<p>设置默认元素值为零，因此，从Lua函数可以调用未初始化表。</p>
+<p>Lua对象类型(lua_Object)，tolua定义一个常数，可用于指定空值作为默认值:<br/></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void func (lua_Object lo = TOLUA_NIL);</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="Multiple-returned-values-多个返回值"><a href="#Multiple-returned-values-多个返回值" class="headerlink" title="Multiple returned values (多个返回值)"></a>Multiple returned values (多个返回值)</h4><p>In Lua, a function may return any number of values. tolua uses this feature to simulate values passed by reference. If a function parameter is specified as a pointer to or reference of a basic type or a pointer to or reference of a pointer to an user defined type, tolua accepts the corresponding type as input and returns, besides the conventional function returned value, if any, the updated parameter value.</p>
+<p>For instance, consider a C function that swaps two values:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void swap (double* x, double* y);</span><br/></pre></td></tr></tbody></table></figure>
+<p>or</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void swap (double&amp; x, double&amp; y);</span><br/></pre></td></tr></tbody></table></figure>
+<p>If such a function is declared in the package file, tolua binds it as a function receiving two numbers as input and returning two numbers. So, a valid Lua code would be:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">x,y = swap(x,y)</span><br/></pre></td></tr></tbody></table></figure>
+<p>If the input values are not used, the use of default parameter value allows calling the function from Lua without specifying them:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void getBox (double* xmin=0, double* xmax=0, double* ymin=0, double* ymax=0);</span><br/></pre></td></tr></tbody></table></figure>
+<p>In Lua:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">xmin, xmax, ymin, ymax = getBox()</span><br/></pre></td></tr></tbody></table></figure>
+<p>With user defined types, we would have for instance:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void update (Point** p);</span><br/></pre></td></tr></tbody></table></figure>
+<p>or</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">void update (Point*&amp; p);</span><br/></pre></td></tr></tbody></table></figure>
+<h3 id="绑定结构体-Binding-struct-fields"><a href="#绑定结构体-Binding-struct-fields" class="headerlink" title="绑定结构体 (Binding struct fields)"></a>绑定结构体 (Binding struct fields)</h3><p>User defined types are nicely bound by tolua. For each variable or function type that does not correspond to a basic type, tolua automatically creates a tagged userdata to represent the C/C++ type. If the type corresponds to a struct, the struct fields can be directly accessed from Lua, indexing a variable that holds an object of such a type. In C code, these types are commonly defined using typedef’s:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/></pre></td><td class="code"><pre><span class="line">typedef struct [name] {</span><br/><span class="line">   type1 fieldname1;</span><br/><span class="line">   type2 fieldname2;</span><br/><span class="line">   ...</span><br/><span class="line">   typeN fieldnameN;</span><br/><span class="line">} typename;</span><br/></pre></td></tr></tbody></table></figure>
+<p>If such a code is inserted in the package file being processed, tolua allows any variable that holds an object of type typename to access any listed field indexing the variable by the field name. For instance, if var holds a such object, <code>var.fieldnamei</code> accesses the field named fieldnamei.</p>
+<p>Fields that represent arrays of values can also be mapped:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line">typedef struct { </span><br/><span class="line">  int x[10]; </span><br/><span class="line">  int y[10]; </span><br/><span class="line">} Example;</span><br/></pre></td></tr></tbody></table></figure>
+<h3 id="绑定类和方法-Binding-classes-and-methods"><a href="#绑定类和方法-Binding-classes-and-methods" class="headerlink" title="绑定类和方法 (Binding classes and methods)"></a>绑定类和方法 (Binding classes and methods)</h3><p>C++ class definitions are also supported by tolua. Actually, the tolua deals with single inheritance and polymorphism in a natural way. The subsections below describe what can be exported by a class definition.</p>
+<h4 id="Specifying-inheritance-指定继承"><a href="#Specifying-inheritance-指定继承" class="headerlink" title="Specifying inheritance (指定继承)"></a>Specifying inheritance (指定继承)</h4><p>If var is a Lua variable that holds an object of a derived class, var can be used wherever its base class type is expected and var can access any method of its base class. For this mechanism to take effect, we must indicate that the derived class actually inherits the base class. This is done in the conventional way:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line">class classname : public basename</span><br/><span class="line">{</span><br/><span class="line"> /* class definition */</span><br/><span class="line">};</span><br/></pre></td></tr></tbody></table></figure>
+<h4 id="Specifying-exported-members-and-methods-指定导出成员和方法"><a href="#Specifying-exported-members-and-methods-指定导出成员和方法" class="headerlink" title="Specifying exported members and methods (指定导出成员和方法)"></a>Specifying exported members and methods (指定导出成员和方法)</h4><p>As for struct fields, class fields, static or not, can be exported. Class methods and class static methods can also be exported. Of course, they must be declared as public in the actual C++ code (although the public: keyword may not appear in the package files).<br/>For each bound class, tolua creates a Lua table and stores it at a global variable which name is the name of the C++ class. Static exported fields are accessed by indexing this table with the field names (similar to struct fields). Non static exported fields are accessed by indexing the variable that holds the object. Class methods follow the format of the function declaration showed above. They can be accessed from Lua code using the conventional way Lua uses to call methods, applied of course to a variable that holds the appropriate object or to the class table, for static methods.</p>
+<p>There are a few special methods that are also supported by tolua. Constructors are called as static methods, named new. Destructors are called as a conventional method called delete.</p>
+<p>Note that tolua does support overload. This applies even for constructors. Also note that the virtual keyword has no effect in the package file.</p>
+<p>The following code exemplifies class definitions that can be interpreted by tolua.</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/></pre></td><td class="code"><pre><span class="line">class Point {</span><br/><span class="line">   static int n;    // represents the total number of created Points</span><br/><span class="line"></span><br/><span class="line">   double x;        // represents the x coordinate</span><br/><span class="line">   double y;        // represents the y coordinate</span><br/><span class="line">   static char* className (void);   // returns the name of the class</span><br/><span class="line">   Point (void);                          // constructor 1</span><br/><span class="line">   Point (double px, double py);          // constructor 2</span><br/><span class="line">   ~Point (void);                         // destructor</span><br/><span class="line">   Point add (Point&amp; other);              // add points, returning another one</span><br/><span class="line">};</span><br/></pre></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/></pre></td><td class="code"><pre><span class="line">class ColorPoint : public Color {</span><br/><span class="line">   int red;      // red color component [0 - 255]</span><br/><span class="line">   int green;    // green color component [0 - 255]</span><br/><span class="line">   int blue;     // blue color component [0 - 255]</span><br/><span class="line">   ColorPoint (double px, double py, int r, int g, int b);</span><br/><span class="line">};</span><br/></pre></td></tr></tbody></table></figure>
+<p>If this segment of code is processed by tolua, we would be able to write the following Lua statements:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><span class="line">p1 = Point:new(0.0,1.0)</span><br/><span class="line">p2 = ColorPoint:new(1.5,2.2,0,0,255)</span><br/><span class="line">print(Point.n)                     -- would print 2</span><br/><span class="line">p3 = p1:add(p2)</span><br/><span class="line">print(p3.x,p3.y)                   -- would print 1.5 and 3.2</span><br/><span class="line">print(p2.red,p2.green,p2.blue)     -- would print 0, 0, and 255</span><br/><span class="line">print(</span><br/><span class="line">p1:delete()                        -- call destructor</span><br/><span class="line">p2:delete()                        -- call destructor</span><br/></pre></td></tr></tbody></table></figure>
+<p>Note that we can only explicitly delete objects that we explicitly create. In the example above, the point p3 will be garbage-collected by tolua automatically; we cannot delete it.<br/>Of course, we need to specify only the methods and members we want to access from Lua. Sometimes, it will be necessary to declare a class with no member or method just for the sake of not breaking a chain of inheritances.</p>
+<h4 id="Overloaded-operators（重载的运算符）"><a href="#Overloaded-operators（重载的运算符）" class="headerlink" title="Overloaded operators（重载的运算符）"></a>Overloaded operators（重载的运算符）</h4><p>tolua automatically binds the following binary operators:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">operator+   operator-   operator*   operator/ </span><br/><span class="line">operator&lt;   operator&gt;   operator&lt;=  operator&gt;=</span><br/></pre></td></tr></tbody></table></figure>
+<p>For the relational operators, toLua also automatically converts a returned 0 value into nil, so false in C becomes false in Lua.<br/>As an example, suppose that in the code above, instead of having:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">Point add (Point&amp; other);              // add points, returning another one</span><br/></pre></td></tr></tbody></table></figure>
+<p>we had:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">Point operator+ (Point&amp; other);        // add points, returning another one</span><br/></pre></td></tr></tbody></table></figure>
+<p>In that case, in Lua, we could simply write:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">p3 = p1 + p2</span><br/></pre></td></tr></tbody></table></figure>
+<p>The indexing operator (<code>operator[]</code>) when receiving a numeric parameter can also be exported to Lua. In this case, tolua accepts reference as returne</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-747_(%E8%AF%91)tolua%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/">https://lua.ren/zl/2016-01-01-747_(%E8%AF%91)tolua%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-749_Lua%20+%20OpenResty%E4%BF%AE%E6%94%B9response%20body/" title="Lua + OpenResty修改response body"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua + OpenResty修改response body</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-748_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E5%9B%9B)/" title="深入 Lua Garbage Collector(四)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">深入 Lua Garbage Collector(四)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#tolua%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C-How-tolua-works"><span class="toc-number">1.</span> <span class="toc-text">tolua如何工作 (How tolua works)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tolua%E7%9A%84%E4%BD%BF%E7%94%A8-How-to-use-toLua"><span class="toc-number">2.</span> <span class="toc-text">tolua的使用 (How to use toLua)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tolua%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-Basic-Concepts"><span class="toc-number">3.</span> <span class="toc-text">tolua的一些基本概念 (Basic Concepts)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="toc-number">3.1.</span> <span class="toc-text">文件包含</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B-Basic-types"><span class="toc-number">3.2.</span> <span class="toc-text">基本类型 (Basic types)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E7%9A%84%E7%B1%BB%E5%9E%8B-User-defined-types"><span class="toc-number">3.3.</span> <span class="toc-text">用户定义的类型 (User defined types)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NULL%E5%92%8Cnil-NULL-and-nil"><span class="toc-number">3.4.</span> <span class="toc-text">NULL和nil (NULL and nil)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B-Typedefs"><span class="toc-number">3.5.</span> <span class="toc-text">宏定义类型 (Typedefs)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%B8%B8%E9%87%8F-Binding-constants"><span class="toc-number">4.</span> <span class="toc-text">绑定常量 (Binding constants)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F-Binding-external-variables"><span class="toc-number">5.</span> <span class="toc-text">绑定外部变量 (Binding external variables)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0-Binding-functions"><span class="toc-number">6.</span> <span class="toc-text">绑定函数 (Binding functions)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Arrays-%E6%95%B0%E7%BB%84"><span class="toc-number">6.1.</span> <span class="toc-text">Arrays (数组)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overloaded-functions-%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0"><span class="toc-number">6.2.</span> <span class="toc-text">Overloaded functions (重载函数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Default-parameter-values-%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E5%80%BC"><span class="toc-number">6.3.</span> <span class="toc-text">Default parameter values (默认参数值)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Multiple-returned-values-%E5%A4%9A%E4%B8%AA%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">6.4.</span> <span class="toc-text">Multiple returned values (多个返回值)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E7%BB%93%E6%9E%84%E4%BD%93-Binding-struct-fields"><span class="toc-number">7.</span> <span class="toc-text">绑定结构体 (Binding struct fields)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95-Binding-classes-and-methods"><span class="toc-number">8.</span> <span class="toc-text">绑定类和方法 (Binding classes and methods)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Specifying-inheritance-%E6%8C%87%E5%AE%9A%E7%BB%A7%E6%89%BF"><span class="toc-number">8.1.</span> <span class="toc-text">Specifying inheritance (指定继承)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specifying-exported-members-and-methods-%E6%8C%87%E5%AE%9A%E5%AF%BC%E5%87%BA%E6%88%90%E5%91%98%E5%92%8C%E6%96%B9%E6%B3%95"><span class="toc-number">8.2.</span> <span class="toc-text">Specifying exported members and methods (指定导出成员和方法)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overloaded-operators%EF%BC%88%E9%87%8D%E8%BD%BD%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%89"><span class="toc-number">8.3.</span> <span class="toc-text">Overloaded operators（重载的运算符）</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

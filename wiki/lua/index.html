@@ -1,0 +1,779 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>lua教程 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.Lua 运行环境  本地环境搭建 在本地搭建 Lua 编程语言的开发运行环境，你需要在你的计算机上安装如下三个软件：(1) 文本编辑器。(2)  Lua 解释器。（3）Lua 编译器。  文本编辑器 文本编辑器用来编辑你的程序代码。有如下几款常用的文本编辑器软件：Windows notepad、Brief、Epsilon、EMACS、vim&#x2F;vi。 在不同的操作系统中有各自不同的编辑器，而且">
+<meta property="og:type" content="website">
+<meta property="og:title" content="lua教程">
+<meta property="og:url" content="https://lua.ren/wiki/lua/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="1.Lua 运行环境  本地环境搭建 在本地搭建 Lua 编程语言的开发运行环境，你需要在你的计算机上安装如下三个软件：(1) 文本编辑器。(2)  Lua 解释器。（3）Lua 编译器。  文本编辑器 文本编辑器用来编辑你的程序代码。有如下几款常用的文本编辑器软件：Windows notepad、Brief、Epsilon、EMACS、vim&#x2F;vi。 在不同的操作系统中有各自不同的编辑器，而且">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-03-14T09:44:00.160Z">
+<meta property="article:modified_time" content="2024-03-14T07:45:09.239Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/wiki/lua/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'lua教程',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-03-14 15:45:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="page"><h1 class="page-title">lua教程</h1><div id="article-container"><h2 id="1lua-运行环境"><a class="markdownIt-Anchor" href="#1lua-运行环境"></a> 1.Lua 运行环境</h2>
+<h3 id="本地环境搭建"><a class="markdownIt-Anchor" href="#本地环境搭建"></a> 本地环境搭建</h3>
+<p>在本地搭建 Lua 编程语言的开发运行环境，你需要在你的计算机上安装如下三个软件：(1) 文本编辑器。(2)  Lua 解释器。（3）Lua 编译器。</p>
+<h3 id="文本编辑器"><a class="markdownIt-Anchor" href="#文本编辑器"></a> 文本编辑器</h3>
+<p>文本编辑器用来编辑你的程序代码。有如下几款常用的文本编辑器软件：Windows notepad、Brief、Epsilon、EMACS、vim/vi。</p>
+<p>在不同的操作系统中有各自不同的编辑器，而且编辑器的版本不一样。例如，Notepad 主要用在 Windows 系统中，vim/vi 不仅可以用于 Windows 系统也可以用于 Linux 和 UNIX 操作系统。</p>
+<p>用文本编辑器编辑的文件被称为源文件。源文件中包含程序的源代码。Lua 程序的源文件经常以 .lua　作为其后缀名。</p>
+<p>开始编写程序之前，请确保您已经安装好一个文本编辑软件，并且曾经有过写代码，将其存入文件，生成并执行的经验。</p>
+<h3 id="lua-解释器"><a class="markdownIt-Anchor" href="#lua-解释器"></a> Lua 解释器</h3>
+<p>Lua 解释器是一个能让您输入 Lua　命令并立即执行的小程序。它在执行一个　Lua 文件过程中，一旦遇到错误就立即停止执行，而不像编译器会执行完整个文件。</p>
+<h3 id="lua-编译器"><a class="markdownIt-Anchor" href="#lua-编译器"></a> Lua 编译器</h3>
+<p>如果将 Lua 扩展到其它语言或者应用中时，我们需要一个软件开发工具箱以及 Lua 应用程序接口兼容的编译器。</p>
+<h3 id="在-windows-系统安装-lua"><a class="markdownIt-Anchor" href="#在-windows-系统安装-lua"></a> 在 Windows 系统安装 Lua</h3>
+<p>在 Windows 系统环境可以安装一个叫 SciTE 的 Lua 开发 IDE (集成开发环境)。它可以在这儿下载：<a target="_blank" rel="noopener" href="http://code.google.com/p/luaforwindows/">http://code.google.com/p/luaforwindows</a>。</p>
+<p>运行下载的可执行程序就可安装 Lua 语言的 IDE 了。</p>
+<p>在这个 IDE 上，你可以创建并生成 Lua 代码。</p>
+<p>如果你希望在命令行模式下安装 Lua，你则需要安装 MinGW 或者 Cygwin，然后在 Ｗindows 系统中编译安装 Lua。</p>
+<h3 id="在-linux-系统安装-lua"><a class="markdownIt-Anchor" href="#在-linux-系统安装-lua"></a> 在 Linux 系统安装 Lua</h3>
+<p>使用下面的命令下载并生成 Lua 程序：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">$ wget http<span class="token punctuation">:</span><span class="token operator">//</span>www<span class="token punctuation">.</span>lua<span class="token punctuation">.</span>org<span class="token operator">/</span>ftp<span class="token operator">/</span>lua<span class="token operator">-</span><span class="token number">5.2</span><span class="token number">.3</span><span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz
+$ tar zxf lua<span class="token operator">-</span><span class="token number">5.2</span><span class="token number">.3</span><span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz
+$ cd lua<span class="token operator">-</span><span class="token number">5.2</span><span class="token number">.3</span>
+$ make linux test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在其它系统上安装 Lua 时，比如 aix，ansi，bsd，generic，linux，mingw，posix，solaris，你需要将 make linux test 命令中的 linux 替换为相应的系统平台名称。</p>
+<p>假设我们已经有一个文件 helloWord.lua ，文件内容如下：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Hello World!"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>我们先使用 cd 命令切换至 helloWord.lua　文件所在的目录，然后生成并运行该文件：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">$ lua helloWorld<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>执行上面的命令，我们可以看到如下的输出：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">hello world<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="在-mac-os-x-系统安装-lua"><a class="markdownIt-Anchor" href="#在-mac-os-x-系统安装-lua"></a> 在 Mac OS X 系统安装 Lua</h3>
+<p>使用下面的命令可以在 Mac OS X 系统生成并测试 Lua：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">$ curl <span class="token operator">-</span>R <span class="token operator">-</span>O http<span class="token punctuation">:</span><span class="token operator">//</span>www<span class="token punctuation">.</span>lua<span class="token punctuation">.</span>org<span class="token operator">/</span>ftp<span class="token operator">/</span>lua<span class="token operator">-</span><span class="token number">5.2</span><span class="token number">.3</span><span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz
+$ tar zxf lua<span class="token operator">-</span><span class="token number">5.2</span><span class="token number">.3</span><span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz
+$ cd lua<span class="token operator">-</span><span class="token number">5.2</span><span class="token number">.3</span>
+$ make macosx test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果你没有安装 Xcode 和命令行工具，那么你就不能使用 make 命令。你先需要从 mac 应用商店安装 Xcode，然后在 Xcode 首选项的下载选项中安装命令行工具组件。完成上面的步骤后，你就可以使用 make 命令了。<br />
+make macosx test 命令并不是非执行不可的。即使你没有执行这个命令，你仍可以在你的 Mac OS X 系统中使用 Lua。</p>
+<p>假设我们已经有一个文件 helloWord.lua ，文件内容如下：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Hello World!"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>我们先使用 cd 命令切换至 helloWord.lua　文件所在的目录，然后生成并运行该文件：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">$ lua helloWorld<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>执行上面的命令，我们可以看到如下的输出：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">hello world<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="lua-ide"><a class="markdownIt-Anchor" href="#lua-ide"></a> Lua IDE</h3>
+<p>正如前面提到的那样，Windows 系统中 SciTE 是 Lua 创始团队提供的默认的 Lua 集成开发环境（IDE)。 此外，还有一款名叫 ZeroBrane 的 IDE。 它具有跨平台的特性，支持 Windows、Mac 与 Linux。<br />
+同时，许多 eclipse 插件使得 eclipse 能成为 Lua 的 IDE。IDE 中像代码自动补全等诸多特性使得开发变得简单了很多，因此建议你使用 IDE 开发 Lua 程序。同样，IDE 也能像 Lua 命令行版本那样提供交互式编程功能。</p>
+<p>Lua 学起来非常简单。现在，让我们开始创建我们的第一个 Lua 程序吧！</p>
+<h2 id="2第一个-lua-程序"><a class="markdownIt-Anchor" href="#2第一个-lua-程序"></a> 2.第一个 Lua 程序</h2>
+<p>Lua 提供交互式编程模式。在这个模式下，你可以一条一条地输入命令，然后立即就可以得到结果。你可以在 shell 中使用 lua -i 或者 lua 命令启动。输入命令后，按下回车键，就启动了交互模式，显示如下：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">$ lua <span class="token operator">-</span>i 
+$ Lua <span class="token number">5.1</span><span class="token number">.4</span>  <span class="token function">Copyright</span> <span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token number">1994</span><span class="token operator">-</span><span class="token number">2008</span> Lua<span class="token punctuation">.</span>org<span class="token punctuation">,</span> PUC<span class="token operator">-</span>Rio
+quit to <span class="token keyword">end</span><span class="token punctuation">;</span> cd<span class="token punctuation">,</span> dir <span class="token keyword">and</span> edit also available<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>你可以使用如下命令打印输出：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">$<span class="token operator">></span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>按下回车键后，你会得到如下输出结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token string">'test'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="默认模式编辑"><a class="markdownIt-Anchor" href="#默认模式编辑"></a> 默认模式编辑</h3>
+<p>使用 Lua 文件做为解释器的参数启动解释器,然后开始执行文件直到文件结束。当脚本执行结束后，解释器就不在活跃了。</p>
+<p>让我们写一个简单的 Lua 程序。所有的 Lua　文件都扩展名都是<code>.lua</code>。因此，将下面的源代码放到 test.lua 文件中。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>假如你已经设置好 Lua 程序的环境，用下面的命令运行程序：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">$ lua test<span class="token punctuation">.</span>lua<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>我们会得到如下的输出结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>让我们尝试使用另外的方式运行 Lua 程序。下面是修改后的 test.lua 文件：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">#!/usr/local/bin/lua</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这里，我们假设你的 Lua 解释器程序在 /usr/local/bin/lua 目录下。test.lua 文件中第一行由于以 # 开始而被解释器忽略，运行这个程序可以得到如下的结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">$ chmod a<span class="token operator">+</span>rx test<span class="token punctuation">.</span>lua
+$<span class="token punctuation">.</span><span class="token operator">/</span>test<span class="token punctuation">.</span>lua<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>我们会得到如下的的输出结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>接下来让我们看一下 Lua 程序的基本结构。这样，你可以更容易理解 Lua 编程语言的基本结构单元。</p>
+<h3 id="lua-中的符号"><a class="markdownIt-Anchor" href="#lua-中的符号"></a> Lua 中的符号</h3>
+<p>Lua 程序是由大量的符号组成的。这些符号可以分为关键字、标识符、常量、字符串常量几类。例如，下面的 Lua 语句中包含三个符号：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">io<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"Hello world, from "</span><span class="token punctuation">,</span>_VERSION<span class="token punctuation">,</span><span class="token string">"!\n"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这三个符号分别是:</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">io<span class="token punctuation">.</span><span class="token function">write</span>
+<span class="token punctuation">(</span>
+<span class="token string">"Hello world, from "</span><span class="token punctuation">,</span>_VERSION<span class="token punctuation">,</span><span class="token string">"!\n"</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="注释"><a class="markdownIt-Anchor" href="#注释"></a> 注释</h3>
+<p>注释就是 Lua 程序中的帮助文档，Lua 解释器会自动忽略它们。所有注释都以 --[[ 开始，并以 --]]结束。如下所示：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">--[[ my first program in Lua --]]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="标识符"><a class="markdownIt-Anchor" href="#标识符"></a> 标识符</h3>
+<p>Lua 中标识符是识别变量、函数或者其它用户自定义项的名字。标符识总是以字母或者下划线开始，其后可以是零个或多个字母、下划线或数字。<br />
+Lua 标识符中不允许出现任何标点符号，比如，@，$ 或者 %。Lua 是大小写敏感的语言，因此 Manpower 和 manpower 是 Lua 中两个不同的标识符。下面所列的是一些合法标识符的例子。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">mohd         zara      abc     move_name    a_123
+myname50     _temp     j       a23b9        retVal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="关键字"><a class="markdownIt-Anchor" href="#关键字"></a> 关键字</h3>
+<p>下面列表中所示的是 Lua 中一小部分保留字。这些保留字不能用作常量、变量以及任何标识符的名字。</p>
+<table>
+	<tr>
+	<td>and</td>
+	<td>break</td>
+	<td>do</td>
+	<td>else</td>
+	</tr>
+	<tr>
+	<td>elseif</td>
+	<td>end</td>
+	<td>false</td>
+	<td>for</td>
+	</tr>
+	<tr>
+	<td>function</td>
+	<td>if</td>
+	<td>in</td>
+	<td>local</td>
+	</tr>
+	<tr>
+	<td>nil</td>
+	<td>not</td>
+	<td>or</td>
+	<td>repeat</td>
+	</tr>
+	<tr>
+	<td>return</td>
+	<td>then</td>
+	<td>true</td>
+	<td>until</td>
+	</tr>
+	<tr>
+	<td>while</td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+</table>
+<h3 id="lua-中的空白符"><a class="markdownIt-Anchor" href="#lua-中的空白符"></a> Lua 中的空白符</h3>
+<p>如果 Lua 程序中某一行只包含空格或者注释，那么这样的一行被称之为空行。 Lua 解释器将完全忽略这一行。<br />
+在 Lua 中，空白是用来描述空格、制表符、换行符和注释的术语。空白符用于将语句中的一部分与其它部分区分开，使得解释器可以语句中的一个元素，比如 int，何处结束，以及另一个元素从何处开始。因此，在下面的语句中：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在 local 与 age 之间至少有一个空白符（通常是空格）,这个空白符使得解释器可以将 local 与 age 区分开。另一方面，在下面的语句中：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">fruit <span class="token operator">=</span> apples <span class="token operator">+</span> oranges   <span class="token comment">--get the total fruit</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>fruit 与 = 之间以及 = 与 apples 之间的空白符都是可以没有的。但是为了程序的可读性目的，建议你在它们之间使用空白符。</p>
+<h2 id="3数据类型"><a class="markdownIt-Anchor" href="#3数据类型"></a> 3.数据类型</h2>
+<p>Lua 是动态类型编程语言，变量没有类型，只有值才有类型。值可以存储在变量中，作为参数传递或者作为返回值。<br />
+尽管在 Lua 中没有变量数据类型，但是值是有类型的。下面的列表中列出了数据类型：</p>
+<table>
+	<tr>
+		<th>值类型</th>
+		<th>描述</th>
+	</tr>
+	<tr>
+		<td>nil</td>
+		<td>用于区分值是否有数据，nil 表示没有数据。</td>
+	</tr>
+	<tr>
+		<td>boolean</td>
+		<td>布尔值，有真假两个值，一般用于条件检查。</td>
+	</tr>
+	<tr>
+		<td>number</td>
+		<td>数值，表示实数(双精度浮点数)。</td>
+	</tr>
+	<tr>
+		<td>string</td>
+		<td>字符串。</td>
+	</tr>
+	<tr>
+		<td>function</td>
+		<td>函数，表示由 C 或者 Lua 写的方法。</td>
+	</tr>
+	<tr>
+		<td>userdata</td>
+		<td>表示任意 C 数据。</td>
+	</tr>
+	<tr>
+		<td>thread</td>
+		<td>线程，表示独立执行的线程，它被用来实现协程。</td>
+	</tr>
+	<tr>
+		<td>table</td>
+		<td>表，表示一般的数组，符号表，集合，记录，图，树等等，它还可以实现关联数组。它可以存储除了 nil 外的任何值。</td>
+	</tr>
+</table> 
+<h3 id="type-函数"><a class="markdownIt-Anchor" href="#type-函数"></a> type 函数</h3>
+<p>Lua　中有一个 type　函数，它可以让我们知道变量的类型。下面的代码中给出了一些例子：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token string">"What is my type"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>   <span class="token comment">--> string</span>
+t<span class="token operator">=</span><span class="token number">10</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token number">5.8</span><span class="token operator">*</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span>               <span class="token comment">--> number</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                <span class="token comment">--> boolean</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span>print<span class="token punctuation">)</span><span class="token punctuation">)</span>               <span class="token comment">--> function</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">)</span>                <span class="token comment">--> function</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token keyword">nil</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                 <span class="token comment">--> nil</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span>ABC<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>           <span class="token comment">--> string</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在 Linux 系统中运行上面的代码可以得到如下的结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">string
+number
+<span class="token keyword">function</span>
+<span class="token keyword">function</span>
+boolean
+<span class="token keyword">nil</span>
+string<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>默认情况下，在被初始化或赋值前，所有变量都指向 nil。 Lua 中空字符串和零在条件检查时，都被当作真。所以你在使用布尔运算的时候要特别注意。在下一章中，我们会了解到更多关于这些类型的知识。</p>
+<h2 id="4变量"><a class="markdownIt-Anchor" href="#4变量"></a> 4.变量</h2>
+<p>变量就是给一块内存区域赋予的一个名字。变量使得在程序中就可以修改或读取相应的内存区域中的内容。它可以代表各种不同类型的值，包括函数与表。<br />
+变量的名字由字母、数字与下划线组成。它必须是字母或下划线开头。由于 Lua 是字母大小写敏感的，所以大写字母与小写字母是不一样的。Lua 中有八种基本值类型： 在 Lua 语言中，虽然我们没有变量数据类型，但是依据变量的作用域我们可以将变量分为三类：</p>
+<ul>
+	<li>全局变量：除非显示的声明一个局部变量，否则所有的变量都被默认当作全局变量。</li>
+	<li>局部变量：如果我们将一个变量定义为局部变量，那么这么变量的作用域就被限制在函数内。</li>
+	<li>表字段：这种特殊的变量可以是除了 nil 以外的所有类型，包括函数。</li>
+</ul>
+<h3 id="lua-变量定义"><a class="markdownIt-Anchor" href="#lua-变量定义"></a> Lua 变量定义</h3>
+<p>一个变量定义就意味着告诉解释器在什么地方创建多大的一块存储空间。一个变量定义包括一个可选的类型( type )以及该类型的一个或多个变量名的列表，如下所示：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">type variable_list<span class="token punctuation">;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>其中，type 是可以选择指定为 local 或者不指定使用默认值 global，variable_list 是包含一个或多个由逗号分隔的标识符名字。下面是合法变量定义的示例：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span>    i<span class="token punctuation">,</span> j
+<span class="token keyword">local</span>    i
+<span class="token keyword">local</span>    a<span class="token punctuation">,</span>c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>local i,j 声明定义了两个变量 i 与 j；它命令解释器创建两个名称分别为 i,j 的变量，并且将其作用域限制在局部。</p>
+<p>在声明变量的时候可以同时初始化变量（为变量赋初值）。在变量名后跟上等号和一个常量表达式就可以初始化变量。如下所示：</p>
+<pre class="line-numbers language-none"><code class="language-none">type variable_list &#x3D; value_list;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>一些例子如下：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> d <span class="token punctuation">,</span> f <span class="token operator">=</span> <span class="token number">5</span> <span class="token punctuation">,</span><span class="token number">10</span> <span class="token comment">--声明局部变量 d，f。 </span>
+d <span class="token punctuation">,</span> f <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">;</span>      <span class="token comment">--声明全局变量 d，f。 </span>
+d<span class="token punctuation">,</span> f <span class="token operator">=</span> <span class="token number">10</span>           <span class="token comment">--[[声明全局变量 d，f，其中 f 的值是 nil--]]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>如果只是定义没有初始化，则静态存储变量被隐式初始化为 nil。</p>
+<h3 id="lua-变量声明"><a class="markdownIt-Anchor" href="#lua-变量声明"></a> Lua 变量声明</h3>
+<p>正如在上面例子看到的那样，为多个变量赋值就是在变量列表后跟上值列表。例子 local d，f = 5，10 中,变量列表是 d，f，值列表是 5，10。</p>
+<p>Lua 赋值时会将第一个值赋给第一个变量，第二个值赋给第二个变量，依次类推。所以，d 的值是 5,f 的值是 10。</p>
+<h3 id="示例"><a class="markdownIt-Anchor" href="#示例"></a> 示例</h3>
+<p>下面的示例中，变量被声明在顶部，但是它们在主函数中定义和初始化:</p>
+<p>– 变量定义:</p>
+<pre class="line-numbers language-none"><code class="language-none">local a, b<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>– 初始化</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">a <span class="token operator">=</span> <span class="token number">10</span>
+b <span class="token operator">=</span> <span class="token number">30</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"value of a:"</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"value of b:"</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>– 交换变量的值</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">b<span class="token punctuation">,</span> a <span class="token operator">=</span> a<span class="token punctuation">,</span> b
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"value of a:"</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"value of b:"</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+f <span class="token operator">=</span> <span class="token number">70.0</span><span class="token operator">/</span><span class="token number">3.0</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"value of f"</span><span class="token punctuation">,</span> f<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的代码被编译生成和执行后，会产生如下的结果：</p>
+<pre class="line-numbers language-none"><code class="language-none">value of a:	10
+value of b:	30
+value of a:	30
+value of b:	10
+value of f	23.333333333333<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="lua-中的左值与右值"><a class="markdownIt-Anchor" href="#lua-中的左值与右值"></a> Lua 中的左值与右值</h3>
+<p>Lua　中有两种表达式：</p>
+<ul>
+	<li>左值：引用内存位置的表达式被称之为左值表达式。左值表达式既可以出现在赋值符号的左边也可以出现在赋值符号的右边。</li>
+	<li>右值：术语“右值”指存在内存某个位置的数据值。我们不能为右值表达式赋值，也就是说右值表达式只可能出现在赋值符号的右边，而不可能出现在赋值符号的左边。</li>
+</ul>
+变量属于左值表达式，所以它可以现在赋值符号的左边。数值常量属于右值表达式，它不能被赋值也不能出现在赋值符号的左边。下面是合法的语句：  
+<pre class="line-numbers language-none"><code class="language-none">g &#x3D; 20<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>但是，下面的语句是非法的，它会产生生成时错误：</p>
+<pre class="line-numbers language-none"><code class="language-none">10 &#x3D; 20 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在 Lua 语言中，除了上面讲的这种赋值，还允许在一个赋值语句中存在多个左值表达式与多个右值表达式。如下所示：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">g<span class="token punctuation">,</span>l <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span><span class="token number">30</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在这个语句中，g 被赋值为 20，l 被赋值为 30。</p>
+<h2 id="5lua-数组"><a class="markdownIt-Anchor" href="#5lua-数组"></a> 5.Lua 数组</h2>
+<p>数组是一组有序的对象排列，既可以是一维的也可以是多维的。</p>
+<p>在 Lua 语言中，数组是用整数索引表实现的。数组的大小并不固定，随着数组元素的增加，它可以动态地增加内存空间大小。</p>
+<h3 id="一维数组"><a class="markdownIt-Anchor" href="#一维数组"></a> 一维数组</h3>
+<p>一维数组可以使用一个简单的表结构表示。可以通过一个简单循环初始化数组或者读取数组中数据。示例代码如下所示：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">array <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"Lua"</span><span class="token punctuation">,</span> <span class="token string">"Tutorial"</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">for</span> i<span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span> <span class="token keyword">do</span>
+   <span class="token function">print</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行上面的代码可以得到如下的输出结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">nil</span>
+Lua
+Tutorial<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>从上面的例子中可以看出，当我们尝试着访问数组中一个不存在的索引时，会得到 nil 值。 Lua 语言与 C 语言不同，Lua 数组的索引是从 1 开始的，而 C 语言中索引是从 0 开始的。不过呢，你也可以在索引值为 0 或小于 0 的位置创建对象。下面的代码演示了如何使用负索引值创建并初始化数组：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">array <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">for</span> i<span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span> <span class="token keyword">do</span>
+   array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">*</span><span class="token number">2</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">2</span> <span class="token keyword">do</span>
+   <span class="token function">print</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行上面的代码可以得到如下的输出结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token operator">-</span><span class="token number">4</span>
+<span class="token operator">-</span><span class="token number">2</span>
+<span class="token number">0</span>
+<span class="token number">2</span>
+<span class="token number">4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="多维数组"><a class="markdownIt-Anchor" href="#多维数组"></a> 多维数组</h3>
+<p>多维数组有以下两种实现方式：</p>
+<ol>
+	<li>数组的数组（译注：数组的每一个元素是一个数组）。</li>
+	<li>修改一维数组的索引值（译注：将多维数组映射到一维数组中）。</li>
+</ol>  
+<p>使用方法一创建 3x3 的二维数组：</p>
+<p>– 初始化数组</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">array <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token keyword">for</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">do</span>
+   array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+      <span class="token keyword">for</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">do</span>
+         array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token operator">*</span>j
+      <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>– 访问数组元素</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">for</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">do</span>
+   <span class="token keyword">for</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">do</span>
+      <span class="token function">print</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span>
+   <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行上面的代码可以得到如下的输出结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token number">1</span>
+<span class="token number">2</span>
+<span class="token number">3</span>
+<span class="token number">2</span>
+<span class="token number">4</span>
+<span class="token number">6</span>
+<span class="token number">3</span>
+<span class="token number">6</span>
+<span class="token number">9</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过修改数组的的索引值实现 3x3 的二维数组，示例代码如下:</p>
+<p>– 初始化数组</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">array <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+maxRows <span class="token operator">=</span> <span class="token number">3</span>
+maxColumns <span class="token operator">=</span> <span class="token number">3</span>
+<span class="token keyword">for</span> row<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>maxRows <span class="token keyword">do</span>
+   <span class="token keyword">for</span> col<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>maxColumns <span class="token keyword">do</span>
+      array<span class="token punctuation">[</span>row<span class="token operator">*</span>maxColumns <span class="token operator">+</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> row<span class="token operator">*</span>col
+   <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>– 访问数组元素</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">for</span> row<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>maxRows <span class="token keyword">do</span>
+   <span class="token keyword">for</span> col<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>maxColumns <span class="token keyword">do</span>
+      <span class="token function">print</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>row<span class="token operator">*</span>maxColumns <span class="token operator">+</span>col<span class="token punctuation">]</span><span class="token punctuation">)</span>
+   <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行上面的代码可以得到如下的输出结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token number">1</span>
+<span class="token number">2</span>
+<span class="token number">3</span>
+<span class="token number">2</span>
+<span class="token number">4</span>
+<span class="token number">6</span>
+<span class="token number">3</span>
+<span class="token number">6</span>
+<span class="token number">9</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>正如从上面例子中所看到的那样，数组中数据是基于索引存储的。这使得数组可以以稀疏的方式存储，这也是 Lua 矩阵的存储方式。正是因为 Lua 中不会存储 nil 值，所以 Lua　不需要使用任何特殊的技术就可以节约大量的空间，这一点在其它语言中是做不到的。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="6操作符"><a class="markdownIt-Anchor" href="#6操作符"></a> 6.操作符</h2>
+<p>操作符是用于告诉解释器执行特定的数学或逻辑运算的符号。Lua 语言有丰富的内置操作符，主要包括以下几类：</p>
+<ul>
+	<li>算术运算操作符</li>
+	<li>关系运算操作符</li>
+	<li>逻辑运算操作符</li>
+	<li>其它操作符</li>
+</ul>
+这篇教程将会依次介绍以上四类操作符。  
+<h3 id="算术去处操作符"><a class="markdownIt-Anchor" href="#算术去处操作符"></a> 算术去处操作符</h3>
+<p>下面的表中列出了所有 Lua 语言支持的算术运算操作符。假设 A 变量的值为 10，B 变量的值为 20，则：</p>
+<table>
+	<tr>
+		<th>操作符</th>
+		<th>描述</th>
+		<th>示例</th>
+	</tr>
+	<tr>
+		<td>+</td>
+		<td>两个操作数据相加</td>
+		<td>A + B = 30</td>
+	</tr>
+	<tr>
+		<td>-</td>
+		<td>第一个操作数减去第二个操作数据</td>
+		<td>A - B = 10</td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td>两个操作数相乘</td>
+		<td>A * B = 200</td>
+	</tr>
+	<tr>
+		<td>%</td>
+		<td>模除操作符</td>
+		<td>A % B = 0</td>
+	</tr>
+	<tr>
+		<td>^</td>
+		<td>幂运算符</td>
+		<td>A ^ 2 = 100</td>
+	</tr>
+	<tr>
+		<td>-</td>
+		<td>一元减操作符用于取反</td>
+		<td>-A = -10</td>
+	</tr>
+</table>
+<h3 id="关系运算符"><a class="markdownIt-Anchor" href="#关系运算符"></a> 关系运算符</h3>
+<p>下面的表列出了 Lua 支持的所有关系运算符。假设 A 的值为 10，B 的值为 20，则：</p>
+<table>
+	<tr>
+		<th>操作符</th>
+		<th>描述</th>
+		<th>示例</th>
+	</tr>
+	<tr>
+		<td>==</td>
+		<td>判断两个操作数是否相等，若相等则条件为真，否则为假。</td>
+		<td>(A == B) 为假。</td>
+	</tr>
+	<tr>
+		<td>~=</td>
+		<td>判断两个操作数是否相等，若不相等则条件为真，否则为假。</td>
+		<td>(A ~= B) 为真。</td>
+	</tr>
+	<tr>
+		<td>></td>
+		<td>如果左操作数大于右操作数则条件为真，否则条件为假。</td>
+		<td>(A > B) 为假。</td>
+	</tr>
+	<tr>
+		<td><</td>
+		<td>如果左操作数小于右操作数则条件为真，否则条件为假。</td>
+		<td>(A < B) 为真。</td>
+	</tr>
+	<tr>
+		<td>>=</td>
+		<td>如果左操作数大于或等于右操作数则条件为真，否则条件为假。</td>
+		<td>(A >= B) 为假。</td>
+	</tr>
+	<tr>
+		<td><=</td>
+		<td>如果左操作数小于或等于右操作数则条件为真，否则条件为假。</td>
+		<td>(A <= B) 为真。</td>
+	</tr>
+</table>
+<h3 id="逻辑运算符"><a class="markdownIt-Anchor" href="#逻辑运算符"></a> 逻辑运算符</h3>
+<p>下面的表列出了 Lua 支持的所有逻辑运算符。假设 A 的值为 真（非零），B 的值为 假（零），则：</p>
+<table>
+	<tr>
+		<th>操作符</th>
+		<th>描述</th>
+		<th>示例</th>
+	</tr>
+	<tr>
+		<td>and</td>
+		<td>逻辑与运算符。如果两个操作数都非零，则条件为真。</td>
+		<td>(A and B) 为假。</td>
+	</tr>
+	<tr>
+		<td>or</td>
+		<td>逻辑或运算符。如果两个操作数中其中有一个非零，则条件为真。</td>
+		<td>(A or B) 为真。</td>
+	</tr>
+	<tr>
+		<td>not</td>
+		<td>逻辑非运算符。翻转操作数的逻辑状态。如果条件是真，则逻辑非运算符会将其变成假。</td>
+		<td>!(A and B) 为真。</td>
+	</tr>
+</table>
+<h3 id="其它操作符"><a class="markdownIt-Anchor" href="#其它操作符"></a> 其它操作符</h3>
+<p>Lua 语言还支持另外两个操作符：</p>
+<table>
+	<tr>
+		<th>操作符</th>
+		<th>描述</th>
+		<th>示例</th>
+	</tr>
+	<tr>
+		<td>..</td>
+		<td>连接两个字符串。</td>
+		<td>若 a 为 "Hello"，b 为 "World",则 a..b 返回 "Hello World"。</td>
+	</tr>
+	<tr>
+		<td>#</td>
+		<td>一元运算符，返回字符串或者表的长度。</td>
+		<td>#"Hello" 返回 5。</td>
+	</tr>
+</table>
+<h3 id="操作符优先级"><a class="markdownIt-Anchor" href="#操作符优先级"></a> 操作符优先级</h3>
+<p>操作符的优先级将决定表达式中的项如何组合。这会影响到表达式的求值。一些操作符比另外一些操作符有更高的优先级。例如，乘法操作符优先级比加法操作符更高。</p>
+<p>例如 x = 7 +3*2，这里 x 的值为 13，而不是 20。这是因为操作符 * 优级级比操作符 + 优先级更高，所以先得到 3*2 的乘积，然后再加上 7。</p>
+<p>下面的表中，从上到下优先级递减。在每个表达式中，高优先级操作数先运算。</p>
+<table>
+	<tr>
+		<th>分类</th>
+		<th>操作数</th>
+		<th>结合性</th>
+	</tr>
+	<tr>
+		<td>一元运算符类</td>
+		<td>not # -</td>
+		<td>从右至左</td>
+	</tr>
+	<tr>
+		<td>连接运算符</td>
+		<td>..</td>
+		<td>从右至左</td>
+	</tr>
+	<tr>
+		<td>乘除运算符类</td>
+		<td>* / %</td>
+		<td>从左至右</td>
+	</tr>
+	<tr>
+		<td>加减运算符类</td>
+		<td>+ - </td>
+		<td>从左至右</td>
+	</tr>
+	<tr>
+		<td>关系运算符类</td>
+		<td>< > <= >= == ~=</td>
+		<td>从左至右</td>
+	</tr>
+	<tr>
+		<td>等于运算符类</td>
+		<td>== ~=</td>
+		<td>从左至右</td>
+	</tr>
+	<tr>
+		<td>逻辑与运算符</td>
+		<td>and</td>
+		<td>从左至右</td>
+	</tr>
+	<tr>
+		<td>逻辑或运算符</td>
+		<td>or</td>
+		<td>从左至右</td>
+	</tr>
+</table>
+<h2 id="7if语句"><a class="markdownIt-Anchor" href="#7if语句"></a> 7.if语句</h2>
+<p>IF语句包括一个布尔表达式和一个或多个语句。</p>
+<h3 id="语法"><a class="markdownIt-Anchor" href="#语法"></a> 语法</h3>
+<p>Lua语言if语句的语法如下：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">if</span><span class="token punctuation">(</span>boolean_expression<span class="token punctuation">)</span>
+<span class="token keyword">then</span>
+   <span class="token comment">--[如果布尔表达式为真，statement(s) 执行。--]</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果布尔表达式计算结果为真，则 if 语句内的代码块执行；如果布尔表达式计算结果为假，跳过 if 语句中的代码直接执行 if 语句后面的代码。<br />
+Lua 语言中所有布尔真与非 nil 的组合的结果被当作真，而布尔假与 nil 组合被当作假。值得注意的是，Lua 中零被当作真，这一点与其它大部分语言不一样：</p>
+<h3 id="流程图"><a class="markdownIt-Anchor" href="#流程图"></a> 流程图</h3>
+<p><img src="http://www.tutorialspoint.com/lua/images/if_statement.jpg" alt="流程图" /></p>
+<h3 id="示例-2"><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h3>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span> a <span class="token operator">&lt;</span> <span class="token number">20</span> <span class="token punctuation">)</span>
+<span class="token keyword">then</span>
+   <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"a is less than 20"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"value of a is :"</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+```  
+
+
+执行上面的代码可以得到如下的结果：　　
+
+```lua
+a is less than <span class="token number">20</span>
+value of a is <span class="token punctuation">:</span> <span class="token number">10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="8嵌套if语句"><a class="markdownIt-Anchor" href="#8嵌套if语句"></a> 8.嵌套if语句</h2>
+<p>在 Lua 语言中，你可以合法的嵌套使用 if-else 语句。这也就是说，你可以在一个 if 或 if-else 语句内再使用一个　if 或 if-else 语句。</p>
+<h3 id="语法-2"><a class="markdownIt-Anchor" href="#语法-2"></a> 语法</h3>
+<p>嵌套 if 语句的语法规则如下：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">if</span><span class="token punctuation">(</span> boolean_expression <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">then</span>
+   <span class="token comment">--[ 如果布尔表达式 1 为真，则执行此处代码。 --]</span>
+   <span class="token keyword">if</span><span class="token punctuation">(</span>boolean_expression <span class="token number">2</span><span class="token punctuation">)</span>
+   <span class="token keyword">then</span>
+      <span class="token comment">--[ 如果布尔表达式 2 为真（注：布尔表达式 1 为真），则执行此处代码）。 --]</span>
+   <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>你也可以像嵌套使用 if 语句那样使用嵌套使用 else if…else 语句。</p>
+<h3 id="示例-3"><a class="markdownIt-Anchor" href="#示例-3"></a> 示例</h3>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">--[ 定义局部变量 --]</span>
+a <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+b <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
+<span class="token comment">--[ 检查条件真假 --]</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span> a <span class="token operator">==</span> <span class="token number">100</span> <span class="token punctuation">)</span>
+<span class="token keyword">then</span>
+   <span class="token comment">--[ 如果前面的条件为真，再检查下面的条件。 --]</span>
+   <span class="token keyword">if</span><span class="token punctuation">(</span> b <span class="token operator">==</span> <span class="token number">200</span> <span class="token punctuation">)</span>
+   <span class="token keyword">then</span>
+      <span class="token comment">--[ 如果条件为真，则输出如下内容 --]</span>
+      <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Value of a is 100 and b is 200"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Exact value of a is :"</span><span class="token punctuation">,</span> a <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Exact value of b is :"</span><span class="token punctuation">,</span> b <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行上面的代码，可以得到如下的输出结果：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">Value of a is <span class="token number">100</span> <span class="token keyword">and</span> b is <span class="token number">200</span>
+Exact value of a is <span class="token punctuation">:</span>	<span class="token number">100</span>
+Exact value of b is <span class="token punctuation">:</span>	<span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">117</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AI-gateway/"><span class="card-category-list-name">AI gateway</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Amphion/"><span class="card-category-list-name">Amphion</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AnimateAnyone/"><span class="card-category-list-name">AnimateAnyone</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AudioCraft/"><span class="card-category-list-name">AudioCraft</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Gradio/"><span class="card-category-list-name">Gradio</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Mixtral-8x7B/"><span class="card-category-list-name">Mixtral-8x7B</span><span class="card-category-list-count">1</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/english/" style="font-size: 1.18em; color: #999ca1">english</a> <a href="/tags/gfpgan/" style="font-size: 1.18em; color: #999ca1">gfpgan</a> <a href="/tags/ThreatIngestor/" style="font-size: 1.1em; color: #999">ThreatIngestor</a> <a href="/tags/ATTCK/" style="font-size: 1.18em; color: #999ca1">ATTCK</a> <a href="/tags/ElasticSearch/" style="font-size: 1.1em; color: #999">ElasticSearch</a> <a href="/tags/pdf/" style="font-size: 1.1em; color: #999">pdf</a> <a href="/tags/math/" style="font-size: 1.1em; color: #999">math</a> <a href="/tags/x99/" style="font-size: 1.1em; color: #999">x99</a> <a href="/tags/WhisperSpeech/" style="font-size: 1.1em; color: #999">WhisperSpeech</a> <a href="/tags/%E7%A3%81%E7%9B%98/" style="font-size: 1.1em; color: #999">磁盘</a> <a href="/tags/picgo/" style="font-size: 1.1em; color: #999">picgo</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">无线键盘</a> <a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.1em; color: #999">索引</a> <a href="/tags/%E5%9B%BE%E4%B9%A6/" style="font-size: 1.18em; color: #999ca1">图书</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" style="font-size: 1.18em; color: #999ca1">大数据安全</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 1.1em; color: #999">内存</a> <a href="/tags/%E5%B9%B3%E6%96%B9%E5%92%8C%E5%85%AC%E5%BC%8F/" style="font-size: 1.1em; color: #999">平方和公式</a> <a href="/tags/Shuffle/" style="font-size: 1.18em; color: #999ca1">Shuffle</a> <a href="/tags/RE%E4%B8%8ECT%E6%A1%86%E6%9E%B6/" style="font-size: 1.1em; color: #999">RE与CT框架</a> <a href="/tags/OpenResty/" style="font-size: 1.1em; color: #999">OpenResty</a> <a href="/tags/obsidian/" style="font-size: 1.26em; color: #999fa8">obsidian</a> <a href="/tags/lua-json/" style="font-size: 1.1em; color: #999">lua json</a> <a href="/tags/WavJourney/" style="font-size: 1.1em; color: #999">WavJourney</a> <a href="/tags/nvidia-smi/" style="font-size: 1.1em; color: #999">nvidia-smi</a> <a href="/tags/%E7%A1%AC%E7%9B%98/" style="font-size: 1.1em; color: #999">硬盘</a> <a href="/tags/huaggingface/" style="font-size: 1.1em; color: #999">huaggingface</a> <a href="/tags/LUA/" style="font-size: 1.1em; color: #999">LUA</a> <a href="/tags/Graylog/" style="font-size: 1.34em; color: #99a3b0">Graylog</a> <a href="/tags/conda/" style="font-size: 1.26em; color: #999fa8">conda</a> <a href="/tags/%E7%99%BE%E5%BA%A6AI/" style="font-size: 1.1em; color: #999">百度AI</a> <a href="/tags/iptables/" style="font-size: 1.1em; color: #999">iptables</a> <a href="/tags/soc/" style="font-size: 1.18em; color: #999ca1">soc</a> <a href="/tags/%E5%BF%83%E9%87%8C%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">心里学</a> <a href="/tags/ASCII%E6%94%BB%E5%87%BB/" style="font-size: 1.1em; color: #999">ASCII攻击</a> <a href="/tags/AIGC/" style="font-size: 1.42em; color: #99a6b7">AIGC</a> <a href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">人际关系</a> <a href="/tags/Cortex/" style="font-size: 1.26em; color: #999fa8">Cortex</a> <a href="/tags/dev/" style="font-size: 1.1em; color: #999">dev</a> <a href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.1em; color: #999">图数据库</a> <a href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" style="font-size: 1.1em; color: #999">激活函数</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1135</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">324</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2017/09/"><span class="card-archive-list-date">九月 2017</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/09/"><span class="card-archive-list-date">九月 2016</span><span class="card-archive-list-count">307</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">1769</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-04-03T04:52:05.954Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>lua快速入门 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概览：协同程序提供了一种协作式的多线程。每个协同程序都等于是一个线程。一对yield-resume可以将执行权在不同线程间切换。然而与常规多线程不同，协程是非抢先式的。  参照书籍：《Lua程序设计（第二版）》 Lua版本：Lua 5.3.5  协同程序 Lua将所有关于协同程序的函数放在了一个名叫”coroutine“的table中。  create函数用于创建一个协同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lua快速入门">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="概览：协同程序提供了一种协作式的多线程。每个协同程序都等于是一个线程。一对yield-resume可以将执行权在不同线程间切换。然而与常规多线程不同，协程是非抢先式的。  参照书籍：《Lua程序设计（第二版）》 Lua版本：Lua 5.3.5  协同程序 Lua将所有关于协同程序的函数放在了一个名叫”coroutine“的table中。  create函数用于创建一个协同">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:32.958Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:32.959Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'lua快速入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">lua快速入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:32.958Z" title="发表于 2024-04-03 11:47:32">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:32.959Z" title="更新于 2024-04-03 11:47:32">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="lua快速入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><div class="markdown-body">
+            <p><strong>概览</strong>：协同程序提供了一种协作式的多线程。每个协同程序都等于是一个线程。一对yield-resume可以将执行权在不同线程间切换。然而与常规多线程不同，协程是非抢先式的。</p>
+<blockquote>
+<p>参照书籍：<strong>《Lua程序设计（第二版）》</strong></p>
+<p>Lua版本：<strong>Lua 5.3.5</strong></p>
+</blockquote>
+<h2 id="协同程序"><a href="#协同程序" class="headerlink" title="协同程序"></a>协同程序</h2><ul>
+<li><p>Lua将所有关于协同程序的函数放在了一个名叫”<strong>coroutine</strong>“的table中。</p>
+</li>
+<li><p>create函数用于创建一个协同程序，只有一个参数，为一个函数。最终返回一个thread类型的值。</p>
+<pre><code class="lua">  &gt; co = coroutine.create(function() print&#34;hi&#34; end)
+  &gt; print(co)
+  thread: 000000000078eba8</code></pre>
+</li>
+<li><p>一个协同程序有四种状态：<strong>挂起(suspended)、运行(running)、死亡(dead)和正常(normal)</strong>.创建一个协同程序后它将储于挂起状态，可以使用status函数来检查协同程序的状态。</p>
+<pre><code class="lua">  &gt; print(coroutine.status(co))
+  suspended</code></pre>
+</li>
+<li><p>使用resume函数来启动执行协同程序，并将其状态从<strong>挂起 –&gt; 运行</strong></p>
+<pre><code class="lua">  &gt; coroutine.resume(co)
+  hi
+  true
+  &gt; print(coroutine.status(co))
+  dead
+  &gt; coroutine.resume(co)
+  false   cannot resume dead coroutine
+  &gt;</code></pre>
+</li>
+<li><p>使用yield函数来让一个运行中的协同程序挂起。</p>
+<pre><code class="lua">  co = coroutine.create(function()
+   for i=1,10 do
+   print(&#34;co&#34;,i)
+   coroutine.yield()
+   end
+  end)
+<p>&gt; coroutine.resume(co)<br />
+co      1<br />
+true<br />
+&gt; coroutine.resume(co)<br />
+co      2<br />
+true<br />
+&gt; coroutine.resume(co)<br />
+co      3<br />
+true<br />
+&gt; print(coroutine.status(co))<br />
+suspended<br />
+&gt;</code></pre></p>
+<blockquote>
+<p><strong>从协程的角度来看，所有在它挂起时发生的活动都发生在yield调用中。当恢复协同程序的执行时，对于yield的调用才最终返回。然后协同程序继续它的执行，直到下个yield调用或执行的结束。</strong></p>
+</blockquote>
+</li>
+<li><p><strong>正常状态</strong>：当协程A唤醒了另一个协程B时，协程A就处于一个特殊状态，既不是挂起状态(A无法继续执行)也不是运行状态(B在运行)。</p>
+</li>
+<li><p>Lua协同程序的机制：通过一对resume-yield来交换数据。在第一次调用resume时，并没有对应的yield在等待它，因此传<strong>递给resume的额外参数都将视为协同程序主函数的参数。</strong></p>
+<pre><code class="lua">  &gt; co = coroutine.create(function(a,b,c)
+  &gt;&gt; print(&#34;co&#34;,a,b,c)
+  &gt;&gt; end)
+  &gt; coroutine.resume(co,1,2,3)
+  co      1       2       3
+  true
+  &gt;</code></pre>
+<p>  数据由yield传给resume。true表明调用成功，true之后的部分，即是yield的参数.</p>
+<pre><code class="lua">  co = coroutine.create(function (a,b)
+    coroutine.yield(a+b,a-b)
+  end)
+<p>&gt; print(coroutine.resume(co,20,10))<br />
+true    30      10</code></pre></p>
+<p>  相应地，resume的参数，会被传递给yield。 </p>
+<pre><code class="lua">  co  = coroutine.create (function ()
+    print(&#34;co&#34;,  coroutine.yield())
+  end)
+  coroutine.resume(co)
+  coroutine.resume(co, 4, 5)   --&gt; co  4 5</code></pre>
+<p>  最后一个，协同代码结束时的返回值，也会传给resume：</p>
+<pre><code class="lua">  co  = coroutine.create(function ()
+    return 6, 7
+  end)
+  print(coroutine.resume(co))   --&gt;  true 6 7</code></pre>
+</li>
+<li><p>Lua的协同称为<strong>不对称协同</strong>（asymmetric coroutines），指“挂起一个正在执行的协同函数”与“使一个被挂起的协同再次执行的函数”是不同的，有些语言提供对称协同（symmetric coroutines），即使用同一个函数负责“执行与挂起间的状态切换”.</p>
+<blockquote>
+<p>与对称的协同和不对称协同的区别不同的是，协同与产生器的区别更大。产生器相对比较简单，他不能完成真正的协同所能完成的一些任务。我们熟练使用不对称的协同之后，可以利用不对称的协同实现比较优越的对称协同。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="协程实例-生产者消费者"><a href="#协程实例-生产者消费者" class="headerlink" title="协程实例-生产者消费者"></a>协程实例-生产者消费者</h2><p>生产者消费者涉及两个函数，一个负责不断的产生值，另一个负责不断地消费值。</p>
+<pre><code class="lua">-- 两个函数大致的样子
+function producer()
+    while true do
+        local x = io.read() --产生新的值
+        send(x) -- 发送给消费者
+    end
+end
+<p>function consumer()<br />
+while true do<br />
+local x = receive() --从生产者接受值<br />
+io.write(x,&quot;n&quot;)  – 消费新的值<br />
+end<br />
+end</code></pre></p>
+<p>这里的问题在于如何将send与receive匹配起来，这是一个典型的<strong>“谁具有主循环”(who-has-the-main-loop)</strong>的问题。由于生产者与消费者都处于活动状态，他们各自具有一个主循环，并且都将对方视为一个可调用的服务。</p>
+<p><strong>而协调程序被称为是一种匹配生产者与消费者的理想工具，因为调用者与被调用者之间的resume-yield关系会不断颠倒。当一个协同调用yield时，并不会进入一个新的函数，取而代之的是返回一个未决的resume的调用。相似的，调用resume时也不会开始一个新的函数而是返回yield的调用。这种性质正是我们所需要的，与使得send-receive协同工作的方式是一致的。receive唤醒生产者生产新值，send把产生的值送给消费者消费。</strong></p>
+<pre><code class="lua">function receive()
+    local status,value = coroutine.resume(producer)
+    return value
+end
+<p>function send(x)<br />
+coroutine.yield(x)<br />
+end</p>
+<p>– 因此生产者现在一定是一个协同程序<br />
+producer = coroutine.create(<br />
+function ()<br />
+while true do<br />
+local x = io.read()  --产生新值<br />
+send(x)<br />
+end<br />
+end<br />
+)</code></pre></p>
+<p>在这种设计中，程序通过调用消费者来启动。当消费者需要一个新值时，它唤醒生产者。生产者返回一个新值后停止运行，并等待消费者的再次唤醒。这种设计称之为——“消费者驱动”。</p>
+<h3 id="过滤器filter"><a href="#过滤器filter" class="headerlink" title="过滤器filter"></a>过滤器filter</h3><p>扩展上面的设计，实现过滤器</p>
+<p>过滤器是一种位于生产者与消费者之间的处理功能，可用于对数据的一些变换。过滤器既是一个消费者又是一个生产者，它唤醒一个生产者促使其产生新的值，然后又将变换后的值传递给消费者。</p>
+<pre><code class="lua">function receive(prod)
+    local status,value = coroutine.resume(prod)
+    return value
+end
+<p>function send(x)<br />
+coroutine.yield(x)<br />
+end</p>
+<p>function producer()<br />
+return coroutine.create(function()<br />
+while true do<br />
+local x = io.read()<br />
+send(x)<br />
+end<br />
+end)<br />
+end</p>
+<p>function filter(prod)<br />
+return coroutine.create(function()<br />
+for line=1,math.huge do<br />
+local x = receiver(prod)<br />
+x = string.format(&quot;%5d %s&quot;,line,x)<br />
+send(x)<br />
+end<br />
+end)<br />
+end</p>
+<p>function consumer(prod)<br />
+while true do<br />
+local x = receive(prod)  --获取新值<br />
+io.write(x,&quot;n&quot;)  --消费新值<br />
+end<br />
+end</p>
+<p>– 运行代码<br />
+p = producer()<br />
+f = filter(p)<br />
+consumer(f)</p>
+<p>–或者 sonsumer(filter(producer()))</p>
+<p>– 不过貌似无法运行</code></pre></p>
+<p>可能很自然的想到<strong>UNIX的管道（pipe）</strong>，<strong>协同是一种非抢占式的多线程</strong>。管道的方式下，每一个任务在独立的进程中运行，而协同方式下，每个任务运行在独立的协同代码中。管道在读（consumer）与写（producer）之间提供了一个缓冲，因此两者相关的的速度没有什么限制，在上下文管道中这是非常重要的，因为在进程间的切换代价是很高的。协同模式下，任务间的切换代价较小，与函数调用相当，因此读写可以很好的协同处理。</p>
+<h2 id="用协同程序实现迭代器"><a href="#用协同程序实现迭代器" class="headerlink" title="用协同程序实现迭代器"></a>用协同程序实现迭代器</h2><p>我们可以将循环的迭代器看作生产者-消费者模式的特殊的例子。迭代函数产生值给循环体消费。所以可以使用协同来实现迭代器。<strong>协同的一个关键特征是它可以不断颠倒调用者与被调用者之间的关系</strong>，这样我们毫无顾虑的使用它实现一个迭代器，而不用保存迭代函数返回的状态。</p>
+<pre><code class="lua">-- 打印一个数组元素的所有的排列
+function permgen(a,n)
+    n = n or #a --默认n为a的大小
+    if n &lt;= 1 then
+        printResult(a)
+    else
+        for i=1,n do
+            a[n],a[i] = a[i],a[n] --将第i个元素放到数组末尾
+            permgen(a,n-1)  -- 生成其余元素的排列
+            a[n],a[i] = a[i],a[n] -- 恢复第i个元素
+        end
+    end
+end
+<p>function printResult(a)<br />
+for i=1,#a do<br />
+io.write(a[i],&quot; &quot;)<br />
+end<br />
+io.write(&quot;n&quot;)<br />
+end</p>
+<p>– 调用<br />
+permgen(&#123;1,2,3,4&#125;) --只传一个参数也可以，函数中会对第二个参数进行默认赋值操作</p>
+<p>–[[<br />
+2 3 4 1<br />
+3 2 4 1<br />
+3 4 2 1<br />
+4 3 2 1<br />
+2 4 3 1<br />
+4 2 3 1<br />
+4 3 1 2<br />
+3 4 1 2<br />
+3 1 4 2<br />
+1 3 4 2<br />
+4 1 3 2<br />
+1 4 3 2<br />
+2 4 1 3<br />
+4 2 1 3<br />
+4 1 2 3<br />
+1 4 2 3<br />
+2 1 4 3<br />
+1 2 4 3<br />
+2 3 1 4<br />
+3 2 1 4<br />
+3 1 2 4<br />
+1 3 2 4<br />
+2 1 3 4<br />
+1 2 3 4<br />
+–]]</code></pre></p>
+<p>转化为迭代器</p>
+<pre><code class="lua">function permgen(a,n)
+    n = n or #a
+    if n&gt;=1 then
+        coroutine.yield(a)
+    else
+        for i=1,n do
+            a[n],a[i] = a[i],a[n] --将第i个元素放到数组末尾
+            permgen(a,n-1)  -- 生成其余元素的排列
+            a[n],a[i] = a[i],a[n] -- 恢复第i个元素
+        end
+    end
+end
+<p>–定义一个工厂函数<br />
+function permutations(a)<br />
+local co = coroutine.create(function() permgen(a) end)<br />
+return function() --迭代器<br />
+local code,res = coroutine.resume(co)<br />
+return res<br />
+end<br />
+end</p>
+<p>– for循环中便利<br />
+for p in permutations(&#123;&quot;a&quot;,&quot;b&quot;,&quot;c&quot;&#125;) do<br />
+printResult(p)<br />
+end</code></pre></p>
+<p>permutations函数使用了lua中常用的模式：<strong>将一个对协同的resume的调用封装在一个函数内部</strong>，这种方式在非常常见，所以专门为此专门提供了一个函数<code>coroutine.wrap</code>。与create相同的是，wrap创建一个协同程序；不同的是wrap不返回协同本身，而是返回一个函数，当这个函数被调用时将resume协同。wrap中resume协同的时候不会返回错误代码作为第一个返回结果，一旦有错误发生，将抛出错误。</p>
+<pre><code class="lua">-- 使用wrap来重写permutations
+function permutations(a)
+    return coroutine.wrap(function () permgen(a) end)
+end</code></pre>
+<p>一般情况下，coroutine.wrap比coroutine.create使用起来简单直观，前者更确切的提供了我们所需要的：一个可以resume协同的函数，然而缺少灵活性，没有办法知道wrap所创建的协同的状态，也没有办法检查错误的发生。</p>
+<h2 id="非抢占式的多线程-non-preemptive"><a href="#非抢占式的多线程-non-preemptive" class="headerlink" title="非抢占式的多线程(non-preemptive)"></a>非抢占式的多线程(non-preemptive)</h2><p>对于非抢占式的多线程来说，只要有一个线程调用了阻塞(blocking)的操作，整个程序在该操作完成前，都会停下来。但对于大部分程序来说，这是无法接受的。</p>
+<pre><code class="lua">--未完
+<p>相关模块一直无法安装以及使用</code></pre></p>
+<pre><code>        &lt;hr/&gt;
+      &lt;/div&gt;
+      &lt;br/&gt;
+      &lt;div&gt;
+        &lt;p&gt;
+        
+          &lt;span&gt;
+            &lt;i class=&quot;iconfont icon-inbox&quot;&gt;&lt;/i&gt;
+            
+              &lt;a class=&quot;hover-with-bg&quot; href=&quot;/categories/Lua/&quot;&gt;Lua&lt;/a&gt;
+               
+            
+          &lt;/span&gt;  
+        
+        
+          &lt;span&gt;
+            &lt;i class=&quot;iconfont icon-tag&quot;&gt;&lt;/i&gt;
+            
+              &lt;a class=&quot;hover-with-bg&quot; href=&quot;/tags/Lua/&quot;&gt;Lua&lt;/a&gt;
+            
+          &lt;/span&gt;
+        
+        &lt;/p&gt;
+        
+          &lt;p class=&quot;note note-warning&quot;&gt;本博客所有文章除特别声明外，均采用 &lt;a href=&quot;https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;CC BY-SA 3.0协议&lt;/a&gt; 。转载请注明出处！&lt;/p&gt;
+        
+      &lt;/div&gt;
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">https://lua.ren/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua语言学习（二）</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua 学习 chapter7</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div><div><a href="/zl/2016-01-01-1007_Lua%E8%AF%AD%E6%B3%95%E9%80%9F%E8%AE%B0/" title="Lua语法速记"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语法速记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E5%90%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">协同程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B%E5%AE%9E%E4%BE%8B-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85"><span class="toc-number">2.</span> <span class="toc-text">协程实例-生产者消费者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8filter"><span class="toc-number">2.1.</span> <span class="toc-text">过滤器filter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E5%8D%8F%E5%90%8C%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">用协同程序实现迭代器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B-non-preemptive"><span class="toc-number">4.</span> <span class="toc-text">非抢占式的多线程(non-preemptive)</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

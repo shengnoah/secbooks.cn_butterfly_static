@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>tolua原理 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="tolua++如何将c++对象导入到lua里？lua如何能够访问c++对象成员？创建一个 userdata ，存放 C&#x2F;C++ 对象指针，然后给 userdata 添加元表，用index 和newindex 元方法映射 C&#x2F;C++ 中的对象方法。  c++层新建一个元表作为类型（通过tolua_usertype）放在注册表中（_R[mt] &#x3D; name），并且设置这些类型的继承关系(通过_R.to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tolua原理">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-592_tolua%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="tolua++如何将c++对象导入到lua里？lua如何能够访问c++对象成员？创建一个 userdata ，存放 C&#x2F;C++ 对象指针，然后给 userdata 添加元表，用index 和newindex 元方法映射 C&#x2F;C++ 中的对象方法。  c++层新建一个元表作为类型（通过tolua_usertype）放在注册表中（_R[mt] &#x3D; name），并且设置这些类型的继承关系(通过_R.to">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.833Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.833Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-592_tolua%E5%8E%9F%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'tolua原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">tolua原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.833Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.833Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="tolua原理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h4 id="tolua-如何将c-对象导入到lua里？lua如何能够访问c-对象成员？"><a href="#tolua-如何将c-对象导入到lua里？lua如何能够访问c-对象成员？" class="headerlink" title="tolua++如何将c++对象导入到lua里？lua如何能够访问c++对象成员？"></a>tolua++如何将c++对象导入到lua里？lua如何能够访问c++对象成员？</h4><p>创建一个 userdata ，存放 C/C++ 对象指针，然后给 userdata 添加元表，用<strong>index</strong> 和<strong>newindex</strong> 元方法映射 C/C++ 中的对象方法。</p>
+<ol>
+<li>c++层新建一个元表作为类型（通过tolua_usertype）放在注册表中（_R[mt] = name），并且设置这些类型的继承关系(通过_R.tolua_super).</li>
+<li>创建一个类表(newtable)，并且设置_R中的原型表为元表（通过tolua_usertype），这个类表是放在全局表中的.</li>
+<li>在注册类型的时候metatable里新建了.get和.set表。</li>
+</ol>
+<p>​      成员变量：在.set和.get表里存储以变量名为键一读取设置c函数为值的键值对。</p>
+<p>​      变量的读取赋值会在在metatable的<strong>index和</strong>newindex里，以变量名为键，从.get和.set表里取得读取设置函数并调用。</p>
+<p>​      成员函数：只需要以函数名为键，函数为值存储在metatable里。</p>
+<ol start="3">
+<li>因为c++类型已经在注册表里，所以可以直接访问。</li>
+</ol>
+<p>​     lua里调用c++创建一个对象之后，c++需要返回这个对象：</p>
+<p>​     新建userdata,将c++指针放入userdata;以对象地址为key，userdata为值放入tolua_ubox表里；设置此类型对象的元表为userdata的元表。</p>
+<p>   经过上面4个步骤，就可以在lua里面调用类表。</p>
+<p>传入c++对象的tolua++函数是tolua_pushusertype。一般情况下，第一次使用这个函数将一个c++对象push到lua堆栈上时，才会新建userdata。tolua++会以c++对象地址为键，userdata为值，将键值对存储在tolua_ubox表里。下次推入同样的c++对象时，从这个表里取出userdata推入堆栈即可。</p>
+<h4 id="tolua-如何处理类型的继承"><a href="#tolua-如何处理类型的继承" class="headerlink" title="tolua++如何处理类型的继承"></a>tolua++如何处理类型的继承</h4><p>父类的metatable,是子类metatable的metatable。这样调用父类方法时，就会去父类的metatable里查找了。</p>
+<p>tolua++还维护了一个tolua_super表，这个表以c++类型的metatable为键，以一个表格为值。这个值表格以类型名称为键，以true为值，记录了metatable对应c++类型的父类有哪些。这个表格可以用来帮助判断对象是否是某一个类型。</p>
+<h4 id="tolua-如何管理对象的生命周期"><a href="#tolua-如何管理对象的生命周期" class="headerlink" title="tolua++如何管理对象的生命周期"></a>tolua++如何管理对象的生命周期</h4><p>一般情况下，当lua里对c++对象的引用变量可以被垃圾回收时，tolua++只是简单的释放userdata占用的4字节指针地址内存。但是也可以通过绑定或者代码指定的方式，让tolua++真正释放对象所占内存。</p>
+<p>绑定的方式，是指在将c++类型构造函数使用tolua++导出到lua里时，tolua++会自动生成new_local方法。如果在lua代码里，用这个方法新建对象时，tolua++会调用tolua_register_gc方法，指明回收对象时回收对象内存。</p>
+<p>在c++代码里，使用tolua_pushusertype_and_takeownership；在lua代码里，使用tolua.takeownership，都可以达到同样的目的。</p>
+<p>对于这些指定由tolua++回收内存的对象，如果其类型的析构函数也通过tolua++导出了，则在回收内存时，会通过delete运算符，调用对象的析构函数。否则只会使用free方法回收。</p>
+<p>tolua_register_gc方法，做的事情，是以对象指针为键，以对象metatable为值，将键值对存储在tolua_gc表里。在对象类型的metatable表的__gc方法里，tolua++会检查tolua_gc表是否包含以这个地址为键的表项。包含的话才会进行上述的内存回收工作。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>有的时候，在lua里取得一个c++对象后，我们想赋给它一些只在lua环境下有意义的属性。或者，我们想在lua里扩展一个c++类。tolua++也提供了实现这种需求的机制。</p>
+<p>tolua++在LUA_REGISTRY里维护了一张tolua_peers表。这张表以表示c++对象的userdata为键，以一张表格t为值。t里面就记录了这个对象在lua里扩展的属性。</p>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>C++在进行函数调用的时候是this指针+函数地址, Lua提供用户自定义的userdata.</p>
+<p> 一般lua中持有c++对象是使用userdata来实现的(userdata 类型用来将任意 C 数据保存在 Lua 变量中. 这个类型相当于一块原生的内存, 除了赋值和相同性判断, Lua 没有为之预定义任何操作.通过使用 metatable （元表）, 可以为 userdata 自定义一组操作. metatable 中还可以定义一个函数gc让 userdata 作垃圾收集时调用它。</p>
+<p>​     因此，metatable可以用来模拟C++里面的函数，通过替换它来实现函数，类成员的查找。Userdata可以很方便的获取到转换成C++里面this指针。通过this指针+类的函数地址即可调用C++里面的类成员函数。</p>
+<h5 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h5><p>tolua_open()创建很多用于管理的内部变量， 如记录所有基类；</p>
+<p>tolua_usertype() 创建两个表分别问type和 const type类型， const type 继承自 type;</p>
+<p>tolua_cclass()注册类设置元表建立父子类关系；</p>
+<p>tolua_beginmodule（）注册一个模块</p>
+<p>tolua_function()函数绑定到lua表中</p>
+<p>tolua_beginmodule（）结束模块注册。</p>
+<h5 id="tolua-open是入口点，它创建很多用于管理的内部变量，以下用-G指代全局表，-R指定registry-table："><a href="#tolua-open是入口点，它创建很多用于管理的内部变量，以下用-G指代全局表，-R指定registry-table：" class="headerlink" title="tolua_open是入口点，它创建很多用于管理的内部变量，以下用_G指代全局表，_R指定registry table："></a>tolua_open是入口点，它创建很多用于管理的内部变量，以下用_G指代全局表，_R指定registry table：</h5><p>1、_R.TOLUA_VALUE_ROOT={}， 这个表是cocos2dx自己加的，它把所有传入lua的cppobj/userdata都塞到这个表里，而且这还不是一个弱表，也就意味着cocos2dx创建的cpp obj，永远都不会被gc！只有在c++层面被delete时，才会去这个表里删除自己。因此，每一个cocos2dx cpp obj，是不可能依赖lua gc来释放的，必须纯手动管理（retain/release）。当然，根据cocos2dx自身的设计，每个obj在new出来refcount为1，并且会添加autorelease pool里去，因此只要它不在场景树上，下一帧就会被自动删除掉。通常情况下，lua代码是不会干涉其生命期的。但是有些时候我们会把某些节点从场景树上摘下，过一段时间又挂上去，这时就必须先调一下它的retain，如果之后忘记调release，那么它就永远不会销毁了。</p>
+<p>2、_R.tolua_peers={}，这是个弱表，用来缓存所有cppobj的ptr-&gt;peer table，所谓peer table，就是给每个cpp obj userdata关联的一个lua table，用来提供lua层面的额外的kv存储。tolua++把每个userdata的peer table设成该userdata的env，目的当然是为了方便找到它。因为在lua实现里，userdata的env是没有内定用途的，于是tolua++就拿来存peer table了。</p>
+<p>3、_R.tolua_ubox={}，也是个弱表，用来缓存所有cppobj的ptr-&gt;userdata映射，userdata里面存放的值其实就是ptr。这个表的用途是记录所有已经push到lua里的cppobj，每个cppobj第一次进入lua时，会去做创建userdata、关联metatable、设置peertable(env)等等一大堆操作，然后把ptr-&gt;userdata的映射关系记到这个表里，下次再被返回进lua时，就从这表里去查找，查到的话就直接拿已创建好的userdata用了。但是有一种特殊情况，就是第二次push时的类型是上一次的子类，也就是一个“特化类型”，那么需要改设metatable，以使子类的新函数能被访问到。</p>
+<p>4、_R.tolua_super={}，用来记录每个类型的所有基类，key是子类的mt，value则是个map，其中每个kv都是一个pair&lt;基类名,1&gt;。通过这个表可以快速知道两个类之间有无继承关系。</p>
+<p>5、_R.tolua_gc={}</p>
+<p>6、_R.tolua_gc_event = closure{ func:class_gc_event, upvalue:上述两个表格 }， 这是挂在每个类对应的metatable上的__gc方法。</p>
+<p>7、_G.tolua={}，里面存放tolua自己的一些工具函数</p>
+<h5 id="类的注册。"><a href="#类的注册。" class="headerlink" title="类的注册。"></a>类的注册。</h5><p>1、对每个用户类，首先要用tolua_usertype声明这是个用户类型：</p>
+<p>​     tolua_usertype(tolua_S, “<a href="http://www.java123.net/web/" target="_blank" rel="noopener noreferrer">Web</a>Socket”)</p>
+<p>它里面的做事情很简单，就是分别为type和const type“两个类”建表（这个表也就是其实例userdata的元表），然后设置type继承const type，从数据的角度来看也就是：</p>
+<p>//先用tolua_newmetatable分别创建创建两个元表，其内又调用tolua_classevents挂上各种属性</p>
+<p>_R[“WebSocket”]={</p>
+<p>  __index = cfunc:class_index_event,</p>
+<p>  __newindex = cfunc:class_newindex_event,</p>
+<p>  __gc=_R.tolua_gc_event //上面之&lt;一.6&gt;</p>
+<p>  //其它各种add/sub/lt/eq等方法……</p>
+<p>}</p>
+<p>_R[“const WebSocket”]= ……同上</p>
+<p>//mapsuper(L,type,ctype) 设置两者的继承关系</p>
+<p>_R.tolua_super[_R[“WebSocket”]] ={ “const WebSocket” = 1,} //上面之&lt;一.4&gt;</p>
+<p>//这个过程会递归执行，即把基类的所有基类都添到子类里</p>
+<p>for k,v in pairs(_R.tolua_super[_R[“const WebSocket”]]) do</p>
+<p>_R.tolua_super[_R[“WebSocket”]][k] = v</p>
+<p>end</p>
+<p> //在这一步里，mapsuper只是设置type-&gt;const type，但是在后续步骤里会添加大量type-&gt;base type，因此递归下来，每个type的_R.tolua_super[type]表还是有很多内容的。</p>
+<p>2、然后用tolua_cclass来注册类。</p>
+<p>​    tolua_cclass主要做两件事，一是把基类和父类（以及各const变种）之间的关系建立起来，二是注册类的析构函数（构造函数由普通的create静态函数替代了）。</p>
+<p>关于继承关系，总共四对：</p>
+<p>mapinheritance(L,name,base);</p>
+<p>mapinheritance(L,cname,name);</p>
+<p>mapsuper(L,cname,cbase);</p>
+<p>mapsuper(L,name,base);</p>
+<p>其中c指const。除了上面提到的mapsuper，又来了个mapinheritance， 再次对比说明下：</p>
+<p>mapsuper是：在_R.tolua_super记录每个类(k)有哪些父类(v)，所有父类以v[类名]=1的形式记录着。</p>
+<p>mapinheritance是：把父类元表表设成子类元表表的元表，同时给基类表上挂一个用以记录该类objptr-&gt;userdata映射的弱表，大致是：</p>
+<p>setmetatable( _R.type, _R.base_type )，</p>
+<p>_R.type.tolua_ubox = _R.base_type.tolua_ubox or weak({})</p>
+<p>其中第二句与前述之&lt;一.3&gt;有点相似，只是那是放在_R上的一个总表，而这里是为每个类单独建表，但子类与基类是共用的，也就是每次调用tolua_cclass注册一个类，就有“3个类”的表中的tolua_ubox字段指向了同一个表，这3个类从上到下是：base type -&gt; type -&gt; const type，至于const base type，那是在之前注册基类时处理的了。</p>
+<p>不过这里还有个另外的问题！注意和第2条里的对比：</p>
+<p>mapinheritance(L,cname,name) //tolua_cclass里</p>
+<p>mapsuper(L,type,ctype) //tolua_usertype里</p>
+<p>到底type和const type谁是“基类”呢？这主要看不同场合里“基类”这个概念是用于解决什么问题了：</p>
+<p>对mapsuper而言：在c++里一个声明为const的参数，实际是对函数本身的约束而不是对实参的约束：它只是强调函数内部不会去修改这个参数，至于传进来的实参本身是不是const的根本不重要，因为反正函数已经承诺不会去修改它了。所以要把一个类型为type的obj传给某个带有const type参数的函数，是没有问题的，但反过来，一个const type对象要传给接受type参数的函数是不行的，因为不知道它到底会不会修改（没有承诺不修改就意味着会修改）。再加上tolua++在生成胶水代码时，对每个参数都要做类型匹配检测（也就是在生成代码中大量的lua_isusertype调用），一个usertype变量是否合格，就是检查它所在位置的参数类型，是否是它可以“扮演”的角色，这些角色一是它的所有父类，二就是它以及所有父类的const变种了，而这些可以扮演的类型，恰好就是mapsuper所建立的_R.tolua_super体系中记录的内容了。</p>
+<p>对mapinheritance而言：它将基类表设成子类表的元表，这是为了在子类表里可以找到基类的函数（在class_index_event函数里，有一个while循环，通过这里建立的链条不断向上级查找）。就这个目的而言，type和const type谁做基类是一样的。但是，type还有真正的基类base，按照base-&gt;type-&gt;const type的继承顺序是恰好满足的：</p>
+<p>classA -&gt; const classA</p>
+<p>​          -&gt; classB -&gt; const classB</p>
+<p>​                         -&gt; classC -&gt; const classC</p>
+<p>​                                       -&gt; classD -&gt; const classD</p>
+<p>也就是说const类型在当前层次的链上是一个叶，下一层次不是从它继承，而是与它并级。</p>
+<p>而如果按照base-&gt;const type-&gt;type-&gt;const subtype-&gt;sub type，那么问题就麻烦了，因为在注册函数时，所有函数都是挂在不带const的类表上的，如CCNode的函数都在_R[“CCNode”]里，这也符合脚本里创建类实例时的习惯：直接以“纯粹的”（不带const的）类名来操作，比如CCNode:create，而不会写作const_CCNode:create()。那么在后者的继承链上，每一个const type实际成了断点，没有得到这个type自身的函数！</p>
+<p>3.tolua_beginmodule（） tolua_endmodule()  tolua_function()</p>
+<p>tolua_beginmodule(m_pState, “CTest”);是只注册一个模块，比如，我们管CTest叫做”CTest”，保持和C++的名称一样。这样在Lua的对象库中就会多了一个CTest的对象描述，等同于string,number等等基本类型，同tolua_beginmodule()和tolua_endmodule()对象必须成对出现，如果出现不成对的，你注册的C++类型将会失败。 </p>
+<p>tolua_function(m_pState, “SetData”, tolua_SetData_CTest);指的是将Lua里面CTest对象的”SetData”绑定到你的tolua_SetData_CTest()函数中去。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-592_tolua%E5%8E%9F%E7%90%86/">https://lua.ren/zl/2016-01-01-592_tolua%E5%8E%9F%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-593_%E5%9C%A8redis%E4%B8%AD%E4%BD%BF%E7%94%A8Lua%E8%84%9A%E6%9C%AC/" title="在redis中使用Lua脚本"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">在redis中使用Lua脚本</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-590_fflua%E6%9B%B4%E6%96%B0/" title="fflua更新"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">fflua更新</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#tolua-%E5%A6%82%E4%BD%95%E5%B0%86c-%E5%AF%B9%E8%B1%A1%E5%AF%BC%E5%85%A5%E5%88%B0lua%E9%87%8C%EF%BC%9Flua%E5%A6%82%E4%BD%95%E8%83%BD%E5%A4%9F%E8%AE%BF%E9%97%AEc-%E5%AF%B9%E8%B1%A1%E6%88%90%E5%91%98%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">tolua++如何将c++对象导入到lua里？lua如何能够访问c++对象成员？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tolua-%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="toc-number">2.</span> <span class="toc-text">tolua++如何处理类型的继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tolua-%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">3.</span> <span class="toc-text">tolua++如何管理对象的生命周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#tolua-open%E6%98%AF%E5%85%A5%E5%8F%A3%E7%82%B9%EF%BC%8C%E5%AE%83%E5%88%9B%E5%BB%BA%E5%BE%88%E5%A4%9A%E7%94%A8%E4%BA%8E%E7%AE%A1%E7%90%86%E7%9A%84%E5%86%85%E9%83%A8%E5%8F%98%E9%87%8F%EF%BC%8C%E4%BB%A5%E4%B8%8B%E7%94%A8-G%E6%8C%87%E4%BB%A3%E5%85%A8%E5%B1%80%E8%A1%A8%EF%BC%8C-R%E6%8C%87%E5%AE%9Aregistry-table%EF%BC%9A"><span class="toc-number">4.3.</span> <span class="toc-text">tolua_open是入口点，它创建很多用于管理的内部变量，以下用_G指代全局表，_R指定registry table：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E6%B3%A8%E5%86%8C%E3%80%82"><span class="toc-number">4.4.</span> <span class="toc-text">类的注册。</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

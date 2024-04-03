@@ -1,0 +1,1769 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>RE&amp;CT框架详细介绍 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="RE&amp;CT框架详细介绍 0 原理 RE&amp;CT框架是为积累、描述和分类可操作的事件响应技术而设计的。 RE&amp;CT的哲学是基于MITRE的att&amp;ck框架。 列表示响应阶段。 这些单元格代表响应动作。  **主要用例: ** 1、事件响应能力开发的优先级，包括技能开发、技术措施的获取&#x2F;部署、内部过程开发等 2、差距分析-确定现有事件响应能力的“覆盖范围” 主要资源:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RE&amp;CT框架详细介绍">
+<meta property="og:url" content="https://lua.ren/sec/RE&CT%E6%A1%86%E6%9E%B6%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="RE&amp;CT框架详细介绍 0 原理 RE&amp;CT框架是为积累、描述和分类可操作的事件响应技术而设计的。 RE&amp;CT的哲学是基于MITRE的att&amp;ck框架。 列表示响应阶段。 这些单元格代表响应动作。  **主要用例: ** 1、事件响应能力开发的优先级，包括技能开发、技术措施的获取&#x2F;部署、内部过程开发等 2、差距分析-确定现有事件响应能力的“覆盖范围” 主要资源:">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-03-14T07:45:09.058Z">
+<meta property="article:modified_time" content="2024-03-14T07:45:09.059Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="RE与CT框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/sec/RE&amp;CT%E6%A1%86%E6%9E%B6%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RE&CT框架详细介绍',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-14 15:45:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">RE&amp;CT框架详细介绍</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-14T07:45:09.058Z" title="发表于 2024-03-14 15:45:09">2024-03-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-14T07:45:09.059Z" title="更新于 2024-03-14 15:45:09">2024-03-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8/">安全</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="RE&amp;CT框架详细介绍"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="rect框架详细介绍"><a class="markdownIt-Anchor" href="#rect框架详细介绍"></a> RE&amp;CT框架详细介绍</h1>
+<p><strong>0 原理</strong></p>
+<p>RE&amp;CT框架是为积累、描述和分类可操作的事件响应技术而设计的。</p>
+<p>RE&amp;CT的哲学是基于MITRE的att&amp;ck框架。</p>
+<p>列表示响应阶段。</p>
+<p>这些单元格代表响应动作。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5619637-e6fe2c7f4b7ce871.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp" alt="" /></p>
+<p>**主要用例:<br />
+**</p>
+<p>1、事件响应能力开发的优先级，包括技能开发、技术措施的获取/部署、内部过程开发等</p>
+<p>2、差距分析-确定现有事件响应能力的“覆盖范围”</p>
+<p><strong>主要资源:</strong></p>
+<p>RE&amp;CT导航器(改进的ATT&amp;CK导航器)用于可视化和观察大的图片</p>
+<p>自动生成的RE&amp;CT网站是获取现有分析细节的最佳地点</p>
+<p>自动生成的Atlassian Confluence知识库-输出功能演示</p>
+<p><strong>可操作的分析</strong></p>
+<p>ATC RE&amp;CT项目继承了ATC项目的“可操作分析”范式，这意味着分析如下:</p>
+<p>人类可读的(.md)在运营中共享/使用</p>
+<p>机器可读(.yml)用于自动处理/集成</p>
+<p>通过事件响应平台可执行(目前仅thehive Case模板)</p>
+<p>简单地说，分析数据存储在.yml文件中，这些文件会自动转换成.md文档(带有jinja)和.json的thehive Case模板。</p>
+<p><strong>响应行动</strong></p>
+<p>响应动作是对在事件响应期间必须执行的特定原子过程/任务的描述。它是一个初始实体，用于构建响应剧本。</p>
+<p>每个响应动作都映射到一个特定的响应阶段。</p>
+<p>响应动作ID的第一个数字反映了它所属的阶段:</p>
+<p><strong>1</strong>: Preparation</p>
+<p><strong>2</strong>: Identification</p>
+<p><strong>3</strong>: Containment</p>
+<p><strong>4</strong>: Eradication</p>
+<p><strong>5</strong>: Recovery</p>
+<p><strong>6</strong>: Lessons Learned</p>
+<p>响应动作ID的第二个数字反映了它所属的类别:</p>
+<p><strong>0</strong>: General</p>
+<p><strong>1</strong>: Network</p>
+<p><strong>2</strong>: Email</p>
+<p><strong>3</strong>: File</p>
+<p><strong>4</strong>: Process</p>
+<p><strong>5</strong>: Configuration</p>
+<p><strong>6</strong>: Identity</p>
+<p>通过使用响应动作ID，您可以看到它所属的阶段和类别。</p>
+<p>例如，RA2202: Collect an email message与阶段2(识别)和类别2(电子邮件)有关。</p>
+<p>该分类旨在改进事件响应过程成熟度评估和路线图开发。</p>
+<p><strong>响应剧本</strong></p>
+<p>响应剧本是一个事件响应计划，它代表了一个完整的过程/任务(响应行动)列表，必须执行该列表以响应特定威胁，并可选择映射到MITRE的att&amp;ck或Misinfosec的AMITT框架。</p>
+<p>响应剧本可以包括对工作流的描述、特定的条件/需求、响应操作执行顺序的细节，或者任何其他相关信息。</p>
+<p><strong>TheHive案例模板</strong></p>
+<p>TheHive Case模板是建立在响应剧本之上的。案例模板中的每个任务都是一个响应动作(带有完整的描述)。</p>
+<p>下面是导入的<strong>TheHive</strong> Case模板的示例:</p>
+<p>导入TheHive Case模板，在响应剧本上制作(点击展开)</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5619637-41bde2e1b164936c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/atc-project/atc-react/master/docs/thehive_templates/RP_0001_phishing_email.json">https://raw.githubusercontent.com/atc-project/atc-react/master/docs/thehive_templates/RP_0001_phishing_email.json</a></p>
+<p>{‘customFields’: {},</p>
+<p>‘metrics’: {},</p>
+<p>‘tlp’: 2,</p>
+<p>‘pap’: 0,</p>
+<p>‘tasks’: [{‘order’: 0,</p>
+<p>‘title’: ‘1 | RA1001: Practice’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure that most of the Response Action has been performed on an internal exercise by your Incident Response Team.  \nYou need to make sure that when an Incident will happen, the team will not just try to follow the playbooks they see first time in their lives, but will be able to quickly execute the actual steps in <strong>your environment</strong>, i.e. blocking an IP address or a domain name.  \n’},</p>
+<p>{‘order’: 1,</p>
+<p>‘title’: ‘2 | RA1002: Take trainings’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘&gt; We do not rise to the level of our expectations. We fall to the level of our training.  \n\nHere are some relevant training courses that will help you in the Incident Response activities:  \n\n1. <a target="_blank" rel="noopener" href="https://chrissanders.org/training/investigationtheory/">Investigation Theory</a> by Chris Sanders. We recommend you to have it as a mandatory training for every member of your Incident Response team  \n2. <a target="_blank" rel="noopener" href="https://www.offensive-security.com/courses-and-certifications/">Offensive Security</a> trainings. We recommend <a target="_blank" rel="noopener" href="https://www.offensive-security.com/pwk-oscp/">PWK</a> to begin with  \n3. <a target="_blank" rel="noopener" href="https://digital-forensics.sans.org/training/courses">SANS Digital Forensics &amp; Incident Response</a> trainings  \n\nOffensive Security trainings are in the list because to fight a threat, you need to understand their motivation, tactics, and techniques.  \n\nAt the same time, we assume that you already have a strong technical background in fundamental disciplines — Networking, Operating Systems, and Programming.  \n’},</p>
+<p>{‘order’: 2,</p>
+<p>‘title’: ‘3 | RA1004: Make personnel report suspicious activity’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Develop a simplified, company wide-known way to contact IR team in case of suspicious activity on the user system.  \nMake sure that the personnel is aware of it, can and will use it.  \n’},</p>
+<p>{‘order’: 3,</p>
+<p>‘title’: ‘4 | RA1003: Raise personnel awareness’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Train users to to be aware of access or manipulation attempts by an adversary to reduce the risk of \nsuccessful spearphishing, social engineering, and other techniques that involve user interaction.\n’},</p>
+<p>{‘order’: 4,</p>
+<p>‘title’: ‘5 | RA1101: Access external network flow logs’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure that there is a collection of Network Flow logs for external communication (from corporate assets to the Internet) configured.  \nIf there is no option to configure it on a network device, you can install a special software on each endpoint and collect it from them.  \n\nWarning:  \n\n- There is a feature called <a target="_blank" rel="noopener" href="https://www.plixer.com/blog/how-accurate-is-sampled-netflow/">“NetFlow Sampling”</a>, that eliminates the value of the Network Flow logs for some of the tasks, such as “check if some host communicated to an external IP”. Make sure it's disabled or you have an alternative way to collect Network Flow logs  \n’},</p>
+<p>{‘order’: 5,</p>
+<p>‘title’: ‘6 | RA1104: Access external HTTP logs’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure that there is a collection of HTTP connections logs for external communication (from corporate assets to the Internet) configured.  \n’},</p>
+<p>{‘order’: 6,</p>
+<p>‘title’: ‘7 | RA1106: Access external DNS logs’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: “Make sure that there is a collection of DNS logs for external communication (from corporate assets to the Internet) configured.  \nIf there is no option to configure it on a network device/DNS Server, you can install a special software on each endpoint and collect it from them.  \n\nWarning:  \n\n- Make sure that there are both DNS query and answer logs collected. It’s quite hard to configure such a collection on MS Windows DNS server and ISC BIND. Sometimes it much easier to use 3rd party solutions to fulfill this requirement.  \n- Make sure that DNS traffic to the external (public) DNS servers is blocked by the Border Firewall. This way, corporate DNS servers is the only place assets can resolve the domain names.  \n”},</p>
+<p>{‘order’: 7,</p>
+<p>‘title’: ‘8 | RA1111: Get ability to block external IP address’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure you have the ability to create a policy rule in one of the listed Mitigation Systems that will you to block an external IP address from being accessed by corporate assets.  \n\nWarning:  \n\n- Make sure that using the listed systems (1 or multiple) you can control access to the internet of all assets in the infrastructure. In some cases, you will need a guaranteed way to block an external IP address from being accessed by corporate assets completely. If some of the assets are not under the management of the listed Mitigation Systems, (so they can access the internet bypassing these systems), you will not be able to fully achieve the final objective of the Response Action.  \n’},</p>
+<p>{‘order’: 8,</p>
+<p>‘title’: ‘9 | RA1113: Get ability to block external domain’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure you have the ability to create a policy rule or a specific configuration in one of the listed Mitigation Systems that will you to block an external domain name from being accessed by corporate assets.  \n\nWarning:  \n\n- Make sure that using the listed systems (1 or multiple) you can control access to the internet of all assets in the infrastructure. In some cases, you will need a guaranteed way to block an external domain name from being accessed by corporate assets completely. If some of the assets are not under the management of the listed Mitigation Systems, (so they can access the internet bypassing these systems), you will not be able to fully achieve the final objective of the Response Action.  \n’},</p>
+<p>{‘order’: 9,</p>
+<p>‘title’: ‘10 | RA1115: Get ability to block external URL’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure you have the ability to create a policy rule or a specific configuration in one of the listed Mitigation Systems that will you to block an external URL from being accessed by corporate assets.  \n\nWarning:  \n\n- Make sure that using the listed systems (1 or multiple) you can control access to the internet of all assets in the infrastructure. In some cases, you will need a guaranteed way to block an external URL from being accessed by corporate assets completely. If some of the assets are not under the management of the listed Mitigation Systems, (so they can access the internet bypassing these systems), you will not be able to fully achieve the final objective of the Response Action.  \n’},</p>
+<p>{‘order’: 10,</p>
+<p>‘title’: ‘11 | RA1201: Get ability to list users opened email message’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: “Make sure you have the ability to list users who opened/read a particular email message using the Email Server’s functionality.\n”},</p>
+<p>{‘order’: 11,</p>
+<p>‘title’: ‘12 | RA1202: Get ability to list email message receivers’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: “Make sure you have the ability to list receivers of a particular email message using the Email Server’s functionality.\n”},</p>
+<p>{‘order’: 12,</p>
+<p>‘title’: ‘13 | RA1203: Get ability to block email domain’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure you have the ability to block an email domain on an Email Server using its native filtering functionality.  \n’},</p>
+<p>{‘order’: 13,</p>
+<p>‘title’: ‘14 | RA1204: Get ability to block email sender’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure you have the ability to block an email sender on an Email Server using its native filtering functionality.  \n’},</p>
+<p>{‘order’: 14,</p>
+<p>‘title’: ‘15 | RA1205: Get ability to delete email message’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: “Make sure you have the ability to delete an email message from an Email Server and users’ email boxes using its native functionality.\n”},</p>
+<p>{‘order’: 15,</p>
+<p>‘title’: ‘16 | RA1206: Get ability to quarantine email message’,</p>
+<p>‘group’: ‘Preparation’,</p>
+<p>‘description’: ‘Make sure you have the ability to quarantine an email message on an Email Server using its native functionality.  \n’},</p>
+<p>{‘order’: 16,</p>
+<p>‘title’: ‘17 | RA2003: Put compromised accounts on monitoring’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: ‘Start monitoring for authentification attempts and all potentially harmful actions from (potentially) compromised accounts.  \nLook for anomalies, unusual network connections, unusual geolocation/time of work, actions that were never executed before.  \nKeep in touch with the real users and, in case of need, ask them if they executing some suspicious actions by themselves or not.  \n’},</p>
+<p>{‘order’: 17,</p>
+<p>‘title’: ‘18 | RA2113: List hosts communicated with external domain’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: ‘List hosts communicated with an external domain using the most efficient way.  \n’},</p>
+<p>{‘order’: 18,</p>
+<p>‘title’: ‘19 | RA2114: List hosts communicated with external IP’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: ‘List hosts communicated with an external IP address using the most efficient way.  \n’},</p>
+<p>{‘order’: 19,</p>
+<p>‘title’: ‘20 | RA2115: List hosts communicated with external URL’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: 'List hosts communicated with an external URL using the most efficient way.  '},</p>
+<p>{‘order’: 20,</p>
+<p>‘title’: ‘21 | RA2201: List users opened email message’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: “List users who opened/read a particular email message using the Email Server’s functionality.  \n”},</p>
+<p>{‘order’: 21,</p>
+<p>‘title’: ‘22 | RA2202: Collect email message’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: ‘Collect an email message using the most appropriate option:  \n\n- Email Team/Email server: if there is such option  \n- The person that reported the attack (if it wasn't detected automatically or reported by victims)  \n- Victims: if they reported the attack  \n- Following the local computer forensic evidence collection procedure, if the situation requires it\n\nAsk for the email in <code>.EML</code> format. Instructions:  \n\n  1. Drug and drop email from Email client to Desktop  \n  2. Archive with password “infected” and send to IR specialists by email  \n’},</p>
+<p>{‘order’: 22,</p>
+<p>‘title’: ‘23 | RA2203: List email message receivers’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: &quot;List receivers of a particular email message using the Email Server’s functionality.  &quot;},</p>
+<p>{‘order’: 23,</p>
+<p>‘title’: ‘24 | RA2204: Make sure email message is phishing’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: ‘Check an email and its metadata for evidences of phishing attack:  \n\n- <strong>Impersonalisation attempts</strong>: sender is trying to identify himself as somebody he is not  \n- <strong>Suspicious askings or offers</strong>: download “invoice”, click on link with something important etc  \n- <strong>Psychological manipulations</strong>: invoking a sense of urgency or fear is a common phishing tactic  \n- <strong>Spelling mistakes</strong>: legitimate messages usually don't have spelling mistakes or poor grammar  \n\nExplore references of the article to make yourself familiar with phishing attacks history and examples.  \n’},</p>
+<p>{‘order’: 24,</p>
+<p>‘title’: ‘25 | RA2205: Extract observables from email message’,</p>
+<p>‘group’: ‘Identification’,</p>
+<p>‘description’: ‘Extract the data for further response steps:  \n\n- attachments (using munpack tool: <code>munpack email.eml</code>)  \n- from, to, cc  \n- subject of the email  \n- received servers path  \n- list of URLs from the text content of the mail body and attachments  \n\nThis Response Action could be automated with <a target="_blank" rel="noopener" href="https://blog.thehive-project.org/2018/07/31/emlparser-a-new-cortex-analyzer-for-eml-files/">TheHive EmlParser</a>.  \n’},</p>
+<p>{‘order’: 25,</p>
+<p>‘title’: ‘26 | RA3101: Block external IP address’,</p>
+<p>‘group’: ‘Containment’,</p>
+<p>‘description’: “Block an external IP address from being accessed by corporate assets, using the most efficient way.  \n\nWarning:  \n\n- Be careful blocking IP addresses. Make sure it’s not a cloud provider or a hoster. If you would like to block something that is hosted on a well-known cloud provider or on a big hoster IP address, you should block (if applicable) a specific URL using alternative Response Action  \n”},</p>
+<p>{‘order’: 26,</p>
+<p>‘title’: ‘27 | RA3103: Block external domain’,</p>
+<p>‘group’: ‘Containment’,</p>
+<p>‘description’: “Block an external domain name from being accessed by corporate assets, using the most efficient way.  \n\nWarning:  \n\n- Be careful blocking doman names. Make sure it’s not a cloud provider or a hoster. If you would like to block something that is hosted on a well-known cloud provider or on a big hoster doman, you should block (if applicable) a specific URL using alternative Response Action  \n”},</p>
+<p>{‘order’: 27,</p>
+<p>‘title’: ‘28 | RA3105: Block external URL’,</p>
+<p>‘group’: ‘Containment’,</p>
+<p>‘description’: ‘Block an external URL from being accessed by corporate assets, using the most efficient way.  \n’},</p>
+<p>{‘order’: 28,</p>
+<p>‘title’: ‘29 | RA3201: Block domain on email’,</p>
+<p>‘group’: ‘Containment’,</p>
+<p>‘description’: ‘Block a domain name on an Email Server using its native filtering functionality.  \n’},</p>
+<p>{‘order’: 29,</p>
+<p>‘title’: ‘30 | RA3202: Block sender on email’,</p>
+<p>‘group’: ‘Containment’,</p>
+<p>‘description’: ‘Block an email sender on an Email Server using its native filtering functionality.  \n’},</p>
+<p>{‘order’: 30,</p>
+<p>‘title’: ‘31 | RA3203: Quarantine email message’,</p>
+<p>‘group’: ‘Containment’,</p>
+<p>‘description’: ‘Quarantine an email message on an Email Server using its native functionality.  \n’},</p>
+<p>{‘order’: 31,</p>
+<p>‘title’: ‘32 | RA4001: Report incident to external companies’,</p>
+<p>‘group’: ‘Eradication’,</p>
+<p>‘description’: “Report incident to external security companites, i.e. <a target="_blank" rel="noopener" href="https://www.sei.cmu.edu/education-outreach/computer-security-incident-response-teams/national-csirts/">National Computer Security Incident Response Teams (CSIRTs)</a>.  \nProvide all Indicators of Compromise and Indicators of Attack that have been observed.  \n\nA phishing attack could be reported to:  \n\n1. <a target="_blank" rel="noopener" href="https://www.sei.cmu.edu/education-outreach/computer-security-incident-response-teams/national-csirts/">National Computer Security Incident Response Teams (CSIRTs)</a>  \n2. <a target="_blank" rel="noopener" href="http://www.us-cert.gov/nav/report_phishing.html">U.S. government-operated website</a>  \n3. <a target="_blank" rel="noopener" href="http://antiphishing.org/report-phishing/">Anti-Phishing Working Group (APWG)</a>  \n4. <a target="_blank" rel="noopener" href="https://safebrowsing.google.com/safebrowsing/report_phish/?hl=en">Google Safe Browsing</a>  \n5. <a target="_blank" rel="noopener" href="https://www.ic3.gov/default.aspx">The FBI’s Intenet Crime Complaint Center (IC3)</a>  \n\nThis Response Action could be automated with <a target="_blank" rel="noopener" href="https://blog.thehive-project.org/2017/06/19/thehive-cortex-and-misp-how-they-all-fit-together/">TheHive and MISP integration</a>.  \n”},</p>
+<p>{‘order’: 32,</p>
+<p>‘title’: ‘33 | RA4201: Delete email message’,</p>
+<p>‘group’: ‘Eradication’,</p>
+<p>‘description’: “Delete an email message from an Email Server and users’ email boxes using its native functionality.\n”},</p>
+<p>{‘order’: 33,</p>
+<p>‘title’: ‘34 | RA5101: Unblock blocked IP’,</p>
+<p>‘group’: ‘Recovery’,</p>
+<p>‘description’: ‘Unblock a blocked IP address in the system(s) used to block it.  \n’},</p>
+<p>{‘order’: 34,</p>
+<p>‘title’: ‘35 | RA5102: Unblock blocked domain’,</p>
+<p>‘group’: ‘Recovery’,</p>
+<p>‘description’: ‘Unblock a blocked domain name in the system(s) used to block it.  \n’},</p>
+<p>{‘order’: 35,</p>
+<p>‘title’: ‘36 | RA5103: Unblock blocked URL’,</p>
+<p>‘group’: ‘Recovery’,</p>
+<p>‘description’: ‘Unblock a blocked URL in the system(s) used to block it.  \n’},</p>
+<p>{‘order’: 36,</p>
+<p>‘title’: ‘37 | RA5201: Unblock domain on email’,</p>
+<p>‘group’: ‘Recovery’,</p>
+<p>‘description’: ‘Unblock an email domain on an Email Server using its native functionality.  \n’},</p>
+<p>{‘order’: 37,</p>
+<p>‘title’: ‘38 | RA5202: Unblock sender on email’,</p>
+<p>‘group’: ‘Recovery’,</p>
+<p>‘description’: ‘Unblock an email sender on an Email Server using its native functionality.  \n’},</p>
+<p>{‘order’: 38,</p>
+<p>‘title’: ‘39 | RA5203: Restore quarantined email message’,</p>
+<p>‘group’: ‘Recovery’,</p>
+<p>‘description’: ‘Restore a quarantined email message on an Email Server using its native functionality.  \n’},</p>
+<p>{‘order’: 39,</p>
+<p>‘title’: ‘40 | RA6001: Develop incident report’,</p>
+<p>‘group’: ‘Lessons Learned’,</p>
+<p>‘description’: ‘Develop the Incident Report using your corporate template.  \n\nIt should include:  \n\n1. Executive Summary with a short description of damage, actions taken, root cause, and key metrics (Time To Detect, Time To Respond, Time To Recover etc)  \n2. Detailed timeline of adversary actions mapped to <a target="_blank" rel="noopener" href="https://attack.mitre.org/tactics/enterprise/">ATT&amp;CK tactics</a> (you can use the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Kill_chain">Kill Chain</a>, but most probably most of the actions will be in Actions On Objective stage, which is not very representative and useful)  \n3. Detailed timeline of actions taken by Incident Response Team  \n4. Root Cause Analysis and Recommendations for improvements based on its conclusion  \n5. List of specialists involved in Incident Response with their roles  \n’},</p>
+<p>{‘order’: 40,</p>
+<p>‘title’: ‘41 | RA6002: Conduct lessons learned exercise’,</p>
+<p>‘group’: ‘Lessons Learned’,</p>
+<p>‘description’: “The Lessons Learned phase evaluates the team’s performance through each step. \nThe goal of the phase is to discover how to improve the incident response process.  \nYou need to answer some basic questions, using developed incident report:  \n\n- What happened?  \n- What did we do well?  \n- What could we have done better?  \n- What will we do differently next time?  \n\nThe incident report is the key to improvements.  \n”}],</p>
+<p>‘description’: ‘Response playbook for Phishing Email case\n\nWorkflow:\n\n1. Execute Response Actions step by step. Some of them directly connected, which means you will not be able to move forward not finishing the previous step. Some of them are redundant, as those that are related to the blocking a threat using network filtering systems (containment stage)\n2. Start executing containment and eradication stages concurrently with next identification steps, as soon as you will receive information about malicious hosts\n3. If phishing led to code execution or remote access to victim host, immediately start executing Generic Post Exploitation Incident Response Playbook\n4. Save all timestamps of implemented actions in Incident Report draft on the fly, it will save a lot of time\n’,</p>
+<p>‘name’: ‘RP0001: Phishing email’,</p>
+<p>‘status’: ‘Ok’,</p>
+<p>‘severity’: 2,</p>
+<p>‘titlePrefix’: ‘’,</p>
+<p>‘tags’: [‘attack.initial_access’,</p>
+<p>‘attack.t1566.001’,</p>
+<p>‘attack.t1566.002’,</p>
+<p>‘phishing’]}</p>
+<p>TheHive案例中的一个任务，在响应操作(单击展开)之上完成。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5619637-f5f1349871f21ca1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>thehive案例模板可以在docs/thehive_templates目录中找到，可以通过web界面导入到thehive中。</p>
+<p><strong>一、响应阶段</strong></p>
+<p>1、准备（<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fatc-project.github.io%2Fatc-react%2FResponse_Stages%2FRS0001%2F">Preparation</a>）</p>
+<p>为安全事件做好准备。</p>
+<p>2、识别（<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fatc-project.github.io%2Fatc-react%2FResponse_Stages%2FRS0002%2F">Identification</a>）</p>
+<p>收集关于触发安全事件的威胁、其TTPs和受影响资产的信息。</p>
+<p>3、遏制（<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fatc-project.github.io%2Fatc-react%2FResponse_Stages%2FRS0003%2F">Containment</a>）</p>
+<p>防止威胁实现其目标和/或在环境中传播。</p>
+<p>4、根除（<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fatc-project.github.io%2Fatc-react%2FResponse_Stages%2FRS0004%2F">Eradication</a>）</p>
+<p>从环境中移除一个威胁。</p>
+<p>5、恢复（<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fatc-project.github.io%2Fatc-react%2FResponse_Stages%2FRS0005%2F">Recovery</a>）</p>
+<p>从事故中恢复，并使所有资产恢复正常运行。</p>
+<p>6、经验教训（<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fatc-project.github.io%2Fatc-react%2FResponse_Stages%2FRS0006%2F">Lessons Learned</a>）</p>
+<p>了解如何改进事件响应流程并实现改进。</p>
+<p>二、准备</p>
+<p>1、RA1001: Practice</p>
+<p>描述：在真实的环境中练习。加强组织内部的响应行动。</p>
+<p>确保您的事件响应团队已在内部演习中执行了大多数响应行动。</p>
+<p>你需要确保当事件发生时，团队不会只是尝试遵循他们第一次看到的剧本，而是能够在你的环境中快速执行实际步骤，例如阻止IP地址或域名。</p>
+<p>2、RA1002: Take trainings</p>
+<p>描述：参加培训课程以获得相关知识</p>
+<p>我们不会上升到我们期望的水平。我们的训练水平下降了。</p>
+<p>以下是一些有关的培训课程，有助你应付事故:</p>
+<p>（1）克里斯·桑德斯的《调查理论》。我们建议你们对事故响应小组的每个成员进行强制性的培训</p>
+<p>（2）全面安全培训。我们建议从PWK开始</p>
+<p>（3）数字取证和事件响应培训</p>
+<p>全面的安全训练是其中之一，因为为了对抗威胁，你需要了解他们的动机、战术和技巧。</p>
+<p>与此同时，我们假定您已经在基础学科(网络、操作系统和编程)方面有很强的技术背景。</p>
+<p>3、RA1003: Raise personnel awareness</p>
+<p>描述：提高人员对网络钓鱼、勒索软件、社会工程和其他涉及用户交互的攻击的意识</p>
+<p>培训用户了解对手的访问或操作企图，以降低鱼叉钓鱼、社会工程和其他涉及用户交互的技术的成功风险。</p>
+<p>4、RA1004: Make personnel report suspicious activity</p>
+<p>描述：确保工作人员会报告可疑活动，如可疑电子邮件、链接、文件、电脑上的活动等</p>
+<p>开发一种简化的、公司众所周知的方式，在用户系统发生可疑活动时联系IR团队。</p>
+<p>确保员工意识到它，能够并且将要使用它。</p>
+<p>5、RA1005: Set up relevant data collection</p>
+<p>描述：通常，数据收集由日志管理/安全监控/威胁检测团队管理。您需要向他们提供一个数据列表，这对IR过程至关重要。大多数情况下，DNS、DHCP日志等数据不被收集，因为它们的检测值比较低。您可以参考现有的响应动作(准备阶段)来开发列表</p>
+<p>以markdown格式描述响应操作的工作流程。</p>
+<p>这里将保存换行符。</p>
+<p>6、RA1006: Set up a centralized long-term log storage</p>
+<p>描述：建立一个集中的长期日志存储。这是当今公司面临的最关键的问题之一。即使有这样一个系统，在大多数情况下，它存储的是不相关的数据，或者保留时间过短</p>
+<p>以markdown格式描述响应操作的工作流程。</p>
+<p>这里将保存换行符。</p>
+<p>7、RA1007: Develop communication map</p>
+<p>描述：为内部(c级，其他部门的经理和技术专家，可能参与IR过程)和外部(执法部门，CERT，你缺少的主题专家，等等)制定一个沟通图。</p>
+<p>以markdown格式描述响应操作的工作流程。</p>
+<p>这里将保存换行符。</p>
+<p>8、RA1008: Make sure there are backups</p>
+<p>描述：确保有在线备份和离线备份。确保它们能正常工作。在一个成功的勒索病毒蠕虫攻击的情况下，这是唯一的事情，将帮助你保护你的至关重要的数据</p>
+<p>9、RA1009: Get network architecture map</p>
+<p>描述：获取网络架构图。通常，它由网络安全团队管理。它将帮助您选择遏制策略，例如隔离特定的网段</p>
+<p>10、RA1010: Get access control matrix</p>
+<p>描述：获取访问控制矩阵。通常，它由网络安全团队管理。它将帮助你识别对手的机会，比如横向移动等等</p>
+<p>11、RA1011: Develop assets knowledge base</p>
+<p>描述：建立资产知识库。它将帮助您将观察到的活动与特定主机、用户或网段的正常活动配置文件进行比较</p>
+<p>12、RA1012: Check analysis toolset</p>
+<p>描述：确保您用于分析和管理的工具集是更新的并且完全可操作的。确保授予了所有必需的权限</p>
+<p>13、RA1013: Access vulnerability management system logs</p>
+<p>描述：访问漏洞管理系统日志。它将有助于识别特定主机在过去特定时间的漏洞</p>
+<p>14、RA1014: Connect with trusted communities</p>
+<p>描述：连接可信的社区以交换信息</p>
+<p>其它条件：</p>
+<p>与其他团队的MISP连接或在另一个机构的MISP实例上工作</p>
+<p>邮件列表</p>
+<p>slack的通道</p>
+<p>15、RA1101: Access external network flow logs</p>
+<p>类型：网络</p>
+<p>描述：确保您能够访问外部通信网络流日志</p>
+<p>其它条件：</p>
+<p>MS_border_firewall</p>
+<p>MS_border_ngfw</p>
+<p>DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>确保为外部通信(从公司资产到Internet)配置了一组网络流日志。</p>
+<p>如果没有在网络设备上配置它的选项，您可以在每个端点上安装一个特殊的软件并从它们那里收集它。</p>
+<p>警告:</p>
+<p>有一个特性叫做“NetFlow Sampling”，它消除了一些任务中网络流量日志的值，例如“检查某些主机是否与外部IP通信”。确保禁用它，否则您有另一种收集网络流日志的方法</p>
+<p>16、RA1102: Access internal network flow logs</p>
+<p>类型：网络</p>
+<p>描述：确保你可以访问内部通信网络的流量日志</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>17、RA1103: Access internal HTTP logs</p>
+<p>类型：网络</p>
+<p>描述：确保您能够访问内部通信HTTP日志</p>
+<p>18、RA1104: Access external HTTP logs</p>
+<p>类型：网络</p>
+<p>描述：确保您能够访问外部通信HTTP日志</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ngfw</p>
+<p>DN_zeek_http_log</p>
+<p>确保为外部通信(从公司资产到Internet)配置了一组HTTP连接日志。</p>
+<p>19、RA1105: Access internal DNS logs</p>
+<p>类型：网络</p>
+<p>描述：确保您能够访问内部通信DNS日志</p>
+<p>条件：</p>
+<p>DN_zeek_dns_log</p>
+<p>20、RA1106: Access external DNS logs</p>
+<p>类型：网络</p>
+<p>描述：确保您能够访问外部通信DNS日志</p>
+<p>条件：</p>
+<p>MS_dns_server</p>
+<p>DN_zeek_dns_log</p>
+<p>工作流：</p>
+<p>确保为外部通信(从公司资产到Internet)配置了一组DNS日志。</p>
+<p>如果没有在网络设备/DNS服务器上配置它的选项，您可以在每个端点上安装一个特殊的软件，并从它们收集它。</p>
+<p>警告:</p>
+<p>请确保DNS查询和应答日志都已收集。在Windows DNS服务器和ISC绑定上配置这样的集合是相当困难的。有时，使用第三方解决方案来满足这一需求要容易得多。</p>
+<p>确保到外部(公共)DNS服务器的DNS通信被边界防火墙阻止。这样，企业DNS服务器就是资产可以解析域名的唯一地方。</p>
+<p>21、RA1107: Access VPN logs</p>
+<p>类型：网络</p>
+<p>描述：确保你能访问VPN日志</p>
+<p>22、RA1108: Access DHCP logs</p>
+<p>类型：网络</p>
+<p>描述：确保您能够访问DHCP日志</p>
+<p>23、RA1109: Access internal packet capture data</p>
+<p>类型：网络</p>
+<p>描述：确保您能够访问内部通信包捕获数据</p>
+<p>24、RA1110: Access external packet capture data</p>
+<p>类型：网络</p>
+<p>描述：确保您能够访问外部通信数据包捕获数据</p>
+<p>25、RA1111: Get ability to block external IP address</p>
+<p>类型：网络</p>
+<p>描述：确保您有能力阻止企业资产访问外部IP地址</p>
+<p>26、RA1112: Get ability to block internal IP address</p>
+<p>类型：网络</p>
+<p>描述：确保您可以阻止企业资产访问内部IP地址</p>
+<p>条件：</p>
+<p>MS_intranet_firewall</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>MS_host_firewall</p>
+<p>27、RA1113: Get ability to block external domain</p>
+<p>类型：网络</p>
+<p>描述：确保你有能力阻止外部域名被公司资产访问</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_dns_server</p>
+<p>工作流：</p>
+<p>确保您能够在列出的缓解系统之一中创建策略规则或特定配置，以阻止企业资产访问外部域名。</p>
+<p>警告:</p>
+<p>确保使用列出的系统(1个或多个)可以控制对基础设施中所有资产的internet的访问。在某些情况下，你需要一个有保证的方法来阻止外部域名被公司资产完全访问。如果一些资产不在所列缓解系统的管理之下(以便它们可以绕过这些系统接入互联网)，就无法完全实现应对行动的最终目标。</p>
+<p>28、RA1114: Get ability to block internal domain</p>
+<p>类型：网络</p>
+<p>描述：确保您可以阻止企业资产访问内部域名</p>
+<p>29、RA1115: Get ability to block external URL</p>
+<p>类型：网络</p>
+<p>描述：确保您有能力阻止企业资产访问外部URL</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>工作流：</p>
+<p>确保您能够在列出的缓解系统之一中创建策略规则或特定配置，以阻止企业资产访问外部URL。</p>
+<p>警告:</p>
+<p>确保使用列出的系统(1个或多个)可以控制对基础设施中所有资产的internet的访问。在某些情况下，您将需要一种有保证的方法来阻止企业资产完全访问外部URL。如果一些资产不在所列缓解系统的管理之下(以便它们可以绕过这些系统接入互联网)，就无法完全实现应对行动的最终目标。</p>
+<p>30、RA1116: Get ability to block internal URL</p>
+<p>类型：网络</p>
+<p>描述：确保您可以阻止企业资产访问内部URL</p>
+<p>条件：</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>MS_dns_server</p>
+<p>31、RA1117: Get ability to block port external communication</p>
+<p>类型：网络</p>
+<p>描述：确保您可以阻止一个网络端口进行外部通信</p>
+<p>条件：</p>
+<p>MS_border_firewall</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_host_firewall</p>
+<p>32、RA1118: Get ability to block port internal communication</p>
+<p>类型：网络</p>
+<p>描述：确保您可以阻止一个网络端口进行内部通信</p>
+<p>条件：</p>
+<p>MS_intranet_firewall</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>MS_host_firewall</p>
+<p>33、RA1119: Get ability to block user external communication</p>
+<p>类型：网络</p>
+<p>描述：确保您可以阻止一个用户进行外部通信</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_nac</p>
+<p>34、RA1120: Get ability to block user internal communication</p>
+<p>类型：网络</p>
+<p>描述：确保您可以阻止用户进行内部通信</p>
+<p>条件：</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>MS_nac</p>
+<p>35、RA1121: Get ability to find data transferred by content pattern</p>
+<p>类型：网络</p>
+<p>描述：确定您有能力查找过去某个特定时间通过其内容模式(即特定字符串、关键字、二进制模式等)传输的数据</p>
+<p>条件：</p>
+<p>36、RA1122: Get ability to block data transferring by content pattern</p>
+<p>类型：网络</p>
+<p>描述：确保你有能力通过内容模式(如特定字符串，关键字，二进制模式等)来阻止数据传输。</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>37、RA1123: Get ability to list data transferred</p>
+<p>类型：网络</p>
+<p>描述：确保您能够列出当前或过去某个特定时间正在传输的数据</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>38、RA1124: Get ability to collect transferred data</p>
+<p>类型：网络</p>
+<p>描述：确保您有能力收集当前或过去某个特定时间正在传输的数据</p>
+<p>条件：</p>
+<p>39、RA1125: Get ability to identify transferred data</p>
+<p>类型：网络</p>
+<p>描述：确保您有能力识别当前或过去某个特定时间正在传输的数据(即它的内容、值)</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>40、RA1126: Find data transferred by content pattern</p>
+<p>类型：网络</p>
+<p>描述：确保您能够找到当前或过去某个特定时间内根据内容模式传输的数据</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>41、RA1127: Get ability to analyse user-agent</p>
+<p>类型：网络</p>
+<p>描述：确保您有能力分析用户代理请求头</p>
+<p>条件：</p>
+<p>42、RA1201: Get ability to list users opened email message</p>
+<p>类型：邮件</p>
+<p>描述：确保您能够列出打开特定电子邮件消息的用户</p>
+<p>条件：MS_email_server</p>
+<p>工作流：</p>
+<p>确保你能够使用邮件服务器的功能列出打开/阅读特定邮件信息的用户。</p>
+<p>43、RA1202: Get ability to list email message receivers</p>
+<p>类型：邮件</p>
+<p>描述：确保你有能力列出特定邮件的收件人</p>
+<p>条件：MS_email_server</p>
+<p>工作流：</p>
+<p>请确保您能够使用电子邮件服务器的功能列出特定电子邮件的收件人。</p>
+<p>44、RA1203: Get ability to block email domain</p>
+<p>类型：邮件</p>
+<p>描述：确保你有能力阻止一个电子邮件域名</p>
+<p>条件：MS_email_server</p>
+<p>工作流：</p>
+<p>确定您有能力使用电子邮件服务器的本机过滤功能屏蔽电子邮件域名。</p>
+<p>45、RA1204: Get ability to block email sender</p>
+<p>类型：邮件</p>
+<p>描述：确保你有能力阻止邮件发送者</p>
+<p>条件：MS_email_server</p>
+<p>工作流：</p>
+<p>确保你有能力在邮件服务器上使用其本机过滤功能来阻止邮件发送者。</p>
+<p>46、RA1205: Get ability to delete email message</p>
+<p>类型：邮件</p>
+<p>描述：确保你有删除邮件的能力</p>
+<p>条件：MS_email_server</p>
+<p>工作流：</p>
+<p>确保你有能力从电子邮件服务器和用户的电子邮箱中删除邮件信息，使用其本机功能。</p>
+<p>47、RA1206: Get ability to quarantine email message</p>
+<p>类型：邮件</p>
+<p>描述：确保您有隔离电子邮件的能力</p>
+<p>条件：MS_email_server</p>
+<p>工作流：</p>
+<p>确保您能够使用电子邮件服务器上的本机功能隔离电子邮件。</p>
+<p>48、RA1207: Get ability to collect email message</p>
+<p>类型：邮件</p>
+<p>描述：确保你有能力收集邮件信息</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>49、RA1208: Get ability to analyse email address</p>
+<p>类型：邮件</p>
+<p>描述：确保你有能力分析一个电子邮件地址</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>50、RA1301: Get ability to list files created</p>
+<p>类型：文件</p>
+<p>描述：确保您能够列出在过去特定时间创建的文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>60、RA1302: Get ability to list files modified</p>
+<p>类型：文件</p>
+<p>描述：确保您能够列出在过去特定时间被修改的文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>61、RA1303: Get ability to list files deleted</p>
+<p>类型：文件</p>
+<p>描述：确保您能够列出在过去特定时间被删除的文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>62、RA1304: Get ability to list files downloaded</p>
+<p>类型：文件</p>
+<p>描述：确保您能够列出在过去某个特定时间从互联网上下载的文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>63、RA1305: Get ability to list files with tampered timestamps</p>
+<p>类型：文件</p>
+<p>描述：确保您能够列出带有篡改的时间戳的文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>64、RA1306: Get ability to find file by path</p>
+<p>类型：文件</p>
+<p>描述：确保您能够通过路径(包括名称)查找文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>65、RA1307: Get ability to find file by metadata</p>
+<p>类型：文件</p>
+<p>描述：确保你有能力根据文件的元数据(例如签名，权限，MAC时间)找到文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>66、RA1308: Get ability to find file by hash</p>
+<p>类型：文件</p>
+<p>描述：确保您能够通过文件的HASH来查找文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>67、RA1309: Get ability to find file by format</p>
+<p>类型：文件</p>
+<p>描述：确保您能够根据文件的格式查找文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>68、RA1310: Get ability to find file by content pattern</p>
+<p>类型：文件</p>
+<p>描述：确保你有能力根据内容模式(如特定字符串，关键字，二进制模式等)找到文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>69、RA1311: Get ability to collect file</p>
+<p>类型：文件</p>
+<p>描述：确保您能够从(远程)主机或系统收集特定的文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>70、RA1312: Get ability to quarantine file by path</p>
+<p>类型：文件</p>
+<p>描述：确保您有能力通过访问其路径(包括其名称)阻止文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>71、RA1313: Get ability to quarantine file by hash</p>
+<p>类型：文件</p>
+<p>描述：确定你有能力访问通过它的哈希阻止一个文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>72、RA1314: Get ability to quarantine file by format</p>
+<p>类型：文件</p>
+<p>描述：确保您有能力通过访问其格式阻止文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>73、RA1315: Get ability to quarantine file by content pattern</p>
+<p>类型：文件</p>
+<p>描述：确保你有能力通过访问它的内容模式访问(例如特定的字符串，关键字，二进制模式等)阻止一个文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>74、RA1316: Get ability to remove file</p>
+<p>类型：文件</p>
+<p>描述：确保您能够从(远程)主机或系统中删除特定的文件</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>74、RA1317: Get ability to analyse file hash</p>
+<p>类型：文件</p>
+<p>描述：确保您有能力分析文件散列</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>75、RA1318: Get ability to analyse Windows PE</p>
+<p>类型：文件</p>
+<p>描述：确保你有能力分析Windows可移植的可执行文件</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>76、RA1319: Get ability to analyse macos macho</p>
+<p>类型：文件</p>
+<p>描述：确保您有能力分析macOS Mach-O文件</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>77、RA1320: Get ability to analyse Unix ELF</p>
+<p>类型：文件</p>
+<p>描述：确保您有能力分析UNIX ELF文件</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>78、RA1321: Get ability to analyse MS office file</p>
+<p>类型：文件</p>
+<p>描述：确保你有能力分析Microsoft Office文件</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>79、RA1322: Get ability to analyse PDF file</p>
+<p>类型：文件</p>
+<p>描述：确保你有能力分析PDF文件</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>80、RA1323: Get ability to analyse script</p>
+<p>类型：文件</p>
+<p>描述：确保你有能力分析脚本文件(如Python, PowerShell, Bash脚本等)</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>81、RA1324: Get ability to analyse jar</p>
+<p>类型：文件</p>
+<p>描述：确保您有能力分析JAR文件</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>82、RA1325: Get ability to analyse filename</p>
+<p>类型：文件</p>
+<p>描述：确保你有能力分析一个文件名</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>83、RA1401: Get ability to list processes executed</p>
+<p>类型：进程</p>
+<p>描述：确保您能够列出当前或过去某个特定时间正在执行的进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>84、RA1402: Get ability to find process by executable path</p>
+<p>类型：进程</p>
+<p>描述：确保您能够通过可执行路径(包括名称)查找在过去特定时间执行的进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>85、RA1403: Get ability to find process by executable metadata</p>
+<p>类型：进程</p>
+<p>描述：确保您有能力找到进程在过去特定时间内通过其可执行元数据(即签名、权限、MAC时间)执行的进程。</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>86、RA1404: Get ability to find process by executable hash</p>
+<p>类型：进程</p>
+<p>描述：确保您有能力查找在过去某个特定时间通过其可执行散列执行的进程。</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>87、RA1405: Get ability to find process by executable format</p>
+<p>类型：进程</p>
+<p>描述：确保您有能力查找在过去特定时间按其可执行格式执行的进程。</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>88、RA1406: Get ability to find process by executable content pattern</p>
+<p>类型：进程</p>
+<p>描述：确保你有能力找到在过去特定时间通过其可执行内容模式(即特定字符串、关键字、二进制模式等)执行的进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>89、RA1407: Get ability to block process by executable path</p>
+<p>类型：进程</p>
+<p>描述：确保您能够通过其可执行路径(包括其名称)阻塞进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>90、RA1408: Get ability to block process by executable metadata</p>
+<p>类型：进程</p>
+<p>描述：确保你有能力通过可执行的元数据(例如，签名，权限，MAC时间)阻塞进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>91、RA1409: Get ability to block process by executable hash</p>
+<p>类型：进程</p>
+<p>描述：确保您有能力通过其可执行散列来阻塞进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>92、RA1410: Get ability to block process by executable format</p>
+<p>类型：进程</p>
+<p>描述：确保您有能力按其可执行格式阻塞进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>93、RA1411: Get ability to block process by executable content pattern</p>
+<p>类型：进程</p>
+<p>描述：确保你有能力通过它的可执行内容模式(例如特定字符串，关键字，二进制模式等)来阻塞进程。</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>94、RA1501: Manage remote computer management system policies</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您可以管理远程计算机管理系统的策略</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>95、RA1502: Get ability to list registry keys modified</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您有能力列出在过去特定时间修改的注册表项</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>96、RA1503: Get ability to list registry keys deleted</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您有能力列出在过去特定时间删除的注册表项</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>97、RA1504: Get ability to list registry keys accessed</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您有能力列出在过去特定时间访问的注册表项</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>98、RA1505: Get ability to list registry keys created</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您有能力列出在过去特定时间创建的注册表项</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>99、RA1506: Get ability to list services created</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您能够列出在过去特定时间创建的服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>100、RA1507: Get ability to list services modified</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您能够列出在过去特定时间被修改的服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>101、RA1508: Get ability to list services deleted</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您能够列出在过去特定时间被删除的服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>102、RA1509: Get ability to remove registry key</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您有能力删除注册表项</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>103、RA1510: Get ability to remove service</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保您有能力删除服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>104、RA1511: Get ability to analyse registry key</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：确保你有能力分析注册表项</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>105、RA1601: Manage identity management system</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：确保您可以管理身份管理系统，即删除/阻止用户，撤销凭证，并执行其他响应操作</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>106、RA1602: Get ability to lock user account</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：确保您有能力锁定用户帐户不被使用</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>107、RA1603: Get ability to list users authenticated</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：确保您能够列出在特定系统上过去特定时间经过身份验证的用户</p>
+<p>条件：</p>
+<p>工作流：</p>
+<p>108、RA1604: Get ability to revoke authentication credentials</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：确保您有能力撤销身份验证凭据</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>109、RA1605: Get ability to remove user account</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：确保您有能力删除用户帐户</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>工作流：</p>
+<p>三、识别</p>
+<p>1、RA2001: List victims of security alert</p>
+<p><strong>类型：通用</strong></p>
+<p>描述：列出安全告警的受害者</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>2、RA2002: List host vulnerabilities</p>
+<p><strong>类型：通用</strong></p>
+<p>描述：获取关于特定主机现有漏洞的信息，或关于它在过去特定时间拥有的漏洞的信息</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：thehive/phantom/demisto/etc</p>
+<p>工作流：</p>
+<p>3、RA2003: Put compromised accounts on monitoring</p>
+<p><strong>类型：通用</strong></p>
+<p>描述：将(可能)泄露的账户置于监控之中</p>
+<p>条件：</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>开始监控身份验证尝试和所有(潜在的)泄露帐户的潜在有害行为。</p>
+<p>寻找异常，不正常的网络连接，不正常的工作地点/时间，以前从未执行过的动作。</p>
+<p>与真正的用户保持联系，必要时询问他们是否有自己的可疑行为。</p>
+<p>4、RA2101: List hosts communicated with internal domain</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出与内部域通信的主机</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>5、RA2102: List hosts communicated with internal IP</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出与内部IP地址通信的主机</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>6、RA2103: List hosts communicated with internal URL</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出与内部URL通信的主机</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>7、RA2104: Analyse domain name</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：分析域名</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>8、RA2105: Analyse IP</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：分析IP地址</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>9、RA2106: Analyse uri</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：分析URI</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>10、RA2107: List hosts communicated by port</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出当前或过去特定时间通过特定端口通信的主机</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>11、RA2108: List hosts connected to VPN</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出当前或过去某个特定时间连接到VPN的主机</p>
+<p>条件：</p>
+<p>自动化：thehive/phantom/demisto/etc</p>
+<p>12、RA2109: List hosts connected to intranet</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出当前或过去某个特定时间连接到内部网络的主机</p>
+<p>条件：</p>
+<p>自动化：thehive/phantom/demisto/etc</p>
+<p>13、RA2110: List data transferred</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出当前或过去某个特定时间正在传输的数据</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>14、RA2111: Collect transferred data</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：收集当前或过去某个特定时间正在传输的数据</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>15、RA2112: Identify transferred data</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：识别当前或过去某个特定时间正在传输的数据(即其内容、值)</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>16、RA2113: List hosts communicated with external domain</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出与外部域通信的主机</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>DN_zeek_dns_log</p>
+<p>DN_zeek_http_log</p>
+<p>DN_dns_log</p>
+<p>DN_proxy_log</p>
+<p>DN_network_flow_log</p>
+<p>自动化：</p>
+<p>列出使用最有效的方式与外部域通信的主机。</p>
+<p>17、RA2114: List hosts communicated with external IP</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出与外部IP地址通信的主机</p>
+<p>条件：</p>
+<p>DN_network_flow_log</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>列出使用最有效的方式与外部IP地址通信的主机。</p>
+<p>18、RA2115: List hosts communicated with external URL</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：列出与外部URL通信的主机</p>
+<p>条件：</p>
+<p>DN_zeek_http_log</p>
+<p>DN_proxy_log</p>
+<p>自动化：</p>
+<p>列出使用最有效的方式与外部URL通信的主机。</p>
+<p>19、RA2116: Find data transferred by content pattern</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：通过内容模式(即特定字符串、关键字、二进制模式等)查找当前或过去某个特定时间正在传输的数据</p>
+<p>条件：<br />
+DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>20、RA2117: Analyse user-agent</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：分析一个用户代理请求头</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>21、RA2202: Collect email message</p>
+<p><strong>类型：Email</strong></p>
+<p>描述：收集邮件信息</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>使用最合适的选项收集电子邮件信息:</p>
+<p>1、电子邮件组/电子邮件服务器:如果有这样的选择</p>
+<p>2、报告攻击的人(如果攻击没有被自动检测到或被受害者报告)</p>
+<p>3、受害者:如果他们报告了袭击</p>
+<p>4、如果需要，请按照本地计算机取证程序进行取证</p>
+<p>请求. eml格式的电子邮件。产品说明:</p>
+<p>1、将电子邮件从电子邮件客户端转移到桌面</p>
+<p>2、存档密码为“感染”，并通过电子邮件发送给IR专家</p>
+<p>22、RA2203: List email message receivers</p>
+<p><strong>类型：Email</strong></p>
+<p>描述：列出特定电子邮件的收件人</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>使用电子邮件服务器的功能列出特定电子邮件的收件人。</p>
+<p>23、RA2204: Make sure email message is phishing</p>
+<p><strong>类型：Email</strong></p>
+<p>描述：确保电子邮件是钓鱼攻击</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>查看电子邮件及其元数据，寻找钓鱼攻击的证据:</p>
+<p>1、非个人化尝试:发送者试图将自己定义为另一个他不是的人</p>
+<p>2、可疑的询问或优惠:下载“发票”，点击一些重要的链接等</p>
+<p>3、心理操纵:唤起紧迫感或恐惧感是一种常见的网络钓鱼策略</p>
+<p>4、拼写错误:合法的信息通常没有拼写错误或糟糕的语法</p>
+<p>阅读本文的参考文献，熟悉网络钓鱼攻击的历史和例子。</p>
+<p><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPhishing">https://en.wikipedia.org/wiki/Phishing</a></p>
+<p><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.phishing.org%2Fphishing-examples">http://www.phishing.org/phishing-examples</a></p>
+<p>24、RA2205: Extract observables from email message</p>
+<p><strong>类型：Email</strong></p>
+<p>描述：从电子邮件消息中提取observable</p>
+<p>条件：</p>
+<p>自动化： thehive</p>
+<p>工作流：</p>
+<p>提取数据用于进一步的响应步骤:</p>
+<p>1、附件(使用munpack工具:munpack email.eml)</p>
+<p>2、from, to, cc</p>
+<p>3、邮件主题</p>
+<p>4、收到服务器的路径</p>
+<p>5、来自邮件正文和附件文本内容的url列表</p>
+<p>这个响应动作可以通过hive EmlParser自动完成。</p>
+<p>25、RA2206: Analyse email address</p>
+<p><strong>类型：Email</strong></p>
+<p>描述：分析邮件地址</p>
+<p>条件：</p>
+<p>自动化： thehive</p>
+<p>工作流：</p>
+<p>26、RA2301: List files created</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：列出在过去特定时间创建的文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>27、RA2302: List files modified</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：列出在过去特定时间被修改的文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>28、RA2303: List files deleted</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：列出在过去特定时间被删除的文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>29、RA2304: List files downloaded</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：列出在过去特定时间被下载的文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>30、RA2305: List files with tampered timestamps</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：列出带有篡改时间戳的文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>31、RA2306: Find file by path</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：通过路径(包括名称)查找文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>32、RA2307: Find file by metadata</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：根据文件的元数据(如签名，权限，MAC时间)查找文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>33、RA2308: Find file by hash</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：通过文件的散列来查找文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>34、RA2309: Find file by format</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：根据文件的格式查找文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>35、RA2310: Find file by content pattern</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：通过内容模式(如特定字符串，关键字，二进制模式等)查找文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>36、RA2311: Collect file</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：从(远程)主机或系统收集特定的文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>37、RA2312: Analyse file hash</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析一个文件的散列</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>38、RA2313: Analyse Windows PE</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析MS Windows可移植可执行文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>39、RA2314: Analyse macos macho</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析macOS Mach-O</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>40、RA2315: Analyse Unix ELF</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析Unix ELF</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>41、RA2316: Analyse MS office file</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析MS Office文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>42、RA2317: Analyse PDF file</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析PDF文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>43、RA2318: Analyse script</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析脚本文件(如Python, PowerShell, Bash脚本等)</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>44、RA2319: Analyse jar</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析jar文件</p>
+<p>条件：</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>45、RA2320: Analyse filename</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：分析文件名</p>
+<p>条件：</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>46、RA2401: List processes executed</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：列出当前或过去某个特定时间正在执行的进程</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>47、RA2402: Find process by executable path</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：通过其可执行路径(包括名称)查找当前或过去某个特定时间正在执行的进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>48、RA2403: Find process by executable metadata</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：通过它的可执行元数据(例如，签名，权限，MAC时间)找到一个正在执行的进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>49、RA2404: Find process by executable hash</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：查找当前或过去某个特定时间正在由其可执行散列执行的进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>50、RA2405: Find process by executable format</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：查找当前或过去某个特定时间按其可执行格式正在执行的流程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>51、RA2406: Find process by executable content pattern</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：通过它的可执行内容(例如特定字符串、关键字、二进制模式等)找到一个在当前或过去的特定时间正在执行的进程</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>52、RA2501: List registry keys modified</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：列出在过去特定时间修改的注册表项</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>53、RA2502: List registry keys deleted</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：列出在过去特定时间被删除的注册表项</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>54、RA2503: List registry keys accessed</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：列出在过去特定时间访问过的注册表项</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>55、RA2504: List registry keys created</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：列出在过去特定时间创建的注册表项</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>56、RA2505: List services created</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：列出在过去特定时间创建的服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>57、RA2506: List services modified</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：列出在过去特定时间被修改的服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>58、RA2507: List services deleted</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：列出在过去特定时间被删除的服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>59、RA2508: Analyse registry key</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：分析注册表键</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>60、RA2601: List users authenticated</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：列出在特定系统上过去特定时间经过身份验证的用户</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p><strong>四、遏制</strong></p>
+<p>1、RA3001: Patch vulnerability</p>
+<p><strong>类型：General</strong></p>
+<p>描述：修补资产的漏洞</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>2、RA3101: Block external IP address</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止外部IP地址被企业资产访问</p>
+<p>条件：</p>
+<p>MS_border_firewall</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_host_firewall</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>3、RA3102: Block internal IP address</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止内网IP地址被企业资产访问</p>
+<p>条件：</p>
+<p>MS_border_firewall</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_host_firewall</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>4、RA3103: Block external domain</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止企业资产访问外部域名</p>
+<p>条件：<br />
+MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_dns_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>5、RA3104: Block internal domain</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止企业资产访问内部域名</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_dns_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>以最有效的方式阻止企业资产访问内部域名。</p>
+<p><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDNS_sinkhole">https://en.wikipedia.org/wiki/DNS_sinkhole</a></p>
+<p>6、RA3105: Block external URL</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止企业资产访问外部URL</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_dns_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>以最有效的方式阻止企业资产访问外部URL。</p>
+<p>7、RA3106: Block internal URL</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止企业资产访问内部URL</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_dns_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>8、RA3107: Block port external communication</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止外部通信网络端口</p>
+<p>条件：</p>
+<p>MS_border_firewall</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_host_firewall</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>9、RA3108: Block port internal communication</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止内部通信网络端口</p>
+<p>条件：</p>
+<p>MS_border_firewall</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_host_firewall</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>10、RA3109: Block user external communication</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止用户对外通信</p>
+<p>条件：<br />
+MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_nac</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>11、RA3110: Block user internal communication</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：阻止用户进行内部通信</p>
+<p>条件：</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>MS_nac</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>12、RA3111: Block data transferring by content pattern</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：通过其内容模式(即特定字符串、关键字、二进制模式等)阻塞传输块数据</p>
+<p>条件：</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>MS_nac</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>13、RA3202: Block sender on email</p>
+<p><strong>类型：email</strong></p>
+<p>描述：在邮件服务器上阻止邮件发送者</p>
+<p>条件：<br />
+MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>14、RA3203: Quarantine email message</p>
+<p><strong>类型：email</strong></p>
+<p>描述：隔离电子邮件</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>15、RA3301: Quarantine file by format</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：按文件的格式隔离文件</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>16、RA3302: Quarantine file by hash</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：通过文件的散列隔离文件</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>17、RA3303: Quarantine file by path</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：按文件路径隔离文件</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>18、Quarantine file by content pattern</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：根据文件的内容模式隔离文件</p>
+<p>条件：</p>
+<p>自动化：thehive/phantom/demisto/etc</p>
+<p>工作流：</p>
+<p>19、RA3401: Block process by executable path</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：通过可执行路径(包括名称)阻止进程执行</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>20、RA3402: Block process by executable metadata</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：通过其可执行元数据(例如签名、权限、MAC时间)阻塞进程的执行</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>21、RA3403: Block process by executable hash</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：通过可执行散列阻塞进程的执行</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>22、RA3404: Block process by executable format</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：通过可执行格式阻塞进程的执行</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>23、RA3405: Block process by executable content pattern</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：通过其可执行内容模式(例如特定字符串、关键字、二进制模式等)阻塞进程的执行</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>24、RA3501: Disable system service</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：关闭系统服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>25、RA3601: Lock user account</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：锁定用户</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p><strong>五、根除</strong></p>
+<p>1、RA4001: Report incident to external companies</p>
+<p><strong>类型：General</strong></p>
+<p>描述：向外部公司报告事件</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>向外部安全公司报告事件，即国家计算机安全事件响应小组(CSIRTs)。</p>
+<p>提供已观察到的所有危害指标和攻击指标。</p>
+<p>2、RA4101: Remove rogue network device</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：移除非法网络设备</p>
+<p>条件：</p>
+<p>自动化：thehive/phantom/demisto/etc</p>
+<p>工作流：</p>
+<p>3、RA4201: Delete email message</p>
+<p><strong>类型：Email</strong></p>
+<p>描述：移除非法网络设备</p>
+<p>条件：MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>删除邮件服务器和用户邮箱中的邮件信息</p>
+<p>4、RA4301: Remove file</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：从(远程)主机或系统中移除特定的文件</p>
+<p>条件：</p>
+<p>自动化：thehive/phantom/demisto/etc</p>
+<p>工作流：</p>
+<p>5、RA4501: Remove registry key</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：删除注册表项</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>6、RA4502: Remove service</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：删除服务</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>7、RA4601: Revoke authentication credentials</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：撤销认证证书</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>8、RA4602: Remove user account</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：删除用户帐户</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p><strong>六、恢复</strong></p>
+<p>1、RA5001: Reinstall host from golden image</p>
+<p><strong>类型：General</strong></p>
+<p>描述：从黄金映像重新安装主机操作系统</p>
+<p>条件：</p>
+<p>自动化：thehive</p>
+<p>工作流：</p>
+<p>2、RA5002: Restore data from backup</p>
+<p><strong>类型：General</strong></p>
+<p>描述：从备份中恢复数据</p>
+<p>条件：DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>3、RA5101: Unblock blocked IP</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：解除阻塞IP地址</p>
+<p>条件：</p>
+<p>MS_border_firewall</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_intranet_firewall</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>MS_host_firewall</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>4、RA5102: Unblock blocked domain</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：解除阻塞的域名</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>MS_dns_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>5、RA5103: Unblock blocked URL</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：解除阻塞的URL</p>
+<p>条件：</p>
+<p>MS_border_proxy</p>
+<p>MS_border_ips</p>
+<p>MS_border_ngfw</p>
+<p>MS_intranet_proxy</p>
+<p>MS_intranet_ips</p>
+<p>MS_intranet_ngfw</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>6、RA5104: Unblock blocked port</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：解除封锁端口</p>
+<p>条件：<br />
+DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>7、RA5105: Unblock blocked user</p>
+<p><strong>类型：网络</strong></p>
+<p>描述：解除阻塞用户</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>8、RA5201: Unblock domain on email</p>
+<p><strong>类型：email</strong></p>
+<p>描述：解除封锁电子邮件的域名</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>9、RA5202: Unblock sender on email</p>
+<p><strong>类型：email</strong></p>
+<p>描述：解除对邮件中的发件人的阻止</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>10、RA5203: Restore quarantined email message</p>
+<p><strong>类型：email</strong></p>
+<p>描述：恢复隔离的电子邮件</p>
+<p>条件：</p>
+<p>MS_email_server</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>11、RA5301: Restore quarantined file</p>
+<p><strong>类型：文件</strong></p>
+<p>描述：恢复隔离文件</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>12、RA5401: Unblock blocked process</p>
+<p><strong>类型：进程</strong></p>
+<p>描述：解除阻塞进程</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>13、RA5501: Enable disabled service</p>
+<p><strong>类型：配置</strong></p>
+<p>描述：启用禁用的服务</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>14、RA5601: Unlock locked user account</p>
+<p><strong>类型：身份</strong></p>
+<p>描述：解锁被锁定用户</p>
+<p>条件：</p>
+<p>DN_zeek_conn_log</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>七、经验教训</p>
+<p>1、RA6001: Develop incident report</p>
+<p><strong>类型：General</strong></p>
+<p>描述：编制事件报告</p>
+<p>条件：</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>使用公司模板开发事件报告。</p>
+<p>它应该包括:</p>
+<p>1、执行摘要，简要描述损害、采取的措施、根本原因和关键指标(检测时间、响应时间、恢复时间等)</p>
+<p>2、对手行动的时间线映射到ATT&amp;CK战术(你可以使用杀戮链，但大多数行动可能是在目标阶段的行动，这不是很有代表性和有用)</p>
+<p>3、事件响应小组采取行动的详细时间表</p>
+<p>4、根据结论进行根本原因分析并提出改进建议</p>
+<p>5、参与事件响应的专家及其角色的列表</p>
+<p>2、RA6002: Conduct lessons learned exercise</p>
+<p><strong>类型：General</strong></p>
+<p>描述：进行经验教训练习</p>
+<p>条件：</p>
+<p>自动化：</p>
+<p>工作流：</p>
+<p>经验教训阶段通过每个步骤来评估团队的绩效。该阶段的目标是发现如何改进事件响应流程。</p>
+<p>你需要回答一些基本的问题，使用开发的事件报告:</p>
+<p>1、发生了什么事?</p>
+<p>2、我们做得好的是什么?</p>
+<p>3、我们还能做得更好吗?</p>
+<p>4、下次我们会有什么不同?</p>
+<p>事件报告是改进的关键。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://atc-project.github.io/atc-react/responsestages/">https://atc-project.github.io/atc-react/responsestages/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/atc-project/atc-react">https://github.com/atc-project/atc-react</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/sec/RE&amp;CT%E6%A1%86%E6%9E%B6%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/">https://lua.ren/sec/RE&amp;CT%E6%A1%86%E6%9E%B6%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RE%E4%B8%8ECT%E6%A1%86%E6%9E%B6/">RE与CT框架</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/sec/%E6%96%B0%E7%89%88OPENCTI%E7%AE%80%E4%BB%8B/" title="新版OPENCTI简介"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">新版OPENCTI简介</div></div></a></div><div class="next-post pull-right"><a href="/sec/ThreatIngestor/" title="ThreatIngestor"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ThreatIngestor</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rect%E6%A1%86%E6%9E%B6%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text"> RE&amp;CT框架详细介绍</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

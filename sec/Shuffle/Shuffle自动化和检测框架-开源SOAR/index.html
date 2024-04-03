@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Shuffle自动化和检测框架-开源SOAR | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Shuffle自动化和检测框架-开源SOAR Shuffle已经有将近一年的历史了，，现在是时候用Shuffle的方式来调整检测指针了。自从上次我们写Shuffle以来，它已经发展到“任何事情都有可能”的地步，不管是好是坏。这很好，因为产品可以做很多。不好，因为它不够集中。这就是为什么在可预见的未来，我们会每月写多篇博文，强调我们现在的状况，并用Shuffle解决问题。也许我们也能解决你的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shuffle自动化和检测框架-开源SOAR">
+<meta property="og:url" content="https://lua.ren/sec/Shuffle/Shuffle%E8%87%AA%E5%8A%A8%E5%8C%96%E5%92%8C%E6%A3%80%E6%B5%8B%E6%A1%86%E6%9E%B6-%E5%BC%80%E6%BA%90SOAR/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="Shuffle自动化和检测框架-开源SOAR Shuffle已经有将近一年的历史了，，现在是时候用Shuffle的方式来调整检测指针了。自从上次我们写Shuffle以来，它已经发展到“任何事情都有可能”的地步，不管是好是坏。这很好，因为产品可以做很多。不好，因为它不够集中。这就是为什么在可预见的未来，我们会每月写多篇博文，强调我们现在的状况，并用Shuffle解决问题。也许我们也能解决你的问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-03-14T07:45:09.053Z">
+<meta property="article:modified_time" content="2024-03-14T07:45:09.053Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="SOAR">
+<meta property="article:tag" content="Shuffle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/sec/Shuffle/Shuffle%E8%87%AA%E5%8A%A8%E5%8C%96%E5%92%8C%E6%A3%80%E6%B5%8B%E6%A1%86%E6%9E%B6-%E5%BC%80%E6%BA%90SOAR/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Shuffle自动化和检测框架-开源SOAR',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-14 15:45:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Shuffle自动化和检测框架-开源SOAR</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-14T07:45:09.053Z" title="发表于 2024-03-14 15:45:09">2024-03-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-14T07:45:09.053Z" title="更新于 2024-03-14 15:45:09">2024-03-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8/">安全</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Shuffle自动化和检测框架-开源SOAR"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="shuffle自动化和检测框架-开源soar"><a class="markdownIt-Anchor" href="#shuffle自动化和检测框架-开源soar"></a> Shuffle自动化和检测框架-开源SOAR</h1>
+<p>Shuffle已经有将近一年的历史了，，现在是时候用Shuffle的方式来调整检测指针了。自从上次我们写Shuffle以来，它已经发展到“任何事情都有可能”的地步，不管是好是坏。这很好，因为产品可以做很多。不好，因为它不够集中。这就是为什么在可预见的未来，我们会每月写多篇博文，强调我们现在的状况，并用Shuffle解决问题。也许我们也能解决你的问题。</p>
+<p>我们的目标是让分析师的生活更轻松、更有成就感，而要做到这一点，我们需要从简单做起。那是什么意思？这意味着，通过更有效地使用现有工具，可以减少查看所有打开的不同浏览器选项卡所花费的大量时间，并将精力集中在最重要的任务上。</p>
+<p>你现有的工具是什么?它们如何能被用来丰富你或你的分析师的生活?为了回答这个问题，我们深入了各种操作团队，并与他们的数百种工具进行了集成。我们还找到了导致分析员极度疲劳的根本原因。很明显，<strong>你的SOC检测有误</strong>。这是为什么。</p>
+<p><strong>一、开始检测</strong></p>
+<p>检测工程很难。这是每个人都应该做的事情，我们中的一些人确实在做，但不是我们大多数人积极关注的事情。为什么?因为这给我们自己创造了更多的工作。意思是抓住更多不好的事情，但不要太多。为什么这是个问题?因为我们都有有限的能力，并希望保持我们的理智。这与发现本身没有多大关系，而更多的是与后来发生的事情有关;事件处理和花费的时间。</p>
+<p>检测有很多变种;SIEM, IDS, EDR, IAM, WAF, AV和许多其他(缩写-)工具都有这种能力。但是你知道如何很好地使用它们吗?如果你这样做了，对你和你的团队都很好，但机会是;你不。你也不必这么做。这些工具的存在是为了帮助您进行检测，您不需要成为各个方面的专家。但这不是今天的现实。现实情况是，它们都不是最优的，或者根本就不是。这是Shuffle可以解决的问题。让你对你的资源有一个更好的概述，并尽可能以最好的方式利用它们——用于检测或其他。如何?</p>
+<p><strong>二、我们将如何帮助您获得事件上下文</strong></p>
+<p><img src="https://gitee.com/shengnoah/picture/raw/master/20240313155227.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-eecf80e8d8b0423c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1018/format/webp" alt="" /></p>
+<p>上图是安全操作工具的简化视图。你在SOC中需要的所有东西都可以放到这些盒子里(如果你不同意，请评论)。每种工具都有其独特的卖点，但它们的功能通常是相同的。我们开始挖吧。</p>
+<p>案例:您运营的核心。你的分析师应该工作的地方,和 context。遗憾的是，这一工具目前尚未得到充分利用。我最喜欢的一个例子;TheHive。</p>
+<p>IAM:身份访问管理。为什么这很重要?因为了解一个人是谁，他拥有什么，应该拥有什么是很重要的。例如:Keycloak</p>
+<p>资产:资产管理，CMDB，漏洞管理，文档，漏洞等。你可以在任何地方找到有用的主机和用户关系。例如:Snipe-IT</p>
+<p>Intem:一个宽泛且误用的名称，intel的意思是任何可以帮助你解决事件的情报。最常用于威胁情报提供商。例如:MISP GreyNoise</p>
+<p>SIEM:你的数据湖，经常被误用为工作场所，而不是在将数据移出之前发现和检测的场所。例子:Wazuh、ELK</p>
+<p>网络:防火墙，IDS/IPS, DNS服务器，交换机，NSM引擎。例如:Pf Sense</p>
+<p>根除:EDR, Antivirus, Powershell &amp; Bash…这是一个广泛的类别，定义了可以执行和可以执行的预防措施——通常在主机级别。例如:Velociraptor, OSSEC</p>
+<p>通讯:电子邮件，聊天服务，短信等。应用于半自动化工作流的通知和验证。所有票只在Slack/团队不是一个好主意长期。</p>
+<p>尽管如此，框架除非付诸行动，否则是无用的。我们的SOC工具框架的目标是帮助您理解我们的方法，以及如何将其整合到您的流程中。我们将从高层次开始，并最终接触到各个工具及其用例—从检测开始。</p>
+<p><img src="https://gitee.com/shengnoah/picture/raw/master/20240313155238.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-69b9b86412a9fa3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>上面的图片是框架每个部分使用的一个高级示例。从左边，您可以看到我们定义Sigma、Snort和Yara，它们适合检测区域。这些都是我们已经支持的工具，但我们计划让每个人都更容易使用。同样，良好的检测和共享是目标。在中间你可以看到两个以人为中心的区域;案例管理和沟通。这可以与其他的相适应，但在大多数情况下不会也不应该。在右边，你可以看到最后的三个片段，它们被用来使一个事件的背景更容易理解。</p>
+<p>那下一步怎么办?你是如何把它付诸行动的?让我们去深入。</p>
+<p><img src="https://gitee.com/shengnoah/picture/raw/master/20240313155306.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-9926fb25cbe96a1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>这个例子展示了您的外部基础设施被利用的例子——让它更具体一点;让我们假设它是一个带有WAF (Web应用防火墙)的网络服务器。在左边你可以看到现在大多数人使用的半手动方式，而在右边，你可以看到如何优化它。点线表示自动操作(通常是API的)，而蓝色是人工操作。</p>
+<p>仔细看图片的左边部分，这里是它是如何运行的(手动):</p>
+<p>1、WAF会给你发警报，然后发给SIEM。你有一个API，它把这个发送到你的通信系统(如电子邮件或Slack)。</p>
+<p>2、过了一段时间，你看到了这条消息，想知道它是什么，是否有人正在处理它(如果你使用带有标签的共享电子邮件，请获得一个ticket系统)。</p>
+<p>3、首先回到WAF获取实际的上下文，同时还要在SIEM中收集事件日志。</p>
+<p>4、您将开始探索它来自的IP，并寻找它的目标服务，看看它是否容易受到攻击。什么以及谁拥有这项服务?源IP是否只针对你或所有人?利用是什么?它工作了吗?等。</p>
+<p>5、经过一个小时的信息搜索，您发现该漏洞确实有效，攻击以前没有发生过，它是有目标的，您需要补救。现在进行此步骤可能为时已晚，但您决定隔离受到损害的主机。</p>
+<p>现在，将它与右侧(自动)进行比较;</p>
+<p>1、您从WAF(网络)获得一个警报，发送到SIEM, SIEM进一步将其转发给Shuffle。Shuffle被配置为在案例管理系统中创建警报。</p>
+<p>2、在添加案例时，Shuffle进一步查找其他类似的事件(Cases)，检查谁拥有服务(IAM &amp; Assets)，服务是否脆弱(Assets, VMS)，源IP是否针对你(Intel)</p>
+<p>3、Shuffle向您的团队的通知通道发送消息，这只会发生在高度严重的事件中。它还调用您定义的on-call。</p>
+<p>4、分析人员在他们的案例管理系统中看到所有需要的信息，并决定立即采取行动，因为成功利用的可能性很大。</p>
+<p>5、大约5分钟后，分析人员采取了行动并隔离了服务器(这可能是正确的，也可能是错误的)，并通知了服务所有者。</p>
+<p>看出不同了吗?在第一个示例中，分析师必须搜索信息，可能根本没有注意到事件，而在第二个示例中，信息就在手边，并在必要时立即准备好。出发点、目标和过程都是一样的，但如果不是完全自动化的话，你会更快地得出结论。随着时间的推移，这还有一个巨大的好处;你的团队就不会出现“警报疲劳”。</p>
+<p><strong>三、善用你的资源</strong></p>
+<p>Shuffle并不是一种灵丹妙药，而是试图将你现有的工具变成一种灵丹妙药。我们希望授权您的员工去做创新的安全工作，而不是那些可以自动化的工作。很多人在体验“有趣”部分(如1级SOC分析师)之前就放弃了网络安全，而这是实现这一目标的唯一途径。使用你可用的工具和资源不应该像一开始看起来那么难。</p>
+<p>在接下来的几周和几个月里，我们将进一步探索实际的用例，您可以自己尝试使用这个框架中的基础。我们将解决网络钓鱼、丰富、工具构建等问题，并向您展示如何对该事件进行良好的概述，从而为每个人带来成功。上面所有的工具都可以作为起点使用(不仅仅是Network和SIEM)，我们想探究每一个工具会发生什么。</p>
+<p><img src="https://gitee.com/shengnoah/picture/raw/master/20240313155317.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-ccc61a84d6168ced.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/sec/Shuffle/Shuffle%E8%87%AA%E5%8A%A8%E5%8C%96%E5%92%8C%E6%A3%80%E6%B5%8B%E6%A1%86%E6%9E%B6-%E5%BC%80%E6%BA%90SOAR/">https://lua.ren/sec/Shuffle/Shuffle%E8%87%AA%E5%8A%A8%E5%8C%96%E5%92%8C%E6%A3%80%E6%B5%8B%E6%A1%86%E6%9E%B6-%E5%BC%80%E6%BA%90SOAR/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SOAR/">SOAR</a><a class="post-meta__tags" href="/tags/Shuffle/">Shuffle</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/sec/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%9B%BE%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/" title="网络安全中的图分析技术"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">网络安全中的图分析技术</div></div></a></div><div class="next-post pull-right"><a href="/sec/Shuffle/%E4%BB%8B%E7%BB%8DShuffle%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90SOAR%E5%B9%B3%E5%8F%B0%E7%AC%AC1%E9%83%A8%E5%88%86/" title="介绍Shuffle一个开源SOAR平台第1部分"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">介绍Shuffle一个开源SOAR平台第1部分</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/sec/Shuffle/%E4%BB%8B%E7%BB%8DShuffle%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90SOAR%E5%B9%B3%E5%8F%B0%E7%AC%AC1%E9%83%A8%E5%88%86/" title="介绍Shuffle一个开源SOAR平台第1部分"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-14</div><div class="title">介绍Shuffle一个开源SOAR平台第1部分</div></div></a></div><div><a href="/sec/TheHive/%E7%94%A8TheHive%E5%AE%9E%E7%8E%B0SOAR/" title="用TheHive实现SOAR"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-18</div><div class="title">用TheHive实现SOAR</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#shuffle%E8%87%AA%E5%8A%A8%E5%8C%96%E5%92%8C%E6%A3%80%E6%B5%8B%E6%A1%86%E6%9E%B6-%E5%BC%80%E6%BA%90soar"><span class="toc-number">1.</span> <span class="toc-text"> Shuffle自动化和检测框架-开源SOAR</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>lua 与 C 交互 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="lua和C交互的核心就是lua栈，lua和C的所有数据交互都是通过lua栈来完成的。 一. C调用luaC调用lua很简单，通常C以lua作为配置脚本，在运行时读取脚本数据，主要步骤：  加载脚本    luaL_loadfile  运行脚本  lua_pcall  获取数据  lua_getglobal ….  使用数据  lua_tostring lua_pcall …  二. 在lua脚本中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lua 与 C 交互">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-793_lua%20%E4%B8%8E%20C%20%E4%BA%A4%E4%BA%92/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="lua和C交互的核心就是lua栈，lua和C的所有数据交互都是通过lua栈来完成的。 一. C调用luaC调用lua很简单，通常C以lua作为配置脚本，在运行时读取脚本数据，主要步骤：  加载脚本    luaL_loadfile  运行脚本  lua_pcall  获取数据  lua_getglobal ….  使用数据  lua_tostring lua_pcall …  二. 在lua脚本中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:36.033Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:36.033Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-793_lua%20%E4%B8%8E%20C%20%E4%BA%A4%E4%BA%92/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'lua 与 C 交互',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">lua 与 C 交互</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:36.033Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:36.033Z" title="更新于 2024-04-03 11:47:36">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="lua 与 C 交互"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>lua和C交互的核心就是lua栈，lua和C的所有数据交互都是通过lua栈来完成的。</p>
+<h3 id="一-C调用lua"><a href="#一-C调用lua" class="headerlink" title="一. C调用lua"></a>一. C调用lua</h3><p>C调用lua很简单，通常C以lua作为配置脚本，在运行时读取脚本数据，主要步骤：</p>
+<ol>
+<li>加载脚本    luaL_loadfile </li>
+<li>运行脚本  lua_pcall </li>
+<li>获取数据  lua_getglobal …. </li>
+<li>使用数据  lua_tostring lua_pcall …</li>
+</ol>
+<h3 id="二-在lua脚本中调用C："><a href="#二-在lua脚本中调用C：" class="headerlink" title="二. 在lua脚本中调用C："></a>二. 在lua脚本中调用C：</h3><p>在C程序中，使用lua作为脚本，但是要在运行脚本时，访问C中定义的一些变量或函数。</p>
+<ol>
+<li>将C变量或函数(遵从指定函数原型，见下面三 Step 1)push到lua栈中</li>
+<li>通过lua_setglobal为当前lua栈顶的函数或变量命名，这样在lua中可通过该名字完成对变量或函数的使用</li>
+<li>之后可在加载的lua脚本中使用C变量或函数</li>
+</ol>
+<h3 id="三-将C函数封装为一个库，为lua所用"><a href="#三-将C函数封装为一个库，为lua所用" class="headerlink" title="三. 将C函数封装为一个库，为lua所用"></a>三. 将C函数封装为一个库，为lua所用</h3><p>将C函数编译为动态库文件，这样可以在lua主程序中，加载这个库文件，并使用其中的C函数。</p>
+<p><strong>Step 1</strong>. 在mylib.c中定义给lua调用的C函数 函数原型为： int (lua_State*)<br/>如：</p>
+<pre><code>static int c_addsub(lua_State* L)
+&#123;
+    double a = luaL_checknumber(L,1); // 获取参数1
+    double b = luaL_checknumber(L,2); // 获取参数2
+    lua_pushnumber(L, a+b); // 压入返回值1
+    lua_pushnumber(L, a-b); // 压入返回值2
+    return 2; // 两个返回值
+&#125;
+</code></pre><p><strong>Step 2</strong>. 在mylib.c中定义一个注册函数，用于lua在加载C动态库时，调用该函数完成对库中所导出的C函数的注册。<br/>如：</p>
+<pre><code>// 将C模块中要导出的C函数放入到luaL_Reg结构体数组内
+static const struct luaL_Reg l[] = &#123;
+    &#123;&#34;addsub&#34;, c_addsub&#125;,
+    &#123;NULL, NULL&#125; // 以NULL标识结束
+&#125;;
+<p>// 该函数在导入C库时调用 完成对库中导出的函数的注册<br />
+// 必须是non-static<br />
+int luaopen_mylib(lua_State* L)<br />
+&#123;<br />
+// 完成实际的注册工作<br />
+// 注册方式一: luaL_openlib(lua_State* L, const char* name, const luaL_Reg* l, int nup)<br />
+//   L : lua_State<br />
+// name: 表明该C库被加载后，所导出的函数位于哪一个全局table之下<br />
+//       这里是&quot;clib&quot; 那么之后lua中通过clib.addsub完成对C函数的调用<br />
+//   l : 要导出的函数的lua_Reg结构体数组<br />
+//         luaL_openlib自动将该数组内的name-function对注册并填充到第二参数指定的table下<br />
+// nup : upvalue的个数，如果不为0，则注册的所有函数都共享这些upvalues<br />
+luaL_openlib(L, &quot;clib&quot;, l, 0);</p>
+<pre><code>// 注册方式二: luaL_newlibtable + luaL_setfuncs (等价于lua_newlib)
+// luaL_newlibtable(L, l);
+// luaL_setfuncs(L, l, 0);
+// 前两句等价于：
+// luaL_newlib(L, l);
+
+// 将包含name-cfunction键值对的table返回给lua
+return 1;
+</code></pre>
+<p>}<br />
+</code></pre><p>注意上面方式一和方式二的主要区别：前者(luaL_openlib)为name-cfunction对在lua中注册了一个名字(“clib”)。而后者(luaL_newlib)没有，它只是将这个table返回给了lua。可在lua层通过赋值为其命名。自然，通过 <code>luaL_openlib</code> 和 <code>return 1</code>可以将name-cfuncton对注册到两个lua table下。</p></p>
+<p>关于luaL_openlib函数，在官方文档中没有找到它，lua5.2文档中给出的是luaL_newlibtable和lua_setfuncs等新API用以替代以前的luaL_register，而事实上根据前面lua和C交互的基本元素，我们可以自己实现一个类似lua_openlib的注册函数：</p>
+<pre><code>int luaopen_mylib(lua_State* L)
+&#123;
+    // luaL_openlib(L, &#34;clib&#34;, clib, 0);
+    int i = 0;
+    lua_newtable(L); // push a new table
+    while(clib[i].name != NULL)
+    &#123;
+        lua_pushstring(L, clib[i].name); // push name
+        lua_pushcfunction(L, clib[i].func); // push function
+        lua_settable(L, -3); // table[name] = function
+        ++i;
+    &#125;
+    lua_setglobal(L, &#34;clib&#34;); // set table name
+    return 1;        
+&#125;
+</code></pre><p>因此实际上将C作为动态库和前面二中的交互核心是一样的，只是将C作为动态库时，需要提供一个”入口函数”，用以在加载该动态库后执行，完成对库中所有导出函数的注册。</p>
+<p><strong>Step 3</strong>. 将相关C文件编译成动态链接库:</p>
+<p>需要说明的是Mac OS X需要使用gcc将mylualib.c编译为动态库，编译选项不同于Linux。<br/>具体编译命令（粗体部分不同于Linux，如果不使用这些选项，liblua将会被编译到so文件中并引起“multiple lua vms detected”错误， bundle是Mac使用的文件格式）：</p>
+<p>gcc -c mylib.c</p>
+<p>gcc -O2 <strong>-bundle -undefined dynamic_lookup</strong> -o mylib.so mylib.o</p>
+<p><strong>Step 4</strong>. 在lua中加载C动态库</p>
+<p>方式一 : 使用 loadlib</p>
+<pre><code>--加载C动态库 并将luaopen_mylib函数 导出到mylib变量中
+mylib = loadlib(&#34;./mylib.so&#34;, &#34;luaopen_mylib&#34;) 
+<p>–调用mylib() 将执行lua_openmylib函数 完成对C动态库中所有导出函数的注册<br />
+–将C中返回的name-cfunction table赋给clualib变量<br />
+clualib = mylib()</p>
+<p>–通过clualib完成C函数的调用<br />
+sum, diff = clualib.addsub(5.6, 2.4);</p>
+<p>–针对于Step 2中的注册方式一，还可以通过luaL_openlib中传入的clib来使用C函数<br />
+sum, diff = clib.addsub(5.6, 2.4)<br />
+</code></pre><p>loadlib会读取动态库文件的符号表，得到luaopen_mylib函数的实现，并导出到mylib变量中，通过执行mylib()，即可执行luaopen_mylib完成对整个C库导出函数的注册。luaopen_mylib将注册完成后的name-cfunction对返回给lua，lua可以通过<code>clualib = mylib()</code>为这个注册完成之后的table命名。之后可通过clualib调用C函数。</p></p>
+<p>另外，luaL_openlib函数可以直接导出name-cfunction对并为其在lua中注册一个名字，因此通过clib也可以完成对C函数的调用。</p>
+<p>方式二 : 使用 require</p>
+<pre><code>clualib = require(&#34;mylib&#34;)
+<p>sum,diff = clualib.addsub(5.6, 2.4)</p>
+<p>– 对于luaL_openlib完成的注册，仍然可以通过clib来访问C函数<br />
+sum, diff = clib.addsub(5.6, 2.4)<br />
+</code></pre><p>require的工作原理：</p></p>
+<p>当你在脚本中使用require加载一个模块xxx的时候，首先它会在Lua的环境路径中寻找以xxx命名的DLL，如果找到了，则会在这个DLL中寻找luaopen_xxx的函数用于加载模块。我们只需要将自己需要导出给Lua调用的C内容通过这个函数导出就可以了。</p>
+<p>比如我们通过require(“mylib”)来导入模块，lua找到mylib.so库文件，并查找luaopen_mylib函数，然后调用该函数。因此我们需要注意两点：</p>
+<ol>
+<li>设置好库文件路径 确保库文件存在 </li>
+<li>确保库定义了luaopen_mylib函数(而不像前一个方法一样，可以通过loadlib函数手动指定入口函数)</li>
+</ol>
+<p>require的优势在于自动化，而loadlib方式则更加灵活，loadlib可以指定注册函数名字，注册函数可以无需按照luaopen_xxx格式命名。</p>
+<p>在一些库中，使用require(“mylib.core”)之类的格式来导入C模块，没有任何库文件时，通过require的报错可以看到其查找路径和规则：</p>
+<pre><code>lua: testmylib.lua:1: module &#39;mylib.core&#39; not found:
+no field package.preload[&#39;mylib.core&#39;]
+no file &#39;/usr/local/share/lua/5.2/mylib/core.lua&#39;
+no file &#39;/usr/local/share/lua/5.2/mylib/core/init.lua&#39;
+no file &#39;/usr/local/lib/lua/5.2/mylib/core.lua&#39;
+no file &#39;/usr/local/lib/lua/5.2/mylib/core/init.lua&#39;
+no file &#39;./mylib/core.lua&#39;
+no file &#39;/usr/local/lib/lua/5.2/mylib/core.so&#39;
+no file &#39;/usr/local/lib/lua/5.2/loadall.so&#39;
+no file &#39;./mylib/core.so&#39;
+no file &#39;/usr/local/lib/lua/5.2/mylib.so&#39;
+no file &#39;/usr/local/lib/lua/5.2/loadall.so&#39;
+no file &#39;./mylib.so&#39;
+</code></pre><p>先查找 PATH/mylib/core.so 如果没有，则直接使用 PATH/mylib.so。而C中的导出函数命名则必须为: luaopen_mylib_core(lua_State* L)。 </p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-793_lua%20%E4%B8%8E%20C%20%E4%BA%A4%E4%BA%92/">https://lua.ren/zl/2016-01-01-793_lua%20%E4%B8%8E%20C%20%E4%BA%A4%E4%BA%92/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-796_%5BLua%5D%20lua%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7%20/" title="lua性能优化技巧"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">lua性能优化技巧</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-794_Lua%E8%BF%AD%E4%BB%A3%E5%99%A8/" title="Lua迭代器"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua迭代器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-C%E8%B0%83%E7%94%A8lua"><span class="toc-number">1.</span> <span class="toc-text">一. C调用lua</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E5%9C%A8lua%E8%84%9A%E6%9C%AC%E4%B8%AD%E8%B0%83%E7%94%A8C%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">二. 在lua脚本中调用C：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-%E5%B0%86C%E5%87%BD%E6%95%B0%E5%B0%81%E8%A3%85%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%BA%93%EF%BC%8C%E4%B8%BAlua%E6%89%80%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">三. 将C函数封装为一个库，为lua所用</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

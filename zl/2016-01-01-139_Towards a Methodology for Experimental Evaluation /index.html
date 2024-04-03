@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Towards a Methodology for Experimental Evaluation in Low | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Background repeatable, reproducible, and comparable还没实现 低功耗无线的基准测试提高研究成果的重现性和可比性  解决问题的6个部分： 1.描述无线网络实验测试混杂的通用框架 2.一种成熟的实验方法，规定了如何计划、执行和报告实验结果 3.在低功耗无线网络环境下对可重复性、可复制性和可重复性的正式定义 4.比较方法 5.基准测试问题 6.技术解决方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Towards a Methodology for Experimental Evaluation in Low">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-139_Towards%20a%20Methodology%20for%20Experimental%20Evaluation%20/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="Background repeatable, reproducible, and comparable还没实现 低功耗无线的基准测试提高研究成果的重现性和可比性  解决问题的6个部分： 1.描述无线网络实验测试混杂的通用框架 2.一种成熟的实验方法，规定了如何计划、执行和报告实验结果 3.在低功耗无线网络环境下对可重复性、可复制性和可重复性的正式定义 4.比较方法 5.基准测试问题 6.技术解决方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:33.037Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:33.037Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-139_Towards%20a%20Methodology%20for%20Experimental%20Evaluation%20/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Towards a Methodology for Experimental Evaluation in Low',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Towards a Methodology for Experimental Evaluation in Low</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:33.037Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:33.037Z" title="更新于 2024-04-03 11:47:33">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Towards a Methodology for Experimental Evaluation in Low"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="background">Background</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>repeatable, reproducible, and comparable还没实现
+<p>低功耗无线的基准测试提高研究成果的重现性和可比性<br />
+</code></pre></div></div></p>
+<p>解决问题的6个部分：</p>
+<p>1.描述无线网络实验测试混杂的通用框架</p>
+<p>2.一种成熟的实验方法，规定了如何计划、执行和报告实验结果</p>
+<p>3.在低功耗无线网络环境下对可重复性、可复制性和可重复性的正式定义</p>
+<p>4.比较方法</p>
+<p>5.基准测试问题</p>
+<p>6.技术解决方案</p>
+<hr/>
+<h2 id="contribution">Contribution</h2>
+<p>我们概述了一种完善的方法，专门描述了如何进行实验评估，以及如何报告结果</p>
+<p>本文主要针对2,3进行介绍并通过实验讲解</p>
+<p>实验方法应用一个实验，报告了在相同测试配置下评估7个低功耗无线协议的性能</p>
+<p>通过对相同的实验进行更多的重复，我们增加了在进行多次重复实验时所观察到的经验分布与真实总体分布紧密匹配的可信度</p>
+<p>提高研究贡献的可重复性和可比性需要完善的实验方法：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.The experiments
+<p>2.The analysis</p>
+<p>3.The synthesis<br />
+</code></pre></div></div></p>
+<p>Which metrics should be computed?</p>
+<p>考虑实际情况，使用基于样本均值和样本标注差进行比较是不合适的，建议使用中位数或其他百分数方法，性能报告必须基于相同的度量标准才能进行比较。</p>
+<p>Which raw data should be collected?</p>
+<p>最低的要求是收集的数据能够很好地计算感兴趣的值。此外，数据度越大或未经处理的越多，越有价值。</p>
+<p>How many samples should be collected?</p>
+<p>一个人必须收集的样本的最小数量取决于兴趣的个数</p>
+<p>How to synthesize results into a performance report?</p>
+<p>性能指标，所有测试的中位数可以用来报告平均性能;需要更高的百分比来研究极端性能</p>
+<p>How many experiments should be performed?</p>
+<p>取决于性能指标类型</p>
+<hr/>
+<h2 id="conclusion">Conclusion：</h2>
+<p>1，每次实验采用相同的标准，这个标准要获得权威性</p>
+<p>2，数据应该深度分析</p>
+<p>3，预测方法应基于某些分布百分位数的置信区间</p>
+<p>4，性能报告应使用CIs进行综合，最低可信度75%，更好是95%，不使用平均值和方差</p>
+<p>5，进行多次小测试，而不是整体测试</p>
+<hr/>
+<h2 id="实验">实验：</h2>
+<h3 id="1测试场景">1，测试场景</h3>
+<p>布15个点，14个源节点，一个sink节点</p>
+<p>每个源节点每秒生成10个数据，要生成200个2字节的数据，</p>
+<p>开始的第一个10秒没有产生数据，之后周期性产生数据，在不同的源之间存在伪随机偏移，</p>
+<p>一旦产生200个数据，再运行10秒后停止，此时在sink节点上未成功接收到的任何应用程序数据都将被视为丢失,这与以估计稳态性能为目标的测试场景不同。在运行场景之后，可以获得准确的性能度量，而不是评估。不确定性在于多次运行的结果的可变性，而不是如果测试更长时可获得的性能</p>
+<h3 id="2测试环境">2，测试环境</h3>
+<p>使用FlockLab testbed作为测试环境，使用DPP平台(TI CC430)</p>
+<p>知道节点列表和sink节点的标识</p>
+<p>测试时间在夜间(晚上10点到早上7点)进行，以限制外部干扰。</p>
+<p>###3,性能指标，测量和综合方法</p>
+<p>使用本论文方法，在选择有效的措施和综合策略之前，首先确定评估目标和性能指标</p>
+<p>比如研究一下几个方面：</p>
+<p>1，在场景的一次执行中，您可以成功接收多少有效应用数据?</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>这涉及到平均可靠性，在测量PRR，选取95%时的CI下限为可靠性的均值
+</code></pre></div></div>
+<p>2，在场景的一次执行过程中，一个节点可以消耗多少能量?</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>这涉及所有节点的平均能量消耗，我们使用95％CI的上限为能量消耗的均值
+</code></pre></div></div>
+<p>3，在测试了多少次之后，第一个源节点的电量将耗尽</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>这涉及每个源节点的最大能源消耗
+</code></pre></div></div>
+<p>我们使用三个标准化绩效指标综合评估结果。通过设计，PRR已经标准化，对于能量消耗，标准值y=1-x/I_max,x为测量值，I_max=25mA是上限。因此，我们的三个性能指标在0到1之间，得分越高，性能越好。</p>
+<h3 id="4实验的长度和次数">4，实验的长度和次数</h3>
+<p>因为实验一直运行到结束，所以实验长度是开始到结束
+措施和策略取决于95%的中值CI，所以，测量至少6次。为了获得更高的评估，测量了20次，如果20次都是有效的，那么95%的CI中值是[x_6 x_15].</p>
+<h3 id="5原始数据收集">5,原始数据收集</h3>
+<p>原始数据应提供足够的信息来计算感兴趣的指标，但也应尽可能详细，以便可以进一步或不同的处理，基于此收集数据如下：</p>
+<p>sink节点将单个接收到的应用程序有效数据(2个伪随机字节)写入一个串行消息，串行转储由FlockLab提供，作为测试结果的一部分</p>
+<p>FlockLab以每秒144000个样本（每~7μs一个样本）的速率收集每个节点的电流消耗测量值，精度为10pA,</p>
+<p>对于每个节点，测试结果包含完整的时间序列和整个测试的平均值.
+最后将这些原始数据转换为性能指标。</p>
+<h3 id="6评估结果">6，评估结果</h3>
+<p>评估之后的问题是如何呈现结果。在这方面，挑战在于以简洁但信息量大的形式报告结果。评介结果使用简洁而包含足够多的信息的形式展现，一定要有一些有代表性的数据。</p>
+<p>对于一些指标，图形表示可以快速概述不同协议的各自性能，</p>
+<p><img src="https://raw.githubusercontent.com/a416485164/a416485164.github.io/master/img/jacob1.jpg" alt=""/></p>
+<p>不过，数据表更精确，应该提供。</p>
+<p><img src="https://raw.githubusercontent.com/a416485164/a416485164.github.io/master/img/jacob2.jpg" alt=""/></p>
+<p>此外，只要相关，就应该提供所有处理数据的某种表示</p>
+<p>这样的图表简洁地显示了数据点、它们的分布和它们的合成;因此，它提供了关于给定协议性能的更多细节，而不仅仅是性能指标。</p>
+<p><img src="https://raw.githubusercontent.com/a416485164/a416485164.github.io/master/img/jacob3.jpg" alt=""/></p>
+<hr/>
+<p><img src="https://raw.githubusercontent.com/a416485164/a416485164.github.io/master/img/jacob4.jpg" alt=""/></p>
+<hr/>
+<p>1.重复性（Repeatability ）：当同一零件的同一种特征由同一个人进行多次测量时变异的总和。</p>
+<p>说明:其实验数据必须符合以下条件:同一人员、同一产品、同一环境、同一位置、同一仪器、短期时间内.</p>
+<p>2.再现性（Reproducibility ）：当同一零件的同一种特征由不同的人使用同一量具进行测量时，在测量平均值方面的变异的总和。</p>
+<p>说明:其实验数据必须符合以下条件: 不同人员同一产品、不同环境、不同位置、不同仪器、较长时间段.</p>
+<hr/>
+<p>再现无线低功耗网络
+无线低功耗网络的环境是多变的，所以考虑测试结果完全一样没有意义，我们应该考虑相似就可以了，但是如何去衡量相似性，什么样的结果是相似的呢？可复制性是否有意义，还是说专注再现性？</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>让我们专注重复性
+</code></pre></div></div>
+<p><img src="https://raw.githubusercontent.com/a416485164/a416485164.github.io/master/img/jacob5.jpg" alt=""/></p>
+<p>根据ACM定义，如果我们得到整个测试结果，我们会发现相似性，换句话说，重复性与评价结果的可信度有关</p>
+<p>关于这个问题，可以采用Bootstrapping，Bootstrapping是一种基于重新抽样的统计方法，它可以提高某些总体估计的准确性。假设我们执行一个N次重复的评估，从中计算一个性能指标向量。bootstrap样本是指一个新的合成的N个测试集，其中bootstrap样本中的每个测试都是从原来的N个测试中随机选择的。例如，原本的集合是{1,2,3}，bootstrap样本被随机创建为{2,1,2}，对于每个bootstrap样本，我们可以计算一个新的绩效指标向量。通过创建很多bootstrap样本，我们很容易从原来的N个测试中得到性能向量的总体。这看着是凭空创造的，但是给出了对某些总体参数的置信区间;在我们的例子中，这个参数是性能指标的向量。这个方法被用在人口分布的结果重复性中。性能向量与bootstrap分布越接近，结果就越“可重复”。</p>
+<p><img src="https://raw.githubusercontent.com/a416485164/a416485164.github.io/master/img/jacob6.jpg" alt=""/></p>
+<p>很明显，第一个图比第2,3图更具有可重复性。我们不知道单个指标是否具有可重复性，此外，还要注意bootstrap是否适用我们的指标。但是这个问题还是有研究的价值。</p>
+<hr/>
+<h2 id="未来规划">未来规划</h2>
+<p>1，未来是找到完整，成熟的评价方法, 作为一个公认的准则，在现场实验评估。</p>
+<p>2，原始实验和平行性/再现性实现之间的“密切关系”可以用下列问题来表示:两组结果样本来自相同基础分布的概率是多少?</p>
+<hr/>
+<h2 id="总结与讨论">总结与讨论</h2>
+<p>1，在这篇文章中，我们概述了一些必要的步骤，使实验研究的低功耗无线网络可重复性，重复性，可比性。</p>
+<p>2，我们发现缺乏一种完善的方法来指定如何计划、执行和报告实验结果，这是实现这一目标所缺少的要素之一。因此，我们提出了一种适用于低功耗无线协议实验的方法，并将其应用于一个案例研究。</p>
+<p>3，我们还进一步讨论了在低功耗无线网络环境下防御可重复性、可复制性和可再现性的复杂性。</p>
+<hr/>
+<h3 id="paper">Paper</h3>
+<p>Paper <a target="_blank" rel="noopener" href="https://wwwpub.zih.tu-dresden.de/~mzimmerl/pubs/jacob19methodology.pdf">�Paper Pages</a>
+</p>
+<pre><code>            &lt;hr style=&quot;visibility: hidden;&quot;/&gt;
+
+            
+
+
+            
+            
+            
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/gitalk/dist/gitalk.css&quot;/&gt;
+            &lt;script src=&quot;https://unpkg.com/gitalk@latest/dist/gitalk.min.js&quot;&gt;&lt;/script&gt;
+            &lt;div id=&quot;gitalk-container&quot;&gt;&lt;/div&gt;
+            
+            
+            &lt;script src=&quot;/js/md5.min.js&quot;&gt;&lt;/script&gt;
+            &lt;script type=&quot;text/javascript&quot;&gt;
+                var gitalk = new Gitalk(&#123;
+                clientID: 'bac30f359de5d507a610',
+                clientSecret: '8d1731513ae0df821226384107ae088b73e1e329',
+                repo: 'a416485164.github.io',
+                owner: 'a416485164',
+                admin: ['a416485164'],
+                distractionFreeMode: true,
+                id: md5(location.pathname),
+                &#125;);
+                gitalk.render('gitalk-container');
+            &lt;/script&gt;
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-139_Towards%20a%20Methodology%20for%20Experimental%20Evaluation%20/">https://lua.ren/zl/2016-01-01-139_Towards%20a%20Methodology%20for%20Experimental%20Evaluation%20/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-137_Evaluation%20of%20Word%20Vector%20Representations%20by%20Subsp/" title="Evaluation of Word Vector Representations by Subspace Alignment"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Evaluation of Word Vector Representations by Subspace Alignment</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-13_lua%20table%E6%B7%B1%E6%8B%B7%E8%B4%9D/" title="lua table深拷贝"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">lua table深拷贝</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#background"><span class="toc-number">1.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#contribution"><span class="toc-number">2.</span> <span class="toc-text">Contribution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#conclusion"><span class="toc-number">3.</span> <span class="toc-text">Conclusion：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text">实验：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF"><span class="toc-number">4.1.</span> <span class="toc-text">1，测试场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-number">4.2.</span> <span class="toc-text">2，测试环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E5%AE%9E%E9%AA%8C%E7%9A%84%E9%95%BF%E5%BA%A6%E5%92%8C%E6%AC%A1%E6%95%B0"><span class="toc-number">4.3.</span> <span class="toc-text">4，实验的长度和次数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86"><span class="toc-number">4.4.</span> <span class="toc-text">5,原始数据收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E8%AF%84%E4%BC%B0%E7%BB%93%E6%9E%9C"><span class="toc-number">4.5.</span> <span class="toc-text">6，评估结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E8%A7%84%E5%88%92"><span class="toc-number">5.</span> <span class="toc-text">未来规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E8%AE%A8%E8%AE%BA"><span class="toc-number">6.</span> <span class="toc-text">总结与讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#paper"><span class="toc-number">6.1.</span> <span class="toc-text">Paper</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

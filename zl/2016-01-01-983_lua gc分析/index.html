@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>lua gc分析 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="说明分析lua使用的gc算法，如何做到分步gc，以及测试结论 gc算法分析lua gc采用的是标记-清除算法，即一次gc分两步：  从根节点开始遍历gc对象，如果可达，则标记 遍历所有的gc对象，清除没有被标记的对象  二色标记法lua 5.1之前采用的算法，二色回收法是最简单的标记-清除算法，缺点是gc的时候不能被打断，所以会严重卡住主线程 三色标记法  lua5.1开始采用了一种三色回收的算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lua gc分析">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-983_lua%20gc%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="说明分析lua使用的gc算法，如何做到分步gc，以及测试结论 gc算法分析lua gc采用的是标记-清除算法，即一次gc分两步：  从根节点开始遍历gc对象，如果可达，则标记 遍历所有的gc对象，清除没有被标记的对象  二色标记法lua 5.1之前采用的算法，二色回收法是最简单的标记-清除算法，缺点是gc的时候不能被打断，所以会严重卡住主线程 三色标记法  lua5.1开始采用了一种三色回收的算法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:36.238Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:36.238Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-983_lua%20gc%E5%88%86%E6%9E%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'lua gc分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">lua gc分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:36.238Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:36.238Z" title="更新于 2024-04-03 11:47:36">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="lua gc分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>分析lua使用的gc算法，如何做到分步gc，以及测试结论</p>
+<h2 id="gc算法分析"><a href="#gc算法分析" class="headerlink" title="gc算法分析"></a>gc算法分析</h2><p>lua gc采用的是标记-清除算法，即一次gc分两步：</p>
+<ol>
+<li>从根节点开始遍历gc对象，如果可达，则标记</li>
+<li>遍历所有的gc对象，清除没有被标记的对象</li>
+</ol>
+<h3 id="二色标记法"><a href="#二色标记法" class="headerlink" title="二色标记法"></a>二色标记法</h3><p><img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/10.png" alt="image"/><br/>lua 5.1之前采用的算法，二色回收法是最简单的标记-清除算法，缺点是gc的时候不能被打断，所以会严重卡住主线程</p>
+<h3 id="三色标记法"><a href="#三色标记法" class="headerlink" title="三色标记法"></a>三色标记法</h3><p><img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/1.png" alt="image"/></p>
+<ol>
+<li>lua5.1开始采用了一种三色回收的算法<ul>
+<li>白色：在gc开始阶段，所有对象颜色都为白色，如果遍历了一遍之后，对象还是白色的将被清除</li>
+<li>灰色：灰色用在分步遍历阶段，如果一直有对象为灰色，则遍历将不会停止</li>
+<li>黑色：确实被引用的对象，将不会被清除，gc完成之后会重置为白色</li>
+</ul>
+</li>
+<li>luajit使用状态机来执行gc算法，共有6中状态：<ul>
+<li>GCSpause：gc开始阶段，初始化一些属性，将一些跟节点（主线程对象，主线程环境对象，全局对象等）push到灰色链表中</li>
+<li>GCSpropagate：分步进行扫描，每次从灰色链表pop一个对象，遍历该对象的子对象，例如如果该对象为table，并且value没有设置为week，则会遍历table所有table可达的value，如果value为gc对象且为白色，则会被push到灰色链表中，这一步将一直持续到灰色链表为空的时候。</li>
+<li>GCSatomic：原子操作，因为GCSpropagate是分步的，所以分步过程中可能会有新的对象创建，这时候将再进行一次补充遍历，这遍历是不能被打断的，但因为绝大部分工作被GCSpropagate做了，所以过程会很快。新创建的没有被引用的userdata，如果该userdata自定义了gc元方法，则会加入到全局的userdata链表中，该链表会在最后一步GCSfinalize处理。</li>
+<li>GCSsweepstring：遍历全局字符串hash表，每次遍历一个hash节点，如果hash冲突严重，会在这里影响gc。如果字符串为白色并且没有被设置为固定不释放，则进行释放</li>
+<li>GCSsweep：遍历所有全局gc对象，每次遍历40个，如果gc对象为白色，将被释放</li>
+<li>GCSfinalize：遍历GCSatomic生成的userdata链表，如果该userdata还存在gc元方法，调用该元方法，每次处理一个</li>
+</ul>
+</li>
+</ol>
+<h2 id="什么时候会导致gc"><a href="#什么时候会导致gc" class="headerlink" title="什么时候会导致gc?"></a>什么时候会导致gc?</h2><ol>
+<li><p>luajit中有两个判断是否需要gc的宏，如果需要gc，则会直接进行一次gc的step操作</p>
+ <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/></pre></td><td class="code"><pre><span class="line"></span><br/><span class="line"></span><br/><span class="line">  { <span class="keyword">if</span> (LJ_UNLIKELY(G(L)-&gt;gc.total &gt;= G(L)-&gt;gc.threshold)) </span><br/><span class="line">      lj_gc_step(L); }</span><br/><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lj_gc_check_fixtop(L) </span></span><br/><span class="line">  { <span class="keyword">if</span> (LJ_UNLIKELY(G(L)-&gt;gc.total &gt;= G(L)-&gt;gc.threshold)) </span><br/><span class="line">      lj_gc_step_fixtop(L); }</span><br/></pre></td></tr></tbody></table></figure>
+<ul>
+<li>gc.total: 代表当前已经申请的内存</li>
+<li>gc.threshold：代表当前设置gc的阈值</li>
+</ul>
+</li>
+<li><p>这两个宏会在各个申请内存的地方进行调用，所以当前申请的内存如果已经达到设置的阈值，则会申请的所有对象都会有gc消耗。</p>
+</li>
+</ol>
+<h2 id="lua-gc-api"><a href="#lua-gc-api" class="headerlink" title="lua gc api"></a>lua gc api</h2><p>lua可以通过<br/></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">collectgarbage([opt [, arg]])</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>来进行一些gc操作，其中opt参数可以为：</p>
+<ul>
+<li>“collect”：执行一个完整的垃圾回收周期，这是一个默认的选项</li>
+<li>“stop”：停止垃圾收集器（如果它在运行），实现方式其实就是将gc.threshold设置为一个巨大的值，不再触发gc step操作</li>
+<li>“restart”：将重新启动垃圾收集器（如果它已经停止）。</li>
+<li>“count”：返回当前使用的的程序内存量（单位是Kbytes），返回gc-&gt;total/1024</li>
+<li>“step”：执行垃圾回收的步骤，这个步骤的大小由参数arg（较大的数值意味着较多的步骤），如果这一步完成了一个回收周期则函数返回true。</li>
+<li><p>“setpause”：设置回收器的暂停参数，并返回原来的暂停数值。该值是一个百分比，影响gc.threshold的大小，即影响触发下一次gc的时间，设置代码如下：</p>
+  <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">g-&gt;gc.threshold = (g-&gt;gc.estimate/100) * g-&gt;gc.pause;</span><br/></pre></td></tr></tbody></table></figure>
+<p>  g-&gt;gc.estimate为当前实际使用的内存的大小，如果gc.pause为200，则该段代码表示，设置gc的阈值为当前实际使用内存的2倍</p>
+</li>
+<li>“setstepmul”：设置回收器的步进乘数，并返回原值。该值代表每次自动step的步长倍率，影响每次gc step的速率，具体这么影响可以查看后面小节</li>
+</ul>
+<h2 id="luajit-gc速率控制"><a href="#luajit-gc速率控制" class="headerlink" title="luajit gc速率控制"></a>luajit gc速率控制</h2><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/><span class="line">31</span><br/><span class="line">32</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> LJ_FASTCALL <span class="params">(lua_State *L)</span></span></span><br/><span class="line"><span class="function"></span>{</span><br/><span class="line">  global_State *g = G(L);</span><br/><span class="line">  GCSize lim;</span><br/><span class="line">  <span class="keyword">int32_t</span> ostate = g-&gt;vmstate;</span><br/><span class="line">  setvmstate(g, GC);</span><br/><span class="line">  <span class="comment">// 设置此次遍历的限制值，每次调用gc_onestep都会返回此次step的消耗，限制值消耗完毕之后此次step结束;</span></span><br/><span class="line">  lim = (GCSTEPSIZE/<span class="number">100</span>) * g-&gt;gc.stepmul;</span><br/><span class="line">  <span class="keyword">if</span> (lim == <span class="number">0</span>)</span><br/><span class="line">    lim = LJ_MAX_MEM;</span><br/><span class="line">  <span class="keyword">if</span> (g-&gt;gc.total &gt; g-&gt;gc.threshold)</span><br/><span class="line">    g-&gt;gc.debt += g-&gt;gc.total - g-&gt;gc.threshold;</span><br/><span class="line">  <span class="keyword">do</span> {</span><br/><span class="line">    lim -= (GCSize)gc_onestep(L);</span><br/><span class="line">    <span class="keyword">if</span> (g-&gt;gc.state == GCSpause) {</span><br/><span class="line">      g-&gt;gc.threshold = (g-&gt;gc.estimate/<span class="number">100</span>) * g-&gt;gc.pause;</span><br/><span class="line">      g-&gt;vmstate = ostate;</span><br/><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;  <span class="comment">/* Finished a GC cycle. */</span></span><br/><span class="line">    }</span><br/><span class="line">  } <span class="keyword">while</span> (<span class="keyword">sizeof</span>(lim) == <span class="number">8</span> ? ((<span class="keyword">int64_t</span>)lim &gt; <span class="number">0</span>) : ((<span class="keyword">int32_t</span>)lim &gt; <span class="number">0</span>));</span><br/><span class="line">  <span class="keyword">if</span> (g-&gt;gc.debt &lt; GCSTEPSIZE) {</span><br/><span class="line">    g-&gt;gc.threshold = g-&gt;gc.total + GCSTEPSIZE;</span><br/><span class="line">    g-&gt;vmstate = ostate;</span><br/><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br/><span class="line">  } <span class="keyword">else</span> {</span><br/><span class="line">    <span class="comment">// 加快内存上涨速度;</span></span><br/><span class="line">    g-&gt;gc.debt -= GCSTEPSIZE;</span><br/><span class="line">    g-&gt;gc.threshold = g-&gt;gc.total;</span><br/><span class="line">    g-&gt;vmstate = ostate;</span><br/><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br/><span class="line">  }</span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<ul>
+<li>可以看到最重要的变量为lim，该变量控制着一个lj_gc_step里的循环次数。每次调用gc_onestep都会返回此次的step消耗，例如如果处于GCSpropagate阶段，则返回值为该step遍历的内存大小，所以如果遍历了一个较大的table就会消耗更多的lim值</li>
+<li>lim大小主要由gc.stepmul控制，所以设置该值的大小会影响每次step的调用时间</li>
+</ul>
+<h2 id="测试大table对gc的影响"><a href="#测试大table对gc的影响" class="headerlink" title="测试大table对gc的影响"></a>测试大table对gc的影响</h2><p>从luajit gc原理上看，以为每次gc的遍历都会遍历所有的gc对象，所以大的table是会影响gc性能   </p>
+<h3 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h3><p>操作系统：Debian GNU/Linux 8<br/>CPU：Intel(R) Xeon(R) CPU E5-2640 v2 @ 2.00GHz<br/>内存：64G<br/>lua环境：LuaJIT-2.1.0-beta3 (测试的时候关闭jit)</p>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/><span class="line">31</span><br/><span class="line">32</span><br/><span class="line">33</span><br/><span class="line">34</span><br/><span class="line">35</span><br/><span class="line">36</span><br/><span class="line">37</span><br/><span class="line">38</span><br/><span class="line">39</span><br/></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 关闭jit</span></span><br/><span class="line"><span class="keyword">if</span> jit <span class="keyword">then</span></span><br/><span class="line">    jit.off()</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="keyword">local</span> data = {} <span class="comment">-- 一个大的table，用来模拟常驻内存的table，测试的时候使用的是drop_data.lua里面的数据，该data有8655个table元素（在gc的时候产生消耗），60810个元素（包括table元素，会在遍历的时候产生消耗）</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopyTable</span><span class="params">(t)</span></span></span><br/><span class="line">    <span class="keyword">local</span> ret = {}</span><br/><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(t) <span class="keyword">do</span></span><br/><span class="line">        <span class="keyword">if</span> <span class="built_in">type</span>(v) == <span class="string">&#34;table&#34;</span> <span class="keyword">then</span></span><br/><span class="line">            ret[k] = deepCopyTable(v)</span><br/><span class="line">        <span class="keyword">else</span></span><br/><span class="line">            ret[k] = v</span><br/><span class="line">        <span class="keyword">end</span></span><br/><span class="line">    <span class="keyword">end</span></span><br/><span class="line">    <span class="keyword">return</span> ret</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">datas = {}</span><br/><span class="line"></span><br/><span class="line"><span class="comment">-- 循环产生更多的常驻内存的table，可以看到总共会有865W+的table元素和总共6000W+的元素</span></span><br/><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">1000</span> <span class="keyword">do</span></span><br/><span class="line">	datas[#datas+<span class="number">1</span>] = deepCopyTable(data)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="built_in">print</span>(<span class="string">&#34;begin&#34;</span>)</span><br/><span class="line"><span class="keyword">local</span> <span class="built_in">time</span> = <span class="built_in">os</span>.<span class="built_in">clock</span>()</span><br/><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">2000000</span> <span class="keyword">do</span></span><br/><span class="line">    <span class="comment">-- 模拟产生临时变量</span></span><br/><span class="line">	<span class="keyword">local</span> temp = deepCopyTable(data)</span><br/><span class="line"></span><br/><span class="line">    <span class="comment">-- 每10次计算一次时间和内存</span></span><br/><span class="line">	<span class="keyword">if</span> i % <span class="number">10</span> == <span class="number">0</span> <span class="keyword">then</span></span><br/><span class="line">		<span class="keyword">local</span> time_temp = <span class="built_in">os</span>.<span class="built_in">clock</span>()</span><br/><span class="line">		<span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">&#34;count&#34;</span>), time_temp-<span class="built_in">time</span>)</span><br/><span class="line">		<span class="built_in">time</span> = time_temp</span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></tbody></table></figure>
+<h3 id="测试结果（第一个列为当前内存，第二列为当前内存阈值，第三列为当前gc状态，第四列为循环10次的时间）"><a href="#测试结果（第一个列为当前内存，第二列为当前内存阈值，第三列为当前gc状态，第四列为循环10次的时间）" class="headerlink" title="测试结果（第一个列为当前内存，第二列为当前内存阈值，第三列为当前gc状态，第四列为循环10次的时间）"></a>测试结果（第一个列为当前内存，第二列为当前内存阈值，第三列为当前gc状态，第四列为循环10次的时间）</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/></pre></td><td class="code"><pre><span class="line">-- gc没有介入阶段，平均时间大概在0.059s，这时候代表着内存的分配速度</span><br/><span class="line">3345733.2617188	4136590.0390625	0	0.058304</span><br/><span class="line">3366347.6367188	4136590.0390625	0	0.058013000000003</span><br/><span class="line">3386962.0117188	4136590.0390625	0	0.058147999999996</span><br/><span class="line">3407576.3867188	4136590.0390625	0	0.059978000000001</span><br/><span class="line">3428190.7617188	4136590.0390625	0	0.059843999999998</span><br/><span class="line">3448805.1367188	4136590.0390625	0	0.058331000000003</span><br/><span class="line">3469419.5117188	4136590.0390625	0	0.058205000000001</span><br/><span class="line">3490033.8867188	4136590.0390625	0	0.058352999999997</span><br/><span class="line">3510648.2617188	4136590.0390625	0	0.058503000000002</span><br/><span class="line">3531262.6367188	4136590.0390625	0	0.058151000000002</span><br/><span class="line">3551877.0117188	4136590.0390625	0	0.058059999999998</span><br/><span class="line"></span><br/><span class="line">-- gc进入sweep阶段，删除内存，峰值时间在0.78s左右，后面时间变少应该是因为那一块都是常驻内存的gc对象，很少会去调用free函数</span><br/><span class="line">5056726.3867188	5056726.3242188	1	0.076171000000002</span><br/><span class="line">5077340.7617188	5077340.9492188	1	0.076453999999998</span><br/><span class="line">4955367.8554688	4955368.0429688	4	0.140509</span><br/><span class="line">3994134.0820313	3994134.0195313	4	0.679567</span><br/><span class="line">3032849.7617188	3032850.1992188	4	0.786561</span><br/><span class="line">2133608.0117188	2133608.7617188	4	0.788004</span><br/><span class="line">2154222.3867188	2154222.3242188	4	0.255904</span><br/><span class="line">2174836.7617188	2174837.1992188	4	0.254212</span><br/><span class="line">full sweep time: 2.850359</span><br/><span class="line">2195451.1367188	4137406.4453125	0	0.066203999999999</span><br/></pre></td></tr></tbody></table></figure>
+<ul>
+<li>火焰图分析（gc处于sweep状态）：<br/>  <img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/12.png" alt="image"/><br/>  主要时间消耗在gc_sweep(51.34%)：该步骤会遍历所有的gc对象，如果可回收，就进行free操作，所以gc_sweep里面最耗时的就是free函数(34%左右)</li>
+</ul>
+<h2 id="gc优化"><a href="#gc优化" class="headerlink" title="gc优化"></a>gc优化</h2><p>从火焰图上看到，gc_sweep函数耗时严重，其主要工作是遍历所有gc对象，如果为白色，则free它，所以优化方案有两点：</p>
+<ol>
+<li>内存分配算法优化</li>
+<li>减少gc遍历的对象，即减少那些明确常驻内存的gc对象遍历<h3 id="内存分配算法优化"><a href="#内存分配算法优化" class="headerlink" title="内存分配算法优化"></a>内存分配算法优化</h3>luajit默认使用的是自己的内存分配算法，现在尝试分别使用glibc自带的内存分配和第三方高性能jemalloc（选择的版本是jemalloc-stable-4），tcmalloc（选择的是gperftools-2.7）的分配算法进行分析<h4 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h4><img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/15.png" alt="image"/><br/><img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/16.png" alt="image"/><br/><img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/17.png" alt="image"/></li>
+</ol>
+<h4 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h4><ul>
+<li>申请内存的速率跟常驻内存的table大小关系不大，luajit自带的分配算法最快，但是总体相差不大</li>
+<li>随着常驻内存的table大小变大，会影响gc释放速度，这将会卡主主线程</li>
+<li>释放内存速率jemalloc最好，并且随着常驻内存的table大小变大，效率体现的越明显</li>
+</ul>
+<h3 id="table缓存优化"><a href="#table缓存优化" class="headerlink" title="table缓存优化"></a>table缓存优化</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>自己写一个table缓冲池，缓冲一定数量、一定大小的table在c++内存，避免每次反复申请内存及rehash，reszie table操作<br/>TODO: 需要具体修改luajit源码进行测试</p>
+<h3 id="减少gc遍历的对象"><a href="#减少gc遍历的对象" class="headerlink" title="减少gc遍历的对象"></a>减少gc遍历的对象</h3><h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p>对于那些常驻内存的table，可以主动加一个标记，在gc时候遍历到这个table，将对其以及所有子gc对象从全局gc链表删除，并加入到一个全局const gc对象链表中。<br/>源代码可以查看<a href="https://github.com/Drecik/luajit-table-const" target="_blank" rel="noopener noreferrer">github</a></p>
+<h4 id="测试结果-1"><a href="#测试结果-1" class="headerlink" title="测试结果"></a>测试结果</h4><p><img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/18.png" alt="image"/></p>
+<h4 id="对比结果"><a href="#对比结果" class="headerlink" title="对比结果"></a>对比结果</h4><p><img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/19.png" alt="image"/></p>
+<h4 id="火焰图（jemalloc-4G内存）"><a href="#火焰图（jemalloc-4G内存）" class="headerlink" title="火焰图（jemalloc-4G内存）"></a>火焰图（jemalloc-4G内存）</h4><p><img src="https://blog-1251569602.cos.ap-shanghai.myqcloud.com/blog/12/11.png" alt="image"/></p>
+<ul>
+<li>gc_sweep在总的采样占比上已经变得很少，这点从打log上面就能看出</li>
+<li>free占比gc_sweep的时间比重增加，说明减少了遍历的时间消耗<h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4></li>
+<li>从给table设置constant之后完整的一次gc之前，不能主动调用full gc否则会导致table子元素没有被标记，这样就会被误删除，导致访问的时候出现内存问题</li>
+<li>table不能设置weak</li>
+<li>table元素只能是table、string、number，不能有function，线程<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4>可以看到优化在常驻内存table大的时候很明显，主要提升了两个方面的速度：</li>
+<li>在GCSpropagate阶段减少不必要的遍历，加快遍历速度，同时减少了新临时变量的生成</li>
+<li>在GCSweep阶段，减少不必要的遍历，同时因为加快遍历速度，需要free的临时变量变少，所以减少了GCSweep的时间</li>
+</ul></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-983_lua%20gc%E5%88%86%E6%9E%90/">https://lua.ren/zl/2016-01-01-983_lua%20gc%E5%88%86%E6%9E%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-986_evaluate(input_sentence)/" title="evaluate(input_sentence)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">evaluate(input_sentence)</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-984_Lua%20string%20%E5%93%88%E5%B8%8C%E7%A2%B0%E6%92%9E%20/" title="Lua string 哈希碰撞"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua string 哈希碰撞</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gc%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">gc算法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">二色标记法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">三色标记法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%AF%BC%E8%87%B4gc"><span class="toc-number">3.</span> <span class="toc-text">什么时候会导致gc?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lua-gc-api"><span class="toc-number">4.</span> <span class="toc-text">lua gc api</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#luajit-gc%E9%80%9F%E7%8E%87%E6%8E%A7%E5%88%B6"><span class="toc-number">5.</span> <span class="toc-text">luajit gc速率控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%A4%A7table%E5%AF%B9gc%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-number">6.</span> <span class="toc-text">测试大table对gc的影响</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-number">6.1.</span> <span class="toc-text">测试环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">6.2.</span> <span class="toc-text">测试代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C%EF%BC%88%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%88%97%E4%B8%BA%E5%BD%93%E5%89%8D%E5%86%85%E5%AD%98%EF%BC%8C%E7%AC%AC%E4%BA%8C%E5%88%97%E4%B8%BA%E5%BD%93%E5%89%8D%E5%86%85%E5%AD%98%E9%98%88%E5%80%BC%EF%BC%8C%E7%AC%AC%E4%B8%89%E5%88%97%E4%B8%BA%E5%BD%93%E5%89%8Dgc%E7%8A%B6%E6%80%81%EF%BC%8C%E7%AC%AC%E5%9B%9B%E5%88%97%E4%B8%BA%E5%BE%AA%E7%8E%AF10%E6%AC%A1%E7%9A%84%E6%97%B6%E9%97%B4%EF%BC%89"><span class="toc-number">6.3.</span> <span class="toc-text">测试结果（第一个列为当前内存，第二列为当前内存阈值，第三列为当前gc状态，第四列为循环10次的时间）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gc%E4%BC%98%E5%8C%96"><span class="toc-number">7.</span> <span class="toc-text">gc优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95%E4%BC%98%E5%8C%96"><span class="toc-number">7.1.</span> <span class="toc-text">内存分配算法优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-number">7.1.1.</span> <span class="toc-text">测试结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="toc-number">7.1.2.</span> <span class="toc-text">结果分析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#table%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96"><span class="toc-number">7.2.</span> <span class="toc-text">table缓存优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">7.2.1.</span> <span class="toc-text">思路</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%8F%E5%B0%91gc%E9%81%8D%E5%8E%86%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="toc-number">7.3.</span> <span class="toc-text">减少gc遍历的对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">7.3.1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C-1"><span class="toc-number">7.3.2.</span> <span class="toc-text">测试结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E7%BB%93%E6%9E%9C"><span class="toc-number">7.3.3.</span> <span class="toc-text">对比结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%81%AB%E7%84%B0%E5%9B%BE%EF%BC%88jemalloc-4G%E5%86%85%E5%AD%98%EF%BC%89"><span class="toc-number">7.3.4.</span> <span class="toc-text">火焰图（jemalloc-4G内存）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">7.3.5.</span> <span class="toc-text">注意点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">7.3.6.</span> <span class="toc-text">结论</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

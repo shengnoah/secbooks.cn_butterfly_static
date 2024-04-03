@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>cocos2dx lua 绑定详解与实战 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我们平时在开发cocos2dx lua游戏的时候的，会遇到这样的情况：  在c++层定义了一些类，我们需要将这些类导出给Lua来使用，从而完成在c++层实现起来容易的需求，这个时候就需要将整个类作为模块导出。  而Cocos2d-x正是采用的这种思想，将Cocos中的类导出供用户使用，而不是再写一套Lua代码，用户使用Cocos导出的这套接口，在Lua脚本层写游戏代码。  为了更好的理解这部分的内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cocos2dx lua 绑定详解与实战">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-731_cocos2dx%20lua%20%E7%BB%91%E5%AE%9A%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="我们平时在开发cocos2dx lua游戏的时候的，会遇到这样的情况：  在c++层定义了一些类，我们需要将这些类导出给Lua来使用，从而完成在c++层实现起来容易的需求，这个时候就需要将整个类作为模块导出。  而Cocos2d-x正是采用的这种思想，将Cocos中的类导出供用户使用，而不是再写一套Lua代码，用户使用Cocos导出的这套接口，在Lua脚本层写游戏代码。  为了更好的理解这部分的内">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.976Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.976Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-731_cocos2dx%20lua%20%E7%BB%91%E5%AE%9A%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E6%88%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'cocos2dx lua 绑定详解与实战',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">cocos2dx lua 绑定详解与实战</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.976Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.976Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="cocos2dx lua 绑定详解与实战"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>我们平时在开发cocos2dx lua游戏的时候的，会遇到这样的情况：</p>
+<ul>
+<li>在c++层定义了一些类，我们需要将这些类导出给Lua来使用，从而完成在c++层实现起来容易的需求，这个时候就需要将整个类作为模块导出。</li>
+</ul>
+<p>而Cocos2d-x正是采用的这种思想，将Cocos中的类导出供用户使用，而不是再写一套Lua代码，用户使用Cocos导出的这套接口，在Lua脚本层写游戏代码。</p>
+<blockquote>
+<p>为了更好的理解这部分的内容，可以先了解c++中调用Lua的机制。</p>
+</blockquote>
+<h6 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h6><ul>
+<li><a href="https://www.cnblogs.com/chevin/p/5954948.html" target="_blank" rel="noopener noreferrer">手动绑定自定义类中的函数</a></li>
+<li><a href="https://www.cnblogs.com/chevin/p/5899516.html" target="_blank" rel="noopener noreferrer">自动绑定自定义类中的函数</a></li>
+</ul>
+<p>前面文章中，我们说到了，Lua的本质是C，不是C++，Lua提供给C用的API也都是基于面向过程的C函数来用的，要把C++类注册进Lua形成一个一个的table环境是不太容易一下子办到的事。</p>
+<p>为了实现我们的需求，同样也是官方的需求，在Cocos 2.x版本的时候，使用的是tolua++这个工具，但是这个工具用起来相当的麻烦，耗费体力，所以现在使用的是<a href="https://github.com/cocos2d/bindings-generator" target="_blank" rel="noopener noreferrer">bindings-generator</a>工具（官方用Python写的一个工具），这个东西底层使用的也应该是tolua++。</p>
+<blockquote>
+<p>这里只针对iOS平台，Android和其他平台在tolua中README.mdown中有具体介绍，其他步骤基本上一样！</p>
+</blockquote>
+<p>在项目跟目录framework/cocos2d-x/cocos中创建mybinding文件夹，里面创建一个MyBinding.h文件(mybinding, MyBinding自定义)，输入如下测试代码</p>
+<pre><code>#include &#34;cocos2d.h&#34;
+<p>namespace cocos2d &#123;<br />
+class MyBinding: public Ref &#123;<br />
+public:</p>
+<p>virtual bool init() &#123;<br />
+return true;<br />
+&#125;</p>
+<p>void sayBinding() &#123;<br />
+log(&quot;Hello Binding Lua&quot;);<br />
+&#125;</p>
+<p>MyBinding();<br />
+~MyBinding();<br />
+&#125;<br />
+&#125;<br />
+</code></pre><p>在framework/cocos2d-x/tools/tolua，新建一个配置文件，这里命名cocos2dx_binding.ini</p></p>
+<p>输入下面代码：（处理标记修改处其他所有都一样）</p>
+<pre><code>[cocos2dx_binding] # 标记修改
+# the prefix to be added to the generated functions. You might or might not use this in your own
+# templates
+prefix = cocos2dx_binding # 标记修改
+<h1 id="create-a-target-namespace-in-javascript-this-would-create-some-code-like-the-equiv-to-ns-ns"><a class="markdownIt-Anchor" href="#create-a-target-namespace-in-javascript-this-would-create-some-code-like-the-equiv-to-ns-ns"></a> create a target namespace (in javascript, this would create some code like the equiv. to <code>ns = ns || &#123;&#125;</code>)</h1>
+<h1 id="all-classes-will-be-embedded-in-that-namespace"><a class="markdownIt-Anchor" href="#all-classes-will-be-embedded-in-that-namespace"></a> all classes will be embedded in that namespace</h1>
+<p>target_namespace = cc # 标记修改</p>
+<h1 id="-"><a class="markdownIt-Anchor" href="#-"></a> --------- ?</h1>
+<p>#android_headers = -I%(androidndkdir)s/platforms/android-19/arch-arm/usr/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.7/libs/armeabi-v7a/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.7/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi-v7a/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.8/include<br />
+android_headers = -I%(androidndkdir)s/platforms/android-19/arch-arm/usr/lib -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.9/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.9/include</p>
+<h1 id="--2"><a class="markdownIt-Anchor" href="#--2"></a> --------- ?</h1>
+<p>android_flags = -D_SIZE_T_DEFINED_</p>
+<p>#clang_headers = -I%(clangllvmdir)s/lib/clang/%(clang_version)s/include<br />
+clang_headers = -I%(clangllvmdir)s/lib64/clang/5.0/include<br />
+clang_flags = -nostdinc -x c++ -std=c++11 -U <strong>SSE</strong></p>
+<h1 id="--3"><a class="markdownIt-Anchor" href="#--3"></a> --------- ?</h1>
+<h1 id="-icocosdirsjsext-icocosdirsjsextsystem-icocosdirsjsextalipay-icocosdirsjsextvideo-icocosdirsjsextwebview-icocosdirsjsextumeng"><a class="markdownIt-Anchor" href="#-icocosdirsjsext-icocosdirsjsextsystem-icocosdirsjsextalipay-icocosdirsjsextvideo-icocosdirsjsextwebview-icocosdirsjsextumeng"></a> -I%(cocosdir)s/jsext -I%(cocosdir)s/jsext/system -I%(cocosdir)s/jsext/alipay  -I%(cocosdir)s/jsext/video -I%(cocosdir)s/jsext/webview -I%(cocosdir)s/jsext/umeng</h1>
+<p>cocos_headers = -I%(cocosdir)s -I%(cocosdir)s/cocos -I%(cocosdir)s/cocos/base -I%(cocosdir)s/cocos/platform/android -I%(cocosdir)s/extensions -I%(cocosdir)s/external -I%(cocosdir)s/cocos/editor-support -I%(cocosdir)s/cocos/network -I%(cocosdir)s/cocos/ui/UIEditBox -I%(cocosdir)s/cocos/ui<br />
+#cocos_headers = -I%(cocosdir)s -I%(cocosdir)s/cocos -I%(cocosdir)s/cocos/platform/android</p>
+<p>cocos_flags = -DANDROID</p>
+<p>cxxgenerator_headers =</p>
+<h1 id="extra-arguments-for-clang"><a class="markdownIt-Anchor" href="#extra-arguments-for-clang"></a> extra arguments for clang</h1>
+<p>extra_arguments = %(android_headers)s %(clang_headers)s %(cxxgenerator_headers)s %(cocos_headers)s %(android_flags)s %(clang_flags)s %(cocos_flags)s %(extra_flags)s</p>
+<h1 id="what-headers-to-parse-头文件路径"><a class="markdownIt-Anchor" href="#what-headers-to-parse-头文件路径"></a> what headers to parse 头文件路径</h1>
+<p>headers = %(cocosdir)s/cocos/mybinding/MyBinding.h # 标记修改</p>
+<h1 id="what-classes-to-produce-code-for-you-can-use-regular-expressions-here-when-testing-the-regular"><a class="markdownIt-Anchor" href="#what-classes-to-produce-code-for-you-can-use-regular-expressions-here-when-testing-the-regular"></a> what classes to produce code for. You can use regular expressions here. When testing the regular</h1>
+<h1 id="expression-it-will-be-enclosed-in-34-like-this-34menu"><a class="markdownIt-Anchor" href="#expression-it-will-be-enclosed-in-34-like-this-34menu"></a> expression, it will be enclosed in &quot;^&#34;, like this: &#34;^Menu*&quot;.</h1>
+<p>#包含的类，新添加文件需要修改<br />
+classes = MyBinding.* # 标记修改</p>
+<p>#需要在js里面派生的类<br />
+#classes_need_extend = MyBinding # 标记修改</p>
+<h1 id="what-should-we-skip-in-the-format-classnamefunction-function"><a class="markdownIt-Anchor" href="#what-should-we-skip-in-the-format-classnamefunction-function"></a> what should we skip? in the format ClassName::[function function]</h1>
+<h1 id="classname-is-a-regular-expression-but-will-be-used-like-this-classname-functions-are-also"><a class="markdownIt-Anchor" href="#classname-is-a-regular-expression-but-will-be-used-like-this-classname-functions-are-also"></a> ClassName is a regular expression, but will be used like this: &quot;^ClassName$&quot; functions are also</h1>
+<h1 id="regular-expressions-they-will-not-be-surrounded-by-if-you-want-to-skip-a-whole-class-just"><a class="markdownIt-Anchor" href="#regular-expressions-they-will-not-be-surrounded-by-if-you-want-to-skip-a-whole-class-just"></a> regular expressions, they will not be surrounded by &quot;^$&quot;. If you want to skip a whole class, just</h1>
+<h1 id="add-a-single-as-functions-see-bellow-for-several-examples-a-special-class-name-is-which"><a class="markdownIt-Anchor" href="#add-a-single-as-functions-see-bellow-for-several-examples-a-special-class-name-is-which"></a> add a single &quot;<em>&quot; as functions. See bellow for several examples. A special class name is &quot;</em>&quot;, which</h1>
+<h1 id="will-apply-to-all-class-names-this-is-a-convenience-wildcard-to-be-able-to-skip-similar-named"><a class="markdownIt-Anchor" href="#will-apply-to-all-class-names-this-is-a-convenience-wildcard-to-be-able-to-skip-similar-named"></a> will apply to all class names. This is a convenience wildcard to be able to skip similar named</h1>
+<h1 id="functions-from-all-classes"><a class="markdownIt-Anchor" href="#functions-from-all-classes"></a> functions from all classes.</h1>
+<p>skip =</p>
+<p>rename_functions =</p>
+<p>rename_classes =</p>
+<h1 id="for-all-class-names-should-we-remove-something-when-registering-in-the-target-vm"><a class="markdownIt-Anchor" href="#for-all-class-names-should-we-remove-something-when-registering-in-the-target-vm"></a> for all class names, should we remove something when registering in the target VM?</h1>
+<p>remove_prefix =</p>
+<h1 id="classes-for-which-there-will-be-no-parent-lookup"><a class="markdownIt-Anchor" href="#classes-for-which-there-will-be-no-parent-lookup"></a> classes for which there will be no &quot;parent&quot; lookup</h1>
+<p>classes_have_no_parents =</p>
+<h1 id="base-classes-which-will-be-skipped-when-their-sub-classes-found-them"><a class="markdownIt-Anchor" href="#base-classes-which-will-be-skipped-when-their-sub-classes-found-them"></a> base classes which will be skipped when their sub-classes found them.</h1>
+<p>base_classes_to_skip = Ref</p>
+<h1 id="classes-that-create-no-constructor"><a class="markdownIt-Anchor" href="#classes-that-create-no-constructor"></a> classes that create no constructor</h1>
+<h1 id="set-is-special-and-we-will-use-a-hand-written-constructor"><a class="markdownIt-Anchor" href="#set-is-special-and-we-will-use-a-hand-written-constructor"></a> Set is special and we will use a hand-written constructor</h1>
+<p>abstract_classes =</p>
+<h1 id="determining-whether-to-use-script-objectjs-object-to-control-the-lifecycle-of-nativecpp-object-or-the-other-way-around-supported-values-are-yes-or-no"><a class="markdownIt-Anchor" href="#determining-whether-to-use-script-objectjs-object-to-control-the-lifecycle-of-nativecpp-object-or-the-other-way-around-supported-values-are-yes-or-no"></a> Determining whether to use script object(js object) to control the lifecycle of native(cpp) object or the other way around. Supported values are 'yes' or 'no'.</h1>
+<p>script_control_cpp = no<br />
+</code></pre><p>注意检查一下三个头文件对应的路径及文件问题</p></p>
+<ul>
+<li>android_headers</li>
+<li>clang_headers</li>
+<li>cocos_headers</li>
+</ul>
+<h5 id="说明内容："><a href="#说明内容：" class="headerlink" title="说明内容："></a>说明内容：</h5><pre><code>+ •[title]：要配置将被使用的工具/ tolua的/ gengindings.py脚本的称号。一般来说，标题可以是文件名。
++ •prefix：要配置一个函数名的前缀，通常，我们还可以使用文件名作为前缀。
++ •target_namespace：要配置在脚本层模块的名字。在这里，我们使用cc作为模块名，当你想在脚本层REF的名称，您必须将一个名为前缀，CC在名称的前面。例如，CustomClass可以参考作为cc.CustomClass。
++ •headers：要配置所有需要解析的头文件和％（cocosdir）s是的Cocos2d-x的引擎的根路径。
++ •classes：要配置所有绑定所需的类。在这里，它支持正则表达式。因此，我们可以设置MyCustomClass。*在这里，用于查找多个特定的用法，你可以对照到tools/tolua/cocos2dx.ini。
++ •skip：要配置需要被忽略的功能。现在绑定发电机无法解析的void *类型，并委托类型，所以这些类型的需要进行手动绑定。而在这种情况下，你应该忽略所有这些类型，然后再手动将它们绑定。你可以对照到配置文件路径下的cocos/scripting/lua-bindings/auto 。
++ •rename_functions：要配置的功能需要在脚本层进行重命名。由于某些原因，开发者希望更多的脚本友好的API，所以配置选项就是为了这个目的。
++ •rename_classes：不在使用。
++ •remove_prefix：不在使用。
++ •classes_have_no_parents：要配置是过滤器所需要的父类。这个选项是很少修改。
++ •abstract_classes：要配置的公共构造并不需要导出的类。
++ •script_control_cpp：是的。要配置脚本层是否管理对象的生命周期。如果没有，那么C++层关心他们的生命周期。现在，它是不完善的，以控制原生对象的续航时间在脚本层。所以，你可以简单地把它设置为no
+</code></pre><p>修改framework/cocos2d-x/tools/tolua里面的genbindings.py。有个cmd_args键值对的配置，增加下面代码，作为自定义绑定配置</p>
+<pre><code>&#39;cocos2dx_binding.ini&#39; : (&#39;cocos2dx_binding&#39;, &#39;lua_cocos2dx_binding_auto&#39;), 
+</code></pre><blockquote>
+<p>注：python注释为#，这里将cmd_args其他的元素注释掉是因为这些文件都是生成过得，没必要再生成浪费时间<br/>这行代码表示在cocos2dx_custom中找到cocos2dx_custom的模块，然后生成lua_cocos2dx_custom_auto文件</p>
+</blockquote>
+<p>这里要确保NDK_ROOT，和PYTHON_BIN安装切配置好了,然后在framework/cocos2d-x/tools/tolua执行</p>
+<pre><code>./genbindings.py
+</code></pre><p>之前./genbindings.py之前，请先查看官方tolua中README文件，按照对应的流程，安装好需要的依赖，和相应的库，下面是我这边3.17最新的README</p>
+<pre><code>* The OSX 10.1&lt;!--0 has a built-in python2.7 and if your os don&#39;t have python2.7 then use [Homebrew](http://brew.sh/) to install the python and use pip install the python dependencies.
+&lt;pre&gt;
+brew install python
+&lt;/pre&gt;
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Install python dependices by pip.<br />
+&lt;pre&gt;<br />
+sudo easy_install pip<br />
+sudo pip install PyYAML<br />
+sudo pip install Cheetah<br />
+&lt;/pre&gt;</p>
+</li>
+<li class="lvl-2">
+<p>Download NDK 64bit r10c or later from <a target="_blank" rel="noopener" href="https://developer.android.com/ndk/downloads/index.html">Android Ndk</a></p>
+</li>
+<li class="lvl-2">
+<p>Run<br />
+&lt;pre&gt;<br />
+export NDK_ROOT=/path/to/android-ndk-10c<br />
+./genbindings.py<br />
+&lt;/pre&gt;–&gt;<br />
+</code></pre><p>大概意思就是下载r10c之后版的NDK本，然后安装python(这一步一般Mac都有，但是最好安装到2.x)。</p></p>
+</li>
+</ul>
+<p>大概意思就是安装，pip， PyYAML， Cheetah</p>
+<p>…….</p>
+<p>执行./genbindings.py之后生成在</p>
+<pre><code>工程目录frameworkscocos2d-xcocosscriptinglua-bindingsauto
+</code></pre><p>下便有了两个生成的文件</p>
+<pre><code>lua_cocos2dx_custom_auto.cpp
+lua_cocos2dx_custom_auto.hpp
+</code></pre><p>进入到文件夹</p>
+<pre><code>C:UsersuserDocumentsCocosLinkframeworkscocos2d-xcocosscriptinglua-bindingsmanual
+<p>打开CCLuaStack.cpp，添加</p>
+<p>#include &quot;lua_cocos2dx_custom_auto.hpp&quot;<br />
+register_all_cocos2dx_custom(_state);<br />
+</code></pre><h3 id="期间遇到的错误"><a href="#期间遇到的错误" class="headerlink" title="期间遇到的错误"></a>期间遇到的错误</h3><h5 id="错误一"><a href="#错误一" class="headerlink" title="错误一"></a>错误一</h5><pre><code>Traceback (most recent call last):<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1799, in &lt;module&gt;<br />
+main()<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1772, in main<br />
+'clang_args': (config.get(s, 'extra_arguments', 0, dict(userconfig.items('DEFAULT'))) or &quot;&quot;).split(&quot; &quot;),<br />
+File &quot;/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ConfigParser.py&quot;, line 623, in get<br />
+return self._interpolate(section, option, value, d)<br />
+File &quot;/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ConfigParser.py&quot;, line 691, in _interpolate<br />
+self._interpolate_some(option, L, rawval, section, vars, 1)<br />
+File &quot;/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ConfigParser.py&quot;, line 726, in _interpolate_some<br />
+section, map, depth + 1)<br />
+File &quot;/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ConfigParser.py&quot;, line 723, in _interpolate_some<br />
+option, section, rest, var)<br />
+InterpolationMissingOptionError: Bad value substitution:<br />
+section: [cocos2dx_custom]<br />
+option : extra_arguments<br />
+key    : clang_version<br />
+rawval : /include<br />
+</code></pre><p>路径错误</p></p>
+<pre><code>#clang_headers = -I%(clangllvmdir)s/lib/clang/%(clang_version)s/include
+clang_headers = -I%(clangllvmdir)s/lib64/clang/5.0/include  # --------- ?
+</code></pre><h5 id="错误二"><a href="#错误二" class="headerlink" title="错误二"></a>错误二</h5><pre><code>Traceback (most recent call last):
+<h2 id="file-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1799-in-modulemainfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1795-in-maingeneratorgenerate_codefile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1444-in-generate_codeself_parse_headersfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1487-in-_parse_headersraise-exceptionfatal-error-in-parsing-headersexception-fatal-error-in-parsing-headers"><a class="markdownIt-Anchor" href="#file-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1799-in-modulemainfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1795-in-maingeneratorgenerate_codefile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1444-in-generate_codeself_parse_headersfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1487-in-_parse_headersraise-exceptionfatal-error-in-parsing-headersexception-fatal-error-in-parsing-headers"></a> File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1799, in &lt;module&gt;<br />
+main()<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1795, in main<br />
+generator.generate_code()<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1444, in generate_code<br />
+self._parse_headers()<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1487, in _parse_headers<br />
+raise Exception(&quot;Fatal error in parsing headers&quot;)<br />
+Exception: Fatal error in parsing headers</h2>
+<h2 id="generating-lua-bindings-fails"><a class="markdownIt-Anchor" href="#generating-lua-bindings-fails"></a> Generating lua bindings fails.</h2>
+<p></code></pre><p>C++语法错误</p></p>
+<h5 id="错误三"><a href="#错误三" class="headerlink" title="错误三"></a>错误三</h5><pre><code>Generating bindings for cocos2dx_custom...
+Using userconfig
+[(&#39;androidndkdir&#39;, &#39;/Users/iCocos/tools/android-ndk-r16b&#39;), (&#39;clangllvmdir&#39;, &#39;/Users/iCocos/tools/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64&#39;), (&#39;gcc_toolchain_dir&#39;, &#39;/Users/iCocos/tools/android-ndk-r16b/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64&#39;), (&#39;cocosdir&#39;, &#39;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x&#39;), (&#39;cxxgeneratordir&#39;, &#39;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator&#39;), (&#39;extra_flags&#39;, &#39;&#39;)]
+<p>… Generating bindings for target lua</p>
+<p>… … Processing section cocos2dx_custom</p>
+<h2 id="traceback-most-recent-call-lastfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1799-in-modulemainfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1795-in-maingeneratorgenerate_codefile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1444-in-generate_codeself_parse_headersfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1478-in-_parse_headerstu-selfindexparseheader-selfclang_argsfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorclangcindexpy-line-2602-in-parseselffile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorclangcindexpy-line-2714-in-from_sourceraise-translationunitloaderrorerror-parsing-translation-unittranslationunitloaderror-error-parsing-translation-unit"><a class="markdownIt-Anchor" href="#traceback-most-recent-call-lastfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1799-in-modulemainfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1795-in-maingeneratorgenerate_codefile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1444-in-generate_codeself_parse_headersfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1478-in-_parse_headerstu-selfindexparseheader-selfclang_argsfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorclangcindexpy-line-2602-in-parseselffile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorclangcindexpy-line-2714-in-from_sourceraise-translationunitloaderrorerror-parsing-translation-unittranslationunitloaderror-error-parsing-translation-unit"></a> Traceback (most recent call last):<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1799, in &lt;module&gt;<br />
+main()<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1795, in main<br />
+generator.generate_code()<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1444, in generate_code<br />
+self._parse_headers()<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/generator.py&quot;, line 1478, in _parse_headers<br />
+tu = self.index.parse(header, self.clang_args)<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/clang/cindex.py&quot;, line 2602, in parse<br />
+self)<br />
+File &quot;/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/tools/bindings-generator/clang/cindex.py&quot;, line 2714, in from_source<br />
+raise TranslationUnitLoadError(&quot;Error parsing translation unit.&quot;)<br />
+TranslationUnitLoadError: Error parsing translation unit.</h2>
+<h2 id="generating-lua-bindings-fails-2"><a class="markdownIt-Anchor" href="#generating-lua-bindings-fails-2"></a> Generating lua bindings fails.</h2>
+<p></code></pre><p>路径错误</p></p>
+<pre><code>#android_headers = -I%(androidndkdir)s/platforms/android-19/arch-arm/usr/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.7/libs/armeabi-v7a/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.7/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi-v7a/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.8/include
+android_headers = -I%(androidndkdir)s/platforms/android-19/arch-arm/usr/lib -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.9/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include -I%(androidndkdir)s/sources/cxx-stl/gnu-libstdc++/4.9/include
+</code></pre><h5 id="错误四"><a href="#错误四" class="headerlink" title="错误四"></a>错误四</h5><pre><code>====
+<p>Errors in parsing headers:</p>
+<ol>
+<li class="lvl-3">
+<p>&lt;severity = Fatal,<br />
+location = &lt;SourceLocation file '/Users/iCocos/Desktop/cocos2d/Products/cocos2dx-demo/SingleLua/frameworks/cocos2d-x/cocos/platform/android/CCPlatformDefine-android.h', line 33, column 10&gt;,<br />
+details = &quot;'android/log.h' file not found&quot;&gt;<br />
+====<br />
+</code></pre><p>……</p></p>
+</li>
+</ol>
+<h3 id="提示成功"><a href="#提示成功" class="headerlink" title="提示成功"></a>提示成功</h3><pre><code>---------------------------------
+Generating lua bindings succeeds.
+---------------------------------
+</code></pre><h4 id="拓展推荐"><a href="#拓展推荐" class="headerlink" title="拓展推荐"></a>拓展推荐</h4><ul>
+<li><p>lua： <a href="http://www.lua.org/" target="_blank" rel="noopener noreferrer">http://www.lua.org/</a></p>
+<ul>
+<li>lua是个脚本语言，脚本语言！！就是脚本文件加解释器。之后你就可以看效果了。可是呢，lua如果正是靠自己独立完成点事情，那就是大材小用，需要和其他东西结合起来，比如C/C++.貌似主要也就是C/C++。</li>
+</ul>
+</li>
+<li><p>tolua++： <a href="http://www.codenix.com/~tolua/#news" target="_blank" rel="noopener noreferrer">http://www.codenix.com/~tolua/#news</a></p>
+<ul>
+<li>tolua++：首先看名字“到、lua、++”，就是把其他语言（C/C++函数对象转化为lua能调用形式，++这里理解为增强版），有了这个工具，我们就可以快速的将我们现成的C/C++代码封装成Lua接口形式。</li>
+</ul>
+</li>
+<li><p>luajit： <a href="http://luajit.org/luajit.html" target="_blank" rel="noopener noreferrer">http://luajit.org/luajit.html</a></p>
+<ul>
+<li>LuaJIT：LuaJIT is a Just-In-Time Compiler (JIT) for the  Lua programming language. 。。。。。。说了半天就一个lua的高效率版本。</li>
+</ul>
+</li>
+<li><p>lua for windows： <a href="http://luaforge.net/projects/luaforwindows/" target="_blank" rel="noopener noreferrer">http://luaforge.net/projects/luaforwindows/</a></p>
+<ul>
+<li>lua for windows：lua在windows下的打包版本，除了最基本的lua解释器，还包括了可用于和C/C++集成开发的【动态链接库、静态链接库、头文件】、文本编辑器、常用的lua module，帮助说明文档。</li>
+</ul>
+</li>
+</ul>
+<h6 id="致谢："><a href="#致谢：" class="headerlink" title="致谢："></a>致谢：</h6><ul>
+<li><a href="https://blog.csdn.net/never_QH/article/details/45148835" target="_blank" rel="noopener noreferrer">https://blog.csdn.net/never_QH/article/details/45148835</a></li>
+<li><a href="http://geekgaoyang.herokuapp.com/blog/2015/02/11/cocos2d-x-tutorial-of-binding-c-plus-plus-class-to-lua-usage/" target="_blank" rel="noopener noreferrer">http://geekgaoyang.herokuapp.com/blog/2015/02/11/cocos2d-x-tutorial-of-binding-c-plus-plus-class-to-lua-usage/</a></li>
+<li><a href="https://www.cnblogs.com/ZhYQ-Note/p/5939783.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/ZhYQ-Note/p/5939783.html</a></li>
+<li><a href="http://www.bubuko.com/infodetail-1210197.html" target="_blank" rel="noopener noreferrer">http://www.bubuko.com/infodetail-1210197.html</a></li>
+<li><a href="https://www.jianshu.com/p/9bd4d5518d53" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/p/9bd4d5518d53</a></li>
+</ul></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-731_cocos2dx%20lua%20%E7%BB%91%E5%AE%9A%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E6%88%98/">https://lua.ren/zl/2016-01-01-731_cocos2dx%20lua%20%E7%BB%91%E5%AE%9A%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E6%88%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-732_Luajit%E5%8F%8D%E7%BC%96%E8%AF%91%E4%B9%8B%E6%8E%A2%E7%B4%A2%E8%AE%B0/" title="Luajit反编译之探索记"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Luajit反编译之探索记</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-730_Lua%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85%20%C2%B7%20%E8%8A%B1%E7%94%9F%E8%82%89%E6%B3%A5/" title="Lua模块与包 · 花生肉泥"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua模块与包 · 花生肉泥</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90"><span class="toc-number">1.</span> <span class="toc-text">推荐</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#create-a-target-namespace-in-javascript-this-would-create-some-code-like-the-equiv-to-ns-ns"><span class="toc-number"></span> <span class="toc-text"> create a target namespace (in javascript, this would create some code like the equiv. to ns &#x3D; ns || {})</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#all-classes-will-be-embedded-in-that-namespace"><span class="toc-number"></span> <span class="toc-text"> all classes will be embedded in that namespace</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#-"><span class="toc-number"></span> <span class="toc-text"> --------- ?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#--2"><span class="toc-number"></span> <span class="toc-text"> --------- ?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#--3"><span class="toc-number"></span> <span class="toc-text"> --------- ?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#-icocosdirsjsext-icocosdirsjsextsystem-icocosdirsjsextalipay-icocosdirsjsextvideo-icocosdirsjsextwebview-icocosdirsjsextumeng"><span class="toc-number"></span> <span class="toc-text"> -I%(cocosdir)s&#x2F;jsext -I%(cocosdir)s&#x2F;jsext&#x2F;system -I%(cocosdir)s&#x2F;jsext&#x2F;alipay  -I%(cocosdir)s&#x2F;jsext&#x2F;video -I%(cocosdir)s&#x2F;jsext&#x2F;webview -I%(cocosdir)s&#x2F;jsext&#x2F;umeng</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#extra-arguments-for-clang"><span class="toc-number"></span> <span class="toc-text"> extra arguments for clang</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#what-headers-to-parse-%E5%A4%B4%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="toc-number"></span> <span class="toc-text"> what headers to parse 头文件路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#what-classes-to-produce-code-for-you-can-use-regular-expressions-here-when-testing-the-regular"><span class="toc-number"></span> <span class="toc-text"> what classes to produce code for. You can use regular expressions here. When testing the regular</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#expression-it-will-be-enclosed-in-34-like-this-34menu"><span class="toc-number"></span> <span class="toc-text"> expression, it will be enclosed in &quot;^&quot;, like this: &quot;^Menu*&quot;.</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#what-should-we-skip-in-the-format-classnamefunction-function"><span class="toc-number"></span> <span class="toc-text"> what should we skip? in the format ClassName::[function function]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classname-is-a-regular-expression-but-will-be-used-like-this-classname-functions-are-also"><span class="toc-number"></span> <span class="toc-text"> ClassName is a regular expression, but will be used like this: &quot;^ClassName$&quot; functions are also</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#regular-expressions-they-will-not-be-surrounded-by-if-you-want-to-skip-a-whole-class-just"><span class="toc-number"></span> <span class="toc-text"> regular expressions, they will not be surrounded by &quot;^$&quot;. If you want to skip a whole class, just</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#add-a-single-as-functions-see-bellow-for-several-examples-a-special-class-name-is-which"><span class="toc-number"></span> <span class="toc-text"> add a single &quot;&quot; as functions. See bellow for several examples. A special class name is &quot;&quot;, which</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#will-apply-to-all-class-names-this-is-a-convenience-wildcard-to-be-able-to-skip-similar-named"><span class="toc-number"></span> <span class="toc-text"> will apply to all class names. This is a convenience wildcard to be able to skip similar named</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#functions-from-all-classes"><span class="toc-number"></span> <span class="toc-text"> functions from all classes.</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#for-all-class-names-should-we-remove-something-when-registering-in-the-target-vm"><span class="toc-number"></span> <span class="toc-text"> for all class names, should we remove something when registering in the target VM?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classes-for-which-there-will-be-no-parent-lookup"><span class="toc-number"></span> <span class="toc-text"> classes for which there will be no &quot;parent&quot; lookup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#base-classes-which-will-be-skipped-when-their-sub-classes-found-them"><span class="toc-number"></span> <span class="toc-text"> base classes which will be skipped when their sub-classes found them.</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classes-that-create-no-constructor"><span class="toc-number"></span> <span class="toc-text"> classes that create no constructor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#set-is-special-and-we-will-use-a-hand-written-constructor"><span class="toc-number"></span> <span class="toc-text"> Set is special and we will use a hand-written constructor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#determining-whether-to-use-script-objectjs-object-to-control-the-lifecycle-of-nativecpp-object-or-the-other-way-around-supported-values-are-yes-or-no"><span class="toc-number"></span> <span class="toc-text"> Determining whether to use script object(js object) to control the lifecycle of native(cpp) object or the other way around. Supported values are &#39;yes&#39; or &#39;no&#39;.</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">说明内容：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%9F%E9%97%B4%E9%81%87%E5%88%B0%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-number"></span> <span class="toc-text">期间遇到的错误</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E4%B8%80"><span class="toc-number"></span> <span class="toc-text">错误一</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E4%BA%8C"><span class="toc-number"></span> <span class="toc-text">错误二</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1799-in-modulemainfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1795-in-maingeneratorgenerate_codefile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1444-in-generate_codeself_parse_headersfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1487-in-_parse_headersraise-exceptionfatal-error-in-parsing-headersexception-fatal-error-in-parsing-headers"><span class="toc-number"></span> <span class="toc-text"> File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;generator.py&quot;, line 1799, in &lt;module&gt;
+main()
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;generator.py&quot;, line 1795, in main
+generator.generate_code()
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;generator.py&quot;, line 1444, in generate_code
+self._parse_headers()
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;generator.py&quot;, line 1487, in _parse_headers
+raise Exception(&quot;Fatal error in parsing headers&quot;)
+Exception: Fatal error in parsing headers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#generating-lua-bindings-fails"><span class="toc-number"></span> <span class="toc-text"> Generating lua bindings fails.</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E4%B8%89"><span class="toc-number"></span> <span class="toc-text">错误三</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#traceback-most-recent-call-lastfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1799-in-modulemainfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1795-in-maingeneratorgenerate_codefile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1444-in-generate_codeself_parse_headersfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorgeneratorpy-line-1478-in-_parse_headerstu-selfindexparseheader-selfclang_argsfile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorclangcindexpy-line-2602-in-parseselffile-usersicocosdesktopcocos2dproductscocos2dx-demosingleluaframeworkscocos2d-xtoolsbindings-generatorclangcindexpy-line-2714-in-from_sourceraise-translationunitloaderrorerror-parsing-translation-unittranslationunitloaderror-error-parsing-translation-unit"><span class="toc-number"></span> <span class="toc-text"> Traceback (most recent call last):
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;generator.py&quot;, line 1799, in &lt;module&gt;
+main()
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;generator.py&quot;, line 1795, in main
+generator.generate_code()
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;generator.py&quot;, line 1444, in generate_code
+self._parse_headers()
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;generator.py&quot;, line 1478, in _parse_headers
+tu &#x3D; self.index.parse(header, self.clang_args)
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;clang&#x2F;cindex.py&quot;, line 2602, in parse
+self)
+File &quot;&#x2F;Users&#x2F;iCocos&#x2F;Desktop&#x2F;cocos2d&#x2F;Products&#x2F;cocos2dx-demo&#x2F;SingleLua&#x2F;frameworks&#x2F;cocos2d-x&#x2F;tools&#x2F;bindings-generator&#x2F;clang&#x2F;cindex.py&quot;, line 2714, in from_source
+raise TranslationUnitLoadError(&quot;Error parsing translation unit.&quot;)
+TranslationUnitLoadError: Error parsing translation unit.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#generating-lua-bindings-fails-2"><span class="toc-number"></span> <span class="toc-text"> Generating lua bindings fails.</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%9B%9B"><span class="toc-number"></span> <span class="toc-text">错误四</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E6%88%90%E5%8A%9F"><span class="toc-number"></span> <span class="toc-text">提示成功</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E6%8E%A8%E8%8D%90"><span class="toc-number"></span> <span class="toc-text">拓展推荐</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%87%B4%E8%B0%A2%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">致谢：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

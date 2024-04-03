@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua 闭包 环境 包管理 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Variables 访问一个不存在的全局变量得到nil 释放一个全局变量只需将其赋值为nil，效果与未定义该变量一样 Lua 中的变量全是全局变量，那怕是语句块或是函数里，除非用 local 显式声明为局部变量 局部变量比全局变量访问更快  Functions1. 基本特性 多参数&#x2F;返回值匹配：多余忽略，缺少用nil补足 可变参数：arg，table.pack，table.unpack 命名参数：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua 闭包 环境 包管理">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-114_Lua%20%E9%97%AD%E5%8C%85%20%E7%8E%AF%E5%A2%83%20%E5%8C%85%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="Variables 访问一个不存在的全局变量得到nil 释放一个全局变量只需将其赋值为nil，效果与未定义该变量一样 Lua 中的变量全是全局变量，那怕是语句块或是函数里，除非用 local 显式声明为局部变量 局部变量比全局变量访问更快  Functions1. 基本特性 多参数&#x2F;返回值匹配：多余忽略，缺少用nil补足 可变参数：arg，table.pack，table.unpack 命名参数：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:33.017Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:33.017Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-114_Lua%20%E9%97%AD%E5%8C%85%20%E7%8E%AF%E5%A2%83%20%E5%8C%85%E7%AE%A1%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua 闭包 环境 包管理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Lua 闭包 环境 包管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:33.017Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:33.017Z" title="更新于 2024-04-03 11:47:33">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Lua 闭包 环境 包管理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h2><ul>
+<li>访问一个不存在的全局变量得到nil</li>
+<li>释放一个全局变量只需将其赋值为nil，效果与未定义该变量一样</li>
+<li>Lua 中的变量全是全局变量，那怕是语句块或是函数里，除非用 local 显式声明为局部变量</li>
+<li>局部变量比全局变量访问更快</li>
+</ul>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><h3 id="1-基本特性"><a href="#1-基本特性" class="headerlink" title="1. 基本特性"></a>1. 基本特性</h3><ol>
+<li>多参数/返回值匹配：多余忽略，缺少用nil补足</li>
+<li>可变参数：arg，table.pack，table.unpack</li>
+<li>命名参数：参数的非顺序填充方式</li>
+<li>正确处理尾调用：Lua能够高效正确处理尾调用，而不会导致栈溢出</li>
+</ol>
+<h3 id="2-第一类函数"><a href="#2-第一类函数" class="headerlink" title="2. 第一类函数"></a>2. 第一类函数</h3><p>函数是第一类值，函数可以像其它值（string, number）样用于赋给变量，作为函数参数或返回值。函数定义实际上是一个赋值语句，将类型为function的变量赋给一个变量。</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>  <span class="params">(x)</span></span> <span class="keyword">return</span> <span class="number">2</span>*x <span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">foo.bar = <span class="function"><span class="keyword">function</span> <span class="params">(x)</span></span> <span class="keyword">return</span> <span class="number">2</span>*x <span class="keyword">end</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>从这个角度来看，自然，与变量一样，Lua有全局函数和局部函数之分。</p>
+<h3 id="3-词法闭包"><a href="#3-词法闭包" class="headerlink" title="3. 词法闭包"></a>3. 词法闭包</h3><p>词法闭包是指当在一个函数内部嵌套定义另一个函数时，内部函数体可以访问到外部函数的局部变量。</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newCounter</span><span class="params">()</span></span></span><br/><span class="line">    <span class="keyword">local</span> i = <span class="number">0</span></span><br/><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>     <span class="comment">-- anonymous function</span></span><br/><span class="line">        i = i + <span class="number">1</span></span><br/><span class="line">        <span class="keyword">return</span> i</span><br/><span class="line">    <span class="keyword">end</span></span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line">c1 = newCounter()</span><br/><span class="line"><span class="built_in">print</span>(c1())  <span class="comment">--&gt; 1</span></span><br/><span class="line"><span class="built_in">print</span>(c1())  <span class="comment">--&gt; 2</span></span><br/><span class="line">c2 = newCounter()</span><br/><span class="line"><span class="built_in">print</span>(c2())  <span class="comment">--&gt; 1</span></span><br/><span class="line"></span><br/><span class="line"><span class="comment">-- 打印c1所有的upvalue 输出: i</span></span><br/><span class="line"><span class="keyword">local</span> i=<span class="number">1</span></span><br/><span class="line"><span class="keyword">local</span> up = <span class="built_in">debug</span>.<span class="built_in">getupvalue</span>(c1, i)</span><br/><span class="line"><span class="keyword">while</span>(up ~= <span class="literal">nil</span>) <span class="keyword">do</span></span><br/><span class="line">    <span class="built_in">print</span>(up, <span class="string">&#34;  &#34;</span>)</span><br/><span class="line">    i = i+<span class="number">1</span></span><br/><span class="line">    up = <span class="built_in">debug</span>.<span class="built_in">getupvalue</span>(c1, i)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"><span class="built_in">print</span>(c1, c2) <span class="comment">-- function: 0x7f8df1d02100        function: 0x7f8df1d02160</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>这种情况下，我们称i为匿名函数的外部局部变量(external local variable)或upvalue。在这里，newCounter函数返回了一个闭包(closure)。闭包是指一个函数和它的upvalues，闭包机制保证了即使upvalue已经超出了其作用域(newCounter返回)，仍然能正确被闭包函数引用而不会释放(由Lua GC管理)。在上例中，我们说c1和c2是建立在同一个函数上，但作用于同一个局部变量(i)不同实例的两个不同的闭包。</p>
+<p>通过打印的upvalues可以看到，只有被闭包函数引用的外部局部变量，才算作该闭包函数的upvalue，Lua会按照闭包函数引用的顺序为upvalue编号，该编号与upvalue定义顺序无关。</p>
+<p>最后一点是，闭包函数都是动态生成的，这和<a target="_blank" rel="noopener" href="http://wudaijun.com/2016/09/go-basic/">Go中的闭包</a>有所不同，Go的闭包函数是在编译时生成的，不同的闭包可以共享闭包函数(同一个函数地址)。Lua的闭包函数动态生成会一定程度地影响运行效率和内存占用。</p>
+<p>Lua闭包除了用于高级函数，回调函数，迭代器等上下文环境中以外，在完全不同的上下文环境，可用于重定义或预定义函数，通过这种方法，可以为代码创建一个安全的执行环境(也叫沙箱，sandbox)。</p>
+<p>Lua还提供了对C闭包的支持，每当你在Lua中创建一个新的C函数，你可以将这个函数与任意多个upvalues联系起来，每一个upvalue 可以持有一个单独的Lua值。当函数被调用的时候，可以通过假索引(<code>lua_upvalueindex</code>)自由的访问任何一个upvalues。</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">counter</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">    <span class="keyword">double</span> val = lua_tonumber(L, lua_upvalueindex(<span class="number">1</span>));</span><br/><span class="line">    lua_pushnumber(L, ++val);   <span class="comment">/* new value */</span></span><br/><span class="line">    lua_pushvalue(L, <span class="number">-1</span>);       <span class="comment">/* duplicate it */</span></span><br/><span class="line">    lua_replace(L, lua_upvalueindex(<span class="number">1</span>));  <span class="comment">/* update upvalue */</span></span><br/><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;  <span class="comment">/* return new value */</span></span><br/><span class="line">}</span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">newCounter</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">    lua_pushnumber(L, <span class="number">0</span>);</span><br/><span class="line">    lua_pushcclosure(L, &amp;counter, <span class="number">1</span>);</span><br/><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<p>C闭包与Lua闭包在概念上很相似，但有两点不同：</p>
+<ol>
+<li>C函数的upvalues是显示push到栈中的，而Lua则可通过闭包函数引用确定哪些是upvalues</li>
+<li>C闭包不能共享upvalues，每个闭包在栈中都有独立的变量集，但你可以通过将upvalues指向同一个table来实现共享</li>
+</ol>
+<h2 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk"></a>Chunk</h2><p>Chunk是一系列语句，Lua执行的每一块语句，比如一个文件或者交互模式下的每一行都是一个Chunk。</p>
+<p>当我们执行loadfile(“test.lua”)时，便将test.lua的内容编译后的Chunk作为一个函数返回，如果出现编译错误，则返回nil和错误信息。而dofile相当于:</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dofile</span> <span class="params">(filename)</span></span></span><br/><span class="line">    <span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">loadfile</span>(filename))</span><br/><span class="line">    <span class="keyword">return</span> f()</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>loadstring和dostring的关系类似，只是接收字符串而不是文件名为参数。</p>
+<p>再看require，require和dofile完成同样的功能，但主要有几点不同：</p>
+<ol>
+<li>require会搜索Lua环境目录来加载文件</li>
+<li>require会判断文件是否已经加载而避免重复加载统一文件</li>
+<li>require可以用于加载C .so库，功能类似loadlib，参考<a target="_blank" rel="noopener" href="http://wudaijun.com/2014/12/lua-C/">这里</a></li>
+</ol>
+<p>一个lua模块编译后的Chunk被作为匿名函数被执行，那么定义于模块中函数对模块局部变量的引用就形成了闭包，所以说Lua中的闭包真是无处不在。</p>
+<h2 id="Enviroment"><a href="#Enviroment" class="headerlink" title="Enviroment"></a>Enviroment</h2><p>Lua中的环境用table来表示，这简化了环境处理也带来了不少灵活性。</p>
+<p>在Lua5.1及之前，Lua将环境本身存储在一个全局变量_G中，其中包含了全局变量，内置函数，内置模块等。我们在使用任何符号x时，如果在当前函数的局部变量和upvalues无法找到符号定义(PS: Lua查找变量定义的规则为：局部变量 -&gt; 外部局部变量(upvalue) -&gt; 全局变量)，则会返回_G.x的值。由于_G是一个table，因此我们可以用它实现一些有意思的功能：</p>
+<ol>
+<li>通过动态名字访问全局变量： <code>_G[varname]</code></li>
+<li>通过_G的metatable改变对未定义全局变量的读(<code>__index</code>)和写(<code>__newindex</code>)行为</li>
+<li>通过setfenv改变指定函数的_G环境，制造函数执行的沙盒环境</li>
+</ol>
+<p>现在再回头来看闭包，实际上，Lua闭包除了函数和upvalues，还包括函数环境，这三者组成了一个完整的执行沙盒。</p>
+<p>在Lua5.2及之后，Lua取消了setfenv函数，用_ENV方案替代了_G方案：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/></pre></td><td class="code"><pre><span class="line"><span class="comment">-- before Lua 5.1</span></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span></span></span><br/><span class="line">  <span class="built_in">setfenv</span>(<span class="number">1</span>, {})</span><br/><span class="line">  <span class="comment">-- code here</span></span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="comment">-- after Lua 5.2</span></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span></span></span><br/><span class="line">  <span class="keyword">local</span> <span class="built_in">_ENV</span> = {}</span><br/><span class="line">  <span class="comment">-- code here</span></span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"><span class="keyword">or</span></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span></span></span><br/><span class="line">    <span class="keyword">local</span> <span class="built_in">_ENV</span> = {}</span><br/><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span> ... <span class="keyword">end</span></span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>_ENV有三个特性：</p>
+<ol>
+<li>对全局变量x的引用，将转换为_ENV.x</li>
+<li>每个编译后的Chunk，都有一个_ENV upvalue(哪怕并未使用)，作为Chunk环境，并作用于其内定义的函数</li>
+<li>在初始化时，_ENV=_G</li>
+</ol>
+<p>除了以上三点外，_ENV和普通变量并无区别。因此我们可以直接通过<code>local _ENV = &#123;&#125;</code>来覆盖接下来的代码的环境。将环境(_ENV)作为一个普通的upvalue来处理，这样做的好处是简化了闭包的概念，闭包等于函数加upvalues(没有了全局变量_G)，为闭包优化(如合并相同upvalues的闭包)提供更好的支持，同时也减少了<code>setfenv(f, env)</code>带来的不确定性和不安全性(函数的_ENV upvalue在闭包返回时就已经确定了)。</p>
+<p>有_ENV还是一个table，因此对全局变量的访问控制等trick，仍然很容易实现。Lua目前仍然保留_G，但理解它们的别是比较重要的：</p>
+<p>我们都知道Lua有一个全局注册表(Registry)，其中包含整个Lua虚拟机的信息，在Registry的<code>LUA_RIDX_GLOBALS</code>索引中，保存了Globals(也就是_G)，在创建Globals时，会生成<code>_G._G=_G</code>的自引用。在引入_ENV后，初始时，<code>_ENV=_G</code>，一旦编译器将_ENV放入Chunk的upvalue后，_ENV将作为普通upvalue被看待，因此我们可以对其重新赋值：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/></pre></td><td class="code"><pre><span class="line">i = <span class="number">1</span> <span class="comment">-- 此时 _ENV.i == _G.i == 1</span></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span></span></span><br/><span class="line">    <span class="keyword">local</span> <span class="built_in">_ENV</span>={i=<span class="number">2</span>, <span class="built_in">print</span>=<span class="built_in">print</span>, <span class="built_in">_G</span>=<span class="built_in">_G</span>}</span><br/><span class="line">    <span class="built_in">print</span>(i, <span class="built_in">_ENV</span>.i, <span class="built_in">_G</span>.i)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">g</span><span class="params">()</span></span></span><br/><span class="line">    <span class="built_in">print</span>(i, <span class="built_in">_ENV</span>.i, <span class="built_in">_G</span>.i)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">f() <span class="comment">-- 2 2 1</span></span><br/><span class="line">g() <span class="comment">-- 1 1 1</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>因此，_ENV除了在创建时和_G都指向Registry[LUA_RIDX_GLOBALS]之外，和_G并没有直接联系(<code>_G=&#123;&#125;</code>不会影响函数环境，<code>_G.x=1</code>仍然会影响注册表中的Globals)，Lua5.2及之后的环境都由_ENV指定，_G出于历史原因保留，但实际上Lua并不在内部再使用：</p>
+<blockquote>
+<p>Lua keeps a distinguished environment called the global environment. This value is kept at a special index in the C registry (see §4.5). In Lua, the global variable _G is initialized with this same value. (_G is never used internally.)</p>
+</blockquote>
+<ul>
+<li>参考<a href="http://lua-users.org/lists/lua-l/2014-08/msg00345.html" target="_blank" rel="noopener noreferrer">_ENV vs _G</a>，<a href="http://stackoverflow.com/questions/14290527/recreating-setfenv-in-lua-5-2" target="_blank" rel="noopener noreferrer">setfenv in Lua5.2</a></li>
+</ul>
+<h2 id="Packages"><a href="#Packages" class="headerlink" title="Packages"></a>Packages</h2><p>在Lua中，有闭包，灵活的table和环境管理，想要实现包管理有非常多的方法：</p>
+<h3 id="1-基本方法"><a href="#1-基本方法" class="headerlink" title="1. 基本方法"></a>1. 基本方法</h3><p>最简单的方法就是直接使用table和第一类函数特性：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/></pre></td><td class="code"><pre><span class="line">complex = {}</span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">complex.new</span><span class="params">(r,i)</span></span> ... <span class="keyword">end</span></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">complex.add</span><span class="params">(c1,c2)</span></span> ... <span class="keyword">end</span></span><br/><span class="line">...</span><br/><span class="line"><span class="keyword">return</span> complex</span><br/></pre></td></tr></tbody></table></figure>
+<p>执行这个Chunk后，便可以通过<code>complex.xxx()</code>使用complex中定义的API了。这种方案主要的缺点是包内包外的调用都必须加上前缀，并且不能很好地隐藏私有成员。</p>
+<h3 id="2-局部函数"><a href="#2-局部函数" class="headerlink" title="2. 局部函数"></a>2. 局部函数</h3><p>通过局部函数再导出的方式，我们可以解决包内调用前缀和隐藏私有成员(不导出即可)的问题。<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">new</span><span class="params">(r,i)</span></span> ... <span class="keyword">end</span></span><br/><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(c1,c2)</span></span> ... <span class="keyword">end</span></span><br/><span class="line">...</span><br/><span class="line">complex = {new = new, add = add}</span><br/><span class="line"><span class="keyword">return</span> complex</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>但这样容易忘了local，造成全局命名空间污染。</p>
+<h3 id="3-独立环境"><a href="#3-独立环境" class="headerlink" title="3. 独立环境"></a>3. 独立环境</h3><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/></pre></td><td class="code"><pre><span class="line">complex = {}</span><br/><span class="line"><span class="comment">-- before Lua5.1: setfenv(1, complex)</span></span><br/><span class="line"><span class="keyword">local</span> <span class="built_in">_ENV</span> = complex</span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new</span><span class="params">(r,  i)</span></span> ... <span class="keyword">end</span></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new</span><span class="params">(c1, c2)</span></span> ... <span class="keyword">end</span></span><br/><span class="line"><span class="keyword">return</span> complex</span><br/></pre></td></tr></tbody></table></figure>
+<p>现在，包内所有全局符号new, add都会被转换为complex.new, complex.add，并且我们为包创建了一个独立沙盒环境，如果要在包内访问全局符号，也有多种方法:</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 方案1: 保存老的全局环境 之后访问全局符号需要加上 _G.前缀</span></span><br/><span class="line"><span class="keyword">local</span> <span class="built_in">_G</span> = <span class="built_in">_G</span></span><br/><span class="line"><span class="comment">-- 方案2: 通过metatable 效率低一些，并且外部可通过complex.print访问_G.print</span></span><br/><span class="line"><span class="built_in">setmetatable</span>(complex, {<span class="built_in">__index</span> = <span class="built_in">_G</span>})</span><br/><span class="line"><span class="comment">-- 方案3: 只导出要使用的函数 这种方法隔离型更好，并且更快</span></span><br/><span class="line"><span class="keyword">local</span> <span class="built_in">sqrt</span> = <span class="built_in">math</span>.<span class="built_in">sqrt</span></span><br/><span class="line"><span class="keyword">local</span> <span class="built_in">print</span> = <span class="built_in">print</span></span><br/></pre></td></tr></tbody></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-114_Lua%20%E9%97%AD%E5%8C%85%20%E7%8E%AF%E5%A2%83%20%E5%8C%85%E7%AE%A1%E7%90%86/">https://lua.ren/zl/2016-01-01-114_Lua%20%E9%97%AD%E5%8C%85%20%E7%8E%AF%E5%A2%83%20%E5%8C%85%E7%AE%A1%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-1155_evaluate%20flux%20in%20real%20work%20and%20proposal%20for%20next%20s/" title="evaluate flux in real work and proposal for next step"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">evaluate flux in real work and proposal for next step</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-1150_luarocks%20quickstart/" title="luarocks quickstart"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">luarocks quickstart</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Variables"><span class="toc-number">1.</span> <span class="toc-text">Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Functions"><span class="toc-number">2.</span> <span class="toc-text">Functions</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E7%89%B9%E6%80%A7"><span class="toc-number">2.1.</span> <span class="toc-text">1. 基本特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%AC%AC%E4%B8%80%E7%B1%BB%E5%87%BD%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">2. 第一类函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%8D%E6%B3%95%E9%97%AD%E5%8C%85"><span class="toc-number">2.3.</span> <span class="toc-text">3. 词法闭包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunk"><span class="toc-number">3.</span> <span class="toc-text">Chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enviroment"><span class="toc-number">4.</span> <span class="toc-text">Enviroment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Packages"><span class="toc-number">5.</span> <span class="toc-text">Packages</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95"><span class="toc-number">5.1.</span> <span class="toc-text">1. 基本方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B1%80%E9%83%A8%E5%87%BD%E6%95%B0"><span class="toc-number">5.2.</span> <span class="toc-text">2. 局部函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%8B%AC%E7%AB%8B%E7%8E%AF%E5%A2%83"><span class="toc-number">5.3.</span> <span class="toc-text">3. 独立环境</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

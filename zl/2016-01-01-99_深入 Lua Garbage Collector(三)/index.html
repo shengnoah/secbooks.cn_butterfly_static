@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>深入 Lua Garbage Collector(三) | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lua 源码阅读的源码来自 lua-5.3.0 GC对象在 Lua 中，一共只有 9 种数据类型：  nil  boolean  lightuserdata  number  string  table   function   userdata   thread    其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回收">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入 Lua Garbage Collector(三)">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="Lua 源码阅读的源码来自 lua-5.3.0 GC对象在 Lua 中，一共只有 9 种数据类型：  nil  boolean  lightuserdata  number  string  table   function   userdata   thread    其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回收">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:36.244Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:36.244Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深入 Lua Garbage Collector(三)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">深入 Lua Garbage Collector(三)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:36.244Z" title="更新于 2024-04-03 11:47:36">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深入 Lua Garbage Collector(三)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>
+</p><h2 id="Lua-源码"><a href="#Lua-源码" class="headerlink" title="Lua 源码"></a>Lua 源码</h2><p>阅读的源码来自 <strong>lua-5.3.0</strong></p>
+<h3 id="GC对象"><a href="#GC对象" class="headerlink" title="GC对象"></a>GC对象</h3><p>在 Lua 中，一共只有 9 种数据类型：</p>
+<ul>
+<li>nil </li>
+<li>boolean </li>
+<li>lightuserdata </li>
+<li>number </li>
+<li>string </li>
+<li>table  </li>
+<li>function  </li>
+<li>userdata  </li>
+<li>thread </li>
+</ul>
+<blockquote>
+<p>其中，只有 <strong>string table function thread</strong> 四种在 <strong>vm</strong> 中以引用方式共享，是需要被 <strong>GC</strong> 管理回收的对象。其它类型都以值形式存在。</p>
+<p>但在 <strong>Lua</strong> 的实现中，还有两种类型的对象需要被 <strong>GC</strong> 管理。分别是 <strong>proto</strong> （可以看作未绑定 upvalue 的函数）， <strong>upvalue</strong> （多个 upvalue 会引用同一个值）。</p>
+</blockquote>
+<h3 id="保存值的形式"><a href="#保存值的形式" class="headerlink" title="保存值的形式"></a>保存值的形式</h3><p>Lua 是以 union + type 的形式保存值</p>
+<p>在lobject.h中<br/>96行<br/></p><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">** Union of all Lua values</div><div class="line">*/</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> Value Value;</div></pre></td></tr></tbody></table></figure><p></p>
+<hr/>
+<p>101-108行:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">*</div><div class="line">** Tagged Values. This is the basic representation of values in Lua,</div><div class="line">** an actual value plus a tag with its type.</div><div class="line">*/</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> lua_TValue TValue;</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<p>279-286行:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">union</span> Value {</div><div class="line">  GCObject *gc;    <span class="comment">/* collectable objects */</span></div><div class="line">  <span class="keyword">void</span> *p;         <span class="comment">/* light userdata */</span></div><div class="line">  <span class="keyword">int</span> b;           <span class="comment">/* booleans */</span></div><div class="line">  lua_CFunction f; <span class="comment">/* light C functions */</span></div><div class="line">  lua_Integer i;   <span class="comment">/* integer numbers */</span></div><div class="line">  lua_Number n;    <span class="comment">/* float numbers */</span></div><div class="line">};</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<p>我们可以看到，Value 以 union 方式定义。如果是需要被 GC 管理的对象，就以 GCObject 指针形式保存，否则直接存值。在代码的其它部分，并不直接使用 Value 类型，而是 TValue 类型。它比 Value 多了一个类型标识。用 int tt 记录。通常的系统中，每个 TValue 长为 12 字节。</p>
+<p>这里作者也有提到在 32 位系统下，为何不用某种 trick 把 type 压缩到前 8 字节内<br/>具体考虑到的是可移植性的原因：</p>
+<blockquote>
+<p>Several dynamically-typed languages (e.g., the original implementa-<br/>tion of Smalltalk80 [9]) use spare bits in each pointer to store the value’s type tag. This trick works in most machines because, due to alignment, the last two or three bits of a pointer are always zero, and therefore can be used for other purposes. However, this technique is neither portable nor implementable in ANSI C.<br/>The C standard does not even ensures that a pointer ts in any integral type<br/>and so there is no standard way to perform bit manipulation over pointers.</p>
+</blockquote>
+<h3 id="GCObject"><a href="#GCObject" class="headerlink" title="GCObject"></a>GCObject</h3><p>所有的 <strong>GCObject</strong> 都有一个相同的数据头，叫作 <strong>CommonHeader</strong> 。</p>
+<p>在lobject.h里81行我们可以找到它的定义。使用宏定义的目的是为了能够包含在其他的object中。C 语言不支持结构的继承。</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">** Common Header for all collectable objects (in macro form, to be</div><div class="line">** included in other objects)</div><div class="line">*/</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> CommonHeader    GCObject *next; lu_byte tt; lu_byte marked</span></div></pre></td></tr></tbody></table></figure>
+<hr/>
+<blockquote>
+<p>从这里我们可以看到：所有的 GCObject 都用一个单向链表串了起来。每个对象都以 tt 来识别其类型。marked 域用于标记清除的工作。</p>
+<p>标记清除算法是一种简单的 GC 算法。每次 GC 过程，先以若干根节点开始，逐个把直接以及间接和它们相关的节点都做上标记。对于 Lua ，这个过程很容易实现。因为所有 GObject 都在同一个链表上，当标记完成后，遍历这个链表，把未被标记的节点一一删除即可。</p>
+<p>实际上，Lua不只用一条链表来保存所有的 GCObject 。这是因为我们要清除的string table function thread中的 string 类型有其特殊性。所有的 string 放在一张大的 hash 表中。它需要保证系统中不会有值相同的 string 被创建两份。所以 string 是被单独管理的，而不串在 GCObject 的链表中。</p>
+</blockquote>
+<h3 id="lua-State"><a href="#lua-State" class="headerlink" title="lua_State"></a>lua_State</h3><p>lua_State 是 Lua 虚拟机的外在数据形式，取名 State 意为 Lua虚拟机 的当前状态。全局 State 引用了整个虚拟机的所有数据。而虚拟机的运转恰恰是 Lua 的核心部分。这个全局 State 定义在 lstate.h 中149-172行：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">** &#39;per thread&#39; state</div><div class="line">*/</div><div class="line"><span class="keyword">struct</span> lua_State {</div><div class="line">  CommonHeader;</div><div class="line">  lu_byte status;</div><div class="line">  StkId top;  <span class="comment">/* first free slot in the stack */</span></div><div class="line">  global_State *l_G;</div><div class="line">  CallInfo *ci;  <span class="comment">/* call info for current function */</span></div><div class="line">  <span class="keyword">const</span> Instruction *oldpc;  <span class="comment">/* last pc traced */</span></div><div class="line">  StkId stack_last;  <span class="comment">/* last free slot in the stack */</span></div><div class="line">  StkId <span class="built_in">stack</span>;  <span class="comment">/* stack base */</span></div><div class="line">  UpVal *openupval;  <span class="comment">/* list of open upvalues in this stack */</span></div><div class="line">  GCObject *gclist;</div><div class="line">  <span class="keyword">struct</span> lua_State *twups;  <span class="comment">/* list of threads with open upvalues */</span></div><div class="line">  <span class="keyword">struct</span> lua_longjmp *errorJmp;  <span class="comment">/* current error recover point */</span></div><div class="line">  CallInfo base_ci;  <span class="comment">/* CallInfo for first level (C calling Lua) */</span></div><div class="line">  lua_Hook hook;</div><div class="line">  <span class="keyword">ptrdiff_t</span> errfunc;  <span class="comment">/* current error handling function (stack index) */</span></div><div class="line">  <span class="keyword">int</span> stacksize;</div><div class="line">  <span class="keyword">int</span> basehookcount;</div><div class="line">  <span class="keyword">int</span> hookcount;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> nny;  <span class="comment">/* number of non-yieldable calls in stack */</span></div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> nCcalls;  <span class="comment">/* number of nested C calls */</span></div><div class="line">  lu_byte hookmask;</div><div class="line">  lu_byte allowhook;</div><div class="line">};</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<blockquote>
+<p>一个完整的 lua 虚拟机在运行时，可有多个 lua_State ，即多个 thread 。它们会共享一些数据。这些数据放在 <strong> global_State *l_G </strong> 域中。其中自然也包括所有 GCobject 的链表。</p>
+</blockquote>
+<p>lstate.h 105行:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">** &#39;global state&#39;, shared by all threads of this state</div><div class="line">*/</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> global_State {</div><div class="line">  lua_Alloc frealloc;  <span class="comment">/* function to reallocate memory */</span></div><div class="line">  <span class="keyword">void</span> *ud;         <span class="comment">/* auxiliary data to &#39;frealloc&#39; */</span></div><div class="line">  lu_mem totalbytes;  <span class="comment">/* number of bytes currently allocated - GCdebt */</span></div><div class="line">  l_mem GCdebt;  <span class="comment">/* bytes allocated not yet compensated by the collector */</span></div><div class="line">  lu_mem GCmemtrav;  <span class="comment">/* memory traversed by the GC */</span></div><div class="line">  lu_mem GCestimate;  <span class="comment">/* an estimate of the non-garbage memory in use */</span></div><div class="line">  stringtable strt;  <span class="comment">/* hash table for strings */</span></div><div class="line">  TValue l_registry;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> seed;  <span class="comment">/* randomized seed for hashes */</span></div><div class="line">  lu_byte currentwhite;</div><div class="line">  lu_byte gcstate;  <span class="comment">/* state of garbage collector */</span></div><div class="line">  lu_byte gckind;  <span class="comment">/* kind of GC running */</span></div><div class="line">  lu_byte gcrunning;  <span class="comment">/* true if GC is running */</span></div><div class="line">  GCObject *allgc;  <span class="comment">/* list of all collectable objects */</span></div><div class="line">  GCObject **sweepgc;  <span class="comment">/* current position of sweep in list */</span></div><div class="line">  GCObject *finobj;  <span class="comment">/* list of collectable objects with finalizers */</span></div><div class="line">  GCObject *gray;  <span class="comment">/* list of gray objects */</span></div><div class="line">  GCObject *grayagain;  <span class="comment">/* list of objects to be traversed atomically */</span></div><div class="line">  GCObject *weak;  <span class="comment">/* list of tables with weak values */</span></div><div class="line">  GCObject *ephemeron;  <span class="comment">/* list of ephemeron tables (weak keys) */</span></div><div class="line">  GCObject *allweak;  <span class="comment">/* list of all-weak tables */</span></div><div class="line">  GCObject *tobefnz;  <span class="comment">/* list of userdata to be GC */</span></div><div class="line">  GCObject *fixedgc;  <span class="comment">/* list of objects not to be collected */</span></div><div class="line">  <span class="keyword">struct</span> lua_State *twups;  <span class="comment">/* list of threads with open upvalues */</span></div><div class="line">  Mbuffer buff;  <span class="comment">/* temporary buffer for string concatenation */</span></div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> gcfinnum;  <span class="comment">/* number of finalizers to call in each GC step */</span></div><div class="line">  <span class="keyword">int</span> gcpause;  <span class="comment">/* size of pause between successive GCs */</span></div><div class="line">  <span class="keyword">int</span> gcstepmul;  <span class="comment">/* GC &#39;granularity&#39; */</span></div><div class="line">  lua_CFunction panic;  <span class="comment">/* to be called in unprotected errors */</span></div><div class="line">  <span class="keyword">struct</span> lua_State *mainthread;</div><div class="line">  <span class="keyword">const</span> lua_Number *version;  <span class="comment">/* pointer to version number */</span></div><div class="line">  TString *memerrmsg;  <span class="comment">/* memory-error message */</span></div><div class="line">  TString *tmname[TM_N];  <span class="comment">/* array with tag-method names */</span></div><div class="line">  <span class="keyword">struct</span> Table *mt[LUA_NUMTAGS];  <span class="comment">/* metatables for basic types */</span></div><div class="line">} global_State;</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<h3 id="allgc"><a href="#allgc" class="headerlink" title="allgc"></a>allgc</h3><blockquote>
+<p>所有的 string 则以 stringtable 结构保存在 stringtable strt 域。string 的值类型为 TString ，它和其它 GCObject 一样，拥有 CommonHeader 。但需要注意，CommonHeader 中的 next 域却和其它类型的单向链表意义不同。它被挂接在 stringtable 这个 hash 表中。</p>
+<p>除 string 外的 GCObject 链表头放在 allgc 域中</p>
+</blockquote>
+<p>在  lstate.h 122 行:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GCObject *allgc;  <span class="comment">/* list of all collectable objects */</span></div></pre></td></tr></tbody></table></figure>
+<hr/>
+<p>初始化时，这个域被初始化为主线程。见 lstate.c 253 行，lua_newthread 函数中:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* link it on list &#39;allgc&#39; */</span></div><div class="line">L1-&gt;next = g-&gt;allgc;</div><div class="line">g-&gt;allgc = obj2gco(L1);</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<h3 id="link函数"><a href="#link函数" class="headerlink" title="link函数"></a>link函数</h3><p>每当一个新的 GCobject 被创建出来，都会被挂接到这个链表上，link函数主要是：</p>
+<p>lgc.c 145-206行:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span>  <span class="params">(lua_State *L, GCObject *o, GCObject *v)</span> </span>{</div><div class="line">  global_State *g = G(L);</div><div class="line">  lua_assert(isblack(o) &amp;&amp; iswhite(v) &amp;&amp; !isdead(g, v) &amp;&amp; !isdead(g, o));</div><div class="line">  <span class="keyword">if</span> (keepinvariant(g))  <span class="comment">/* must keep invariant? */</span></div><div class="line">    reallymarkobject(g, v);  <span class="comment">/* restore invariant */</span></div><div class="line">  <span class="keyword">else</span> {  <span class="comment">/* sweep phase */</span></div><div class="line">    lua_assert(issweepphase(g));</div><div class="line">    makewhite(g, o);  <span class="comment">/* mark main obj. as white to avoid other barriers */</span></div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">luaC_upvalbarrier_</span> <span class="params">(lua_State *L, UpVal *uv)</span> </span>{</div><div class="line">  global_State *g = G(L);</div><div class="line">  GCObject *o = gcvalue(uv-&gt;v);</div><div class="line">  lua_assert(!upisopen(uv));  <span class="comment">/* ensured by macro luaC_upvalbarrier */</span></div><div class="line">  <span class="keyword">if</span> (keepinvariant(g))</div><div class="line">    markobject(g, o);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="function">GCObject *<span class="title">luaC_newobj</span> <span class="params">(lua_State *L, <span class="keyword">int</span> tt, <span class="keyword">size_t</span> sz)</span> </span>{</div><div class="line">  global_State *g = G(L);</div><div class="line">  GCObject *o = cast(GCObject *, luaM_newobject(L, novariant(tt), sz));</div><div class="line">  o-&gt;marked = luaC_white(g);</div><div class="line">  o-&gt;tt = tt;</div><div class="line">  o-&gt;next = g-&gt;allgc;</div><div class="line">  g-&gt;allgc = o;</div><div class="line">  <span class="keyword">return</span> o;</div><div class="line">}</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<blockquote>
+<p>upvalue 在 C 中类型为 UpVal ，也是一个 GCObject 。但这里被特殊处理。为什么会这样？因为 Lua 的 GC可以分步扫描。别的类型被新创建时，都可以直接作为一个白色节点（新节点）挂接在整个系统中。但 upvalue 却是对已有的对象的间接引用，不是新数据。一旦 GC 在 mark 的过程中（ gc 状态为 GCSpropagate ），则需增加屏障 luaC_barrier 。对于这个问题，会在以后详细展开。</p>
+</blockquote>
+<h3 id="userdata"><a href="#userdata" class="headerlink" title="userdata"></a>userdata</h3><p>lua 还有另一种数据类型创建时的挂接过程也被特殊处理。那就是 userdata 。</p>
+<p>见 lstring.c 的 170 行: </p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function">Udata *<span class="title">luaS_newudata</span> <span class="params">(lua_State *L, <span class="keyword">size_t</span> s)</span> </span>{</div><div class="line">  Udata *u;</div><div class="line">  GCObject *o;</div><div class="line">  <span class="keyword">if</span> (s &gt; MAX_SIZE - <span class="keyword">sizeof</span>(Udata))</div><div class="line">    luaM_toobig(L);</div><div class="line">  o = luaC_newobj(L, LUA_TUSERDATA, sizeludata(s));</div><div class="line">  u = gco2u(o);</div><div class="line">  u-&gt;len = s;</div><div class="line">  u-&gt;metatable = <span class="literal">NULL</span>;</div><div class="line">  setuservalue(L, u, luaO_nilobject);</div><div class="line">  <span class="keyword">return</span> u;</div><div class="line">}</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<p>这里调用 luaC_newobj 来挂接新的 Udata 对象，但是把所有 userdata 全部挂接在其它类型之后</p>
+<blockquote>
+<p>这样做的原因是:</p>
+</blockquote>
+<p>所有 userdata 都可能有 gc 方法（其它类型则没有）。需要统一去调用这些 gc 方面，则应该有一个途径来单独遍历所有的 userdata 。除此之外，userdata 和其它 GCObject 的处理方式则没有区别，故依旧挂接在整个 GCObject 链表上而不需要单独再分出一个链表。</p>
+<p>处理 userdata 的流程见 lgc.c 的 860 行:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">** move all unreachable objects (or &#39;all&#39; objects) that need</div><div class="line">** finalization from list &#39;finobj&#39; to list &#39;tobefnz&#39; (to be finalized)</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">separatetobefnz</span> <span class="params">(global_State *g, <span class="keyword">int</span> all)</span> </span>{</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<p>这个函数会把所有带有 gc 方法的 userdata 挑出来，放到一个循环链表中。在Lua5.3中，这个循环链表在 global_State 的 tobefnz 域。需要调用 gc 方法的这些 userdata 在当个 gc 循环是不能被直接清除的。所以在 mark 环节的最后，会被重新 mark 为不可清除节点。</p>
+<p>见 lgc.c 的 285 行:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">** mark all objects in list of being-finalized</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">markbeingfnz</span> <span class="params">(global_State *g)</span> </span>{</div><div class="line">  GCObject *o;</div><div class="line">  <span class="keyword">for</span> (o = g-&gt;tobefnz; o != <span class="literal">NULL</span>; o = o-&gt;next)</div><div class="line">    markobject(g, o);</div><div class="line">}</div></pre></td></tr></tbody></table></figure>
+<hr/>
+<p>这样，可以保证在调用 gc 方法环节，这些对象的内存都没有被释放。但因为这些对象被设置了 finalized 标记。（通过 markfinalized ），下一次 gc 过程不会进入 tmudata 链表，将会被正确清理。</p>
+<p>具体 userdata 的清理流程，会在后面展开解释。</p>
+<hr/>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.codingnow.com/2011/03/lua_gc_1.html" target="_blank" rel="external noopener noreferrer">云风的 BLOG</a></p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/">https://lua.ren/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Evaluating Polynomials</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lua-%E6%BA%90%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">Lua 源码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GC%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.</span> <span class="toc-text">GC对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E5%80%BC%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">保存值的形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GCObject"><span class="toc-number">1.3.</span> <span class="toc-text">GCObject</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lua-State"><span class="toc-number">1.4.</span> <span class="toc-text">lua_State</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#allgc"><span class="toc-number">1.5.</span> <span class="toc-text">allgc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#link%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.</span> <span class="toc-text">link函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#userdata"><span class="toc-number">1.7.</span> <span class="toc-text">userdata</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

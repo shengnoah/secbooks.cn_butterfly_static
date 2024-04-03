@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>PIL.17Lua中的模块与包 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="通常，Lua并不设置什么规则，而是提供足够的方法给开发者来实现最适合他们自己的规则。然而，这些方法对于模块来说工作得并不好。模块系统的一个重要目的就是允许不同的团队共享代码。通用规则的缺乏阻碍了这个共享的实现。 从 5.1 开始，Lua就定义了一系列关于模块和包的规则（一个包就是很多模块的集合）。这些规则并不需要从语言获得额外的设置；程序员可以用我们已经见到的东西来实现它。程序员可以自由使用不同的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PIL.17Lua中的模块与包">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-400_PIL.17Lua%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="通常，Lua并不设置什么规则，而是提供足够的方法给开发者来实现最适合他们自己的规则。然而，这些方法对于模块来说工作得并不好。模块系统的一个重要目的就是允许不同的团队共享代码。通用规则的缺乏阻碍了这个共享的实现。 从 5.1 开始，Lua就定义了一系列关于模块和包的规则（一个包就是很多模块的集合）。这些规则并不需要从语言获得额外的设置；程序员可以用我们已经见到的东西来实现它。程序员可以自由使用不同的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.691Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.692Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-400_PIL.17Lua%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PIL.17Lua中的模块与包',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">PIL.17Lua中的模块与包</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.691Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.692Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PIL.17Lua中的模块与包"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>通常，Lua并不设置什么规则，而是提供足够的方法给开发者来实现最适合他们自己的规则。然而，这些方法对于模块来说工作得并不好。模块系统的一个重要目的就是允许不同的团队共享代码。通用规则的缺乏阻碍了这个共享的实现。</p>
+<p>从 5.1 开始，Lua就定义了一系列关于模块和包的规则（一个包就是很多模块的集合）。这些规则并不需要从语言获得额外的设置；程序员可以用我们已经见到的东西来实现它。程序员可以自由使用不同的规则。当然，有些实现可能会使程序无法使用外部的模块，或者外部的程序不能使用它。</p>
+<p>从用户的角度看，<em>模块</em>就是 能通过 <code>require</code>加载，然后创建并返回一个表 的代码（用C或者Lua写的）。模块导出的所有东西，比如函数和常量，都定义在表内，这个表工作类似一个命名空间。</p>
+<p>来看个例子，所有的标准库都是模块。我们可以像下面这样使用数学库：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> <span class="string">&#34;math&#34;</span></span><br/><span class="line"><span class="built_in">print</span>(m.<span class="built_in">sin</span>(<span class="number">3.14</span>)) </span><br/></pre></td></tr></tbody></table></figure>
+<p>然而，发行版内的解释器预加载了所有的标准库，代码与下相等：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">math</span> = <span class="built_in">require</span> <span class="string">&#34;math&#34;</span></span><br/><span class="line"><span class="built_in">string</span> = <span class="built_in">require</span> <span class="string">&#34;string&#34;</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>这个预加载允许我们写一些常用的函数而不用自己去加载 那些库。</p>
+<p>用表来实现模块的一个非常明显的好处就是，我们可以向操纵其他表一样操作模块，并能利用Lua全部的能力来建立额外的特性。在大部分语言中，模块并不是第一类的值（这就是说，他们不能存储在变量中，或者作为参数传递给函数 等等）；要为模块提供一些额外的特性时，这样的语言需要一些特别的方法。在LUa我们可以自由活动额外的特性。</p>
+<p>具体点说，用户有好几种方法可以从一个模块调用函数。常用的方法是：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">mod</span> = <span class="built_in">require</span> <span class="string">&#34;mod&#34;</span></span><br/><span class="line"><span class="built_in">mod</span>.foo()</span><br/></pre></td></tr></tbody></table></figure>
+<p>我们也可以为模块设置一个局部的名字：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> <span class="string">&#34;mod&#34;</span></span><br/><span class="line">m.foo()</span><br/></pre></td></tr></tbody></table></figure>
+<p>同时，还可以为单独的函数提供名字：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> <span class="string">&#34;mod&#34;</span></span><br/><span class="line"><span class="keyword">local</span> f = m.foo</span><br/><span class="line">f()</span><br/></pre></td></tr></tbody></table></figure>
+<p>还可以只导入一个特定的函数：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> f = <span class="built_in">require</span> <span class="string">&#34;mod&#34;</span>.foo <span class="comment">-- (require(&#34;mod&#34;)).foo</span></span><br/><span class="line">f()</span><br/></pre></td></tr></tbody></table></figure>
+<p>这些使用方法是Lua已经提供的，不需要什么额外的工作来支持。</p>
+<p>抛开<code>require</code>函数在整个模块实现中的重要角色不提，它其实只是一个普通的函数，没有什么特权。要加载一个模块，我们简单的以一个参数调用它，也就是模块的名字。记住，当给函数的参数是一个 字符串，括号是可选的，通常我们会省略它。下面的用法是正确的：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> (<span class="string">&#39;math&#39;</span>)</span><br/><span class="line"><span class="keyword">local</span> modname = <span class="string">&#39;math&#39;</span></span><br/><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span>(modname)</span><br/></pre></td></tr></tbody></table></figure>
+<p>函数<code>require</code>试图对一个模块是什么做最小的假设。对它来说，一个模块只是一些定义了几个值（函数或包含函数的表）的代码。典型的，这些代码会返回一个由模块函数组成的表。然而，因为这个动作是由模块代码完成的，而不是通过 <code>require</code>，某些模块可能会选择返回其他值或者，设置会有一些副作用（如建立了全局变量）。</p>
+<p><code>require</code>的第一步是检查表 <code>package.loaded</code>，确定这个模块是否已经加载。如果加载，就返回对应的值。因此，一旦一个模块加载后，其他调用加载这个模块只会简单的返回同样的值，而不会再次运行模块代码。</p>
+<p>如果模块没有加载，<code>require</code>会以模块名字搜索一个文件。（这个搜索被变量<code>package.path</code>来引导，我们在后面会讨论）如果找到这样一个文件，就会使用 <code>loadfile</code>来加载。结果就是我们叫做 <em>loader</em> 的函数。（loader在调用的时候会加载模块）</p>
+<p>如果<code>require</code>不能找到对应的Lua文件，就会以那个名字搜索一个C库（这时，搜索通过变量<code>package.cpath</code>来引导）。如果找到一个C库，则会以底层函数 <code>package.loadlib</code>来加载，寻找一个叫做 <code>luaopen_模块名</code> 的函数。在这样的情况下，loader是 <code>loadlib</code>的结果。<code>luaopen_模块名</code>是个C函数，但表现得就像一个Lua函数。</p>
+<p>不要关心这个模块是Lua文件还是C库，<code>require</code>现在有了一个加载器。为了最终加载这个模块，<code>require</code>以两个参数调用加载器(loader）：模块名，找到的加载器名字。（多数模块会忽略这些参数）。如果加载器返回了什么值，<code>require</code>返回这些值并把他们保存在 <code>package.loaded</code>表中，将来再加载这个模块的时候会返回这个值。如果加载器没有返回任何值，表项<code>package.loaded[@rep&#123;modname&#125;]</code>仍然是空的，<code>require</code>表现得就像这个模块返回了 <strong>true</strong> 。没有这个修正的话，接下来调用 <code>require</code> 加载这个模块会再次执行这个模块。</p>
+<p>为了让 <code>require</code> 强制性的重复加载同样的模块，我们可以在 <code>package.loaded</code>中擦除对应的项：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">package</span>.<span class="built_in">loaded</span>.模块名 = <span class="literal">nil</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>这样下次的话 <code>require</code> 就会再次加载了。</p>
+<p>一个经常遇到的抱怨就是，<code>require</code> 不能在模块在加载的时候传递参数。具体说，数据库模块可能会有一个选项来在 弧度 和角度间选择：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">-- bad code</span></span><br/><span class="line"><span class="keyword">local</span> <span class="built_in">math</span> = <span class="built_in">require</span>(<span class="string">&#34;math&#34;</span>, <span class="string">&#34;degree&#34;</span>)</span><br/></pre></td></tr></tbody></table></figure>
+<p>这里的问题是，<code>require</code> 的一个主要目的就是避免多次加载同一模块。一旦加载一个模块，程序的任何部分都可以重复使用这个模块。当以不同的参数加载同一模块时可能和出现冲突。如果你想要你的模块有参数，较好的方式就是建立一个显式的函数来设置他们，这样：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">mod</span> = <span class="built_in">require</span> <span class="string">&#34;mod&#34;</span></span><br/><span class="line"><span class="built_in">mod</span>.init(<span class="number">0</span>, <span class="number">0</span>)</span><br/></pre></td></tr></tbody></table></figure>
+<p>如果初始化函数返回模块本身，我们可以这样写：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">mod</span> = <span class="built_in">require</span> <span class="string">&#34;mod&#34;</span>.init(<span class="number">0</span>, <span class="number">0</span>)</span><br/></pre></td></tr></tbody></table></figure>
+<p>无论何时要记住，模块本身只会被加载一次。</p>
+<h1 id="重命名一个模块"><a href="#重命名一个模块" class="headerlink" title="重命名一个模块"></a>重命名一个模块</h1><p>通常，我们以模块的原始名字来使用它，但某些时候我们要重命名来避免名字冲突。一个典型的情况就是当我们要加载同一模块的不同版本来测试时。Lua模块在内部不会保持名字固定，所以一般重命名 <code>.lua</code>文件就够了。然而，我们不能编辑C库的 对象代码来改变 <code>luaopen_*</code>函数的名字。为了支持类似的重命名，<code>require</code>使用了个小把戏：如果模块名包含一个连字符 <code>-</code>，<code>require</code>会在建立 <code>luaopen_*</code>函数的时候去掉这个连字符后的内容。比如，如果一个模块叫 <em>mod-v3.4</em>，<code>require</code> 会期望它的打开函数是 <code>luaopen_mod</code>，而不是<code>luaopen_mod-v3.4</code>（即使是一个合法的C名字）。因此，我们要使用两个模块（或同一模块的不同版本），我们可以把其中一个命名为 <em>mod-v1</em>。当我们调用 <code>m1 = require &#34;mod-v1</code>时，<code>require</code>会找到命名过的 文件，但在文件中，其打开函数依然是 <code>luaopen_mod</code>。</p>
+<h1 id="路径搜索"><a href="#路径搜索" class="headerlink" title="路径搜索"></a>路径搜索</h1><p>当搜索一个Lua文件时，引导 <code>require</code> 的路径和典型的路径有点不同。一个典型的路径就是一个目录列表，在里面搜索给定的文件。然而，ISO C并没有目录的概念。因此，<code>require</code> 使用的路径是一个 <em>模板</em> 列表，每个模板指定了一个可选的方式来 转换一个模块名（ require 的参数）到一个文件名。更特别地，路径中的每个模块都是一个包含可选 <code>?</code> 的名字。 对于每个模板，<code>require</code>以模块名替换对应的<code>?</code>，然后检查是否存在这么样一个文件；如果没有，就继续下一个妙手空空。路径中的模板以 <code>;</code>分隔。：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">“?;?.lua;c:windows?;/usr/local/lua/?/?.lua”</span><br/></pre></td></tr></tbody></table></figure>
+<p>当我们调用 <code>require &#34;sql&#34;</code>时，将会尝试下面的文件：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sql</span><br/><span class="line">sql.lua</span><br/><span class="line">c:windowssql</span><br/><span class="line">/usr/local/lua/sql/sql.lua</span><br/></pre></td></tr></tbody></table></figure>
+<p><code>require</code>用来搜索Lua文件的路径总是 变量<code>package.path</code>的当前值。当模块 <code>package</code>在初始化时，其会设置这个变量值为环境变量<code>LUA_PATH_5_3</code>；如果环境变量没有定义，则会尝试环境变量<code>LUA_PATH</code>。如果两者都没有定义的话，Lua使用一个编译器定义的默认路径。比如，当我们设置 <code>LUA_PATH_5_3</code>为<em>mydir/?.lua</em>时，最终的路径将会是 <em>mydir/?.lua</em>加上默认的路径。</p>
+<p>用来搜索C库的路径工作起来相似，其值从 <code>package.cpath</code>取得。一个POSIX中典型的路径值会是：<br/></p><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">./?.so;/usr/local/lib/lua/5.2/?.so</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>注意这里面定义了后缀名，因此在windows中应该是这样的：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">.?.dll;c:Program FilesLua502dll?.dll</span><br/></pre></td></tr></tbody></table></figure>
+<p>函数 <code>package.searchpath</code>对搜索库的这些规则进行了编码。其接受一个模块名和一个路径，然后根据这些规则来寻找一个文件。其返回第一个找到 文件名或者 <em>nil</em> 加上描述所有文件打开都失败的错误消息，例如：<br/></p><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">&gt; path = &#34;.\?.dll;C:\Program Files\Lua502\dll\?.dll&#34;</span><br/><span class="line">&gt; print(package.searchpath(&#34;X&#34;, path))</span><br/><span class="line">      nil</span><br/><span class="line">              no file &#39;.X.dll&#39;</span><br/><span class="line">              no file &#39;C:Program FilesLua502dllX.dll&#39;</span><br/><span class="line">”</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<h1 id="搜索器"><a href="#搜索器" class="headerlink" title="搜索器"></a>搜索器</h1><p>实际上，<code>require</code>比我们已经描述的更复杂些。搜索Lua文件和搜索C库是 <em>searchers（搜索器）</em>的两个不同实例。一个搜索器只是一个函数，其会根据模块名来返回这个模块的加载器，或者在其找不到时返回<em>nil</em>。</p>
+<p>数组<code>package.searchers</code>列出了<code>require</code>使用的搜索器。当找寻一个模块时，<code>require</code>会把参数逐个传递给表中的搜索器，直到有返回这个模块加载器的出现。如果并没有，那<code>require</code>会给出一个错误。</p>
+<p>使用一个列表来驱动对模块的搜索允许<code>require</code>变得非常灵活。如果我们想把模块放在压缩的 zip 文件中，我们只需要提供一个何时的搜索器函数，然后把他放在这个列表中。默认设置下，Lua文件和C库的搜索器分别是第二第三个元素。在他们之前，是预加载的搜索器。</p>
+<p><code>预加载(preload)</code>的搜索器允许一个专门的函数来加载模块。其使用一个表，<code>package.preload</code>，来映射模块名与加载器函数。当搜索一个模块名时，这个搜索器简单的在表中寻找给定名字。如果找到就把对应函数返回为加载器，否则返回<em>nil</em>。这个加载器提供了一个操控某些不符合习惯的情况的一般性方法。比如，静态链接至Lua的C库可以把其 <code>luaopen_*</code>函数注册到 <code>preload</code>表中，这样其只会在用户需要那个模块时被调用。这样的方式，程序将不会因为要打开不使用的模块而浪费资源。</p>
+<p><code>package.searchers</code>的默认内容包含第四个函数，这和子模块相关。我们后面讨论。</p>
+<h1 id="编写模块的基本方式"><a href="#编写模块的基本方式" class="headerlink" title="编写模块的基本方式"></a>编写模块的基本方式</h1><p>最简单的建立一个模块就是：建立一个表，把所有希望导出的函数放在里面，然后返回这个表。</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> M = {}</span><br/><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="params">(r, i)</span></span></span><br/><span class="line">	<span class="keyword">return</span> {r = r, i = i}</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">M.new = new</span><br/><span class="line"></span><br/><span class="line">M.i = new(<span class="number">0</span>, <span class="number">1</span>)</span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.add</span> <span class="params">(c1, c2)</span></span></span><br/><span class="line">	<span class="keyword">return</span> new(c1.r + c2.r, c1.i + c2.i)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.sub</span> <span class="params">(c1, c2)</span></span></span><br/><span class="line">	<span class="keyword">return</span> new(c1.r - c2.r, c1.i - c2.i)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line">      </span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.mul</span> <span class="params">(c1, c2)</span></span></span><br/><span class="line">	<span class="keyword">return</span> new(c1.r*c2.r - c1.i*c2.i, c1.r*c2.i + c1.i*c2.r)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line">      </span><br/><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">inv</span> <span class="params">(c)</span></span></span><br/><span class="line">	<span class="keyword">local</span> n = c.r^<span class="number">2</span> + c.i^<span class="number">2</span></span><br/><span class="line">	<span class="keyword">return</span> new(c.r/n, -c.i/n)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line">      </span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.div</span> <span class="params">(c1, c2)</span></span></span><br/><span class="line">	<span class="keyword">return</span> M.mul(c1, inv(c2))</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line">      </span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.tostring</span> <span class="params">(c)</span></span></span><br/><span class="line">	<span class="keyword">return</span> <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&#34;(%g,%g)&#34;</span>, c.r, c.i)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"><span class="keyword">return</span> M</span><br/></pre></td></tr></tbody></table></figure>
+<p>注意：<strong>只是通过在其前面加上 local 就把函数  <code>new, inv</code>定义成为了私有的</strong></p>
+<p>某些人可能不喜欢最后的返回语句。一个避免的方式是直接把模块表赋值给 <code>package.loaded</code>：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> M = {}</span><br/><span class="line"><span class="built_in">package</span>.<span class="built_in">loaded</span>[...] = M</span><br/></pre></td></tr></tbody></table></figure>
+<p>需要注意的是 <code>require</code> 在调用加载器的时候会传递模块名作为第一个参数。因此，<code>...</code> 就代表了那个名字。在这个赋值后，我们就不需要在模块的最后返回 <code>M</code>：如果一个模块不返回一个值，<code>require</code> 将会返回<code>package.loaded[modname]</code>的当前值（如果不是<em>nil</em>）。不管怎么样，我发现在最后写上return会非常的清晰。如果我们忘记了这点，任何与这个模块相关的测试都会检查到错误。</p>
+<p>另外一个方式就是把所有的函数定义为局部的，然后在最后构造要返回的表：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span>  <span class="params">(r, i)</span></span> <span class="keyword">return</span> {r=r, i=i} <span class="keyword">end</span></span><br/><span class="line">      </span><br/><span class="line"><span class="comment">-- defines constant &#39;i&#39;</span></span><br/><span class="line"><span class="keyword">local</span> i = complex.new(<span class="number">0</span>, <span class="number">1</span>)</span><br/><span class="line">      </span><br/><span class="line">other functions follow the same pattern</span><br/><span class="line"><span class="keyword">return</span> {</span><br/><span class="line">        new      = new,</span><br/><span class="line">        i        = i,</span><br/><span class="line">        add      = add,</span><br/><span class="line">        <span class="built_in">sub</span>      = <span class="built_in">sub</span>,</span><br/><span class="line">        mul      = mul,</span><br/><span class="line">        div      = div,</span><br/><span class="line">        <span class="built_in">tostring</span> = <span class="built_in">tostring</span>,</span><br/><span class="line">      }</span><br/></pre></td></tr></tbody></table></figure>
+<p>这种方式的好处是什么？我们不需要在每个名字前加上前缀 <em>M</em> 或者其他类似的前缀；这里有一个显式的导出列表；我们同样的方式定义和使用导出的/内部的 函数。不好的地方是什么？导出列表到了模块的后面而不是开始，在进行快速文档的时候会更实用；导出列表有点多余，因为我们必须写两次名字。（最后一个坏处有可能是一个好处，因为其允许在模块内外拥有不同的名字，但我想程序员很少做这个事情）</p>
+<p>不管我们如何定义一个模块，用户都可以以标准的方式进行使用：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> cpx = <span class="built_in">require</span> <span class="string">&#34;complex&#34;</span></span><br/><span class="line"><span class="built_in">print</span>(cpx.<span class="built_in">tostring</span>(cpx.add(cpx.new(<span class="number">3</span>,<span class="number">4</span>), cpx.i)))</span><br/><span class="line"><span class="comment">-- (3, 5)</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>后面我们会看到怎样使用某些Lua的进阶特性，比如元表和环境，来写模块。然而，多数时候我都只使用这些基本的方式。</p>
+<h1 id="子模块和包"><a href="#子模块和包" class="headerlink" title="子模块和包"></a>子模块和包</h1><p>Lua允许模块名字是层级的，使用一个<code>.</code>来分别名字等级。一个<em>mod.sub</em> 的模块是 <em>mod</em> 的子模块。一个 包是模块的完整树；其是Lua中发行版的单元。</p>
+<p>当我们需要一个<em>mod.sub</em>模块时，函数 <code>require</code> 将会首先查询 <code>package.loaded</code>表，然后<code>package.preload</code>表，使用的是<em>mod.sub</em>作为键。这里，<code>.</code>就是一个普通的字符，和其他字符一样。</p>
+<p>然而，当搜索定义了那个子模块的文件时，<code>require</code>把 <code>.</code> 翻译为另外一个字符，通常是系统的目录分隔符（<code>/</code>或 windows中的<code></code>）。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-400_PIL.17Lua%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/">https://lua.ren/zl/2016-01-01-400_PIL.17Lua%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-3_Visual%20Studio%202015%20Lua%20%E7%8E%AF%E5%A2%83%E5%BB%BA%E7%BD%AE/" title="Visual Studio 2015 Lua 环境建置"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Visual Studio 2015 Lua 环境建置</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-39_%E7%BF%BB%E8%AF%91%20%E3%80%8AAn%20Empirical%20Evaluation%20of%20In/" title="翻译 《An Empirical Evaluation of In"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">翻译 《An Empirical Evaluation of In</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E4%B8%80%E4%B8%AA%E6%A8%A1%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text">重命名一个模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E6%90%9C%E7%B4%A2"><span class="toc-number">2.</span> <span class="toc-text">路径搜索</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">搜索器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">编写模块的基本方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%90%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">子模块和包</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

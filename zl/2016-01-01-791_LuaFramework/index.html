@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>LuaFramework | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="思考并回答以下问题： 在上一篇文章LuaFramework-1中，介绍了LuaFramework加载面板的方法，但这个方法并不适用于其它Prefab资源，在这套框架中非面板型资源的加载方法另有套路。 创建一个预制体打开上次使用的工程，打开Main场景，创建一个名为ImgOrc的Image，图片就选例子用的兽人头像。在Assets&#x2F;LuaFramework&#x2F;CustomPrj目录下新建一个Prefa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LuaFramework">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-791_LuaFramework/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="思考并回答以下问题： 在上一篇文章LuaFramework-1中，介绍了LuaFramework加载面板的方法，但这个方法并不适用于其它Prefab资源，在这套框架中非面板型资源的加载方法另有套路。 创建一个预制体打开上次使用的工程，打开Main场景，创建一个名为ImgOrc的Image，图片就选例子用的兽人头像。在Assets&#x2F;LuaFramework&#x2F;CustomPrj目录下新建一个Prefa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:36.032Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:36.032Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-791_LuaFramework/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'LuaFramework',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">LuaFramework</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:36.032Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:36.032Z" title="更新于 2024-04-03 11:47:36">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="LuaFramework"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>思考并回答以下问题：</p>
+<p>在上一篇文章<a href="/2019/10/16/LuaFramework-1/" title="LuaFramework-1">LuaFramework-1</a>中，介绍了LuaFramework加载面板的方法，但这个方法并不适用于其它Prefab资源，在这套框架中非面板型资源的加载方法另有套路。</p>
+<h2 id="创建一个预制体"><a href="#创建一个预制体" class="headerlink" title="创建一个预制体"></a>创建一个预制体</h2><p>打开上次使用的工程，打开Main场景，创建一个名为ImgOrc的Image，图片就选例子用的兽人头像。在Assets/LuaFramework/CustomPrj目录下新建一个Prefabs目录，然后拖动ImgOrc到该目录下做成预制体，如图1-1</p>
+<p>2、将预制体打成AssetBundle包<br/>打开Assets/ LuaFramework/Editor/Packager.cs文件（用VS或Mono Develop编辑器打开），找到HandleExampleBundle方法，添加对ImgOrc预制体的打包代码，如图1-2所示</p>
+<p>图1-2</p>
+<figure class="highlight cs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/></pre></td><td class="code"><pre><span class="line"></span><br/><span class="line"><span class="comment"><span class="doctag">///</span> 处理框架实例包</span></span><br/><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br/><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> (<span class="params"></span>) </span></span><br/><span class="line"><span class="function"></span>{</span><br/><span class="line">    <span class="keyword">string</span> resPath = AppDataPath + <span class="string">&#34;/&#34;</span> + AppConst.AssetDir + <span class="string">&#34;/&#34;</span>;</span><br/><span class="line">    <span class="keyword">if</span> (!Directory.Exists(resPath)) Directory.CreateDirectory(resPath);</span><br/><span class="line"></span><br/><span class="line">    AddBuildMap(<span class="string">&#34;prompt&#34;</span> + AppConst.ExtName, <span class="string">&#34;*.prefab&#34;</span>, <span class="string">&#34;Assets/LuaFramework/Examples/Builds/Prompt&#34;</span>);</span><br/><span class="line">    AddBuildMap(<span class="string">&#34;message&#34;</span> + AppConst.ExtName, <span class="string">&#34;*.prefab&#34;</span>, <span class="string">&#34;Assets/LuaFramework/Examples/Builds/Message&#34;</span>);</span><br/><span class="line"></span><br/><span class="line">    <span class="comment">//打包我们新加的FirstPanel预制体</span></span><br/><span class="line">    AddBuildMap(<span class="string">&#34;first&#34;</span> + AppConst.ExtName, <span class="string">&#34;*.prefab&#34;</span>, <span class="string">&#34;Assets/LuaFramework/CustomPrj/FirstTest&#34;</span>);</span><br/><span class="line">    <span class="comment">//打包我们新加的ImgOrc预制体</span></span><br/><span class="line">    AddBuildMap(<span class="string">&#34;prefabs&#34;</span> + AppConst.ExtName, <span class="string">&#34;*.prefab&#34;</span>, <span class="string">&#34;Assets/LuaFramework/CustomPrj/Prefabs&#34;</span>);</span><br/><span class="line"></span><br/><span class="line">    AddBuildMap(<span class="string">&#34;prompt_asset&#34;</span> + AppConst.ExtName, <span class="string">&#34;*.png&#34;</span>, <span class="string">&#34;Assets/LuaFramework/Examples/Textures/Prompt&#34;</span>);</span><br/><span class="line">    AddBuildMap(<span class="string">&#34;shared_asset&#34;</span> + AppConst.ExtName, <span class="string">&#34;*.png&#34;</span>, <span class="string">&#34;Assets/LuaFramework/Examples/Textures/Shared&#34;</span>);</span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<p>这里要对AddBuildMap方法的参数加以说明</p>
+<p>第一个参数是包名，即打包后在StreamingAssets目录中显示的包的名称，AppConst.ExtName是扩展名，框架默认为”.unity3d”，可以自行修改；<br/>第三个参数是要打包的资源的目录，暂且称为源目录；<br/>第二个参数是打包模式，以字符串形式过滤出要打包的文件名，比如这里*.prefab就表示源目录下的所有prefab文件。<br/>之所以将ImgOrc预制体打包的包名定义为prefabs而不是ImgOrc，是因为这个打包是针对整个目录的而不是单个资源。为了说明这一情况，我会在CustomPrj/Prefabs目录下再加一个预制体ButtonPrefab。见图1-3</p>
+<p>见图1-3</p>
+<p>这次不修改打包文件。</p>
+<p>找到LuaFramework菜单，点击Build Windows Resources菜单项，开始自动打包操作，中间无需干预。</p>
+<p>打包结束，查看StreamingAssets目录，能看到与刚刚给定的包名相应的文件：prefabs.unity3d，见图1-4</p>
+<p>图1-4</p>
+<p>图中红框标识的还有一个名为prefabs的文件，这是没有显示后缀（其实有后缀，在unity中未显示），这个是prefabs.unity3d包的清单文件，在windows下打开看以看到其全名为prefabs.unity.manifest。</p>
+<p>用Notepad++打开这个清单文件，可以看到在37、38行列出一这个AB包包含的两个资源：ButtonPrefab.prefab和ImgOrc.Prefab。见图1-5：</p>
+<p>图1-5</p>
+<p>此框架的资源打包方式就是这样的，所有资源都需要在代码中添加相应包名、过滤模式、目录。游戏开发前期和资源变动较大时，会频繁改动这个脚本的内容，用起来并不是很方便。</p>
+<p>3、在代码中加载预制体<br/> 资源包有了，现在需要在代码中加载这个包。</p>
+<p>打开FirstCtrl.lua文件，在FirstCtrl.OnCreate方法中添加读取资源包的方法，见代码：</p>
+<p>复制代码<br/>—启动事件—<br/>function FirstCtrl.OnCreate(obj)<br/>    gameObject = obj;<br/>    message = gameObject:GetComponent(‘LuaBehaviour’);</p>
+<pre><code>--加载prefabs.unity3d资源包
+resMgr:LoadPrefab(&#34;prefabs.unity3d&#34;, &#123;&#34;ImgOrc&#34;&#125;, function (prefabs)
+<p>end);<br />
+</code></pre><p>end<br/>复制代码<br/> resMgr是框架封装好的资源管理工具，LoadPrefab函数用来读取资源包。第一个参数是包名，第二个参数是包里的资源名（Prefab名称），第三个参数是包读取成功的回调，参数prefabs为读出来的资源。</p></p>
+<p>..</p>
+<p>继续完成代码，进行实例操作等操作，代码如下：</p>
+<p> 说明点：</p>
+<p>回调函数的参数prefabs是一个userdata类型的数据（userdata一般是C#中的部分引用类型在Lua中的表示），这里猜测是一个数组，因为通过.Length可以取到长度，能过[0]能取到第一个元素。<br/>newObject是框架封装好的实例化函数，猜测本质就是c#中的GameObject.Instantiate方法。<br/>设置父对象、位置、缩放这几步操作和c#中的操作差不多。因为本身调用的就是c#中的方法，即transform的方法。<br/>FirstCtrl.lua文件中的gameObject，transform代表的就是FirstPanel面板及面板上transform组件，是在面板创建时（OnCreate方法前两行）注入进来的。</p>
+<p>代码完成后，运行Unity，能看到ImgOrc已经加载到了FirstPanel对象下，见图1-6</p>
+<p>图1-6</p>
+<p>非Panel的预制体加载流程就是这样，加载方法是参照例子的PromptCtrl.lua写的。</p>
+<p>resMgr中还有放多其它加载资源的方法，留待以后再探究。</p>
+<p>2、怎么给按钮添加监听<br/>在用c#写代码的时候，给Button添加监听有两种方法，一是将脚本绑在Button组件上，通过面板选择脚本中的方法来添加做；二是在代码中通过Button.onClick.AddListener方法添加。</p>
+<p>那么在Lua应该怎么做呢？</p>
+<p>还是以FirstPanel为例，给FirstPanel右上角添加一个关闭按钮，应用预制体然后重新打包，</p>
+<p>然后：</p>
+<p>1、在FirstPanel.lua文件中引用按钮<br/>打开FirstPanel.lua文件，在InitPanel函数中添加查找按钮的代码：</p>
+<p>—初始化面板—<br/>function FirstPanel.InitPanel()<br/>    —查找关闭按钮<br/>    this.btnClose = transform:FindChild(“CloseButton”).gameObject;<br/>end</p>
+<p>2、在FirstCtrl.lua文件中添加监听</p>
+<p>打开FirstCtrl.lua文件，找到OnCreate方法，然后通过FirstPanel所挂的LuaBehaviour脚本来添加监听事件，见图2-1</p>
+<p>图2-1</p>
+<p>AddClick方法有两个参数，第一个是按钮本身（上一步才引用过的），第二个是点击后的回调函数。</p>
+<p>AddClick的具体实现可以可以在LuaBehaviour.cs中找到。</p>
+<p>运行Unity，点击关闭按钮，能看到打印了期望中的日志，见图2-2</p>
+<p>图2-2</p>
+<p>给按钮添加监听就是这么简单，不过里边还藏着一些坑，以后的文章再细讲。</p>
+<p>总结一点，用Lua做逻辑的话，所有UI元素的使用都需要先在相应的XxxPanel中引用 ，然后到XxxCtrl中添加事件，对于结构复杂的UI，做起来非常耗时间。</p>
+<p>文中多次操作了FirstCtrl.lua和FirstPanel.lua文件，为了方便参阅，现将两个脚本完整的贴出来：</p>
+<p> FirstPanel</p>
+<p> FirstCtrl</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-791_LuaFramework/">https://lua.ren/zl/2016-01-01-791_LuaFramework/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-795_%E5%9C%A8Lua%E4%B8%AD%E4%BD%BF%E7%94%A8gettext%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/" title="在Lua中使用gettext实现多语言支持"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">在Lua中使用gettext实现多语言支持</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-792_%E9%87%87%E8%AE%BF%20Lua%20%E5%8F%91%E6%98%8E%E4%BA%BA/" title="采访 Lua 发明人"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">采访 Lua 发明人</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A2%84%E5%88%B6%E4%BD%93"><span class="toc-number">1.</span> <span class="toc-text">创建一个预制体</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>nginx lua 编译安装 « 诗宁 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="编译安装脚本   主配置文件   systemd启动配置   启动脚本  编译安装脚本    nginx-lua-build.sh  #!&#x2F;bin&#x2F;bash #Date:2018-09-03 #Written by magic5650. #Readme:install nginx + lua. #step 0 mkdir &#x2F;usr&#x2F;local&#x2F;nginx mkdir nginx_lua_bu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx lua 编译安装 « 诗宁">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-654_nginx%20lua%20%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%20%C2%AB%20%E8%AF%97%E5%AE%81/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="编译安装脚本   主配置文件   systemd启动配置   启动脚本  编译安装脚本    nginx-lua-build.sh  #!&#x2F;bin&#x2F;bash #Date:2018-09-03 #Written by magic5650. #Readme:install nginx + lua. #step 0 mkdir &#x2F;usr&#x2F;local&#x2F;nginx mkdir nginx_lua_bu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.876Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.877Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-654_nginx%20lua%20%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%20%C2%AB%20%E8%AF%97%E5%AE%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'nginx lua 编译安装 « 诗宁',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">nginx lua 编译安装 « 诗宁</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.876Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.877Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="nginx lua 编译安装 « 诗宁"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><ul id="markdown-toc">
+  <li><a href="#编译安装脚本" id="markdown-toc-编译安装脚本">编译安装脚本</a></li>
+  <li><a href="#主配置文件" id="markdown-toc-主配置文件">主配置文件</a></li>
+  <li><a href="#systemd启动配置" id="markdown-toc-systemd启动配置">systemd启动配置</a></li>
+  <li><a href="#启动脚本" id="markdown-toc-启动脚本">启动脚本</a></li>
+</ul>
+<h2 id="编译安装脚本">编译安装脚本</h2>
+<blockquote>
+  <p>nginx-lua-build.sh</p>
+</blockquote>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c">#Date:2018-09-03</span>
+<span class="c">#Written by magic5650.</span>
+<span class="c">#Readme:install nginx + lua.</span>
+<p><span class="c">#step 0</span><br />
+mkdir /usr/local/nginx<br />
+mkdir nginx_lua_build</p>
+<p><span class="c">#step 1</span><br />
+wget <span class="nt">-q</span> <a target="_blank" rel="noopener" href="http://nginx.org/download/nginx-1.13.6.tar.gz">http://nginx.org/download/nginx-1.13.6.tar.gz</a><br />
+<span class="nb">tar </span>xf nginx-1.13.6.tar.gz</p>
+<p><span class="c">#step 2</span><br />
+wget <span class="nt">-q</span> <a target="_blank" rel="noopener" href="https://www.openssl.org/source/openssl-1.1.0i.tar.gz">https://www.openssl.org/source/openssl-1.1.0i.tar.gz</a><br />
+<span class="nb">tar </span>xf openssl-1.1.0i.tar.gz</p>
+<p>wget <span class="nt">-q</span> <a target="_blank" rel="noopener" href="https://sourceforge.mirrorservice.org/p/pc/pcre/pcre/8.38/pcre-8.38.tar.gz">https://sourceforge.mirrorservice.org/p/pc/pcre/pcre/8.38/pcre-8.38.tar.gz</a><br />
+<span class="nb">tar </span>xf pcre-8.38.tar.gz</p>
+<p>wget <span class="nt">-q</span> <a target="_blank" rel="noopener" href="https://nchc.dl.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.gz">https://nchc.dl.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.gz</a><br />
+<span class="nb">tar </span>xf zlib-1.2.11.tar.gz</p>
+<p><span class="c">#step 3</span><br />
+wget <span class="nt">-q</span> <a target="_blank" rel="noopener" href="http://luajit.org/download/LuaJIT-2.1.0-beta3.zip">http://luajit.org/download/LuaJIT-2.1.0-beta3.zip</a><br />
+unzip LuaJIT-2.1.0-beta3.zip <span class="o">&gt;&gt;</span> /dev/null<br />
+<span class="nb">cd </span>LuaJIT-2.1.0-beta3<br />
+<span class="c">#modify Makefile</span><br />
+sed <span class="nt">-i</span> <span class="s1">'/^export PREFIX=/s//usr/local//usr/local/nginx/luajit-2.1.0/'</span> Makefile<br />
+make<br />
+make install <span class="nv">PREFIX</span><span class="o">=</span>/usr/local/nginx/luajit-2.1.0<br />
+ln <span class="nt">-sf</span> /usr/local/nginx/luajit-2.1.0/bin/luajit-2.1.0-beta3 /usr/local/nginx/luajit-2.1.0/bin/luajit<br />
+/usr/local/nginx/luajit-2.1.0/bin/luajit <span class="nt">-e</span> <span class="s2">&quot;print(package.cpath)&quot;</span> | sed <span class="nt">-n</span> <span class="s1">'s/;/;n/gp'</span><br />
+<span class="nb">cd</span> -</p>
+<p><span class="c">#step 4</span><br />
+wget <span class="nt">-q</span> <a target="_blank" rel="noopener" href="https://github.com/simplresty/ngx_devel_kit/archive/v0.3.1rc1.tar.gz">https://github.com/simplresty/ngx_devel_kit/archive/v0.3.1rc1.tar.gz</a><br />
+<span class="nb">tar </span>xf v0.3.1rc1.tar.gz</p>
+<p>git clone <a target="_blank" rel="noopener" href="https://github.com/openresty/lua-nginx-module.git">https://github.com/openresty/lua-nginx-module.git</a><br />
+mv lua-nginx-module lua-nginx-module-0.10.14</p>
+<p>wget <span class="nt">-q</span> <a target="_blank" rel="noopener" href="https://github.com/openresty/stream-lua-nginx-module/archive/v0.0.5.tar.gz">https://github.com/openresty/stream-lua-nginx-module/archive/v0.0.5.tar.gz</a><br />
+<span class="nb">tar </span>xf v0.0.5.tar.gz</p>
+<p>git clone <a target="_blank" rel="noopener" href="https://github.com/wdaike/ngx_upstream_jdomain.git">https://github.com/wdaike/ngx_upstream_jdomain.git</a></p>
+<p><span class="c">#step 5</span><br />
+<span class="nb">cd </span>nginx-1.13.6<br />
+<span class="nb">export </span><span class="nv">LUAJIT_LIB</span><span class="o">=</span>/usr/local/nginx/luajit-2.1.0/lib<br />
+<span class="nb">export </span><span class="nv">LUAJIT_INC</span><span class="o">=</span>/usr/local/nginx/luajit-2.1.0/include/luajit-2.1</p>
+<p>./configure <span class="se"></span><br />
+<span class="nt">–prefix</span><span class="o">=</span>/usr/local/nginx <span class="se"></span><br />
+<span class="nt">–with-file-aio</span> <span class="se"></span><br />
+<span class="nt">–with-http_v2_module</span> <span class="se"></span><br />
+<span class="nt">–with-http_dav_module</span> <span class="se"></span><br />
+<span class="nt">–with-http_realip_module</span> <span class="se"></span><br />
+<span class="nt">–with-http_flv_module</span> <span class="se"></span><br />
+<span class="nt">–with-http_mp4_module</span> <span class="se"></span><br />
+<span class="nt">–with-http_sub_module</span> <span class="se"></span><br />
+<span class="nt">–with-http_stub_status_module</span> <span class="se"></span><br />
+<span class="nt">–with-http_gzip_static_module</span> <span class="se"></span><br />
+<span class="nt">–with-http_ssl_module</span> <span class="se"></span><br />
+<span class="nt">–with-openssl</span><span class="o">=</span>…/openssl-1.1.0i <span class="se"></span><br />
+<span class="nt">–with-zlib</span><span class="o">=</span>…/zlib-1.2.11 <span class="se"></span><br />
+<span class="nt">–with-pcre</span><span class="o">=</span>…/pcre-8.38 <span class="se"></span><br />
+<span class="nt">–with-pcre-jit</span> <span class="se"></span><br />
+<span class="nt">–with-stream</span> <span class="se"></span><br />
+<span class="nt">–with-stream_ssl_module</span> <span class="se"></span><br />
+<span class="nt">–with-ld-opt</span><span class="o">=</span><span class="nt">-Wl</span>,-rpath,/usr/local/nginx/luajit-2.1.0/lib <span class="se"></span><br />
+<span class="nt">–add-module</span><span class="o">=</span>…/ngx_devel_kit-0.3.1rc1 <span class="se"></span><br />
+<span class="nt">–add-module</span><span class="o">=</span>…/lua-nginx-module-0.10.14 <span class="se"></span><br />
+<span class="nt">–add-module</span><span class="o">=</span>…/stream-lua-nginx-module-0.0.5 <span class="se"></span><br />
+<span class="nt">–add-module</span><span class="o">=</span>…/ngx_upstream_jdomain</p>
+<p>make <span class="nt">-j2</span><br />
+make install</p>
+<p><span class="c">#step 6</span><br />
+<span class="nb">cd</span> -<br />
+git clone <a target="_blank" rel="noopener" href="https://github.com/openresty/lua-cjson.git">https://github.com/openresty/lua-cjson.git</a><br />
+<span class="nb">cd </span>lua-cjson<br />
+make<br />
+make install <span class="nv">LUA_CMODULE_DIR</span><span class="o">=</span>/usr/local/nginx/luajit-2.1.0/lib/lua/5.1 <span class="nv">LUA_INCLUDE_DIR</span><span class="o">=</span>/usr/local/nginx/luajit-2.1.0/include/luajit-2.1<br />
+<span class="nb">ls</span> <span class="nt">-l</span> /usr/local/nginx/luajit-2.1.0/lib/lua/5.1/cjson.so<br />
+<span class="nb">cd</span> -</p>
+<p><span class="c">#step 7</span><br />
+git clone <a target="_blank" rel="noopener" href="https://github.com/openresty/lua-resty-core">https://github.com/openresty/lua-resty-core</a><br />
+git clone <a target="_blank" rel="noopener" href="https://github.com/openresty/lua-resty-lrucache">https://github.com/openresty/lua-resty-lrucache</a><br />
+git clone <a target="_blank" rel="noopener" href="https://github.com/openresty/lua-resty-limit-traffic">https://github.com/openresty/lua-resty-limit-traffic</a></p>
+<p>mkdir /usr/local/nginx/lualib/<br />
+<span class="nb">cd </span>lua-resty-core/lib<br />
+cp <span class="nt">-r</span> <span class="nb">.</span> /usr/local/nginx/lualib/<br />
+tree <span class="nt">-L</span> 2 /usr/local/nginx/lualib<br />
+<span class="nb">cd</span> -<br />
+<span class="nb">cd </span>lua-resty-lrucache/lib<br />
+cp <span class="nt">-r</span> <span class="nb">.</span> /usr/local/nginx/lualib/<br />
+tree <span class="nt">-L</span> 2 /usr/local/nginx/lualib<br />
+<span class="nb">cd</span> -<br />
+<span class="nb">cd </span>lua-resty-limit-traffic/lib<br />
+cp <span class="nt">-r</span> <span class="nb">.</span> /usr/local/nginx/lualib/<br />
+tree <span class="nt">-L</span> 2 /usr/local/nginx/lualib<br />
+<span class="nb">cd</span> -</p>
+<p><span class="c">#at last</span><br />
+<span class="nb">cd</span> /usr/local/nginx<br />
+tree <span class="nt">-L</span> 2<br />
+/usr/local/nginx/sbin/nginx <span class="nt">-V</span><br />
+</code></pre></div></div></p>
+<p>查看</p>
+<blockquote>
+  <p>/usr/local/nginx/sbin/nginx -V</p>
+</blockquote>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nginx version: nginx/1.13.6
+built by gcc 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) 
+built with OpenSSL 1.1.0i  14 Aug 2018
+TLS SNI support enabled
+configure arguments: --prefix=/usr/local/nginx --with-file-aio --with-http_v2_module --with-http_dav_module --with-http_realip_module --with-http_flv_module --with-http_mp4_module --with-http_sub_module --with-http_stub_status_module --with-http_gzip_static_module --with-http_ssl_module --with-openssl=../openssl-1.1.0i --with-zlib=../zlib-1.2.11 --with-pcre=../pcre-8.38 --with-pcre-jit --with-stream --with-stream_ssl_module --with-ld-opt=-Wl,-rpath,/usr/local/nginx/luajit-2.1.0/lib --add-module=../ngx_devel_kit-0.3.1rc1 --add-module=../lua-nginx-module-0.10.14 --add-module=../stream-lua-nginx-module-0.0.5 --add-module=../ngx_upstream_jdomain
+</code></pre></div></div>
+<h2 id="主配置文件">主配置文件</h2>
+<blockquote>
+  <p>nginx.conf</p>
+</blockquote>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user www-data;
+worker_processes 4;
+worker_rlimit_nofile 262140;
+error_log  logs/error.log warn;
+pid  run/nginx.pid; #需跟nginx.service里面定义一致
+<p>events<br />
+&#123;<br />
+use epoll;<br />
+worker_connections  65535;<br />
+&#125;</p>
+<p>http<br />
+&#123;<br />
+include mime.types;<br />
+default_type application/octet-stream;<br />
+# Update charset_types due to updated mime.types<br />
+charset_types text/xml text/plain text/vnd.wap.wml application/x-javascript application/rss+xml text/css application/javascript application/json;</p>
+<pre><code>sendfile on;
+aio on;
+directio 512;
+output_buffers 1 128k;
+log_not_found off;
+keepalive_timeout  60;
+server_tokens off;
+
+# Compression
+gzip on;
+
+# Setup gzip http version 1.0 
+gzip_http_version 1.0;
+
+# Disable gzip compression for IE6, because IE6 supports gzip not friendly.
+gzip_disable     &amp;#34;MSIE [1-6].(?!.*SV1)&amp;#34;;
+
+# Compression level (1-9).
+# 5 is a perfect compromise between size and cpu usage, offering about
+# 75% reduction for most ascii files (almost identical to level 9).
+gzip_comp_level 5;
+
+# Don’t compress anything that’s already small and unlikely to shrink much
+# if at all (the default is 20 bytes, which is bad as that usually leads to
+# larger files after gzipping).
+gzip_min_length  1k;
+gzip_buffers     4 8k;
+
+# Compress data even for clients that are connecting to us via proxies
+# identified by the “Via” header (required for CloudFront).
+gzip_proxied any;
+
+# Tell proxies to cache both the gzipped and regular version of a resource
+# whenever the client’s Accept-Encoding capabilities header varies;
+# Avoids the issue where a non-gzip capable client (which is extremely rare
+# today) would display gibberish if their proxy gave them the gzipped version.
+gzip_vary on;
+
+# Compress all output labeled with one of the following MIME-types.
+gzip_types application/atom+xml application/javascript application/json application/rss+xml application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/svg+xml image/x-icon text/css text/plain text/x-component;
+# text/html is always compressed by HttpGzipModule
+
+log_format main &amp;#39;$remote_addr - $remote_user [$time_local] &amp;#34;$request&amp;#34; $status $body_bytes_sent &amp;#34;$http_referer&amp;#34; &amp;#34;$http_user_agent&amp;#34; &amp;#34;$request_time&amp;#34; &amp;#34;$upstream_response_time&amp;#34; &amp;#34;$http_x_forwarded_for&amp;#34;&amp;#39;;
+
+access_log logs/$&#123;server_name&#125;.access.log main;
+
+fastcgi_intercept_errors on;
+error_page   500 502 503 504  /50x.html;
+
+server_names_hash_max_size 4096;
+
+geo $allow &#123;
+	default	0;
+	
+	127.0.0.1 1;
+	10.0.0.0/8 1;
+	192.168.0.0/16 1;
+	172.16.0.0/12 1;
+&#125;
+
+server 
+&#123;
+	listen 80 default_server;
+	server_name  _;
+	access_log off;
+	
+	# use for health check
+	location / 
+	&#123;
+		if ($allow = 1) &#123;
+			return 200;
+		&#125;
+		if ($allow = 0) &#123;
+			return 403;
+		&#125;
+	&#125;
+	# use for monitor
+	location /nginx_status
+	&#123;
+		stub_status on;
+		access_log off;
+		allow 127.0.0.1;
+		deny all;
+	&#125;
+&#125;
+
+server 
+&#123;
+	listen 8080 default_server;
+	server_name  _;
+	access_log off;
+	
+	# use for health check
+	location / 
+	&#123;
+		if ($allow = 1) &#123;
+			return 200;
+		&#125;
+		if ($allow = 0) &#123;
+			return 403;
+		&#125;
+	&#125;
+	# use for monitor
+	location /nginx_status
+	&#123;
+		stub_status on;
+		access_log off;
+		allow 127.0.0.1;
+		deny all;
+	&#125;
+&#125;
+
+# set search paths for pure Lua external libraries (&amp;#39;;;&amp;#39; is the default path):
+lua_package_path &amp;#34;/usr/local/nginx/lualib/?.lua;;&amp;#34;;
+# set search paths for Lua external libraries written in C (can also use &amp;#39;;;&amp;#39;);
+lua_package_cpath &amp;#39;/usr/local/nginx/luajit-2.1.0/lib/lua/5.1/?.so;;&amp;#39;;
+
+lua_shared_dict limit_req_store 100m;
+lua_shared_dict cc_req_store 100m;
+
+include /data/services/nginx_vhost/*.conf;
+</code></pre>
+<p>}<br />
+</code></pre></div></div></p>
+<h2 id="systemd启动配置">systemd启动配置</h2>
+<blockquote>
+  <p>nginx.service</p>
+</blockquote>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=syslog.target network.target remote-fs.target nss-lookup.target
+<p>[Service]<br />
+Type=forking<br />
+PIDFile=/usr/local/nginx/run/nginx.pid<br />
+ExecStartPre=/usr/local/nginx/sbin/nginx -t<br />
+ExecStart=/usr/local/nginx/sbin/nginx<br />
+ExecStartPost=/bin/sleep 0.1<br />
+ExecReload=/usr/local/nginx/sbin/nginx -s reload<br />
+#ExecReload=/bin/kill -s HUP $MAINPID<br />
+ExecStop=/bin/kill -s QUIT $MAINPID<br />
+ExecStopPost=<br />
+Restart=on-failure<br />
+#RestartSec=1<br />
+PrivateTmp=true</p>
+<p>[Install]<br />
+WantedBy=multi-user.target<br />
+</code></pre></div></div></p>
+<h2 id="启动脚本">启动脚本</h2>
+<p>低版本的linux使用，需要安装 start-stop-daemon</p>
+<blockquote>
+  <p>nginx.sh</p>
+</blockquote>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#! /bin/sh</span>
+<p><span class="c">### BEGIN INIT INFO</span><br />
+<span class="c"># Provides:          nginx</span><br />
+<span class="c"># Required-Start:    $local_fs $remote_fs $network $syslog</span><br />
+<span class="c"># Required-Stop:     $local_fs $remote_fs $network $syslog</span><br />
+<span class="c"># Default-Start:     2 3 4 5</span><br />
+<span class="c"># Default-Stop:      0 1 6</span><br />
+<span class="c"># Short-Description: starts the nginx web server</span><br />
+<span class="c"># Description:       starts nginx using start-stop-daemon</span><br />
+<span class="c">### END INIT INFO</span></p>
+<p><span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin<br />
+<span class="nv">DAEMON</span><span class="o">=</span>/usr/local/nginx/sbin/nginx<br />
+<span class="nv">LOCK_FILE</span><span class="o">=</span><span class="s2">&quot;/usr/local/nginx/run/auto_restart_when_stop&quot;</span><br />
+<span class="nv">NAME</span><span class="o">=</span>nginx<br />
+<span class="nv">DESC</span><span class="o">=</span>nginx</p>
+<p><span class="nb">test</span> <span class="nt">-x</span> <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">exit </span>255</p>
+<p><span class="nb">set</span> <span class="nt">-e</span></p>
+<p><span class="nb">.</span> /lib/lsb/init-functions</p>
+<p>test_nginx_config<span class="o">()</span> <span class="o">&#123;</span><br />
+<span class="k">if</span> <span class="nv"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mi>A</mi><mi>E</mi><mi>M</mi><mi>O</mi><mi>N</mi><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mo>&gt;</mo><mo>&lt;</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mi>n</mi><mi>t</mi><mi mathvariant="normal">&quot;</mi><mo>&gt;</mo><mo>−</mo><mi>t</mi><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mo>&gt;</mo><mo>&lt;</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mi>n</mi><mi>v</mi><mi mathvariant="normal">&quot;</mi><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">DAEMON&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mord mathit">A</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord mathit" style="margin-right:0.10903em;">M</span><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mrel">&lt;</span><span class="mord mathrm">/</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mrel">&gt;</span><span class="mrel">&lt;</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">s</span><span class="mrel">=</span><span class="mord mathrm">&quot;</span><span class="mord mathit">n</span><span class="mord mathit">t</span><span class="mord mathrm">&quot;</span><span class="mrel">&gt;</span><span class="mord">−</span><span class="mord mathit">t</span><span class="mrel">&lt;</span><span class="mord mathrm">/</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mrel">&gt;</span><span class="mrel">&lt;</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">s</span><span class="mrel">=</span><span class="mord mathrm">&quot;</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathrm">&quot;</span><span class="mrel">&gt;</span></span></span></span>DAEMON_OPTS</span><br />
+<span class="k">then<br />
+return </span>0<br />
+<span class="k">else<br />
+return</span> <span class="nv">$?</span><br />
+<span class="k">fi</span><br />
+<span class="o">&#125;</span></p>
+<p><span class="k">case</span> <span class="s2">&quot;</span><span class="nv">1</span><span class="s2">&#34;</span> <span class="k">in
+  </span>start<span class="p">)</span>
+        <span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">&#34;Starting </span><span class="nv">DESC</span><span class="s2">: &quot;</span><br />
+test_nginx_config<br />
+start-stop-daemon <span class="nt">–start</span> <span class="nt">–quiet</span> <span class="nt">–pidfile</span> /usr/local/nginx/run/<span class="nv">NAME</span>.pid <span class="se"></span>
+                <span class="nt">--exec</span> <span class="nv">DAEMON</span> <span class="nt">–</span> <span class="nv">DAEMON_OPTS</span> <span class="o">||</span> <span class="nb">true
+        echo</span> <span class="s2">&#34;</span><span class="nv">NAME</span><span class="s2">.&quot;</span><br />
+touch <span class="nv">LOCK_FILE</span>
+        <span class="p">;;</span>
+  stop<span class="p">)</span>
+        <span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">&#34;Stopping </span><span class="nv">DESC</span><span class="s2">: &quot;</span><br />
+start-stop-daemon <span class="nt">–stop</span> <span class="nt">–quiet</span> <span class="nt">–pidfile</span> /usr/local/nginx/run/<span class="nv">NAME</span>.pid <span class="se"></span>
+                <span class="nt">--exec</span> <span class="nv">DAEMON</span> <span class="o">||</span> <span class="nb">true<br />
+echo</span> <span class="s2">&quot;</span><span class="nv">NAME</span><span class="s2">.&#34;</span>
+		rm <span class="nt">-f</span> <span class="nv">LOCK_FILE</span><br />
+<span class="p">;;</span><br />
+restart|force-reload<span class="p">)</span><br />
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">&quot;Restarting </span><span class="nv">DESC</span><span class="s2">: &#34;</span>
+        start-stop-daemon <span class="nt">--stop</span> <span class="nt">--quiet</span> <span class="nt">--pidfile</span> <span class="se"></span>
+                /usr/local/nginx/run/<span class="nv">NAME</span>.pid <span class="nt">–exec</span> <span class="nv">DAEMON</span> <span class="o">||</span> <span class="nb">true
+        </span>sleep 1
+        test_nginx_config
+        start-stop-daemon <span class="nt">--start</span> <span class="nt">--quiet</span> <span class="nt">--pidfile</span> <span class="se"></span>
+                /usr/local/nginx/run/<span class="nv">NAME</span>.pid <span class="nt">–exec</span> <span class="nv">DAEMON</span> <span class="nt">--</span> <span class="nv">DAEMON_OPTS</span> <span class="o">||</span> <span class="nb">true<br />
+</span>touch <span class="nv">LOCK_FILE</span>
+        <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">NAME</span><span class="s2">.&quot;</span><br />
+<span class="p">;;</span><br />
+reload<span class="p">)</span><br />
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">&quot;Reloading </span><span class="nv">DESC</span><span class="s2"> configuration: &#34;</span>
+        test_nginx_config
+        start-stop-daemon <span class="nt">--stop</span> <span class="nt">--signal</span> HUP <span class="nt">--quiet</span> <span class="nt">--pidfile</span> /usr/local/nginx/run/<span class="nv">NAME</span>.pid <span class="se"></span><br />
+<span class="nt">–exec</span> <span class="nv">DAEMON</span> <span class="o">||</span> <span class="nb">true
+        echo</span> <span class="s2">&#34;</span><span class="nv">NAME</span><span class="s2">.&quot;</span><br />
+<span class="p">;;</span><br />
+configtest<span class="p">)</span><br />
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">&quot;Testing </span><span class="nv">DESC</span><span class="s2"> configuration: &#34;</span>
+        <span class="k">if </span>test_nginx_config
+        <span class="k">then
+          </span><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">NAME</span><span class="s2">.&quot;</span><br />
+<span class="k">else<br />
+</span><span class="nb">exit</span> <span class="nv"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>?</mo><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mo>&gt;</mo><mo>&lt;</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mi>k</mi><mi mathvariant="normal">&quot;</mi><mo>&gt;</mo><mi>f</mi><mi>i</mi><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mo>&gt;</mo><mo>&lt;</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mi>p</mi><mi mathvariant="normal">&quot;</mi><mo>&gt;</mo><mo separator="true">;</mo><mo separator="true">;</mo><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mo>&gt;</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>t</mi><mi>u</mi><mi>s</mi><mo>&lt;</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mi>p</mi><mi mathvariant="normal">&quot;</mi><mo>&gt;</mo><mo>)</mo><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mo>&gt;</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>t</mi><mi>u</mi><msub><mi>s</mi><mi>o</mi></msub><msub><mi>f</mi><mi>p</mi></msub><mi>r</mi><mi>o</mi><mi>c</mi><mo>&lt;</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mi>n</mi><mi>t</mi><mi mathvariant="normal">&quot;</mi><mo>&gt;</mo><mo>−</mo><mi>p</mi><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mo>&gt;</mo><mi mathvariant="normal">/</mi><mi>u</mi><mi>s</mi><mi>r</mi><mi mathvariant="normal">/</mi><mi>l</mi><mi>o</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi mathvariant="normal">/</mi><mi>n</mi><mi>g</mi><mi>i</mi><mi>n</mi><mi>x</mi><mi mathvariant="normal">/</mi><mi>r</mi><mi>u</mi><mi>n</mi><mi mathvariant="normal">/</mi><mo>&lt;</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mi>n</mi><mi>v</mi><mi mathvariant="normal">&quot;</mi><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">?&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+  status&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        status_of_proc &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /usr/local/nginx/run/&lt;span class=&quot;nv&quot;&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mclose">?</span><span class="mrel">&lt;</span><span class="mord mathrm">/</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mrel">&gt;</span><span class="mrel">&lt;</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">s</span><span class="mrel">=</span><span class="mord mathrm">&quot;</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mord mathrm">&quot;</span><span class="mrel">&gt;</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">i</span><span class="mrel">&lt;</span><span class="mord mathrm">/</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mrel">&gt;</span><span class="mrel">&lt;</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">s</span><span class="mrel">=</span><span class="mord mathrm">&quot;</span><span class="mord mathit">p</span><span class="mord mathrm">&quot;</span><span class="mrel">&gt;</span><span class="mpunct">;</span><span class="mpunct">;</span><span class="mrel">&lt;</span><span class="mord mathrm">/</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mrel">&gt;</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit">t</span><span class="mord mathit">u</span><span class="mord mathit">s</span><span class="mrel">&lt;</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">s</span><span class="mrel">=</span><span class="mord mathrm">&quot;</span><span class="mord mathit">p</span><span class="mord mathrm">&quot;</span><span class="mrel">&gt;</span><span class="mclose">)</span><span class="mrel">&lt;</span><span class="mord mathrm">/</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mrel">&gt;</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit">t</span><span class="mord mathit">u</span><span class="mord"><span class="mord mathit">s</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">o</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">p</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">o</span><span class="mord mathit">c</span><span class="mrel">&lt;</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">s</span><span class="mrel">=</span><span class="mord mathrm">&quot;</span><span class="mord mathit">n</span><span class="mord mathit">t</span><span class="mord mathrm">&quot;</span><span class="mrel">&gt;</span><span class="mord">−</span><span class="mord mathit">p</span><span class="mrel">&lt;</span><span class="mord mathrm">/</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mrel">&gt;</span><span class="mord mathrm">/</span><span class="mord mathit">u</span><span class="mord mathit">s</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathrm">/</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit">c</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathrm">/</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathit">x</span><span class="mord mathrm">/</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">u</span><span class="mord mathit">n</span><span class="mord mathrm">/</span><span class="mrel">&lt;</span><span class="mord mathit">s</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">s</span><span class="mrel">=</span><span class="mord mathrm">&quot;</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathrm">&quot;</span><span class="mrel">&gt;</span></span></span></span>NAME</span>.pid <span class="s2">&quot;</span><span class="nv">DAEMON</span><span class="s2">&#34;</span> nginx <span class="o">&amp;&amp;</span> <span class="nb">exit </span>0 <span class="o">||</span> <span class="nb">exit</span> <span class="nv">?</span><br />
+<span class="p">;;</span><br />
+<span class="k">*</span><span class="p">)</span><br />
+<span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$NAME</span><span class="s2"> &#123;start|stop|restart|reload|force-reload|status|configtest&#125;&quot;</span> <span class="o">&gt;</span>&amp;2<br />
+<span class="nb">exit </span>1<br />
+<span class="p">;;</span><br />
+<span class="k">esac</span></p>
+<p><span class="nb">exit </span>0</p>
+<p></code></pre></div></div></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-654_nginx%20lua%20%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%20%C2%AB%20%E8%AF%97%E5%AE%81/">https://lua.ren/zl/2016-01-01-654_nginx%20lua%20%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%20%C2%AB%20%E8%AF%97%E5%AE%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-656_150.%20Evaluate%20Reverse%20Polish%20Notation/" title="150. Evaluate Reverse Polish Notation"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">150. Evaluate Reverse Polish Notation</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-653_%E5%9F%BA%E4%BA%8ENginx%20Lua%20%E5%92%8CNetflix%20Eureka%E7%9A%84%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/" title="基于Nginx Lua 和Netflix Eureka的微服务网关"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于Nginx Lua 和Netflix Eureka的微服务网关</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">编译安装脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">主配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systemd%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">systemd启动配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC"><span class="toc-number">4.</span> <span class="toc-text">启动脚本</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

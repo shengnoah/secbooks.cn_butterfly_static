@@ -1,0 +1,487 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Openrestry(Nginx+Lua)之WAF实现 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="&lt;div class&#x3D;&quot;page-date&quot;&gt; 	          &lt;span id&#x3D;&quot;busuanzi_container_page_pv&quot;&gt; | 本文阅读量：&lt;span id&#x3D;&quot;busuanzi_value_page_pv&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Openrestry(Nginx+Lua)之WAF实现">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-481_Openrestry(Nginx+Lua)%E4%B9%8BWAF%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="&lt;div class&#x3D;&quot;page-date&quot;&gt; 	          &lt;span id&#x3D;&quot;busuanzi_container_page_pv&quot;&gt; | 本文阅读量：&lt;span id&#x3D;&quot;busuanzi_value_page_pv&quot;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.762Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.762Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-481_Openrestry(Nginx+Lua)%E4%B9%8BWAF%E5%AE%9E%E7%8E%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Openrestry(Nginx+Lua)之WAF实现',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Openrestry(Nginx+Lua)之WAF实现</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.762Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.762Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Openrestry(Nginx+Lua)之WAF实现"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><div class="page-image">
+      <div class="cover-image" style="background: url(/assets/img/post-9.jpg) center no-repeat; background-size: cover;"></div>
+    </div>
+    <div class="wrapper">
+      <div class="page-content">
+        <div class="header-page">
+<pre><code>      &lt;div class=&quot;page-date&quot;&gt;
+	          &lt;span id=&quot;busuanzi_container_page_pv&quot;&gt; | 本文阅读量：&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次&lt;/span&gt;
+	  &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;h1 id=&quot;openrestry简介&quot;&gt;openrestry简介:&lt;/h1&gt;
+</code></pre>
+<ul>
+  <li>
+    <p>OpenResty®是一个基于Nginx与Lua的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超高并发、扩展性极高的动态 Web 应用、Web 服务和动态网关。</p>
+  </li>
+  <li>
+    <p>OpenResty®通过汇聚各种设计精良的 Nginx 模块（主要由 OpenResty 团队自主开发），从而将 Nginx 有效地变成一个强大的通用 Web 应用平台。这样，Web 开发人员和系统工程师可以使用 Lua 脚本语言调动 Nginx 支持的各种 C 以及 Lua 模块，快速构造出足以胜任 10K 乃至 1000K 以上单机并发连接的高性能 Web 应用系统。</p>
+  </li>
+  <li>
+    <p>OpenResty®的目标是让你的Web服务直接跑在 Nginx 服务内部，充分利用 Nginx 的非阻塞 I/O 模型，不仅仅对 HTTP 客户端请求,甚至于对远程后端诸如 MySQL、PostgreSQL、Memcached 以及 Redis 等都进行一致的高性能响应。</p>
+  </li>
+</ul>
+<h2 id="openrestry安装部署">openrestry安装部署:</h2>
+<ul>
+  <li>部署文档参考资料</li>
+</ul>
+<blockquote>
+  <p>https://openresty.org/cn/installation.html
+https://openresty.org/cn/linux-packages.html</p>
+</blockquote>
+<blockquote>
+  <p>我是在CentOS发行版下通过yum方式安装的，图个简单，毕竟openrestry的部署不是我们的重点。</p>
+</blockquote>
+<h2 id="openrestry的waf功能列表">openrestry的WAF功能列表:</h2>
+<blockquote>
+  <ol>
+    <li>支持IP白名单和黑名单功能，直接将黑名单的IP访问拒绝。</li>
+    <li>支持URL白名单，将不需要过滤的URL进行定义。</li>
+    <li>支持User-Agent的过滤，匹配自定义规则中的条目，然后进行处理（返回403）。</li>
+    <li>支持CC攻击防护，单个URL指定时间的访问次数，超过设定值，直接返回403。</li>
+    <li>支持Cookie过滤，匹配自定义规则中的条目，然后进行处理（返回403）。</li>
+    <li>支持URL过滤，匹配自定义规则中的条目，如果用户请求的URL包含这些，返回403。</li>
+    <li>支持URL参数过滤，原理同上。</li>
+    <li>支持日志记录，将所有拒绝的操作，记录到日志中去。</li>
+    <li>日志记录为JSON格式，便于日志分析，例如使用ELKStack进行攻击日志收集、存储、搜索和展示。</li>
+  </ol>
+</blockquote>
+<h4 id="waf实现基本原理">WAF实现基本原理:</h4>
+<blockquote>
+  <p>WAF实现 WAF一句话描述，就是解析HTTP请求（协议解析模块），规则检测（规则模块），做不同的防御动作（动作模块），并将防御过程（日志模块）记录下来。所以本文中的WAF的实现由五个模块(配置模块、协议解析模块、规则模块、动作模块、错误处理模块）组成。</p>
+</blockquote>
+<h2 id="openrestry启用waf配置">openrestry启用WAF配置:</h2>
+<p><em style="color: red">参考资料，感谢这两个项目人员的贡献</em></p>
+<blockquote>
+  <p>https://github.com/loveshell/ngx_lua_waf
+https://github.com/unixhot/waf</p>
+</blockquote>
+<ul>
+  <li>获取WAF实现的lua代码，并放到openrestry配置文件存放路径:</li>
+</ul>
+<blockquote>
+  <p>PS: yum方式安装openrestry后，程序会在部署在:<em style="color: red">/usr/local/openresty</em>路径。</p>
+</blockquote>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#git clone https://github.com/unixhot/waf.git</span>
+<span class="c">#cp -a ./waf/waf /usr/local/openresty/nginx/conf/</span>
+</code></pre></div></div>
+<ul>
+  <li>修改Nginx的配置文件，加入以下配置。在nginx.conf的<em style="color: red">http</em>段添加:</li>
+</ul>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#WAF</span>
+lua_shared_dict limit 50m<span class="p">;</span>
+lua_package_path <span class="s2">&#34;/usr/local/openresty/nginx/conf/waf/?.lua&#34;</span><span class="p">;</span>
+init_by_lua_file <span class="s2">&#34;/usr/local/openresty/nginx/conf/waf/init.lua&#34;</span><span class="p">;</span>
+access_by_lua_file <span class="s2">&#34;/usr/local/openresty/nginx/conf/waf/access.lua&#34;</span><span class="p">;</span>
+</code></pre></div></div>
+<ul>
+  <li>根据需要修改WAF配置参数:</li>
+</ul>
+<blockquote>
+  <p>一般需要修改WAF日志默认存放路径/tmp/,其他配置项参数的修改参考注解即可，被拦截后的提醒页面内容根据需要自行定义：</p>
+</blockquote>
+<p><img src="https://lichi6174.github.io//assets/img/openrestry-waf.jpg" alt="openrestry-waf"/></p>
+<ul>
+  <li>验证配置和启动openrestry服务：</li>
+</ul>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#/usr/local/openresty/nginx/sbin/nginx –t</span>
+<span class="c">#/usr/local/openresty/nginx/sbin/nginx</span>
+</code></pre></div></div>
+<h2 id="nginx配置参考">nginx配置参考:</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>worker_processes  4<span class="p">;</span>
+events <span class="o">&#123;</span>
+    worker_connections  1024<span class="p">;</span>
+<span class="o">&#125;</span>
+http <span class="o">&#123;</span>
+    include       mime.types<span class="p">;</span>
+    default_type  application/octet-stream<span class="p">;</span>
+    log_format  main  <span class="s1">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;</span>
+                      <span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;</span>
+                      <span class="s1">&#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>
+    access_log  logs/access.log  main<span class="p">;</span>
+    sendfile        on<span class="p">;</span>
+    keepalive_timeout  65<span class="p">;</span>
+    lua_shared_dict limit 50m<span class="p">;</span>
+    lua_package_path <span class="s2">&#34;/usr/local/openresty/nginx/conf/waf/?.lua&#34;</span><span class="p">;</span>
+    init_by_lua_file <span class="s2">&#34;/usr/local/openresty/nginx/conf/waf/init.lua&#34;</span><span class="p">;</span>
+    access_by_lua_file <span class="s2">&#34;/usr/local/openresty/nginx/conf/waf/access.lua&#34;</span><span class="p">;</span>
+    server <span class="o">&#123;</span>
+        listen       80<span class="p">;</span>
+        server_name  localhost<span class="p">;</span>
+        location / <span class="o">&#123;</span>
+            root   html<span class="p">;</span>
+            index  index.html index.htm<span class="p">;</span>
+        <span class="o">&#125;</span>
+        error_page   500 502 503 504  /50x.html<span class="p">;</span>
+        location <span class="o">=</span> /50x.html <span class="o">&#123;</span>
+            root   html<span class="p">;</span>
+        <span class="o">&#125;</span>
+    <span class="o">&#125;</span>
+include vhosts/<span class="k">*</span>.conf<span class="p">;</span>
+<span class="o">&#125;</span>
+</code></pre></div></div>
+<h2 id="关于lua脚本获取客户端真实ip方法调整">关于lua脚本获取客户端真实IP方法调整</h2>
+<blockquote>
+  <p>原代码获取客户端真实IP，如果经过多个代理节点传过来的X_Forwarded_For的IP值不止一个的时候会有问题。</p>
+</blockquote>
+<h3 id="1-此功能函数定义的脚本位置">1. 此功能函数定义的脚本位置：</h3>
+<blockquote>
+  <p>/usr/local/openresty/nginx/conf/waf/lib.lua</p>
+</blockquote>
+<h3 id="2-此功能函数参考">2. 此功能函数参考：</h3>
+<h4 id="方法一">方法一：</h4>
+<ul>
+  <li>原代码：</li>
+</ul>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">--Get</span> the client IP
+<span class="k">function </span>get_client_ip<span class="o">()</span>
+    CLIENT_IP <span class="o">=</span> ngx.req.get_headers<span class="o">()[</span><span class="s2">&#34;X_real_ip&#34;</span><span class="o">]</span>
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+        </span>CLIENT_IP <span class="o">=</span> ngx.req.get_headers<span class="o">()[</span><span class="s2">&#34;X_Forwarded_For&#34;</span><span class="o">]</span>
+    end
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+        </span>CLIENT_IP  <span class="o">=</span> ngx.var.remote_addr
+    end
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+        </span>CLIENT_IP  <span class="o">=</span> <span class="s2">&#34;unknown&#34;</span>
+    end
+    <span class="k">return </span>CLIENT_IP
+end
+</code></pre></div></div>
+<h4 id="方法二">方法二：</h4>
+<blockquote>
+  <p>部分客户端访问经过多个代理节点之后，X_Forwarded_For获得的IP地址可能不止一个，我们只取第一个ip地址即为客户端真实IP地址，比如如下日志记录：</p>
+</blockquote>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100.116.224.220 - - <span class="o">[</span>29/Nov/2018:09:14:37 +0800-1543454077.462] <span class="s2">&#34;POST /api/operation/abc HTTP/1.1&#34;</span> 200 873 <span class="s2">&#34;https://abc.com/2018031602388641/0.2.1811161506.32/index.html&#34;</span> <span class="s2">&#34;Mozilla/5.0 (Linux; U; Android 9; zh-CN; ALP-AL00 Build/HUAWEIALP-AL00)&#34;</span> <span class="s2">&#34;223.104.64.51, 11.34.31.180, 110.75.242.180&#34;</span>
+</code></pre></div></div>
+<ul>
+  <li>调整后代码(经验证有效)：</li>
+</ul>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">--Get</span> the client IP
+<span class="k">function </span>get_client_ip<span class="o">()</span>
+    CLIENT_IP <span class="o">=</span> ngx.req.get_headers<span class="o">()[</span><span class="s2">&#34;X_real_ip&#34;</span><span class="o">]</span>
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+        if </span>ngx.var.http_x_forwarded_for ~<span class="o">=</span> nil <span class="k">then
+        </span>CLIENT_IP <span class="o">=</span> string.match<span class="o">(</span>ngx.var.http_x_forwarded_for, <span class="s2">&#34;%d+.%d+.%d+.%d+&#34;</span>, 1<span class="o">)</span><span class="p">;</span>
+        end
+    end
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+        </span>CLIENT_IP  <span class="o">=</span> ngx.var.remote_addr or <span class="s1">&#39;127.0.0.1&#39;</span>
+    end
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+        </span>CLIENT_IP  <span class="o">=</span> <span class="s2">&#34;unknown&#34;</span>
+    end
+    <span class="k">return </span>CLIENT_IP
+end
+</code></pre></div></div>
+<h4 id="方法三">方法三：</h4>
+<ul>
+  <li>调整后代码（验证无效）</li>
+</ul>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">--Get</span> the client IP
+<span class="k">function </span>get_client_ip<span class="o">()</span>
+    HEADERS <span class="o">=</span> ngx.req.get_headers<span class="o">()</span>
+    CLIENT_IP <span class="o">=</span> HEADERS[<span class="s2">&#34;X_real_ip&#34;</span><span class="o">]</span>
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+       if </span><span class="nb">type</span><span class="o">(</span>HEADERS[<span class="s2">&#34;x-forwarded-for&#34;</span><span class="o">])</span> <span class="o">==</span> <span class="s2">&#34;table&#34;</span> <span class="k">then
+           </span>CLIENT_IP <span class="o">=</span> HEADERS[<span class="s2">&#34;x-forwarded-for&#34;</span><span class="o">][</span>1]
+       <span class="k">else
+           </span>CLIENT_IP <span class="o">=</span> HEADERS[<span class="s2">&#34;x-forwarded-for&#34;</span><span class="o">]</span>
+       end
+    end
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+        </span>CLIENT_IP  <span class="o">=</span> ngx.var.remote_addr or <span class="s1">&#39;127.0.0.1&#39;</span>
+    end
+    <span class="k">if </span>CLIENT_IP <span class="o">==</span> nil <span class="k">then
+        </span>CLIENT_IP  <span class="o">=</span> <span class="s2">&#34;unknown&#34;</span>
+    end
+    <span class="k">return </span>CLIENT_IP
+end
+</code></pre></div></div>
+<pre><code>    &lt;div class=&quot;page-footer&quot;&gt;
+      &lt;div class=&quot;page-tag&quot;&gt;
+        &lt;span&gt;Tags:&lt;/span&gt;
+        
+        &lt;a href=&quot;/tags#Blog&quot; class=&quot;tag&quot;&gt;| Blog&lt;/a&gt;
+        
+        &lt;a href=&quot;/tags#security&quot; class=&quot;tag&quot;&gt;| security&lt;/a&gt;
+        
+        &lt;a href=&quot;/tags#web&quot; class=&quot;tag&quot;&gt;| web&lt;/a&gt;
+        
+        &lt;a href=&quot;/tags#openrestry&quot; class=&quot;tag&quot;&gt;| openrestry&lt;/a&gt;
+        
+      &lt;/div&gt;
+
+      
+      &lt;div id=&quot;gitmentContainer&quot;&gt;&lt;/div&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;https://jjeejj.github.io/css/gitment.css&quot;/&gt;
+        &lt;script src=&quot;https://jjeejj.github.io/js/gitment.js&quot;&gt;&lt;/script&gt;
+        &lt;script&gt;
+          var gitment = new Gitment(&#123;
+          owner: 'lichi6174',
+          repo: 'lichi6174.github.io',
+          oauth: &#123;
+            client_id: '6a7d368a50aba47c2074',
+            client_secret: '21d9d8a3ffba794b0dbda3e2f3276aa9ddd98ec5',
+          &#125;,
+          &#125;);
+          gitment.render('gitmentContainer');
+        &lt;/script&gt;
+
+      
+	      &lt;section&gt;
+		
+
+        &lt;div class=&quot;content-play&quot;&gt;
+          &lt;p&gt;&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;dashangToggle()&quot; class=&quot;dashang&quot; title=&quot;打赏，支持一下&quot;&gt;打赏一下呗&lt;/a&gt;&lt;/p&gt;
+          &lt;div class=&quot;hide_box-play&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;shang_box-play&quot;&gt;
+            &lt;a class=&quot;shang_close-play&quot; href=&quot;javascript:void(0)&quot; onclick=&quot;dashangToggle()&quot; title=&quot;关闭&quot;&gt;&lt;img src=&quot;https://lichi6174.github.io//assets/img/close.jpg&quot; alt=&quot;取消&quot;/&gt;&lt;/a&gt;
+            &lt;div class=&quot;shang_tit-play&quot;&gt;
+              &lt;p&gt;对你有帮助，那就打赏一下吧&lt;/p&gt;
+            &lt;/div&gt;
+			
+			&lt;div class=&quot;shang_payimg&quot;&gt;    
+                &lt;img src=&quot;https://lichi6174.github.io//assets/img/wechatpayimg.png&quot; alt=&quot;扫码支持&quot; title=&quot;扫一扫&quot;/&gt;
+            &lt;/div&gt;
+			
+			 &lt;div class=&quot;pay_item&quot; data-id=&quot;weipay&quot;&gt;
+                &lt;span class=&quot;pay_logo&quot;&gt;&lt;img src=&quot;https://lichi6174.github.io//assets/img/wechat.jpg&quot; alt=&quot;微信&quot;/&gt;&lt;/span&gt;
+              &lt;/div&gt;
+			
+            &lt;div class=&quot;shang_payimg&quot;&gt;
+                &lt;img src=&quot;https://lichi6174.github.io//assets/img/alipayimg.jpg&quot; alt=&quot;扫码支持&quot; title=&quot;扫一扫&quot;/&gt;
+            &lt;/div&gt;
+			
+			 &lt;div class=&quot;pay_item checked&quot; data-id=&quot;alipay&quot;&gt;
+                &lt;span class=&quot;pay_logo&quot;&gt;&lt;img src=&quot;https://lichi6174.github.io//assets/img/alipay.jpg&quot; alt=&quot;支付宝&quot;/&gt;&lt;/span&gt;
+              &lt;/div&gt;
+			
+            &lt;div class=&quot;pay_explain&quot;&gt;扫码打赏,金额随意&lt;/div&gt;
+           
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+        function dashangToggle()&#123;
+          $(&quot;.hide_box-play&quot;).fadeToggle();
+          $(&quot;.shang_box-play&quot;).fadeToggle();
+        &#125;
+        &lt;/script&gt;
+
+        &lt;div style=&quot;text-align:center;margin:50px 0; font:normal 14px/24px &amp;#39;MicroSoft YaHei&amp;#39;;&quot;&gt;&lt;/div&gt;
+
+        &lt;style type=&quot;text/css&quot;&gt;
+          .content-play&#123;width:100%;margin-top: 20px;margin-bottom: 10px;height:40px;text-align:center;&#125;
+          .hide_box-play&#123;z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;&#125;
+          .shang_box-play&#123;width:100%;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:0%;top:50%;margin-left:0px;margin-top:-280px;border:1px dotted #dedede;display:none;&#125;
+          .shang_box-play img&#123;border:none;border-width:0;&#125;
+          .dashang&#123;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;&#125;
+          .dashang:hover&#123;opacity:0.8;padding:15px;font-size:18px;&#125;
+          .shang_close-play&#123;float:right;display:inline-block;
+            margin-right: 10px;margin-top: 20px;
+          &#125;
+          .shang_logo&#123;display:block;text-align:center;margin:20px auto;&#125;
+          .shang_tit-play&#123;width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;&#125;
+          .shang_tit-play p&#123;color:#a3a3a3;text-align:center;font-size:16px;&#125;
+          .shang_payimg&#123;padding:10px;/*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;&#125;
+          .shang_payimg img&#123;display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; &#125;
+          .pay_explain&#123;text-align:center;margin:10px auto;font-size:12px;color:#545454;&#125;
+          .shang_payselect&#123;text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;&#125;
+          .shang_payselect .pay_item&#123;display:inline-block;margin-right:140px;float:left;&#125;
+          .shang_info-play&#123;clear:both;&#125;
+          .shang_info-play p,.shang_info-play a&#123;color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;&#125;
+        &lt;/style&gt;
+</code></pre>
+</section>
+<pre><code>    &lt;/div&gt;
+	
+    
+     
+
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-481_Openrestry(Nginx+Lua)%E4%B9%8BWAF%E5%AE%9E%E7%8E%B0/">https://lua.ren/zl/2016-01-01-481_Openrestry(Nginx+Lua)%E4%B9%8BWAF%E5%AE%9E%E7%8E%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-483_%E6%B5%85%E6%9E%90android%E6%89%8B%E6%B8%B8lua%E8%84%9A%E6%9C%AC%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%EF%BC%88%E5%90%8E%E7%BB%AD%EF%BC%89/" title="浅析android手游lua脚本的加密与解密（后续）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">浅析android手游lua脚本的加密与解密（后续）</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-482_Lua%20%E6%B1%89%E5%AD%97%E6%8B%BC%E9%9F%B3%E9%A6%96%E5%AD%97%E6%AF%8D%E6%8F%90%E5%8F%96%20/" title="Lua 汉字拼音首字母提取"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua 汉字拼音首字母提取</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#openrestry%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="toc-number">1.</span> <span class="toc-text">openrestry安装部署:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#openrestry%E7%9A%84waf%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text">openrestry的WAF功能列表:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#waf%E5%AE%9E%E7%8E%B0%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">2.0.1.</span> <span class="toc-text">WAF实现基本原理:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#openrestry%E5%90%AF%E7%94%A8waf%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">openrestry启用WAF配置:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">nginx配置参考:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Elua%E8%84%9A%E6%9C%AC%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip%E6%96%B9%E6%B3%95%E8%B0%83%E6%95%B4"><span class="toc-number">5.</span> <span class="toc-text">关于lua脚本获取客户端真实IP方法调整</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%AD%A4%E5%8A%9F%E8%83%BD%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E7%9A%84%E8%84%9A%E6%9C%AC%E4%BD%8D%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">1. 此功能函数定义的脚本位置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%AD%A4%E5%8A%9F%E8%83%BD%E5%87%BD%E6%95%B0%E5%8F%82%E8%80%83"><span class="toc-number">5.2.</span> <span class="toc-text">2. 此功能函数参考：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-number">5.2.1.</span> <span class="toc-text">方法一：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-number">5.2.2.</span> <span class="toc-text">方法二：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89"><span class="toc-number">5.2.3.</span> <span class="toc-text">方法三：</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

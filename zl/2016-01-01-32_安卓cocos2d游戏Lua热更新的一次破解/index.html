@@ -1,0 +1,319 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>安卓cocos2d游戏Lua热更新的一次破解 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="lua热更新           lua、luac、luaJIT三种文件的关系       逆向                   1. 解压apk                           2. 反编译工具               3.分析待破解文件                                   4.逆向分析           5.解密文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓cocos2d游戏Lua热更新的一次破解">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-32_%E5%AE%89%E5%8D%93cocos2d%E6%B8%B8%E6%88%8FLua%E7%83%AD%E6%9B%B4%E6%96%B0%E7%9A%84%E4%B8%80%E6%AC%A1%E7%A0%B4%E8%A7%A3/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="lua热更新           lua、luac、luaJIT三种文件的关系       逆向                   1. 解压apk                           2. 反编译工具               3.分析待破解文件                                   4.逆向分析           5.解密文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.608Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.608Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-32_%E5%AE%89%E5%8D%93cocos2d%E6%B8%B8%E6%88%8FLua%E7%83%AD%E6%9B%B4%E6%96%B0%E7%9A%84%E4%B8%80%E6%AC%A1%E7%A0%B4%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '安卓cocos2d游戏Lua热更新的一次破解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">安卓cocos2d游戏Lua热更新的一次破解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.608Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.608Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="安卓cocos2d游戏Lua热更新的一次破解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><ul id="markdown-toc">
+  <li><a href="#lua热更新" id="markdown-toc-lua热更新">lua热更新</a>    <ul>
+      <li><a href="#lualuacluajit三种文件的关系" id="markdown-toc-lualuacluajit三种文件的关系">lua、luac、luaJIT三种文件的关系</a></li>
+      <li><a href="#逆向" id="markdown-toc-逆向">逆向</a>        <ul>
+          <li><a href="#1-解压apk" id="markdown-toc-1-解压apk">1. 解压apk</a>            <ul>
+              <li><a href="#2-反编译工具" id="markdown-toc-2-反编译工具">2. 反编译工具</a></li>
+              <li><a href="#3分析待破解文件" id="markdown-toc-3分析待破解文件">3.分析待破解文件</a></li>
+            </ul>
+          </li>
+          <li><a href="#4逆向分析" id="markdown-toc-4逆向分析">4.逆向分析</a></li>
+          <li><a href="#5解密文件" id="markdown-toc-5解密文件">5.解密文件</a>            <ul>
+              <li><a href="#1-解密lua文件" id="markdown-toc-1-解密lua文件">1. 解密lua文件</a></li>
+              <li><a href="#2-解密package包" id="markdown-toc-2-解密package包">2. 解密package包</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#小结" id="markdown-toc-小结">小结</a></li>
+    </ul>
+  </li>
+</ul>
+<p>   
+很多游戏和软件都是用了lua热更新技术，以前对lua热更新不太熟悉，前段时间刚好帮同事个小忙就研究了一下，很多都是比较浅显，有错误还要读者指出。lua作为热更新包还是有很多优势的，首先lua性能算是比较高的，虽然比着C的性能还差一些，但是相当不错。其次lua比较好写，对于迭代比较高的一些游戏业务或者其他需要反复开发的业务都很适合。另外lua很容易内嵌到C语言中，简直是无缝结合，所以很多厂商用lua脚本来写那些需要快速迭代的业务。</p>
+<h2 id="lualuacluajit三种文件的关系">lua、luac、luaJIT三种文件的关系</h2>
+<p>   
+基于lua的更新包一般有三种文件：lua、luac、luaJIT。lua是明文代码，直接用记事本就能打开；luac是lua编译后的字节码，文件头为</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0x1B 0x4C 0x75 0x61 0x51
+</code></pre></div></div>
+<p>   
+lua虚拟机能够直接解析lua和luac脚本文件；而luaJIT是另一个lua的实现版本，JIT是指Just-In-Time(即时解析运行)，luaJIT比lua和luac更加高效，文件头是</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0x1B 0x4C 0x4A。 
+</code></pre></div></div>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf730c1c278.jpg" alt="字节码标识"/></p>
+<p>   
+一般情况加，厂商是不会直接来把lua脚本明文加载到apk包内的，因为apk包很容易解开拿到lua明文。厂商一般会使用三种方式来加密lua脚本</p>
+<ul>
+  <li>加密lua脚本，在加载lua脚本前来解密lua脚本，最后运行lua脚本。</li>
+  <li>首先编译lua脚本生成luac字节码，然后再加密字节码，最后在加载前解密然后加载字节码。</li>
+  <li>最后是修改lua虚拟机中的opcode的顺序，有点像重新映射lua虚拟机执行指令。</li>
+</ul>
+<p>   
+好啦！基本层面介绍完开始实战。首先拿游戏开刀因为很多游戏都是用cocos2d开发的，cocos2d自带lua接口方便开发，所以很多游戏的业务逻辑都是在lua脚本里面，所以第一时间拿到lua脚本基本就是成功了一大半。</p>
+<h2 id="逆向">逆向</h2>
+<h3 id="1-解压apk">1. 解压apk</h3>
+<p>   
+下载待解密apk包，具体哪款我就不具体指出了，简单粗暴把apk包用解压工具直接解压，一般情况下会得到文件夹结构</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf730d569ab.jpg" alt="文件夹结构"/></p>
+<p>一般lib目录里面是存放的打包的整个游戏的动态库，如图所示：</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf730eb0aac.jpg" alt="lua库"/></p>
+<p>下一步就要对这个动态库进行挖矿了，里面有所有想要的东西。</p>
+<h4 id="2-反编译工具">2. 反编译工具</h4>
+<p>   
+反编译工具还是挺多的，我使用的IDAQ这个工具，很好用推荐。直接可以将静态库和动态库进行反编译，得到内部各个段的数据，同时IDAQ工具可以将反编译的汇编代码逆编译到C语言，虽然只是部分近似C语言代码，但是对于逆向已经是非常完美的工具。</p>
+<ol>
+  <li>
+    <p>对于找到的lua动态库进行反编译。使用这个工具是很简单的。教程不细说了，google一下。反编译后的汇编界面如下图所示：</p>
+<pre><code>&lt;p&gt;&lt;img src=&quot;https://img.dazhuanlan.com/2019/11/28/5ddf730fcf9ab.jpg&quot; alt=&quot;反编译汇编区&quot;/&gt;&lt;/p&gt;
+</code></pre>
+  </li>
+</ol>
+<h4 id="3分析待破解文件">3.分析待破解文件</h4>
+<p>   
+在apk的解压包内开始找apk可能加载的lua文件。一般apk的文件会在assets目录下，尽情的找吧！首先找到了一些.lua后缀的文件，很明显这可能是主要的lua程序入口。</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf73107dda8.jpg" alt="lua"/></p>
+<p>继续翻找又找到了一些package包，看起来很想游戏的加载包。</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf731155938.jpg" alt="package包"/></p>
+<p>首先我们尝试打开.lua文件。</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf731268d6b.jpg" alt="lua包"/></p>
+<p>不出所料加密了，很沮丧，没事加密了才有挑战。我们尝试打开package包看看，</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf731406310.jpg" alt="pakeage"/></p>
+<p>同样加密了，但是我们对比了多个package包，发现首字母都是]6这两个字符，这说明有可能说明未加密的数据前面是有一个固定的头的，这让我想起了压缩包格式，常见的zip，tar，tar.gz,rar等压缩包其实都有固定的标识。当然很多厂商也确实会把文件先打成压缩包，毕竟会节省一部分空间。现在就比较尴尬了。我们是不知道这个文件是用的什么算法加密的，秘钥也不知道。我们该想办法得到加密方式和秘钥。</p>
+<h3 id="4逆向分析">4.逆向分析</h3>
+<p>   
+前面讲过，lua加载无外乎哪几种方式，但是不管什么方式最后在运行时都要lua代码或者字节码。所以我们要想办法找到解密文件的地方。</p>
+<p>首先我们要了解cocos2d引擎加载lua脚本的过程，这样我们才能顺着整个路径走。google到cocos启动的入口函数和普通常规代码在AppDelegate.cpp文件下如下：</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">AppDelegate</span><span class="o">::</span><span class="n">applicationDidFinishLaunching</span><span class="p">()</span>
+<span class="p">&#123;</span>
+    <span class="c1">// set default FPS
+</span>    <span class="n">Director</span><span class="o">::</span><span class="n">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setAnimationInterval</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">60.0</span><span class="n">f</span><span class="p">);</span>
+<pre><code>&lt;span class=&quot;c1&quot;&gt;// register lua module
+</code></pre>
+<p></span>    <span class="k">auto</span> <span class="n">engine</span> <span class="o">=</span> <span class="n">LuaEngine</span><span class="o">::</span><span class="n">getInstance</span><span class="p">();</span><br />
+<span class="n">ScriptEngineManager</span><span class="o">::</span><span class="n">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setScriptEngine</span><span class="p">(</span><span class="n">engine</span><span class="p">);</span><br />
+<span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span> <span class="o">=</span> <span class="n">engine</span><span class="o">-&gt;</span><span class="n">getLuaStack</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getLuaState</span><span class="p">();</span><br />
+<span class="n">lua_module_register</span><span class="p">(</span><span class="n">L</span><span class="p">);</span></p>
+<pre><code>&lt;span class=&quot;n&quot;&gt;register_all_packages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;LuaStack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;engine&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getLuaStack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setXXTEAKeyAndSign&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#34;2dxLua&amp;#34;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#34;2dxLua&amp;#34;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#34;XXTEA&amp;#34;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#34;XXTEA&amp;#34;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//register custom function
+</code></pre>
+<p></span>    <span class="c1">//LuaStack* stack = engine-&gt;getLuaStack();<br />
+</span>    <span class="c1">//register_custom_function(stack-&gt;getLuaState());<br />
+</span><br />
+<span class="cp">#if (COCOS2D_DEBUG &gt; 0) &amp;&amp; (CC_CODE_IDE_DEBUG_SUPPORT &gt; 0)<br />
+</span>    <span class="c1">// NOTE:Please don't remove this call if you want to debug with Cocos Code IDE<br />
+</span>    <span class="k">auto</span> <span class="n">runtimeEngine</span> <span class="o">=</span> <span class="n">RuntimeEngine</span><span class="o">::</span><span class="n">getInstance</span><span class="p">();</span><br />
+<span class="n">runtimeEngine</span><span class="o">-&gt;</span><span class="n">addRuntime</span><span class="p">(</span><span class="n">RuntimeLuaImpl</span><span class="o">::</span><span class="n">create</span><span class="p">(),</span> <span class="n">kRuntimeEngineLua</span><span class="p">);</span><br />
+<span class="n">runtimeEngine</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span><br />
+<span class="cp">#else<br />
+</span><span class="c1">//默认调用src/main.lua代码<br />
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">engine</span><span class="o">-&gt;</span><span class="n">executeScriptFile</span><span class="p">(</span><span class="s">&quot;src/main.lua&quot;</span><span class="p">))</span><br />
+<span class="p">{</span><br />
+<span class="k">return</span> <span class="nb">false</span><span class="p">;</span><br />
+<span class="p">}</span><br />
+<span class="cp">#endif<br />
+</span><br />
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span><br />
+<span class="p">}</span><br />
+</code></pre></div></div></p>
+<p>逻辑通熟易懂，可以看到入口函数applicationDidFinishLaunching                                                                                    中完成初始化lua虚拟机完成后，然后调用了main.lua进入业务逻辑。所以可以顺着这条路走下去。
+在IDAQ的函数栏查找applicationDidFinishLaunching函数。然后反编译生成代码。</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf73151d24d.jpg" alt="反编译"/></p>
+<p>好了就要按着耐心查找入口代码了，先分析MainManagerCpp::setupLuaBinding(v13, v11);这句话还是在初始化lua引擎的工作，说明加载理论上用在在这句话后面，好吧小哥开始找吧！最终找到了这个函数：这个是设置秘钥的函数，后面的长字符串就是秘钥。</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf73163b096.jpg" alt=""/></p>
+<p>有了秘钥肯定有地方调用解密，好吧，继续查找发现了这个函数</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf7317191d8.jpg" alt=""/></p>
+<p>继续点击进去发现了这个关键字rc4：</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf7318240fa.jpg" alt=""/></p>
+<p>到这地方基本就很清楚了，该代码在加载lua文件的时候先解密了文件，使用了rc4加解密算法，秘钥是上面的字符串，是不是很激动。</p>
+<h3 id="5解密文件">5.解密文件</h3>
+<h4 id="1-解密lua文件">1. 解密lua文件</h4>
+<p>有了秘钥和加密方式，那就开始左手解密，<a target="_blank" rel="noopener" href="http://blog.csdn.net/lc_910927/article/details/37599161">rc4流加密算法</a>介绍可以看一下，秘钥长度可变，上面获取的秘钥是128位的秘钥。rc4的加解密算法网上可以拿到实现，rc4加密算法，加密一次是加密，再次加密就是解密，很有意思，拿到算法实现直接写一个加解密工具。对上面的文件进行解密。获取到main.lua文件解密后的代码截图：</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf73193dcaa.jpg" alt="解密文件"/></p>
+<p>有没有很激动。</p>
+<h4 id="2-解密package包">2. 解密package包</h4>
+<p>同样对pakeage包进行解密，获得原始二进制文件，打开文件还是乱码，如下图：</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf731a71172.jpg" alt=""/></p>
+<p>但是注意箭头处的两个字符PK这两个字符，ASCII字符值为0x50,0x4B,通过查询文件压缩头发现zip压缩的头表示符为0x04034b50，<a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_4c3591bd0100zzm6.html">zip文件格式</a>，随即确定为zip压缩格式，直接按zip文件解压得到了一下文件结构：</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf731b6a486.jpg" alt=""/></p>
+<p>作为lua文件直接打开得到包内核心lua业务代码，转账银行代码：</p>
+<p><img src="https://img.dazhuanlan.com/2019/11/28/5ddf731c54609.jpg" alt=""/></p>
+<p>好了至此，全部文件解密，可以一窥核心逻辑代码，想怎么修改就怎么修改。</p>
+<h2 id="小结">小结</h2>
+<p>本文详细介绍了如果逆向一个基于lua热更新游戏的包，获取了整个解密后的lua代码。如果你收本文启发可以尝试破解其他游戏，关闭碰撞检测来个子弹穿墙没问题，哈哈，切记任何破解违法行为与本作者无关，只供交流学习。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-32_%E5%AE%89%E5%8D%93cocos2d%E6%B8%B8%E6%88%8FLua%E7%83%AD%E6%9B%B4%E6%96%B0%E7%9A%84%E4%B8%80%E6%AC%A1%E7%A0%B4%E8%A7%A3/">https://lua.ren/zl/2016-01-01-32_%E5%AE%89%E5%8D%93cocos2d%E6%B8%B8%E6%88%8FLua%E7%83%AD%E6%9B%B4%E6%96%B0%E7%9A%84%E4%B8%80%E6%AC%A1%E7%A0%B4%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-331_Redisson%20lua%E8%84%9A%E6%9C%AC%E6%89%A7%E8%A1%8C%E8%B8%A9%E5%9D%91%E4%B9%8B%E7%A5%9E%E7%A7%98%E7%9A%84%E5%BC%95%E5%8F%B7/" title="Redisson lua脚本执行踩坑之神秘的引号"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Redisson lua脚本执行踩坑之神秘的引号</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-330_Lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Lua学习笔记"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua学习笔记</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#lualuacluajit%E4%B8%89%E7%A7%8D%E6%96%87%E4%BB%B6%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.</span> <span class="toc-text">lua、luac、luaJIT三种文件的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%86%E5%90%91"><span class="toc-number">2.</span> <span class="toc-text">逆向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%A3%E5%8E%8Bapk"><span class="toc-number">2.1.</span> <span class="toc-text">1. 解压apk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7"><span class="toc-number">2.1.1.</span> <span class="toc-text">2. 反编译工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E5%88%86%E6%9E%90%E5%BE%85%E7%A0%B4%E8%A7%A3%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.2.</span> <span class="toc-text">3.分析待破解文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E9%80%86%E5%90%91%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">4.逆向分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E8%A7%A3%E5%AF%86%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">5.解密文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%A7%A3%E5%AF%86lua%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.1.</span> <span class="toc-text">1. 解密lua文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%A7%A3%E5%AF%86package%E5%8C%85"><span class="toc-number">2.3.2.</span> <span class="toc-text">2. 解密package包</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

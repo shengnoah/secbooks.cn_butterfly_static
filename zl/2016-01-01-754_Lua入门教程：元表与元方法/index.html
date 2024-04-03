@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua入门教程：元表与元方法 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lua 语言中每中类型的值都有一套可预见的操作集合，比如可以将数字相加，将字符串连接，还可以在表中插入键值对。但我们却无法直接将两个表相加，无法对表进行直接比较，除非我们使用元表。元表可以修改一个值在面对未知操作时的行为。例如，我们对两个表 a 和 b 执行 a + b 操作，Lua 在试图将两个表相加时，会检查其中某个表是否含有元表(metatable)，且元表中是否含有 __add 字段，如果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua入门教程：元表与元方法">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-754_Lua%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%EF%BC%9A%E5%85%83%E8%A1%A8%E4%B8%8E%E5%85%83%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="Lua 语言中每中类型的值都有一套可预见的操作集合，比如可以将数字相加，将字符串连接，还可以在表中插入键值对。但我们却无法直接将两个表相加，无法对表进行直接比较，除非我们使用元表。元表可以修改一个值在面对未知操作时的行为。例如，我们对两个表 a 和 b 执行 a + b 操作，Lua 在试图将两个表相加时，会检查其中某个表是否含有元表(metatable)，且元表中是否含有 __add 字段，如果">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:36.000Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:36.002Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-754_Lua%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%EF%BC%9A%E5%85%83%E8%A1%A8%E4%B8%8E%E5%85%83%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua入门教程：元表与元方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Lua入门教程：元表与元方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:36.000Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:36.002Z" title="更新于 2024-04-03 11:47:36">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Lua入门教程：元表与元方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>Lua 语言中每中类型的值都有一套可预见的操作集合，比如可以将数字相加，将字符串连接，还可以在表中插入键值对。但我们却无法直接将两个表相加，无法对表进行直接比较，除非我们使用元表。<br/>元表可以修改一个值在面对未知操作时的行为。例如，我们对两个表 a 和 b 执行 <code>a + b</code> 操作，Lua 在试图将两个表相加时，会检查其中某个表是否含有元表(metatable)，且元表中是否含有 <code>__add</code> 字段，如果 Lua 找到该字段，则调用该字段对应的值，这就是所有的元方法(metamethod)。</p>
+<p>在元表中每个元方法的键的命名都是一个双下划线（__）加事件名的，键关联的那些值被称为元方法。上面说的 <code>_add</code> 就是元方法键名称，而对应的元方法值是执行加操作的函数。</p>
+<h2 id="获取与设置元表"><a href="#获取与设置元表" class="headerlink" title="获取与设置元表"></a>获取与设置元表</h2><p>在 Lua 中每个值都可以有元表，而元表只是一个普通的Lua表。<br/>每个表和用户数据类型都具有各自独立的元表，而其他类型的值则共享对于类型所属的同一个元表。<br/>我们可以使用 <code>getmetatable</code> 获取一个表的元表，注意，刚创建的新表是没有元表的：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">t = {}</span><br/><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(t))  </span><br/></pre></td></tr></tbody></table></figure>
+<p>另外，我们可以使用 <code>setmetatable</code> 来设置和修改任意表的元表：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">t1 = {}</span><br/><span class="line"><span class="built_in">setmetatable</span>(t, t1)</span><br/><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(t) == t1)    <span class="comment">--&gt; true</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>在 Lua 中我们只能为表设置元表，如果要为其他类型值设置元表，则必须通过C代码或调试库完成。另外，字符串库为所有字符串都设置了同一个元表，而其他类型默认是没有元表的：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(<span class="string">&#34;hello&#34;</span>))    <span class="comment">--&gt; table: 0106F578</span></span><br/><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(<span class="string">&#34;world&#34;</span>))    <span class="comment">--&gt; table: 0106F578</span></span><br/><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(<span class="literal">true</span>))       </span><br/></pre></td></tr></tbody></table></figure>
+<h2 id="算术运算元方法"><a href="#算术运算元方法" class="headerlink" title="算术运算元方法"></a>算术运算元方法</h2><p>对于数学运算、位运算这些算术运算符，每一个操作都有唯一对应的元方法：</p>
+<ul>
+<li><strong>__add</strong>: + 操作。 如果任何不是数字的值（包括不能转换为数字的字符串）做加法， Lua 就会尝试调用该元方法。</li>
+<li><strong>__sub</strong>: - 操作。 行为和 “add” 操作类似。</li>
+<li><strong>__mul</strong>: * 操作。 行为和 “add” 操作类似。</li>
+<li><strong>__div</strong>: / 操作。 行为和 “add” 操作类似。</li>
+<li><strong>__mod</strong>: % 操作。 行为和 “add” 操作类似。</li>
+<li><strong>__pow</strong>: ^ （次方）操作。 行为和 “add” 操作类似。</li>
+<li><strong>__unm</strong>: - （取负）操作。 行为和 “add” 操作类似。</li>
+<li><strong>__idiv</strong>: // （向下取整除法）操作。 行为和 “add” 操作类似。</li>
+<li><strong>__band</strong>: &amp; （按位与）操作。 行为和 “add” 操作类似， 不同的是 Lua 会在任何一个操作数无法转换为整数时尝试取元方法。</li>
+<li><strong>__bor</strong>: | （按位或）操作。 行为和 “band” 操作类似。</li>
+<li><strong>__bxor</strong>: ~ （按位异或）操作。 行为和 “band” 操作类似。</li>
+<li><strong>__bnot</strong>: ~ （按位非）操作。 行为和 “band” 操作类似。</li>
+<li><strong>__shl</strong>: &lt;&lt; （左移）操作。 行为和 “band” 操作类似。</li>
+<li><strong>__shr</strong>: &gt;&gt; （右移）操作。 行为和 “band” 操作类似。</li>
+</ul>
+<p>比如下面实现一个表用作集合操作，并对集合操作实现加法运算的元方法：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> set = {}</span><br/><span class="line"><span class="keyword">local</span> set_mt = {}</span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">(v)</span></span></span><br/><span class="line">    <span class="keyword">local</span> set = <span class="built_in">setmetatable</span>({}, set_mt)</span><br/><span class="line">    <span class="keyword">for</span> _, v <span class="keyword">in</span> <span class="built_in">ipairs</span>(v) <span class="keyword">do</span></span><br/><span class="line">        set[v] = <span class="literal">true</span></span><br/><span class="line">    <span class="keyword">end</span></span><br/><span class="line">    <span class="keyword">return</span> set</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">set_mt.<span class="built_in">__add</span> = <span class="function"><span class="keyword">function</span><span class="params">(a, b)</span></span></span><br/><span class="line">    <span class="keyword">local</span> ret = {}</span><br/><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">pairs</span>(a) <span class="keyword">do</span> ret[k] = <span class="literal">true</span> <span class="keyword">end</span></span><br/><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">pairs</span>(b) <span class="keyword">do</span> ret[k] = <span class="literal">true</span> <span class="keyword">end</span></span><br/><span class="line">    <span class="keyword">return</span> ret</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>然后，我们可以按以下方法对一个集合进行加法运算了：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> s1 = set.new{<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>}</span><br/><span class="line"><span class="keyword">local</span> s2 = set.new{<span class="number">20</span>, <span class="number">50</span>}</span><br/><span class="line"></span><br/><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(s1)) <span class="comment">--&gt; table: 00E7E978</span></span><br/><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(s2)) <span class="comment">--&gt; table: 00E7E978</span></span><br/><span class="line"></span><br/><span class="line"><span class="keyword">local</span> s3 = s1 + s2</span><br/><span class="line"></span><br/><span class="line"><span class="keyword">local</span> t = {}</span><br/><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">pairs</span>(s3) <span class="keyword">do</span></span><br/><span class="line">    t[#t + <span class="number">1</span>] = k</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"><span class="built_in">print</span>(<span class="string">&#34;{&#34;</span> .. <span class="built_in">table</span>.<span class="built_in">concat</span>(t, <span class="string">&#34;, &#34;</span>) .. <span class="string">&#34;}&#34;</span>) <span class="comment">--&gt; {40, 10, 20, 30, 50}</span></span><br/></pre></td></tr></tbody></table></figure>
+<h2 id="关系运算符元方法"><a href="#关系运算符元方法" class="headerlink" title="关系运算符元方法"></a>关系运算符元方法</h2><p>我们还可以指定关系运算符元方法，其主要包含以下几种操作：</p>
+<ul>
+<li><strong>__eq</strong>: == （等于）操作。仅在两个值都是表或都是完全用户数据时，且它们不是同一个对象时才尝试该元方法，调用的结果总会被转换为布尔量。</li>
+<li><strong>__lt</strong>: &lt; （小于）操作。 仅在两个值不全为整数也不全为字符串时才尝试元方法，调用的结果总会被转换为布尔量。</li>
+<li><strong>__le</strong>: &lt;= （小于等于）操作。 和其它操作不同， 小于等于操作可能用到两个不同的事件。 首先，像 “lt” 操作的行为那样，Lua 在两个操作数中查找 <code>__le</code> 元方法，如果一个元方法都找不到，就会再次查找 <code>__lt</code> 元方法，Lua 会将 a &lt;= b 转化为 not (b &lt; a)；a ~= b 转换为 not (a == b)；a &gt; b 转换为 b &lt; a；a &gt;= b 转换为 b &lt; a。</li>
+</ul>
+<p>我们可以尝试为上面集合增加一个集合相等操作：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/></pre></td><td class="code"><pre><span class="line">set_mt.<span class="built_in">__eq</span> = <span class="function"><span class="keyword">function</span><span class="params">(a, b)</span></span></span><br/><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">pairs</span>(a) <span class="keyword">do</span> </span><br/><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> b[k] <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br/><span class="line">    <span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">pairs</span>(b) <span class="keyword">do</span></span><br/><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> a[k] <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br/><span class="line">    <span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>然后我们对集合进行比较：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> s1 = set.new{<span class="number">2</span>, <span class="number">4</span>}</span><br/><span class="line"><span class="keyword">local</span> s2 = set.new{<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>}</span><br/><span class="line"><span class="keyword">local</span> s3 = set.new{<span class="number">2</span>, <span class="number">4</span>}</span><br/><span class="line"></span><br/><span class="line"><span class="built_in">print</span>(s1 == s2) <span class="comment">--&gt; false</span></span><br/><span class="line"><span class="built_in">print</span>(s1 == s3) <span class="comment">--&gt; true</span></span><br/></pre></td></tr></tbody></table></figure>
+<h2 id="index-与-newindex-元方法"><a href="#index-与-newindex-元方法" class="headerlink" title="index 与 newindex 元方法"></a><strong>index 与 </strong>newindex 元方法</h2><p>Lua 提供了一种能改变表在<strong>访问</strong>和<strong>修改</strong>表中不存在字段时的行为方式。</p>
+<h3 id="index-元方法"><a href="#index-元方法" class="headerlink" title="__index 元方法"></a>__index 元方法</h3><p>当我们访问一个表中不存在的字段时，通常情况下会返回 nil。但实际上，这样的访问方式会引发解释器取查找一个名为 <code>__index</code> 的元方法。如果没有找到这个元方法，则会直接返回 nil，否则会由这个元方法来提供最终的结果。</p>
+<p>下面代码首先定义了一个原型 <code>prototype</code> 用来表示窗口坐标和大小信息，然后定义了一个 <code>new</code> 构造函数来产生一个对象，返回的对象直接设置成了元表 <code>mt</code>，该元表定义了元方法 __index，访问该元方法默认是直接访问 <code>prototype</code> 表的熟悉：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/></pre></td><td class="code"><pre><span class="line">prototype = {x = <span class="number">0</span>, y = <span class="number">0</span>, width = <span class="number">100</span>, height = <span class="number">100</span>}</span><br/><span class="line"></span><br/><span class="line"><span class="keyword">local</span> mt = {}</span><br/><span class="line"></span><br/><span class="line">mt.<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(_, key)</span></span></span><br/><span class="line">    <span class="keyword">return</span> prototype[key]</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">new</span><span class="params">(o)</span></span></span><br/><span class="line">    <span class="keyword">return</span> <span class="built_in">setmetatable</span>(o, mt)</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>然后我们可以调用函数 new 创建新对象，并指定对象的宽度和高度属性，可以预见的是，新对象并不包含坐标 x 和 y 的值，当我们访问不存在的 x 值时会触发直接访问 <code>__index</code> 元方法，并返回 <code>prototype</code> 的默认值 0：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">w = new{width = <span class="number">50</span>, heigh = <span class="number">50</span>}</span><br/><span class="line"><span class="built_in">print</span>(w.x) <span class="comment">--&gt; 0</span></span><br/></pre></td></tr></tbody></table></figure>
+<p><code>__index</code> 虽然叫做元方法，但不一定非得是一个函数，它还可以是一个表。当元方法是一个函数时，Lua 会把当前表和不存在的参数名作为参数调用该函数；当元方法是一个表时，Lua 会直接访问这个表。<br/>上面例子中，我们把 <code>__index</code> 字段直接设置为 <code>prototype</code> 时，访问不存在的值时，会直接返回 <code>prototype</code> 对应的值：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">mt.<span class="built_in">__index</span> = prototype</span><br/></pre></td></tr></tbody></table></figure>
+<h3 id="index-元方法与-rawget-函数"><a href="#index-元方法与-rawget-函数" class="headerlink" title="__index 元方法与 rawget 函数"></a>__index 元方法与 rawget 函数</h3><p>有时候我们希望访问一个表时，不调用 <code>__index</code> 元方法，那么我们可以使用 <code>rawget (table, index)</code> 函数，该函数会在不触发任何元方法的情况下直接获取 <code>table[index]</code> 的值。</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">w = new{width = <span class="number">50</span>, heigh = <span class="number">50</span>}</span><br/><span class="line"><span class="built_in">print</span>(<span class="built_in">rawget</span>(w, <span class="string">&#34;x&#34;</span>)) </span><br/></pre></td></tr></tbody></table></figure>
+<p>可以看到上面代码使用 <code>rawget</code> 访问 x 属性时，并不会触发对元方法 <code>__index</code> 的访问，而是直接返回了 nil。</p>
+<h3 id="newindex-元方法"><a href="#newindex-元方法" class="headerlink" title="__newindex 元方法"></a>__newindex 元方法</h3><p><code>__newindex</code> 与 <code>__index</code> 类似，不同之处在于 <code>__newindex</code> 用于表的更新操作，而 <code>__index</code> 用于表的查询操作。<br/>当对一个表中不存在的索引赋值时，解释器就会触发 <code>__newindex</code> 元方法，如果这个元方法存在则会直接调用它，而不会继续执行赋值操作。</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/></pre></td><td class="code"><pre><span class="line">mt.<span class="built_in">__newindex</span> = <span class="function"><span class="keyword">function</span><span class="params">(t, key, value)</span></span></span><br/><span class="line">    <span class="built_in">error</span>(<span class="string">&#34;attempt to update a nonexistent field&#34;</span>, <span class="number">2</span>)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">obj = new{width = <span class="number">50</span>, height = <span class="number">50</span>}</span><br/><span class="line">obj.name = <span class="string">&#34;Window&#34;</span> <span class="comment">-- 赋值不存在的键时，产生错误</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>上面例子中，我们可以使用 <code>__newindex</code> 元方法来拦截对不存在的字段的赋值操作，当不存在的 <code>name</code> 字段赋值时，会触发 <code>__newindex</code> 元方法，并抛出一个赋值错误的异常。</p>
+<h3 id="newindex-元方法与-rawset-函数"><a href="#newindex-元方法与-rawset-函数" class="headerlink" title="__newindex 元方法与 rawset 函数"></a>__newindex 元方法与 rawset 函数</h3><p>与函数 <code>rawget</code> 类似，原始函数 <code>rawset (t, k, v)</code> 允许我们绕过元方法，直接对某个表进行赋值操作。其中参数 t 必须时一张表，当我们调用 <code>rawset(t, k, v)</code> 时，其等价于 <code>t[k] = v</code>，但不会触发任何元方法。</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><span class="line">mt.<span class="built_in">__newindex</span> = <span class="function"><span class="keyword">function</span><span class="params">(t, key, value)</span></span></span><br/><span class="line">    <span class="keyword">if</span> key == <span class="string">&#34;name&#34;</span> <span class="keyword">and</span> <span class="built_in">type</span>(value) ~= <span class="string">&#34;string&#34;</span> <span class="keyword">then</span></span><br/><span class="line">        <span class="built_in">error</span>(<span class="string">&#34;the assignment must be of type string&#34;</span>)</span><br/><span class="line">    <span class="keyword">end</span></span><br/><span class="line">    <span class="built_in">rawset</span>(t, key, value)</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">obj = new{width = <span class="number">50</span>, height = <span class="number">50</span>}</span><br/><span class="line">obj.name = <span class="number">1</span> <span class="comment">-- 非字符串类型，产生错误</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>上面例子中，当我们对对象的 <code>name</code> 字段赋值时，会触发 <code>__newindex</code> 元方法，该函数会检查 <code>name</code> 字段的值是否为字符串类型，如果不是则会抛出错误，否则执行正常赋值操作。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-754_Lua%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%EF%BC%9A%E5%85%83%E8%A1%A8%E4%B8%8E%E5%85%83%E6%96%B9%E6%B3%95/">https://lua.ren/zl/2016-01-01-754_Lua%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%EF%BC%9A%E5%85%83%E8%A1%A8%E4%B8%8E%E5%85%83%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-753_python%20dictionary%20lua%20table/" title="python dictionary lua table"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">python dictionary lua table</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-751_lua%E8%84%9A%E6%9C%AC%E6%93%8D%E4%BD%9Credis%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" title="lua脚本操作redis数据库介绍"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">lua脚本操作redis数据库介绍</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E4%B8%8E%E8%AE%BE%E7%BD%AE%E5%85%83%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text">获取与设置元表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E5%85%83%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">算术运算元方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6%E5%85%83%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">关系运算符元方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#index-%E4%B8%8E-newindex-%E5%85%83%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">index 与 newindex 元方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#index-%E5%85%83%E6%96%B9%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">__index 元方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#index-%E5%85%83%E6%96%B9%E6%B3%95%E4%B8%8E-rawget-%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.</span> <span class="toc-text">__index 元方法与 rawget 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newindex-%E5%85%83%E6%96%B9%E6%B3%95"><span class="toc-number">4.3.</span> <span class="toc-text">__newindex 元方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newindex-%E5%85%83%E6%96%B9%E6%B3%95%E4%B8%8E-rawset-%E5%87%BD%E6%95%B0"><span class="toc-number">4.4.</span> <span class="toc-text">__newindex 元方法与 rawset 函数</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

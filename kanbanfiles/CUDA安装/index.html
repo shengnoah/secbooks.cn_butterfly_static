@@ -1,0 +1,641 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>糖果AIGC实验室-LUA | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如何用apt-get 安装CUDA 11.8 很抱歉，但是 CUDA 11.8 并不是一个存在的版本。CUDA 最新的稳定版本是 CUDA 11.5。以下是安装 CUDA 11.5 的步骤：   首先，确保你的系统满足 CUDA 11.5 的要求。CUDA 11.5 支持 Linux、Windows 和 macOS 系统。你需要一块支持 NVIDIA GPU 的显卡，并且需要安装相应的驱动程序。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="糖果AIGC实验室-LUA">
+<meta property="og:url" content="https://lua.ren/kanbanfiles/CUDA%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="如何用apt-get 安装CUDA 11.8 很抱歉，但是 CUDA 11.8 并不是一个存在的版本。CUDA 最新的稳定版本是 CUDA 11.5。以下是安装 CUDA 11.5 的步骤：   首先，确保你的系统满足 CUDA 11.5 的要求。CUDA 11.5 支持 Linux、Windows 和 macOS 系统。你需要一块支持 NVIDIA GPU 的显卡，并且需要安装相应的驱动程序。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-03-14T07:45:09.036Z">
+<meta property="article:modified_time" content="2024-03-14T07:45:09.036Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/kanbanfiles/CUDA%E5%AE%89%E8%A3%85/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '糖果AIGC实验室-LUA',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-14 15:45:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-14T07:45:09.036Z" title="发表于 2024-03-14 15:45:09">2024-03-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-14T07:45:09.036Z" title="更新于 2024-03-14 15:45:09">2024-03-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>如何用apt-get 安装CUDA 11.8</p>
+<p>很抱歉，但是 CUDA 11.8 并不是一个存在的版本。CUDA 最新的稳定版本是 CUDA 11.5。以下是安装 CUDA 11.5 的步骤：</p>
+<ol>
+<li class="lvl-3">
+<p>首先，确保你的系统满足 CUDA 11.5 的要求。CUDA 11.5 支持 Linux、Windows 和 macOS 系统。你需要一块支持 NVIDIA GPU 的显卡，并且需要安装相应的驱动程序。</p>
+</li>
+<li class="lvl-3">
+<p>访问 NVIDIA 开发者网站（<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads%EF%BC%89%E5%B9%B6%E4%B8%8B%E8%BD%BD%E9%80%82%E7%94%A8%E4%BA%8E%E4%BD%A0%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84">https://developer.nvidia.com/cuda-downloads）并下载适用于你操作系统的</a> CUDA Toolkit 安装包。</p>
+</li>
+<li class="lvl-3">
+<p>在终端中运行以下命令以添加 CUDA 的软件源：</p>
+<pre class="line-numbers language-none"><code class="language-none">$ sudo apt-key adv --fetch-keys https:&#x2F;&#x2F;developer.download.nvidia.com&#x2F;compute&#x2F;cuda&#x2F;repos&#x2F;ubuntu2004&#x2F;x86_64&#x2F;7fa2af80.pub
+$ sudo sh -c &#39;echo &quot;deb https:&#x2F;&#x2F;developer.download.nvidia.com&#x2F;compute&#x2F;cuda&#x2F;repos&#x2F;ubuntu2004&#x2F;x86_64 &#x2F;&quot; &gt; &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;cuda.list&#39;
+$ sudo apt update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这些命令将添加 NVIDIA CUDA 软件源到你的系统。</p>
+</li>
+<li class="lvl-3">
+<p>接下来，运行以下命令安装 CUDA Toolkit：</p>
+<pre class="line-numbers language-none"><code class="language-none">$ sudo apt install cuda<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这将自动下载和安装 CUDA Toolkit 及其依赖项。</p>
+</li>
+<li class="lvl-3">
+<p>安装完成后，重启系统以使更改生效。</p>
+</li>
+<li class="lvl-3">
+<p>验证安装是否成功，可以运行以下命令查看 CUDA 版本：</p>
+<pre class="line-numbers language-none"><code class="language-none">$ nvcc --version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果显示了 CUDA 版本信息，则表示安装成功。</p>
+</li>
+</ol>
+<p>请注意，以上步骤适用于 Ubuntu 20.04 系统。如果你使用的是其他操作系统或版本，请参考 NVIDIA 官方文档以获取相应的安装指南。</p>
+<p>希望能对你有所帮助！</p>
+<p>apt-get 安装软件，如何指定安装目录</p>
+<p>在apt-get命令中，无法直接指定软件的安装目录。apt-get是一个高级包管理工具，它会自动将软件安装到预定义的目录结构中。</p>
+<p>默认情况下，apt-get会将软件安装到以下目录：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>可执行文件：/usr/bin/</p>
+</li>
+<li class="lvl-2">
+<p>库文件：/usr/lib/</p>
+</li>
+<li class="lvl-2">
+<p>配置文件：/etc/</p>
+</li>
+<li class="lvl-2">
+<p>文档文件：/usr/share/doc/</p>
+</li>
+</ul>
+<p>如果你需要指定软件的安装目录，可以考虑使用源代码编译的方式进行安装。这样可以手动指定软件的安装路径。</p>
+<p>以下是使用源代码编译方式进行软件安装以及指定安装目录的步骤：</p>
+<ol>
+<li class="lvl-3">
+<p>下载并解压源代码包。</p>
+</li>
+<li class="lvl-3">
+<p>进入解压后的源代码目录。</p>
+</li>
+<li class="lvl-3">
+<p>执行配置命令 <code>./configure --prefix=/desired/installation/path</code> 来指定安装路径。</p>
+</li>
+<li class="lvl-3">
+<p>执行 <code>make</code> 命令进行编译。</p>
+</li>
+<li class="lvl-3">
+<p>执行 <code>sudo make install</code> 命令进行安装。</p>
+</li>
+</ol>
+<p>在上述步骤中，通过 <code>--prefix=/desired/installation/path</code> 参数来指定你希望软件被安装到哪个路径下。</p>
+<h3 id="如何用cuda安显卡的占用率"><a class="markdownIt-Anchor" href="#如何用cuda安显卡的占用率"></a> 如何用CUDA安显卡的占用率</h3>
+<p>要使用CUDA来监测显卡的占用率，可以按照以下步骤进行操作：</p>
+<ol>
+<li class="lvl-3">
+<p>安装CUDA Toolkit：首先，您需要下载并安装适用于您的显卡型号和操作系统的CUDA Toolkit。在NVIDIA官方网站上可以找到相关的下载链接。</p>
+</li>
+<li class="lvl-3">
+<p>编写CUDA程序：使用支持CUDA的编程语言（如C++、Python等），编写一个简单的CUDA程序。在该程序中，您可以创建一个或多个CUDA核函数，并通过调用这些函数来执行并行计算任务。</p>
+</li>
+<li class="lvl-3">
+<p>获取显卡占用率信息：在主机端的代码中，您可以使用NVIDIA提供的运行时API函数来获取有关显卡占用率的信息。具体而言，您可以使用<code>cudaGetDeviceProperties</code>函数获得有关当前设备（即显卡）的属性信息，包括设备名称、总共可用内存、最大线程数等等。此外，还可以使用<code>cudaEventRecord</code>和<code>cudaEventElapsedTime</code>等函数来计算GPU执行任务所需时间。</p>
+</li>
+<li class="lvl-3">
+<p>输出占用率信息：将获取到的显卡属性信息和执行时间等结果输出到终端或日志文件中，以便后续分析和监测。</p>
+</li>
+</ol>
+<p>需要注意的是，在进行显卡监测时，请确保您已正确地安装了适当版本的CUDA Toolkit，并且已正确配置了环境变量等相关设置。此外，还应遵循CUDA编程指南中的最佳实践，以确保您的CUDA程序能够正确地与显卡进行通信并利用其计算资源。</p>
+<p>希望以上内容对您有所帮助！</p>
+<p>如何安Ubuntu上GPU的使用情况</p>
+<p>您可以使用以下命令来查看Ubuntu上GPU的使用情况：</p>
+<ol>
+<li class="lvl-3">
+<p>使用<code>nvidia-smi</code>命令来查看当前GPU的使用情况和相关信息。这个命令会显示当前系统中所有可用GPU的实时状态，包括GPU的使用率、显存使用情况、温度等。输入以下命令来运行<code>nvidia-smi</code>：</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">nvidia-smi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="2">
+<li class="lvl-3">
+<p>使用<code>nvidia-settings</code>命令来查看和修改NVIDIA显卡的设置。该命令提供了一个图形界面，可以用于查看显卡信息、调整显示设置、监控温度和风扇速度等。输入以下命令来运行<code>nvidia-settings</code>：</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">nvidia-settings<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="3">
+<li class="lvl-3">
+<p>使用<code>gpustat</code>命令来查看当前系统中所有GPU的使用情况和相关信息。该命令会显示每个GPU的利用率、显存使用情况、温度等详细信息，并以表格形式展示。输入以下命令来安装并运行<code>gpustat</code>：</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">sudo apt-get install gpustat
+gpustat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="4">
+<li class="lvl-3">
+<p>使用其他第三方工具如NVIDIA System Management Interface（NVSMI）或NVIDIA CUDA Toolkit提供的相关工具来获取更详细的GPU使用情况。</p>
+</li>
+</ol>
+<p>请注意，要正确显示和获取GPU信息，您需要安装相应的驱动程序和工具包，并且您必须有适当的权限才能访问GPU信息。</p>
+<h3 id="chatglm在做微调训练时trainsh如何设置cuda同时使用两个显卡gpu"><a class="markdownIt-Anchor" href="#chatglm在做微调训练时trainsh如何设置cuda同时使用两个显卡gpu"></a> Chatglm在做微调训练时，train.sh如何设置，CUDA同时使用两个显卡GPU</h3>
+<p>要在Chatglm中进行微调训练并同时使用两个显卡GPU，可以按照以下步骤设置train.sh文件：</p>
+<ol>
+<li class="lvl-3">
+<p>打开train.sh文件并找到<code>CUDA_VISIBLE_DEVICES</code>这一行。该行用于设置可见的GPU设备。</p>
+</li>
+<li class="lvl-3">
+<p>更改<code>CUDA_VISIBLE_DEVICES</code>的值为你想要使用的GPU设备的索引。例如，如果你有两个GPU设备，索引分别为0和1，则可以将其设置为&quot;0,1&quot;。</p>
+</li>
+<li class="lvl-3">
+<p>确保你已经按照Chatglm的要求安装了正确版本的CUDA和cuDNN，并且在运行训练脚本之前已经正确配置了环境变量。</p>
+</li>
+<li class="lvl-3">
+<p>运行train.sh脚本来启动微调训练。Chatglm将会自动检测并使用设置好的GPU设备。</p>
+</li>
+</ol>
+<p>请注意，同时使用多个GPU设备进行训练可能需要更长的训练时间和更高的系统资源要求。确保你的系统满足这些要求，并根据需要进行相应配置。</p>
+<h3 id="chatglm在做微调训练时trainsh如何设置cuda同时使用两台主机上的两个显卡gpu-多机多卡部署"><a class="markdownIt-Anchor" href="#chatglm在做微调训练时trainsh如何设置cuda同时使用两台主机上的两个显卡gpu-多机多卡部署"></a> Chatglm在做微调训练时，train.sh如何设置，CUDA同时使用两台主机上的两个显卡GPU， 多机多卡部署。</h3>
+<p>在进行多机多卡部署时，可以使用分布式训练的方式来同时使用两台主机上的两个显卡GPU。具体来说，在train.sh文件中，可以按照以下步骤进行设置：</p>
+<ol>
+<li class="lvl-3">
+<p>安装和配置分布式训练所需的依赖项。确保在每台主机上都安装了CUDA和相应的驱动程序，并且所有主机都能够互相通信。</p>
+</li>
+<li class="lvl-3">
+<p>修改train.sh文件，添加分布式训练相关的参数。下面是一个示例：</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">export CUDA_VISIBLE_DEVICES&#x3D;0,1  # 设置使用的GPU索引
+
+python -m torch.distributed.launch --nproc_per_node&#x3D;2 --use_env main.py \
+--data_dir &#x2F;path&#x2F;to&#x2F;data \
+--model_name bert-base-uncased \
+--output_dir &#x2F;path&#x2F;to&#x2F;output \
+--max_seq_length 128 \
+--per_device_train_batch_size 8 \
+--gradient_accumulation_steps 4 \
+--learning_rate 2e-5 \
+--num_train_epochs 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中，<code>CUDA_VISIBLE_DEVICES</code>参数用于指定要使用的GPU索引。在这个例子中，我们设置为0和1表示使用第一台主机上的两个显卡。</p>
+<p><code>torch.distributed.launch</code>模块是PyTorch提供的用于启动分布式训练的工具。<code>--nproc_per_node</code>参数指定每个节点（即每台主机）上使用的GPU数量，在这里设置为2表示每台主机上同时使用两个显卡。</p>
+<p>其余参数根据具体情况进行设置，如输入数据路径（<code>--data_dir</code>）、模型名称（<code>--model_name</code>）、输出路径（<code>--output_dir</code>）、每个设备上的训练批次大小（<code>--per_device_train_batch_size</code>）等。</p>
+<ol start="3">
+<li class="lvl-3">
+<p>在每台主机上运行train.sh脚本。确保在每台主机上都运行相同的脚本，并且指定了正确的参数。</p>
+</li>
+</ol>
+<p>这样，两台主</p>
+<p>Chatglm在做微调训练时，train.sh如何设置，CUDA，分布式指定，如何配置远程服务器的IP</p>
+<p>在进行ChatGPT微调训练时，可以使用train.sh文件来设置训练的各种参数。以下是一些常用的设置：</p>
+<ol>
+<li class="lvl-3">
+<p>CUDA设置：如果你的机器上有多个GPU，你可以使用CUDA_VISIBLE_DEVICES环境变量来指定要使用的GPU设备。例如，如果你要使用第一张和第三张GPU设备，则可以将该变量设置为&quot;0,2&quot;。</p>
+</li>
+<li class="lvl-3">
+<p>分布式训练指定：如果你想进行分布式训练，需要指定分布式训练的相关参数，如–num_gpus和–num_nodes。–num_gpus用于指定每个节点上使用的GPU数量，而–num_nodes则用于指定参与训练的节点数量。</p>
+</li>
+<li class="lvl-3">
+<p>配置远程服务器IP：如果你要将训练任务提交到远程服务器上执行，你需要在train.sh文件中配置远程服务器的IP地址。具体配置方法取决于你所使用的分布式训练框架。例如，在PyTorch中，你可以通过设置MASTER_ADDR和MASTER_PORT环境变量来指定主节点（即远程服务器）的IP地址和端口号。</p>
+</li>
+</ol>
+<p>示例train.sh文件内容如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">CUDA_VISIBLE_DEVICES</span><span class="token operator">=</span><span class="token string">"0,2"</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">MASTER_ADDR</span><span class="token operator">=</span><span class="token number">192.168</span>.1.100
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">MASTER_PORT</span><span class="token operator">=</span><span class="token number">1234</span>
+
+python train.py <span class="token punctuation">\</span>
+    <span class="token parameter variable">--model_name_or_path</span> gpt2 <span class="token punctuation">\</span>
+    <span class="token parameter variable">--output_dir</span> ./output <span class="token punctuation">\</span>
+    <span class="token parameter variable">--do_train</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--train_data_file</span> ./data/train.txt <span class="token punctuation">\</span>
+    <span class="token parameter variable">--per_device_train_batch_size</span> <span class="token number">4</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--num_train_epochs</span> <span class="token number">5</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--logging_steps</span> <span class="token number">100</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--save_steps</span> <span class="token number">1000</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--overwrite_output_dir</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--fp16</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在上述示例中，我们指定了使用第一张和第三张GPU设备，将训练任务提交到IP地址为192.168.1.100的远程服务器上执行。其他训练参数根据实际需求进行设置。</p>
+<p>请注意，具体的设置可能因你所</p>
+<p>chatglm分布微调训练，如何配置MASTER_ADDR和MASTER_PORT变量</p>
+<p>在进行chatglm分布微调训练时，需要配置MASTER_ADDR和MASTER_PORT变量来指定主节点的地址和端口。</p>
+<ol>
+<li class="lvl-3">
+<p>首先，确定一个机器作为主节点。这个节点将负责协调整个训练过程。</p>
+</li>
+<li class="lvl-3">
+<p>然后，在其他参与训练的机器上设置MASTER_ADDR和MASTER_PORT变量，将它们指向主节点的地址和端口。可以使用以下命令设置环境变量：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">MASTER_ADDR</span><span class="token operator">=</span><span class="token operator">&lt;</span>主节点地址<span class="token operator">></span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">MASTER_PORT</span><span class="token operator">=</span><span class="token operator">&lt;</span>主节点端口号<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p>确保所有参与训练的机器都设置了相同的MASTER_ADDR和MASTER_PORT值。</p>
+</li>
+<li class="lvl-3">
+<p>在启动每个参与训练的机器上运行相应的代码。代码将连接到指定的主节点，并与其他机器进行通信。</p>
+</li>
+</ol>
+<p>请注意，这些步骤可能因具体使用的框架或工具而有所不同。确保查阅相关文档以了解正确的配置方法。</p>
+<p><a target="_blank" rel="noopener" href="http://xn--ChatGLMtrain-jg5sl7joq4cjwujh0ey1va3z9aija85iq41hrvbu24d.sh">ChatGLM微调训练如何配置主结点的train.sh</a></p>
+<p>ChatGLM微调训练的主结点的train.sh可以配置如下：</p>
+<ol>
+<li class="lvl-3">
+<p>首先，需要设置训练数据和验证数据的路径。可以使用<code>--train_path</code>参数指定训练数据的路径，<code>--valid_path</code>参数指定验证数据的路径。</p>
+</li>
+<li class="lvl-3">
+<p>接下来，可以设置模型保存的路径。可以使用<code>--save_dir</code>参数指定模型保存的目录。</p>
+</li>
+<li class="lvl-3">
+<p>然后，需要指定模型的超参数。例如，可以使用<code>--learning_rate</code>参数设置学习率，<code>--batch_size</code>参数设置批次大小。</p>
+</li>
+<li class="lvl-3">
+<p>可以选择加载预训练模型进行微调。可以使用<code>--pretrained_model_path</code>参数指定预训练模型的路径。</p>
+</li>
+<li class="lvl-3">
+<p>可以选择冻结部分层进行微调。可以使用<code>--frozen_layers</code>参数指定要冻结的层。</p>
+</li>
+<li class="lvl-3">
+<p>可以设置训练轮数和打印信息频率。例如，可以使用<code>--num_epochs</code>参数设置训练轮数，<code>--log_steps</code>参数设置打印信息频率。</p>
+</li>
+<li class="lvl-3">
+<p>可以选择是否启用混合精度训练。可以使用<code>--fp16_opt_level O1/O2/O3/Off </code>参数启用混合精度训练，并通过调整优化级别来控制精度和性能之间的平衡。</p>
+</li>
+<li class="lvl-3">
+<p>最后，可以运行主结点脚本开始微调训练。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python <span class="token parameter variable">-m</span> paddle.distributed.launch <span class="token parameter variable">--gpus</span> <span class="token string">"0,1,2,3"</span> train.py <span class="token punctuation">\</span>
+<span class="token parameter variable">--train_path</span> /path/to/train_data <span class="token punctuation">\</span>
+<span class="token parameter variable">--valid_path</span> /path/to/valid_data <span class="token punctuation">\</span>
+<span class="token parameter variable">--save_dir</span> /path/to/save_model <span class="token punctuation">\</span>
+<span class="token parameter variable">--learning_rate</span> <span class="token number">0.001</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--batch_size</span> <span class="token number">32</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--pretrained_model_path</span> /path/to/pretrained_model <span class="token punctuation">\</span>
+<span class="token parameter variable">--frozen_layers</span> <span class="token number">6</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--num_epochs</span> <span class="token number">10</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--log_steps</span> <span class="token number">100</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p>以上是一个示例的配置，具体的参数</p>
+<p>chatglm的web_demo.sh如何配置指定IP和端口</p>
+<p>要配置chatglm的web_demo.sh指定IP和端口，可以按照以下步骤进行操作：</p>
+<ol>
+<li class="lvl-3">
+<p>打开web_demo.sh文件，可以使用文本编辑器（如vi、nano等）打开该文件。</p>
+</li>
+<li class="lvl-3">
+<p>在文件中找到以下行：</p>
+<pre class="line-numbers language-none"><code class="language-none">python3 -m chatglm.web.serve<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p>在该行的末尾添加参数以指定IP和端口，例如：</p>
+<pre class="line-numbers language-none"><code class="language-none">python3 -m chatglm.web.serve --host 192.168.1.100 --port 8000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这将使web_demo.sh在IP地址为192.168.1.100，端口为8000的主机上运行。</p>
+</li>
+<li class="lvl-3">
+<p>保存并关闭文件。</p>
+</li>
+<li class="lvl-3">
+<p>运行web_demo.sh脚本以启动chatglm的Web demo，并监听指定的IP和端口：</p>
+<pre class="line-numbers language-none"><code class="language-none">sh web_demo.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ol>
+<p>现在，chatglm的Web demo将在指定的IP地址和端口上运行。</p>
+<p>chatGLM的web_demo.py运行时指定IP和端口</p>
+<p>要在chatGLM的web_demo.py运行时指定IP和端口，可以使用以下命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">python web_demo.py --ip &lt;IP地址&gt; --port &lt;端口号&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>其中，<code>&lt;IP地址&gt;</code>是你想要指定的IP地址，可以是本地主机的IP地址或者其他可用的IP地址。</p>
+<p><code>&lt;端口号&gt;</code>是你想要指定的端口号，可以是任意未被占用的端口号。</p>
+<p>例如，如果你想将chatGLM的web_demo.py运行在本地主机的IP地址为127.0.0.1，端口号为5000上，可以使用以下命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">python web_demo.py --ip 127.0.0.1 --port 5000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样，chatGLM将会在指定的IP地址和端口上运行。你可以通过访问<code>http://&lt;IP地址&gt;:&lt;端口号&gt;</code>来查看和使用chatGLM。</p>
+<p>chatglm的demo.queue().launch(share=False, inbrowser=True)指定IP</p>
+<p>在chatglm的demo中，queue().launch()函数的share和inbrowser参数不支持指定IP。</p>
+<p>queue().launch(share=False)参数用于控制是否与其他用户共享会话。如果设置为True，则可以与其他用户共享同一个会话，而设置为False则会创建一个新的私有会话。</p>
+<p>queue().launch(inbrowser=True)参数用于控制是否在浏览器中打开机器人对话界面。如果设置为True，则会在默认浏览器中打开对话界面，而设置为False则不会打开对话界面。</p>
+<p>但是，这些参数都没有提供指定IP的选项。</p>
+<p>chatglm运行web demo如何指定IP和端口号启动</p>
+<p>要指定IP和端口号启动chatglm的web demo，您可以按照以下步骤进行操作：</p>
+<ol>
+<li class="lvl-3">
+<p>打开<code>app.py</code>文件。</p>
+</li>
+<li class="lvl-3">
+<p>在文件的顶部找到以下代码段：</p>
+</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>debug<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
+<li class="lvl-3">
+<p>在<code>app.run()</code>函数中添加参数来指定IP和端口号。例如，如果您想要将IP设置为<code>127.0.0.1</code>，端口号设置为<code>5000</code>，则将代码修改为如下：</p>
+</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>debug<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> host<span class="token operator">=</span><span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span> port<span class="token operator">=</span><span class="token number">5000</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="4">
+<li class="lvl-3">
+<p>保存文件并关闭。</p>
+</li>
+</ol>
+<p>现在，当您运行web demo时，它将在指定的IP和端口号上启动。</p>
+<p>如何用go启动的一个程序转127.0.0.1:7860给 0.0.0.0:7860</p>
+<p>你可以使用net包中的Listen函数来启动一个TCP服务器，然后将地址参数设置为&quot;127.0.0.1:7860&quot;。接下来，你可以使用Accept函数等待客户端连接，并将连接转发到&quot;0.0.0.0:7860&quot;上。</p>
+<p>下面是一个示例代码：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"io"</span>
+	<span class="token string">"log"</span>
+	<span class="token string">"net"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">// 启动TCP服务器</span>
+	listener<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Listen</span><span class="token punctuation">(</span><span class="token string">"tcp"</span><span class="token punctuation">,</span> <span class="token string">"127.0.0.1:7860"</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+		log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">defer</span> listener<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Server started on 127.0.0.1:7860"</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">for</span> <span class="token punctuation">&#123;</span>
+		<span class="token comment">// 等待客户端连接</span>
+		conn<span class="token punctuation">,</span> err <span class="token operator">:=</span> listener<span class="token punctuation">.</span><span class="token function">Accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+			log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+			<span class="token keyword">continue</span>
+		<span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// 将连接转发到新的地址</span>
+        <span class="token keyword">go</span> <span class="token function">forwardConnection</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">forwardConnection</span><span class="token punctuation">(</span>conn net<span class="token punctuation">.</span>Conn<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 连接到目标地址</span>
+    targetConn<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Dial</span><span class="token punctuation">(</span><span class="token string">"tcp"</span><span class="token punctuation">,</span> <span class="token string">"0.0.0.0:7860"</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token comment">// 在两个连接之间复制数据</span>
+    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> io<span class="token punctuation">.</span><span class="token function">Copy</span><span class="token punctuation">(</span>conn<span class="token punctuation">,</span> targetConn<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">isClosedError</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+        conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        targetConn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> io<span class="token punctuation">.</span><span class="token function">Copy</span><span class="token punctuation">(</span>targetConn<span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">isClosedError</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    
+    conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    targetConn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">isClosedError</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> opErr<span class="token punctuation">,</span> ok <span class="token operator">:=</span> err<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>net<span class="token punctuation">.</span>OpError<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> opErr<span class="token punctuation">.</span>Err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"use of closed network connection"</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样，你的程序就可以将来自&quot;127.0.0.1:7860&quot;的连接转发到&quot;0.0.0.0:7860&quot;上了。</p>
+<p>如何执行一段go代码</p>
+<p>要执行一段Go代码，您需要按照以下步骤进行操作：</p>
+<ol>
+<li class="lvl-3">
+<p>安装Go：首先，您需要安装Go编程语言。您可以从官方网站（<a target="_blank" rel="noopener" href="https://golang.org/dl/%EF%BC%89%E4%B8%8B%E8%BD%BD%E9%80%82%E7%94%A8%E4%BA%8E%E6%82%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85%EF%BC%8C%E5%B9%B6%E6%8C%89%E7%85%A7%E5%AE%89%E8%A3%85%E5%90%91%E5%AF%BC%E7%9A%84%E6%8C%87%E7%A4%BA%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85%E3%80%82">https://golang.org/dl/）下载适用于您操作系统的安装包，并按照安装向导的指示进行安装。</a></p>
+</li>
+<li class="lvl-3">
+<p>编写代码：使用任何文本编辑器编写您的Go代码，并将其保存为以<code>.go</code>为扩展名的文件。例如，您可以创建一个名为<code>hello.go</code>的文件，并在其中编写一个简单的“Hello, World!”程序。</p>
+</li>
+</ol>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello, World!"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li class="lvl-3">
+<p>打开终端或命令提示符：打开终端（Mac和Linux）或命令提示符（Windows），并导航到保存了您的代码文件的目录。</p>
+</li>
+<li class="lvl-3">
+<p>构建程序：使用以下命令构建您的Go程序：</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">go build hello.go<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这将生成一个可执行文件（在Windows上是<code>.exe</code>文件，在其他操作系统上没有扩展名），其名称与源代码文件相同（在此示例中为<code>hello</code>）。</p>
+<ol start="5">
+<li class="lvl-3">
+<p>运行程序：使用以下命令运行生成的可执行文件：</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">.&#x2F;hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果一切顺利，您应该能够在终端或命令提示符中看到输出结果：“Hello, World!”</p>
+<p>请注意，如果您只想运行而不构建可执行文件，则可以使用以下命令直接运行Go代码：</p>
+<pre class="line-numbers language-none"><code class="language-none">go run hello.go<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这将编译并运行您的代码，而不会在硬盘上生成可执行文件。</p>
+<p>ubuntu 22如何安装golang</p>
+<p>要在Ubuntu 22上安装Golang，请按照以下步骤进行操作：</p>
+<ol>
+<li class="lvl-3">
+<p>打开终端。</p>
+</li>
+<li class="lvl-3">
+<p>使用以下命令下载Golang的二进制文件：</p>
+<pre class="line-numbers language-none"><code class="language-none">wget https:&#x2F;&#x2F;golang.org&#x2F;dl&#x2F;go1.17.linux-amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这将下载Golang 1.17版本的二进制文件，你也可以根据需要选择其他版本。</p>
+</li>
+<li class="lvl-3">
+<p>解压下载的文件：</p>
+<pre class="line-numbers language-none"><code class="language-none">sudo tar -C &#x2F;usr&#x2F;local -xzf go1.17.linux-amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p>配置环境变量。编辑<code>~/.profile</code>文件：</p>
+<pre class="line-numbers language-none"><code class="language-none">nano ~&#x2F;.profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p>在文件末尾添加以下内容：</p>
+<pre class="line-numbers language-none"><code class="language-none">export PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;go&#x2F;bin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p>按下Ctrl + X保存并退出编辑器。</p>
+</li>
+<li class="lvl-3">
+<p>刷新配置：</p>
+<pre class="line-numbers language-none"><code class="language-none">source ~&#x2F;.profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p>验证Golang是否成功安装。在终端中运行以下命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">go version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p>如果正确显示了Go的版本号，那么恭喜你，已成功安装Golang！</p>
+</li>
+</ol>
+<p>现在你可以开始使用Golang开发应用程序了。祝你好运！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/kanbanfiles/CUDA%E5%AE%89%E8%A3%85/">https://lua.ren/kanbanfiles/CUDA%E5%AE%89%E8%A3%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/kanbanfiles/Nvidia%E5%B8%B8%E7%94%A8%E7%9A%84%E6%98%BE%E5%8D%A1%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%A9%B1%E5%8A%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" title="常用的显卡操作命令"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">常用的显卡操作命令</div></div></a></div><div class="next-post pull-right"><a href="/kanbanfiles/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%BF%80%E6%B4%BB%E7%AE%97%E6%B3%95/" title="人工神经网络的激活算法"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">人工神经网络的激活算法</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%A8cuda%E5%AE%89%E6%98%BE%E5%8D%A1%E7%9A%84%E5%8D%A0%E7%94%A8%E7%8E%87"><span class="toc-number">1.</span> <span class="toc-text"> 如何用CUDA安显卡的占用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chatglm%E5%9C%A8%E5%81%9A%E5%BE%AE%E8%B0%83%E8%AE%AD%E7%BB%83%E6%97%B6trainsh%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEcuda%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%98%BE%E5%8D%A1gpu"><span class="toc-number">2.</span> <span class="toc-text"> Chatglm在做微调训练时，train.sh如何设置，CUDA同时使用两个显卡GPU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chatglm%E5%9C%A8%E5%81%9A%E5%BE%AE%E8%B0%83%E8%AE%AD%E7%BB%83%E6%97%B6trainsh%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEcuda%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8%E4%B8%A4%E5%8F%B0%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%98%BE%E5%8D%A1gpu-%E5%A4%9A%E6%9C%BA%E5%A4%9A%E5%8D%A1%E9%83%A8%E7%BD%B2"><span class="toc-number">3.</span> <span class="toc-text"> Chatglm在做微调训练时，train.sh如何设置，CUDA同时使用两台主机上的两个显卡GPU， 多机多卡部署。</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

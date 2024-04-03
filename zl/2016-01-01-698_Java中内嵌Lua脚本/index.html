@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Java中内嵌Lua脚本 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lua是一种小巧的脚本语言，如今常用于游戏开发，特别是客户端开发，基本上都是基于Lua来实现热更新，在Unity开发中更有uLua（最新版改名为toLua）这样成熟的热更框架。这里我设想用Lua+Java来实现服务器的热更，不成熟的想法，这里想尝试一下Lua和Java如何互相调用。 插件选择：假如引入第三方库，可以找到比较常用的两个选择：LuaJava和LuaJ，简单做一下对比：    第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中内嵌Lua脚本">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-698_Java%E4%B8%AD%E5%86%85%E5%B5%8CLua%E8%84%9A%E6%9C%AC/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="Lua是一种小巧的脚本语言，如今常用于游戏开发，特别是客户端开发，基本上都是基于Lua来实现热更新，在Unity开发中更有uLua（最新版改名为toLua）这样成熟的热更框架。这里我设想用Lua+Java来实现服务器的热更，不成熟的想法，这里想尝试一下Lua和Java如何互相调用。 插件选择：假如引入第三方库，可以找到比较常用的两个选择：LuaJava和LuaJ，简单做一下对比：    第三方库">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.933Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.933Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-698_Java%E4%B8%AD%E5%86%85%E5%B5%8CLua%E8%84%9A%E6%9C%AC/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java中内嵌Lua脚本',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Java中内嵌Lua脚本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.933Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.933Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java中内嵌Lua脚本"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p><code>Lua</code>是一种小巧的脚本语言，如今常用于游戏开发，特别是客户端开发，基本上都是基于Lua来实现热更新，在Unity开发中更有<code>uLua</code>（最新版改名为<code>toLua</code>）这样成熟的热更框架。这里我设想用<code>Lua</code>+<code>Java</code>来实现服务器的热更，不成熟的想法，这里想尝试一下<code>Lua</code>和<code>Java</code>如何互相调用。</p>
+<h3 id="插件选择："><a href="#插件选择：" class="headerlink" title="插件选择："></a><strong>插件选择：</strong></h3><p>假如引入第三方库，可以找到比较常用的两个选择：<code>LuaJava</code>和<code>LuaJ</code>，简单做一下对比：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">第三方库</th>
+<th style="text-align:center">实现</th>
+<th style="text-align:center">特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">LuaJava</td>
+<td style="text-align:center">非纯Java实现，需要通过native方法调用C库，依赖于Lua 5.1</td>
+<td style="text-align:center">会导致JVM崩溃，不再更新，没人维护</td>
+</tr>
+<tr>
+<td style="text-align:center">LuaJ（LuaJavaBridge）</td>
+<td style="text-align:center">纯Java实现的Lua解析器，无需使用native</td>
+<td style="text-align:center">不会因错误导致JVM crash，支持JSR-223</td>
+</tr>
+</tbody>
+</table>
+<h4 id="LuaJava简介："><a href="#LuaJava简介：" class="headerlink" title="LuaJava简介："></a><strong>LuaJava简介：</strong></h4><p>Lua是支持内嵌在C程序中的，但是官方不支持Java，所以我们只能寻找第三方插件了，找到了一个<code>LuaJava</code>，这是一个开源项目，实现方式：LuaJava实际上就是按照Lua官方文档，把Lua的C接口通过<code>JNI</code>包装成Java的库。下载资源，里面是一个<code>.dll</code>和 一个<code>.jar</code>。把<code>.dll</code>放到<code>java.library.path</code>下，再把<code>.lib</code>放到<code>classpath</code>中。</p>
+<h4 id="LuaJ简介："><a href="#LuaJ简介：" class="headerlink" title="LuaJ简介："></a><strong>LuaJ简介：</strong></h4><p><strong>主要特征：</strong></p>
+<ul>
+<li>可以从 <code>Lua</code> 调用 <code>Java Class Static Method</code>（Java的静态方法）；</li>
+<li>调用 <code>Java</code> 方法时，支持 <code>int/float/boolean/String/Lua function</code> 五种参数类型；</li>
+<li>可以将 <code>Lua function</code> 作为参数传递给 <code>Java</code>，并让 <code>Java</code> 保存 <code>Lua function</code> 的引用；</li>
+<li>可以从 <code>Java</code> 调用 <code>Lua</code> 的全局函数，或者调用引用指向的 <code>Lua function</code>。</li>
+</ul>
+<h4 id="LuaJ核心原理："><a href="#LuaJ核心原理：" class="headerlink" title="LuaJ核心原理："></a><strong>LuaJ核心原理：</strong></h4><p><code>LuaJ</code>的核心其实就是：从<code>Lua</code>调用<code>Java</code>和从<code>Java</code>调用<code>Lua</code>。</p>
+<p>经过上述对比，最终我还是选择纯Java实现，且仍然有人维护更新的<code>LuaJ</code>解析器，而且它也支持<code>LuaJava API</code>。</p>
+<hr/>
+<h3 id="LuaJ的下载使用："><a href="#LuaJ的下载使用：" class="headerlink" title="LuaJ的下载使用："></a><strong>LuaJ的下载使用：</strong></h3><h4 id="下载："><a href="#下载：" class="headerlink" title="下载："></a><strong>下载：</strong></h4><ul>
+<li>方式一：直接到<a href="http://www.luaj.org/luaj/3.0/README.html" target="_blank" rel="external noopener noreferrer">LuaJ官网</a>下载，选择相对较新的版本<a href="https://nchc.dl.sourceforge.net/project/luaj/luaj-3.0/3.0.1/luaj-3.0.1.zip" target="_blank" rel="external noopener noreferrer">LuaJ 3.0.1</a>，将解压后的<code>lib</code>目录下的<code>luaj-jse-3.0.1.jar</code>导入项目中使用。</li>
+<li><p>方式二：当然加入是使用Maven来管理项目的就不用这么麻烦了，直接在<code>pom.xml</code>中添加库依赖内容：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.luaj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>luaj-jse<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>方式三：直接下载<a href="https://sourceforge.net/projects/luaj/" target="_blank" rel="external noopener noreferrer">LuaJ源码</a>，添加到项目中，这种方法可以进行Debug，将源码中<code>src</code>目录下的<code>core</code>和<code>jse</code>目录中的代码复制到项目中。</p>
+</li>
+</ul>
+<hr/>
+<h3 id="实战："><a href="#实战：" class="headerlink" title="实战："></a><strong>实战：</strong></h3><h4 id="在Java中调用Lua："><a href="#在Java中调用Lua：" class="headerlink" title="在Java中调用Lua："></a><strong>在Java中调用Lua：</strong></h4><ul>
+<li><p>直接把lua代码当做String字符串内嵌到Java代码中：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String luaStr = <span class="string">&#34;print &#39;hello,world!&#39;&#34;</span>;</div><div class="line">Globals globals = JsePlatform.standardGlobals();</div><div class="line">LuaValue chunk = globals.load(luaStr);</div><div class="line">chunk.call();</div></pre></td></tr></tbody></table></figure>
+<p>此处luaStr中只能放一个lua的方法，或者是一句lua语句，不可以出现多个function放在同一个String中使用此方法来调用。</p>
+</li>
+<li><p>将Lua代码都写在<code>.lua</code>脚本文件中，在Java中调用Lua脚本文件，指定要执行的<code>lua function</code>，可以直接如下：</p>
+<ul>
+<li><p>创建一个<code>login.lua</code>脚本，内容如下：</p>
+ <figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">--无参函数</span></div><div class="line">   <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></div><div class="line">      <span class="built_in">print</span> <span class="string">&#39;hello&#39;</span></div><div class="line">   <span class="keyword">end</span></div><div class="line"><span class="comment">--带参函数</span></div><div class="line">   <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">(str)</span></span></div><div class="line">      <span class="built_in">print</span>(<span class="string">&#39;data from java is:&#39;</span>..str)</div><div class="line">      <span class="keyword">return</span> <span class="string">&#39;haha&#39;</span></div><div class="line">   <span class="keyword">end</span></div></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>Java先载入<code>login.lua</code>脚本并编译，然后再获取指定名称的函数，无参的直接使用<code>call()</code>方法调用，带参的需要通过<code>invoke(LuaValue[])</code>传入参数表：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">   String luaPath = <span class="string">&#34;res/lua/login.lua&#34;</span>;	<span class="comment">//lua脚本文件所在路径</span></div><div class="line">   Globals globals = JsePlatform.standardGlobals();</div><div class="line"><span class="comment">//加载脚本文件login.lua，并编译</span></div><div class="line">globals.loadfile(luaPath).call();</div><div class="line"><span class="comment">//获取无参函数hello</span></div><div class="line">LuaValue func = globals.get(LuaValue.valueOf(<span class="string">&#34;hello&#34;</span>));</div><div class="line"><span class="comment">//执行hello方法</span></div><div class="line">func.call();</div><div class="line"><span class="comment">//获取带参函数test</span></div><div class="line">LuaValue func1 = globals.get(LuaValue.valueOf(<span class="string">&#34;test&#34;</span>));</div><div class="line"><span class="comment">//执行test方法,传入String类型的参数参数</span></div><div class="line">String data = func1.call(LuaValue.valueOf(<span class="string">&#34;I&#39;am from Java!&#34;</span>)).toString();</div><div class="line">   <span class="comment">//打印lua函数回传的数据</span></div><div class="line">   Logger.info(<span class="string">&#34;data return from lua is:&#34;</span>+data);</div></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>运行结果如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hello</div><div class="line">data from java is:I&#39;am from Java!</div><div class="line">四月 07, 2017 5:31:25 下午 com.tw.login.tools.Logger info</div><div class="line">信息: lua return data：haha</div></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+</li>
+<li><p>这里需要理解<code>LuaValue</code>和<code>Globals</code>的含义：<br/><code>Globals</code>继承<code>LuaValue</code>对象，<code>LuaValue</code>对象用来表示在Lua语言的基本数据类型，比如:<code>Nil</code>,<code>Number</code>,<code>String</code>,<code>Table</code>,<code>userdata</code>,<code>Function</code>等。<strong>尤其要注意<code>LuaValue</code>也表示了Lua语言中的函数</strong>。所以,对于Lua语言中的函数操作都是通过<code>LuaValue</code>来实现的。</p>
+</li>
+</ul>
+<h4 id="在Lua中调用Java"><a href="#在Lua中调用Java" class="headerlink" title="在Lua中调用Java:"></a><strong>在Lua中调用Java:</strong></h4><ul>
+<li><p><strong>创建Java类：</strong><br/>假设在Java中有这样的一个日志类<code>Logger.java</code>：</p>
+  <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.tw.login.tools;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.commons.logging.Log;</div><div class="line"><span class="keyword">import</span> org.apache.commons.logging.LogFactory;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Logger</span> </span>{</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String TAG = <span class="string">&#34;Logger&#34;</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Log logger = LogFactory.getLog(Logger.class);;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Logger</span><span class="params">()</span></span>{</div><div class="line">        <span class="keyword">if</span>(logger == <span class="keyword">null</span>){</div><div class="line">            logger = LogFactory.getLog(Logger.class);</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestLogger</span><span class="params">(String str)</span> </span>{</div><div class="line">        logger.info(str);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">info</span><span class="params">(String content)</span></span>{</div><div class="line">        logger.info(content);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>创建一个lua脚本：</strong><br/>命名为<code>test.lua</code>，存放在当前项目根目录下的<code>res/lua</code>目录下，详细代码如下：</p>
+<ul>
+<li><p>在Lua中直接创建Java类的实例的方法：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--使用luajava创建java类的实例（对象）</span></div><div class="line"><span class="keyword">local</span> logger = luajava.newInstance(<span class="string">&#34;com.tw.login.tools.Logger&#34;</span>)</div><div class="line"><span class="comment">--调用对象方法</span></div><div class="line">logger:TestLogger(<span class="string">&#34;Test call java in lua0&#34;</span>)</div></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>在Lua中绑定Java类：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--使用luajava绑定一个java类</span></div><div class="line"><span class="keyword">local</span> logger_method = luajava.bindClass(<span class="string">&#34;com.tw.login.tools.Logger&#34;</span>);</div><div class="line"><span class="comment">--调用类的静态方法/变量</span></div><div class="line">logger_method:info(<span class="string">&#34;test call static java function in lua&#34;</span>)</div><div class="line"><span class="built_in">print</span>(logger_method.TAG)</div><div class="line"><span class="comment">-- 使用绑定类创建类的实例（对象）</span></div><div class="line"><span class="keyword">local</span> logger_instance = luajava.new(logger_method)</div><div class="line"><span class="comment">-- 调用对象方法</span></div><div class="line">logger_instance:TestLogger(<span class="string">&#34;Test call java in lua1&#34;</span>)</div></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<p>当前我们只是实现了Lua中调用Java的逻辑，但是作为一种脚本语言，Lua没办法脱离高级语言而独立运行起来，所以要测试Lua是否能正常实现对Java的调用，还是需要在Java中运行此Lua脚本，参考之前在Java调用<code>.lua</code>脚本文件的方法，在Java中的main入口函数中添加一下内容：</p>
+  <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Globals globals = JsePlatform.standardGlobals();</div><div class="line">globals.loadfile(<span class="string">&#34;res/lua/test.lua&#34;</span>).call();</div></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>结果输出日志：</strong></p>
+  <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">四月 07, 2017 2:17:04 下午 com.tw.login.tools.Logger TestLogger</div><div class="line">信息: Test call java in lua0</div><div class="line">四月 07, 2017 2:17:04 下午 com.tw.login.tools.Logger info</div><div class="line">信息: test call static java function in lua</div><div class="line">Logger</div><div class="line">四月 07, 2017 2:17:04 下午 com.tw.login.tools.Logger TestLogger</div><div class="line">信息: Test call java in lua1</div></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<hr/>
+<h3 id="其他："><a href="#其他：" class="headerlink" title="其他："></a><strong>其他：</strong></h3><ul>
+<li><code>LuaJ</code>直到代码运行结束前都会阻塞线程，这时候开启一个新的线程专门运行即可，但是<code>LuaJ</code>运行以后无法中断（即使你中断了它所在的线程），比如你的.lua中有一个<code>while true do end</code>循环，那么你将永远无法中断它，除非退出你的整个Java应用。</li>
+<li>在<code>LuaJava</code>上，发现调用了<code>L.close()</code>方法也是不能中断执行。</li>
+</ul>
+<hr/>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a><strong>参考：</strong></h3><ul>
+<li><a href="http://yangzb.iteye.com/blog/560299" target="_blank" rel="external noopener noreferrer">在Java中使用Lua脚本语言</a></li>
+<li><a href="http://www.360doc.com/content/15/0117/17/9200790_441588770.shtml" target="_blank" rel="external noopener noreferrer">关于在java上使用lua脚本</a></li>
+<li><a href="http://blog.csdn.net/mislead/article/details/51657477" target="_blank" rel="external noopener noreferrer">luaj——java程序中运行lua</a></li>
+<li><a href="http://www.cnblogs.com/mingwuyun/p/5924911.html" target="_blank" rel="external noopener noreferrer">LuaJ 调用java方法性能研究</a></li>
+<li><a href="http://www.cnblogs.com/mokey/p/4443561.html" target="_blank" rel="external noopener noreferrer">lua调用java java调用lua</a></li>
+<li><a href="http://blog.csdn.net/mislead/article/details/51657493" target="_blank" rel="external noopener noreferrer">luaj-lua中实例化JavaClass</a></li>
+</ul>
+<hr/>
+<ul>
+<li><a href="http://hovertree.com/h/bjaf/wcxci250.htm" target="_blank" rel="external noopener noreferrer">在JAVA中使用LUA脚本记,javaj调用lua脚本的函数</a></li>
+<li><a href="http://blog.csdn.net/sunning9001/article/details/50471740" target="_blank" rel="external noopener noreferrer">luaj:初探</a></li>
+</ul></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-698_Java%E4%B8%AD%E5%86%85%E5%B5%8CLua%E8%84%9A%E6%9C%AC/">https://lua.ren/zl/2016-01-01-698_Java%E4%B8%AD%E5%86%85%E5%B5%8CLua%E8%84%9A%E6%9C%AC/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-701_Lua%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE/" title="Lua基础设置"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua基础设置</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-69_redis%E5%AD%A6%E4%B9%A05%20lua%E8%84%9A%E6%9C%AC%20%C2%B7%20%E8%80%81%E7%99%BD%E5%BC%80%E5%8F%91/" title="redis学习5 lua脚本 · 老白开发"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">redis学习5 lua脚本 · 老白开发</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E9%80%89%E6%8B%A9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">插件选择：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LuaJava%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">LuaJava简介：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LuaJ%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">LuaJ简介：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LuaJ%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">LuaJ核心原理：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LuaJ%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">LuaJ的下载使用：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">下载：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">实战：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8Java%E4%B8%AD%E8%B0%83%E7%94%A8Lua%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">在Java中调用Lua：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8Lua%E4%B8%AD%E8%B0%83%E7%94%A8Java"><span class="toc-number">3.2.</span> <span class="toc-text">在Lua中调用Java:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">其他：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

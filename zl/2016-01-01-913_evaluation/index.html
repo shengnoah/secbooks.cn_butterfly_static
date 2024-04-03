@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>evaluation | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="An Empirical Evaluation of In-Memory Multi-Version Concurrency Control介绍MVCC是目前最流行的并发控制协议，本文是论文原文的翻译，省略掉实验部分，感兴趣的同学可以去参照论文原文。这篇论文从4个方面分析了MVCC设计取舍，包括如下:   concurrency control protocol  version storage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="evaluation">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-913_evaluation/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="An Empirical Evaluation of In-Memory Multi-Version Concurrency Control介绍MVCC是目前最流行的并发控制协议，本文是论文原文的翻译，省略掉实验部分，感兴趣的同学可以去参照论文原文。这篇论文从4个方面分析了MVCC设计取舍，包括如下:   concurrency control protocol  version storage">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:36.184Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:36.184Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-913_evaluation/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'evaluation',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">evaluation</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:36.184Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:36.184Z" title="更新于 2024-04-03 11:47:36">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="evaluation"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="An-Empirical-Evaluation-of-In-Memory-Multi-Version-Concurrency-Control"><a href="#An-Empirical-Evaluation-of-In-Memory-Multi-Version-Concurrency-Control" class="headerlink" title="An Empirical Evaluation of In-Memory Multi-Version Concurrency Control"></a>An Empirical Evaluation of In-Memory Multi-Version Concurrency Control</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><em>MVCC</em>是目前最流行的并发控制协议，本文是论文原文的翻译，省略掉实验部分，感兴趣的同学可以去参照论文原文。这篇论文从4个方面分析了<em>MVCC</em>设计取舍，包括如下: </p>
+<ul>
+<li><em>concurrency control protocol</em> </li>
+<li><em>version storage</em> </li>
+<li><em>garbage collection</em></li>
+<li><em>index management</em></li>
+</ul>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><h5 id="MVCC概述"><a href="#MVCC概述" class="headerlink" title="MVCC概述"></a><em>MVCC</em>概述</h5><p><em>MVCC<em>最大的优点是能够让数据库有更大的并发量，例如一个使用</em>MVCC<em>的数据库管理系统(</em>DBMS</em>)可以同时让一个事务读取一条数据的老版本而另一个事务更新同一条数据。<em>MVCC<em>的这些优点让它成为了近几年数据库的最佳选择，下表(</em>表1</em>)总结了近三十年来数据库<em>MVCC</em>的一些实现。</p>
+<p><img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191029103341751.png" alt=""/></p>
+<h5 id="DBMS元数据"><a href="#DBMS元数据" class="headerlink" title="DBMS元数据"></a>DBMS元数据</h5><p><em>MVCC DBMS</em>为事务以及元组维护着一些相似的元数据。 </p>
+<ul>
+<li><p>每一个事务都有一个全局唯一且递增的事务<em>Tid</em>，并发控制协议会使用<em>Tid</em>标识被访问的元组。</p>
+</li>
+<li><p>每一个元组的头部有四个元数据字段，如<em>图1</em>。<em>txn-id</em>是元组的<em>write-lock</em>，如果一个元组没有被<em>write-locked</em>，那么这个字段就为<em>0</em>。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191029103554828.png" style="zoom:50%;"/>
+<p>当一个事务<em>T</em>(<em>Tid</em>)更新元组时，<em>DBMS<em>会检查该元组是否为</em>0<em>，如果为</em>0<em>，那么</em>DBMS<em>使用原子性操作设置</em>txn-id<em>为</em>Tid<em>。任何事务尝试更新一个</em>txn-id<em>不为</em>0<em>或不等于</em>Tid<em>的元组时都会被</em>DBMS</em> <em>abort</em>掉。<em>begin-ts</em>和<em>end-ts</em>表示元组的生命周期，这两个字段的初始值都为<em>0</em>。当元组被删除掉后，<em>DBMS</em>会设置<em>begin-ts</em>为<em>INF</em>。最后一个字段<em>pointer</em>存储着下一个版本元组的地址。</p>
+</li>
+</ul>
+<h3 id="concurrency-control-protocol"><a href="#concurrency-control-protocol" class="headerlink" title="concurrency control protocol"></a>concurrency control protocol</h3><p>每一个<em>DBMS</em>都包含并发控制协议，并发控制协议起着控制事务访问特定元组，事务是否能提交的作用。</p>
+<h5 id="Timestamp-orderding-MVTO"><a href="#Timestamp-orderding-MVTO" class="headerlink" title="Timestamp orderding(MVTO)"></a>Timestamp orderding(<em>MVTO</em>)</h5><p><em>MVTO</em>除了<em>表1</em>元组所有的字段外，<em>MVTO</em>还包含了一个额外的字段<em>read-ts</em>，这个字段表示最后一个读取该元组的事务。</p>
+<p>当事务在元组<em>A</em>发起一个读操作，<em>DBMS<em>会查找</em>begin-ts</em> &lt;= <em>Tid</em> &lt;= <em>end-ts*的元组，如下图</em>(a)<em>，如果元组<em>Ax</em>的写锁(*txn-id == 0 || txn-id == Tid</em>)没有被其他事务获取到，那么事务<em>T</em>被允许访问<em>Ax</em>，<em>MVTO</em>不允许事务<em>read uncommitted</em>。如果事务不能访问<em>Ax</em>，那么就只能访问<em>Ax</em>的老版本数据。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191029105631639.png" style="zoom:67%;"/>
+<p><em>MVTO</em>总是更新元组的最新的版本，如果没有活跃的事务获取到<em>Bx</em>的写锁并且<em>Tid</em>比<em>Bx</em>的<em>read-ts</em>大，事务<em>T</em>会新建一个版本<em>Bx+1</em>，设置<em>Bx+1</em>的<em>txn-id</em>为<em>Tid</em>，当<em>T</em>提交的时候，<em>DBMS</em>分别设置<em>Bx+1</em>的<em>begin-ts</em>和<em>end-ts</em>为<em>Tid</em>和<em>INF</em>，<em>Bx</em>的<em>end-ts</em>为<em>Tid</em>。</p>
+<h5 id="Optimistic-concurency-control-MVOCC"><a href="#Optimistic-concurency-control-MVOCC" class="headerlink" title="Optimistic concurency control(MVOCC)"></a>Optimistic concurency control(<em>MVOCC</em>)</h5><p>乐观并发控制的(<em>OCC</em>)的初衷在于<em>DBMS</em>假设事务之间冲突很少，因此事务不需要锁来协调访问控制，这就减少了事务持有锁的时间。</p>
+<p><em>MVOCC<em>协议分为三个阶段。当一个事务开始时，事务处于</em>read phase<em>，在这个阶段里面，事务可以对元组读写操作，和</em>MVTO<em>一样，当事务读一个元组时，</em>DBMS<em>会搜索该事务可见的版本(</em>begin-ts &lt;= Tid &lt;= end-ts</em>)。当事务写一个元组时，只有<em>write-lock</em>没有被其他事务获取到才行，例如事务<em>T</em>更新<em>Bx</em>时，<em>DBMS</em>会新建一个<em>Bx+1</em>版本的元组并且设置<em>Bx+1</em>的<em>txn-id</em>为<em>Tid</em>。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191029111315549.png" alt="image-20191029111315549" style="zoom:67%;"/>
+<p>当事务提交时候，事务进入<em>validate phase</em>，<em>DBMS</em>会验证事务的<em>read-set</em>是否被其他事务更新过，如果事务通过了<em>validate phase</em>的检查，那么事务就进入到<em>write phase</em>，<em>DBMS</em>会把事务写的数据写到文件，并且把元组的<em>begin-ts</em>设置到<em>Tid</em>，<em>end-ts</em>设置为<em>INF</em>。<em>MVOCC</em>和<em>MVTO</em>相比，<em>MVOCC</em>把事务分成了三个阶段，其中的<em>validate phase</em>就是检查事务的元组是否已经被其他事务写过了，<em>MVTO</em>并没有这个阶段，取而代之的是用<em>read-ts</em>来标识事务的顺序，保证了事务的隔离性。</p>
+<h5 id="Two-phase-Locking-MV2PL"><a href="#Two-phase-Locking-MV2PL" class="headerlink" title="Two-phase Locking(MV2PL)"></a>Two-phase Locking(<em>MV2PL</em>)</h5><p>两阶段加锁有两个阶段，第一个阶段是<em>膨胀阶段</em>，在这个阶段里面，事务只能获取锁，不能释放锁，第二个阶段是<em>收缩阶段</em>，在这个阶段里面事务只能释放锁不能获取锁。<em>MV2PL</em>的写锁是<em>txn-id</em>，读锁是<em>read-cnt</em>，<em>read-cnt</em>表示当前读取这个元组的活跃事务。当事务读一个元组时，<em>DBMS</em>会搜索事务可见的版本，当这个版本是可见时，如果该版本的<em>txn-id</em>为0，事务会增加<em>read-cnt</em>。同样的，只有<em>txn-id</em>为<em>0</em>并且<em>read-cnt</em>为0时，事务才能进行写操作。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191029112911934.png" alt="image-20191029112911934" style="zoom:67%;"/>
+<p><em>2PL</em>协议的关键点在于对死锁的处理上，之前的研究表明<em>no-wait</em>策略是扩展性最强的策略。当事务发现不能获取到锁时，事务直接<em>abort</em>，因为事务从不等待，那么我们也就不需要一个后台线程来探测死锁了。</p>
+<h5 id="Serialization-Certifier"><a href="#Serialization-Certifier" class="headerlink" title="Serialization Certifier"></a>Serialization Certifier</h5><p>这个策略我没有过深入的研究，不过有一篇<em>PostgreSQL<em>的论文是和这个主题相关的(</em>Serializable Snapshot Isolation in PostgreSQL</em>)，论文主要是依靠检测事务之间的依赖来实现隔离性的，如果事务之间的依赖有问题，那么<em>DBMS</em>会通过一些策略<em>abort</em>掉一些事务。</p>
+<h3 id="Version-storage"><a href="#Version-storage" class="headerlink" title="Version storage"></a>Version storage</h3><p>版本存储具体说明了系统是如何存储元组的版本以及每个版本都包含哪些信息。<em>DBMS</em>采用元组的<em>pointer</em>字段形成了版本数据的链表，这个链表允许定位对事务可见的版本。链表的头可以是最新的版本，也可以是最老的版本，论文主要偏向于<em>UPDATE</em>操作时的取舍，因为<em>UPDATE</em>操作才会增加新版本数据。</p>
+<h5 id="Append-only-storage"><a href="#Append-only-storage" class="headerlink" title="Append-only storage"></a>Append-only storage</h5><p>在这种存储结构中，事务更新数据时首先会从表中获取一个空的<em>slot</em>，然后把之前的版本数据复制到这个空的<em>slot</em>，最后把要更新的数据更新到这个<em>slot</em>中。<em>Append-only storage</em>设计的关键点在于如何管理版本链表的顺序，这个顺序隐含着事务更新索引的频率。</p>
+<h6 id="Oldest-to-Newest"><a href="#Oldest-to-Newest" class="headerlink" title="Oldest-to-Newest"></a>Oldest-to-Newest</h6><p>在<em>O2N</em>这种顺序中，链表头部是最老版本的数据，如下图。<em>O2N</em>的优点在于不需要在更新数据的时候调整索引的指针，但是缺点也很显然，<em>DBMS</em>需要遍历一个长链表才能到达最新的数据。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191031113148916.png" alt="image-20191031113148916" style="zoom:67%;"/>
+<h6 id="Newest-to-Oldest"><a href="#Newest-to-Oldest" class="headerlink" title="Newest-to-Oldest"></a>Newest-to-Oldest</h6><p>在<em>N2O</em>这种顺序中，链表头部是最新版本的数据，如下图。大多数<em>DBMS</em>都会访问最新版本的数据，因此<em>N2O</em>不需要遍历一个长链表，但是<em>N2O</em>的缺点是不论何时链表的头部发生了变化，<em>DBMS</em>都会去更新所有的索引去指向最新的链表头部。在下面的章节里面，我们会讨论引入一个间接的映射层来提供索引到间接层，间接层到物理数据的映射，索引指向间接层而不是直接的物理地址。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191031114538968.png" alt="image-20191031114538968" style="zoom:67%;"/>
+<h5 id="Time-travel-storage"><a href="#Time-travel-storage" class="headerlink" title="Time-travel storage"></a>Time-travel storage</h5><p><em>Time-travel strorage</em>类似于上面的<em>append-only storage</em>，不同点在于老版本数据存储在分开的表中。<em>DBMS</em>存储了一个主版本在主表中以及一些其他的版本在另外一个分开的表中。<em>time-travel storage</em>引入了一些<em>GC</em>中的消耗，当进行<em>GC</em>时，<em>DBMS</em>需要把<em>time-travel storage</em>表中的数据拷贝到主表中。为了简单起见，论文只考虑了主表中是主版本的情况。</p>
+<p>当更新一个元组时，<em>DBMS</em>在<em>time-travel</em>表中首先获取到一个空的<em>slot</em>，然后从主表中拷贝数据到这个空的<em>slot</em>中，然后再更新数据的主版本。索引总是指向数据的主版本，所以索引数据不用修改。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/WX20191107-135056@2x.png" alt="WX20191107-135056@2x" style="zoom:67%;"/>
+<h5 id="Delta-storage"><a href="#Delta-storage" class="headerlink" title="Delta storage"></a>Delta storage</h5><p>在<em>delta storage<em>中，数据库主版本在主表中，增量修改的版本在</em>delta table<em>中。当更新一个元组时，</em>DBMS<em>并不会拷贝整个元组而是只把被修改的字段拷贝到</em>delta table<em>中。只更新元组的部分字段时，这种方案特别适合，但是在读占大多数请求的时，这种方案带来的消耗很大，因为读一行数据需要</em>DBMS<em>遍历版本链表多个字段的多个版本(</em>读放大</em>)。</p>
+<h5 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h5><p>没有一种方案是通用的，数据库的不同负载，不同方案有最优的表现。<em>append-only</em>方案对于<em>large scan</em>的分析查询很合适，因为数据都是连续存放在内存中，这减少了<em>cpu</em>的<em>cache miss</em>，数据都连续在内存中也是硬件进行<em>prefetch</em>的理想条件。但是当访问老版本的数据时，<em>DBMS</em>必须遍历版本链表才能定位到一个合适的版本，<em>append-only</em>方案也直接暴露了数据的物理地址给索引，引入了额外的索引管理消耗。</p>
+<p>所有的存储方案都需要在<em>DBMS</em>中集中分配数据，多线程访问会导致访问竞争。一种解决方案是<em>DBMS</em>维护一块额外的内存区域使用并且每次增长的大小固定，每个工作线程都从一个地方获取内存，这也是一种分区的方案，因此也减少了访问竞争。</p>
+<h4 id="Garbage-Collection"><a href="#Garbage-Collection" class="headerlink" title="Garbage Collection"></a>Garbage Collection</h4><p><em>MVCC</em>在更新数据时会新增数据，如果不及时清理掉废弃的数据那么磁盘空间肯定会使用完，在访问数据的时候，<em>DBMS</em>会遍历版本链表，如果链表过长，也会影响数据库的性能，所以数据库的性能和<em>GC</em>有着密切的关系。</p>
+<p><em>GC</em>步骤被分为三步：</p>
+<ul>
+<li>检测过期的版本</li>
+<li>把版本数据从相关链表以及索引中<em>unlink</em></li>
+<li>回收掉数据的存储空间</li>
+</ul>
+<p><em>DBMS<em>认为如果数据是无效的(</em>比如由abort的事务生成</em>)或者数据对现有的活跃事务不可见，那么数据就是过期的，对于不可见的版本，需要满足条件是<em>版本end-ts &lt; Tid</em>。</p>
+<p>目前有两种<em>MVCC GC</em>实现，不同的地方是他们如何检测过期的版本。第一种是<em>tuple level GC</em>，<em>DBMS</em>会去检查单个元组的可见性。第二种<em>transaction-level GC</em>会去检测完成事务的创建数据的版本是否可见。需要注意的是不是每一种<em>GC</em>方式都与所有的存储方案兼容。</p>
+<h5 id="Tuple-level-Garbage-Collection"><a href="#Tuple-level-Garbage-Collection" class="headerlink" title="Tuple-level Garbage Collection"></a>Tuple-level Garbage Collection</h5><h6 id="Backgroup-Vacuuming-VAC"><a href="#Backgroup-Vacuuming-VAC" class="headerlink" title="Backgroup Vacuuming(VAC)"></a>Backgroup Vacuuming(VAC)</h6><p><em>DBMS</em>中有一个后台线程定期扫描数据库来找到过期的版本。在上面的<em>表1</em>中可以看出这是最常见的方式，实现很容易并且可以和所有的版本存储访问兼容。但是这种方式的扩展性不好，一种更好的扩展性方式在论文<em>SpeedyTransactionsin Multicore In-Memory Databases</em>中，在<em>GC</em>过程中还有另外一种优化，用一个<em>bitmap</em>来标记出脏的数据块。</p>
+<h6 id="Cooperative-Cleaning-COOP"><a href="#Cooperative-Cleaning-COOP" class="headerlink" title="Cooperative Cleaning(COOP)"></a>Cooperative Cleaning(COOP)</h6><p>事务执行的时候，<em>DBMS</em>会遍历整个版本链表来找到可见的版本，把过期的数据注册到一个全局的数据结构中。因为没有专门的<em>GC</em>线程，所以这种方式扩展性良好，但是<em>COOP</em>只适用于<em>O2N</em>存储。<em>COOP</em>的一个缺点是如果数据没有被访问到，那么过期的版本数据就不会被清理到，在<em>SQL Server Hekaton</em>中，这被称为<em>dusty corner</em>。<em>DBMS</em>可以和<em>VAC</em>一样定期来一次<em>complete GC</em>来克服这个缺点。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191107151059457.png" alt="image-20191107151059457" style="zoom:67%;"/>
+<h5 id="Transaction-level-Garbage-Collection"><a href="#Transaction-level-Garbage-Collection" class="headerlink" title="Transaction-level Garbage Collection"></a>Transaction-level Garbage Collection</h5><p>在这种<em>GC</em>机制中，数据进行<em>GC</em>的粒度是事务。<em>DBMS</em>认为当一个事务创建数据所有的版本对当前活跃事务不可见时，事务是过期的。当<em>epoch</em>结束时，属于这个<em>epoch</em>的事务生成数据的版本都是过期的，可以安全的删除掉。这种方式的缺点是<em>DBMS</em>得追踪事务的<em>read/write set</em>而不仅仅是使用<em>epoch</em>。</p>
+<img src="https://worstenemy.github.io//2019/10/31/evaluation-mvcc/image-20191107151710062.png" alt="image-20191107151710062" style="zoom:67%;"/>
+<h5 id="讨论-1"><a href="#讨论-1" class="headerlink" title="讨论"></a>讨论</h5><p><em>Tuple-level gc</em>是最常见的<em>GC</em>方式，在上面两种方式中，增加<em>GC</em>线程的数目都可以加速<em>GC</em>。数据库性能会在长事务情况下下降，这是因为在长事务情况下产生的数据不会及时被回收掉。</p>
+<h4 id="索引管理"><a href="#索引管理" class="headerlink" title="索引管理"></a>索引管理</h4><p>所有的<em>MVCC DBMS</em>都独立于版本信息管理索引。因此，在索引中存在一个<em>key</em>意味着在数据库中存储着某个版本的数据，但是索引并不知道到底是哪个版本存储着的数据匹配。定义<em>index entry</em>为<em>key/value</em>对，<em>key</em>是指向元组的被索引字段，<em>value</em>是指向对应的元组。<em>DBMS</em>会根据<em>value</em>的指针遍历版本链表来找到可见的元组。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-913_evaluation/">https://lua.ren/zl/2016-01-01-913_evaluation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-912_redis%E7%BC%96%E5%86%99lua%E8%84%9A%E6%9C%AC/" title="redis编写lua脚本"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">redis编写lua脚本</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-914_Lua%20%E5%AD%A6%E4%B9%A0%20chapter29%20/" title="Lua 学习 chapter29"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua 学习 chapter29</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#An-Empirical-Evaluation-of-In-Memory-Multi-Version-Concurrency-Control"><span class="toc-number">1.</span> <span class="toc-text">An Empirical Evaluation of In-Memory Multi-Version Concurrency Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.2.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#MVCC%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">MVCC概述</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DBMS%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">DBMS元数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#concurrency-control-protocol"><span class="toc-number">1.3.</span> <span class="toc-text">concurrency control protocol</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Timestamp-orderding-MVTO"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">Timestamp orderding(MVTO)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Optimistic-concurency-control-MVOCC"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">Optimistic concurency control(MVOCC)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Two-phase-Locking-MV2PL"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">Two-phase Locking(MV2PL)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Serialization-Certifier"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">Serialization Certifier</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Version-storage"><span class="toc-number">1.4.</span> <span class="toc-text">Version storage</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Append-only-storage"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">Append-only storage</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Oldest-to-Newest"><span class="toc-number">1.4.0.1.1.</span> <span class="toc-text">Oldest-to-Newest</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Newest-to-Oldest"><span class="toc-number">1.4.0.1.2.</span> <span class="toc-text">Newest-to-Oldest</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Time-travel-storage"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">Time-travel storage</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Delta-storage"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">Delta storage</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">讨论</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Garbage-Collection"><span class="toc-number">1.4.1.</span> <span class="toc-text">Garbage Collection</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Tuple-level-Garbage-Collection"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">Tuple-level Garbage Collection</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Backgroup-Vacuuming-VAC"><span class="toc-number">1.4.1.1.1.</span> <span class="toc-text">Backgroup Vacuuming(VAC)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Cooperative-Cleaning-COOP"><span class="toc-number">1.4.1.1.2.</span> <span class="toc-text">Cooperative Cleaning(COOP)</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Transaction-level-Garbage-Collection"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">Transaction-level Garbage Collection</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA-1"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">讨论</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%AE%A1%E7%90%86"><span class="toc-number">1.4.2.</span> <span class="toc-text">索引管理</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

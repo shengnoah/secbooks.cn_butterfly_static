@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>xLua游戏中的热更新 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="思考并回答以下问题： 目前Unity下的Lua热更新方案大多都是要求要热更新的部分一开始就要用Lua语言实现，不足之处在于：  1、接入成本高，有的项目已经用C#写完了，这时要接入需要把需要热更的地方用Lua重新实现； 2、即使一开始就接入了，也存在同时用两种语言开发难度较大的问题； 3、Lua性能不如C#；  xLua热补丁技术支持在运行时把一个C#实现（函数，操作符，属性，事件，或者整个类）替">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xLua游戏中的热更新">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-940_xLua%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="思考并回答以下问题： 目前Unity下的Lua热更新方案大多都是要求要热更新的部分一开始就要用Lua语言实现，不足之处在于：  1、接入成本高，有的项目已经用C#写完了，这时要接入需要把需要热更的地方用Lua重新实现； 2、即使一开始就接入了，也存在同时用两种语言开发难度较大的问题； 3、Lua性能不如C#；  xLua热补丁技术支持在运行时把一个C#实现（函数，操作符，属性，事件，或者整个类）替">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:36.211Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:36.212Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-940_xLua%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'xLua游戏中的热更新',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">xLua游戏中的热更新</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:36.211Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:36.212Z" title="更新于 2024-04-03 11:47:36">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="xLua游戏中的热更新"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>思考并回答以下问题：</p>
+<p>目前Unity下的Lua热更新方案大多都是要求要热更新的部分一开始就要用Lua语言实现，不足之处在于：</p>
+<ul>
+<li>1、接入成本高，有的项目已经用C#写完了，这时要接入需要把需要热更的地方用Lua重新实现；</li>
+<li>2、即使一开始就接入了，也存在同时用两种语言开发难度较大的问题；</li>
+<li>3、Lua性能不如C#；</li>
+</ul>
+<p>xLua热补丁技术支持在运行时把一个C#实现（函数，操作符，属性，事件，或者整个类）替换成Lua实现，意味着你可以：</p>
+<ul>
+<li>1、平时用C#开发；</li>
+<li>2、运行也是C#，性能秒杀Lua；</li>
+<li>3、有bug的地方下发个Lua脚本fix了，下次整体更新时可以把Lua的实现换回正确的C#实现，更新时甚至可以做到不重启游戏；</li>
+</ul>
+<h2 id="xLua教程"><a href="#xLua教程" class="headerlink" title="xLua教程"></a>xLua教程</h2><h3 id="Lua文件加载"><a href="#Lua文件加载" class="headerlink" title="Lua文件加载"></a>Lua文件加载</h3><ol>
+<li>执行字符串</li>
+</ol>
+<p>最基本是直接用LuaEnv.DoString执行一个字符串，当然，字符串得符合Lua语法</p>
+<p>比如：<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">luaenv.DoString(<span class="string">&#34;print(&#39;hello world&#39;)&#34;</span>)</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>完整代码见XLuaTutorialLoadLuaScriptByString目录</p>
+<blockquote>
+<p>但这种方式并不建议，更建议下面介绍这种方法。</p>
+</blockquote>
+<ol>
+<li>加载Lua文件</li>
+</ol>
+<p>用lua的require函数即可<br/>比如：<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">DoString(<span class="string">&#34;require &#39;byfile&#39;&#34;</span>)</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>完整代码见XLuaTutorialLoadLuaScriptByFile目录</p>
+<p>require实际上是调一个个的loader去加载，有一个成功就不再往下尝试，全失败则报文件找不到。</p>
+<p>目前xLua除了原生的loader外，还添加了从Resource加载的loader，需要注意的是因为Resource只支持有限的后缀，放Resources下的lua文件得加上txt后缀（见附带的例子）。</p>
+<p>建议的加载Lua脚本方式是：整个程序就一个DoString(“require ‘main’”)，然后在main.lua加载其它脚本（类似lua脚本的命令行执行：lua main.lua）。</p>
+<p>有童鞋会问：要是我的Lua文件是下载回来的，或者某个自定义的文件格式里头解压出来，或者需要解密等等，怎么办？问得好，xLua的自定义Loader可以满足这些需求。</p>
+<ol>
+<li>自定义Loader</li>
+</ol>
+<p>在xLua加自定义loader是很简单的，只涉及到一个接口：<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">public delegate <span class="built_in">byte</span>[] CustomLoader(ref <span class="built_in">string</span> filepath);</span><br/><span class="line">public void LuaEnv.AddLoader(CustomLoader loader)</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>通过AddLoader可以注册个回调，该回调参数是字符串，lua代码里头调用require时，参数将会透传给回调，回调中就可以根据这个参数去加载指定文件，如果需要支持调试，需要把filepath修改为真实路径传出。该回调返回值是一个byte数组，如果为空表示该loader找不到，否则则为lua文件的内容。</p>
+<p>有了这个就简单了，用IIPS的IFS？没问题。写个loader调用IIPS的接口读文件内容即可。文件已经加密？没问题，自己写loader读取文件解密后返回即可。。。</p>
+<p>完整示例见XLuaTutorialLoadLuaScriptLoader</p>
+<h3 id="C-访问Lua"><a href="#C-访问Lua" class="headerlink" title="C#访问Lua"></a>C#访问Lua</h3><p>这里指的是C#主动发起对Lua数据结构的访问。<br/>本章涉及到的例子都可以在XLuaTutorialCSharpCallLua下找到。</p>
+<p>1.获取一个全局基本数据类型</p>
+<p>访问LuaEnv.Global就可以了，上面有个模版Get方法，可指定返回的类型。<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">luaenv.Global.Get&lt;int&gt;(<span class="string">&#34;a&#34;</span>)</span><br/><span class="line">luaenv.Global.Get&lt;<span class="built_in">string</span>&gt;(<span class="string">&#34;b&#34;</span>)</span><br/><span class="line">luaenv.Global.Get&lt;bool&gt;(<span class="string">&#34;c&#34;</span>)</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>2.访问一个全局的table</p>
+<p>也是用上面的Get方法，那类型要指定成啥呢？</p>
+<p>1.映射到普通class或struct</p>
+<p>定义一个class，有对应于table的字段的public属性，而且有无参数构造函数即可，比如对于{f1 = 100, f2 = 100}可以定义一个包含public int f1;public int f2;的class。</p>
+<p>这种方式下xLua会帮你new一个实例，并把对应的字段赋值过去。</p>
+<p>table的属性可以多于或者少于class的属性。可以嵌套其它复杂类型。</p>
+<p>要注意的是，这个过程是值拷贝，如果class比较复杂代价会比较大。而且修改class的字段值不会同步到table，反过来也不会。</p>
+<p>这个功能可以通过把类型加到GCOptimize生成降低开销，详细可参见配置介绍文档。</p>
+<p>那有没有引用方式的映射呢？有，下面这个就是：</p>
+<p>2.映射到一个interface</p>
+<p>这种方式依赖于生成代码（如果没生成代码会抛InvalidCastException异常），代码生成器会生成这个interface的实例，如果get一个属性，生成代码会get对应的table字段，如果set属性也会设置对应的字段。甚至可以通过interface的方法访问lua的函数。</p>
+<p>3.更轻量级的by value方式：映射到Dictionary&lt;&gt;，List&lt;&gt;</p>
+<p>不想定义class或者interface的话，可以考虑用这个，前提table下key和value的类型都是一致的。</p>
+<p>4.另外一种by ref方式：映射到LuaTable类</p>
+<p>这种方式好处是不需要生成代码，但也有一些问题，比如慢，比方式2要慢一个数量级，比如没有类型检查。</p>
+<p>3.访问一个全局的function</p>
+<p>仍然是用Get方法，不同的是类型映射。</p>
+<p>1.映射到delegate</p>
+<p>这种是建议的方式，性能好很多，而且类型安全。缺点是要生成代码（如果没生成代码会抛InvalidCastException异常）。</p>
+<p>delegate要怎样声明呢？</p>
+<p>对于function的每个参数就声明一个输入类型的参数。</p>
+<p>多返回值要怎么处理？从左往右映射到c#的输出参数，输出参数包括返回值，out参数，ref参数。</p>
+<p>参数、返回值类型支持哪些呢？都支持，各种复杂类型，out，ref修饰的，甚至可以返回另外一个delegate。</p>
+<p>delegate的使用就更简单了，直接像个函数那样用就可以了。</p>
+<ol>
+<li>映射到LuaFunction</li>
+</ol>
+<p>这种方式的优缺点刚好和第一种相反。</p>
+<p>使用也简单，LuaFunction上有个变参的Call函数，可以传任意类型，任意个数的参数，返回值是object的数组，对应于lua的多返回值。</p>
+<p>4.使用建议</p>
+<p>1.访问lua全局数据，特别是table以及function，代价比较大，建议尽量少做，比如在初始化时把要调用的lua function获取一次（映射到delegate）后，保存下来，后续直接调用该delegate即可。table也类似。</p>
+<p>2.如果lua测的实现的部分都以delegate和interface的方式提供，使用方可以完全和xLua解耦：由一个专门的模块负责xlua的初始化以及delegate、interface的映射，然后把这些delegate和interface设置到要用到它们的地方。</p>
+<h3 id="Lua调用C"><a href="#Lua调用C" class="headerlink" title="Lua调用C"></a>Lua调用C</h3><blockquote>
+<p>本章节涉及到的实例均在XLuaTutorialLuaCallCSharp下</p>
+</blockquote>
+<h4 id="new-C-对象"><a href="#new-C-对象" class="headerlink" title="new C#对象"></a>new C#对象</h4><p>你在C#这样new一个对象：<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">var newGameObj = new UnityEngine.GameObject();</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>对应到Lua是这样：<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> newGameObj = CS.UnityEngine.GameObject()</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<p>基本类似，除了：</p>
+<p>1.lua里头没有new关键字；<br/>2.所有C#相关的都放到CS下，包括构造函数，静态成员属性、方法；</p>
+<p>如果有多个构造函数呢？放心，xlua支持重载，比如你要调用GameObject的带一个string参数的构造函数，这么写：<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> newGameObj2 = CS.UnityEngine.GameObject(<span class="string">&#39;helloworld&#39;</span>)</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="访问C-静态属性，方法"><a href="#访问C-静态属性，方法" class="headerlink" title="访问C#静态属性，方法"></a>访问C#静态属性，方法</h4><h5 id="读静态属性"><a href="#读静态属性" class="headerlink" title="读静态属性"></a>读静态属性</h5><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">CS.UnityEngine.Time.deltaTime</span><br/></pre></td></tr></tbody></table></figure>
+<h5 id="写静态属性"><a href="#写静态属性" class="headerlink" title="写静态属性"></a>写静态属性</h5><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">CS.UnityEngine.Time.timeScale = <span class="number">0.5</span></span><br/></pre></td></tr></tbody></table></figure>
+<h5 id="调用静态方法"><a href="#调用静态方法" class="headerlink" title="调用静态方法"></a>调用静态方法</h5><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">CS.UnityEngine.GameObject.Find(<span class="string">&#39;helloworld&#39;</span>)</span><br/></pre></td></tr></tbody></table></figure>
+<p>小技巧：如果需要经常访问的类，可以先用局部变量引用后访问，除了减少敲代码的时间，还能提高性能：<br/></p><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> GameObject = CS.UnityEngine.GameObject</span><br/><span class="line">GameObject.Find(<span class="string">&#39;helloworld&#39;</span>)</span><br/></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="访问C-成员属性，方法"><a href="#访问C-成员属性，方法" class="headerlink" title="访问C#成员属性，方法"></a>访问C#成员属性，方法</h4><h5 id="读成员属性"><a href="#读成员属性" class="headerlink" title="读成员属性"></a>读成员属性</h5><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">testobj.DMF</span><br/></pre></td></tr></tbody></table></figure>
+<h5 id="写成员属性"><a href="#写成员属性" class="headerlink" title="写成员属性"></a>写成员属性</h5><figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">testobj.DMF = <span class="number">1024</span></span><br/></pre></td></tr></tbody></table></figure>
+<h5 id="调用成员方法"><a href="#调用成员方法" class="headerlink" title="调用成员方法"></a>调用成员方法</h5><p>注意：调用成员方法，第一个参数需要传该对象，建议用冒号语法糖，如下</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">testobj:DMFunc()</span><br/></pre></td></tr></tbody></table></figure>
+<h5 id="父类属性，方法"><a href="#父类属性，方法" class="headerlink" title="父类属性，方法"></a>父类属性，方法</h5><p>xlua支持（通过派生类）访问基类的静态属性，静态方法，（通过派生类实例）访问基类的成员属性，成员方法</p>
+<h5 id="参数的输入输出属性（out，ref）"><a href="#参数的输入输出属性（out，ref）" class="headerlink" title="参数的输入输出属性（out，ref）"></a>参数的输入输出属性（out，ref）</h5><p>Lua调用测的参数处理规则：C#的普通参数算一个输入形参，ref修饰的算一个输入形参，out不算，然后从左往右对应lua 调用测的实参列表；</p>
+<p>Lua调用测的返回值处理规则：C#函数的返回值（如果有的话）算一个返回值，out算一个返回值，ref算一个返回值，然后从左往右对应lua的多返回值。</p>
+<h5 id="重载方法"><a href="#重载方法" class="headerlink" title="重载方法"></a>重载方法</h5><p>直接通过不同的参数类型进行重载函数的访问，例如：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">testobj:TestFunc(<span class="number">100</span>)</span><br/><span class="line">testobj:TestFunc(<span class="string">&#39;hello&#39;</span>)</span><br/></pre></td></tr></tbody></table></figure>
+<p>将分别访问整数参数的TestFunc和字符串参数的TestFunc。</p>
+<p>注意：xlua只一定程度上支持重载函数的调用，因为lua的类型远远不如C#丰富，存在一对多的情况，比如C#的int，float，double都对应于lua的number，上面的例子中TestFunc如果有这些重载参数，第一行将无法区分开来，只能调用到其中一个（生成代码中排前面的那个）</p>
+<h5 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h5><p>支持的操作符有：+，-，*，/，==，一元-，&lt;，&lt;=， %，[]</p>
+<h5 id="参数带默认值的方法"><a href="#参数带默认值的方法" class="headerlink" title="参数带默认值的方法"></a>参数带默认值的方法</h5><p>和C#调用有默认值参数的函数一样，如果所给的实参少于形参，则会用默认值补上。</p>
+<h5 id="可变参数方法"><a href="#可变参数方法" class="headerlink" title="可变参数方法"></a>可变参数方法</h5><p>对于C#的如下方法：</p>
+<pre><code>void VariableParamsFunc(int a, params string[] strs)
+</code></pre><p>可以在lua里头这样调用：</p>
+<pre><code>testobj:VariableParamsFunc(5, &#39;hello&#39;, &#39;john&#39;)
+</code></pre><h5 id="使用Extension-methods"><a href="#使用Extension-methods" class="headerlink" title="使用Extension methods"></a>使用Extension methods</h5><p>在C#里定义了，lua里就能直接使用。</p>
+<h5 id="泛化（模版）方法"><a href="#泛化（模版）方法" class="headerlink" title="泛化（模版）方法"></a>泛化（模版）方法</h5><p>不直接支持，可以通过Extension methods功能进行封装后调用。</p>
+<h5 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h5><p>枚举值就像枚举类型下的静态属性一样。</p>
+<pre><code>testobj:EnumTestFunc(CS.Tutorial.TestEnum.E1)
+</code></pre><p>上面的EnumTestFunc函数参数是Tutorial.TestEnum类型的。</p>
+<p>枚举类支持__CastFrom方法，可以实现从一个整数或者字符串到枚举值的转换，例如：</p>
+<pre><code>CS.Tutorial.TestEnum.__CastFrom(1)
+CS.Tutorial.TestEnum.__CastFrom(&#39;E1&#39;)
+</code></pre><h5 id="delegate使用（调用，-，-）"><a href="#delegate使用（调用，-，-）" class="headerlink" title="delegate使用（调用，+，-）"></a>delegate使用（调用，+，-）</h5><p>C#的delegate调用：和调用普通lua函数一样</p>
+<p>+操作符：对应C#的+操作符，把两个调用串成一个调用链，右操作数可以是同类型的C# delegate或者是lua函数。</p>
+<p>-操作符：和+相反，把一个delegate从调用链中移除。</p>
+<blockquote>
+<p>Ps：delegate属性可以用一个luafunction来赋值。</p>
+</blockquote>
+<h5 id="event"><a href="#event" class="headerlink" title="event"></a>event</h5><p>比如testobj里头有个事件定义是这样：public event Action TestEvent;</p>
+<p>增加事件回调</p>
+<pre><code>testobj:TestEvent(&#39;+&#39;, lua_event_callback)
+</code></pre><p>移除事件回调</p>
+<pre><code>testobj:TestEvent(&#39;-&#39;, lua_event_callback)
+</code></pre><h5 id="64位整数支持"><a href="#64位整数支持" class="headerlink" title="64位整数支持"></a>64位整数支持</h5><pre><code>Lua53版本64位整数（long，ulong）映射到原生的64未整数，而luajit版本，相当于lua5.1的标准，本身不支持64位，xlua做了个64位支持的扩展库，C#的long和ulong都将映射到userdata：
+<p>支持在lua里头进行64位的运算，比较，打印</p>
+<p>支持和lua number的运算，比较</p>
+<p>要注意的是，在64扩展库中，实际上只有int64，ulong也会先强转成long再传递到lua，而对ulong的一些运算，比较，我们采取和java一样的支持方式，提供一组API，详情请看API文档。<br />
+</code></pre><h5 id="C-复杂类型和table的自动转换"><a href="#C-复杂类型和table的自动转换" class="headerlink" title="C#复杂类型和table的自动转换"></a>C#复杂类型和table的自动转换</h5><p>对于一个有无参构造函数的C#复杂类型，在lua侧可以直接用一个table来代替，该table对应复杂类型的public字段有相应字段即可，支持函数参数传递，属性赋值等，例如：<br/>C#下B结构体（class也支持）定义如下：</p></p>
+<pre><code>public struct A
+&#123;
+    public int a;
+&#125;
+
+public struct B
+&#123;
+    public A b;
+    public double c;
+&#125;
+</code></pre><p>某个类有成员函数如下：</p>
+<pre><code>void Foo(B b)
+</code></pre><p>在lua可以这么调用</p>
+<pre><code>obj:Foo(&#123;b = &#123;a = 100&#125;, c = 200&#125;)
+</code></pre><h5 id="获取类型（相当于C-的typeof）"><a href="#获取类型（相当于C-的typeof）" class="headerlink" title="获取类型（相当于C#的typeof）"></a>获取类型（相当于C#的typeof）</h5><p>比如要获取UnityEngine.ParticleSystem类的Type信息，可以这样</p>
+<pre><code>typeof(CS.UnityEngine.ParticleSystem)
+</code></pre><h5 id="“强”转"><a href="#“强”转" class="headerlink" title="“强”转"></a>“强”转</h5><p>lua没类型，所以不会有强类型语言的“强转”，但有个有点像的东西：告诉xlua要用指定的生成代码去调用一个对象，这在什么情况下能用到呢？有的时候第三方库对外暴露的是一个interface或者抽象类，实现类是隐藏的，这样我们无法对实现类进行代码生成。该实现类将会被xlua识别为未生成代码而用反射来访问，如果这个调用是很频繁的话还是很影响性能的，这时我们就可以把这个interface或者抽象类加到生成代码，然后指定用该生成代码来访问：</p>
+<pre><code>cast(calc, typeof(CS.Tutorial.Calc))
+</code></pre><p>上面就是指定用CS.Tutorial.Calc的生成代码来访问calc对象。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-940_xLua%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0/">https://lua.ren/zl/2016-01-01-940_xLua%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-93_lua%20%E8%84%9A%E6%9C%AC%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" title="lua 脚本执行流程"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">lua 脚本执行流程</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-939_HMExpressionEvaluator%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E7%AE%80%E5%8D%95%E5%8F%88%E5%BC%BA%E5%A4%A7%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97%E5%BA%93/" title="HMExpressionEvaluator——一个使用简单又强大的表达式计算库"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">HMExpressionEvaluator——一个使用简单又强大的表达式计算库</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xLua%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">xLua教程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Lua%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.1.</span> <span class="toc-text">Lua文件加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E8%AE%BF%E9%97%AELua"><span class="toc-number">1.2.</span> <span class="toc-text">C#访问Lua</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lua%E8%B0%83%E7%94%A8C"><span class="toc-number">1.3.</span> <span class="toc-text">Lua调用C</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#new-C-%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.3.1.</span> <span class="toc-text">new C#对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AEC-%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7%EF%BC%8C%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.2.</span> <span class="toc-text">访问C#静态属性，方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">读静态属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">写静态属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">调用静态方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AEC-%E6%88%90%E5%91%98%E5%B1%9E%E6%80%A7%EF%BC%8C%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.3.</span> <span class="toc-text">访问C#成员属性，方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E6%88%90%E5%91%98%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">读成员属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E6%88%90%E5%91%98%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">写成员属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">调用成员方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%88%B6%E7%B1%BB%E5%B1%9E%E6%80%A7%EF%BC%8C%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">父类属性，方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%B1%9E%E6%80%A7%EF%BC%88out%EF%BC%8Cref%EF%BC%89"><span class="toc-number">1.3.3.5.</span> <span class="toc-text">参数的输入输出属性（out，ref）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.3.6.</span> <span class="toc-text">重载方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.3.3.7.</span> <span class="toc-text">操作符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%B8%A6%E9%BB%98%E8%AE%A4%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.3.8.</span> <span class="toc-text">参数带默认值的方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.3.9.</span> <span class="toc-text">可变参数方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Extension-methods"><span class="toc-number">1.3.3.10.</span> <span class="toc-text">使用Extension methods</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%9B%E5%8C%96%EF%BC%88%E6%A8%A1%E7%89%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.3.11.</span> <span class="toc-text">泛化（模版）方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.3.12.</span> <span class="toc-text">枚举类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#delegate%E4%BD%BF%E7%94%A8%EF%BC%88%E8%B0%83%E7%94%A8%EF%BC%8C-%EF%BC%8C-%EF%BC%89"><span class="toc-number">1.3.3.13.</span> <span class="toc-text">delegate使用（调用，+，-）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#event"><span class="toc-number">1.3.3.14.</span> <span class="toc-text">event</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#64%E4%BD%8D%E6%95%B4%E6%95%B0%E6%94%AF%E6%8C%81"><span class="toc-number">1.3.3.15.</span> <span class="toc-text">64位整数支持</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E5%92%8Ctable%E7%9A%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.3.16.</span> <span class="toc-text">C#复杂类型和table的自动转换</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%B1%BB%E5%9E%8B%EF%BC%88%E7%9B%B8%E5%BD%93%E4%BA%8EC-%E7%9A%84typeof%EF%BC%89"><span class="toc-number">1.3.3.17.</span> <span class="toc-text">获取类型（相当于C#的typeof）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%80%9C%E5%BC%BA%E2%80%9D%E8%BD%AC"><span class="toc-number">1.3.3.18.</span> <span class="toc-text">“强”转</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

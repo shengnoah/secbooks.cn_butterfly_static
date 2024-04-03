@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>pil.29lua中调用c函数 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我们在说Lua调用C函数的时候，不是说Lua可以调用所有的C函数，我们必须在传递参数和获得结果之间遵从一些协议。同时，必须要注册C函数，也就是说，要以合适的方式给Lua这个函数的地址。 我们先来看一个简单的函数： static int (lua_State *L) {	double d &#x3D; lua_tonumber(L, 1);	lua_pushnumber(L, sin(d));	return">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pil.29lua中调用c函数">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-1068_pil.29lua%E4%B8%AD%E8%B0%83%E7%94%A8c%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="我们在说Lua调用C函数的时候，不是说Lua可以调用所有的C函数，我们必须在传递参数和获得结果之间遵从一些协议。同时，必须要注册C函数，也就是说，要以合适的方式给Lua这个函数的地址。 我们先来看一个简单的函数： static int (lua_State *L) {	double d &#x3D; lua_tonumber(L, 1);	lua_pushnumber(L, sin(d));	return">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:32.988Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:32.988Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-1068_pil.29lua%E4%B8%AD%E8%B0%83%E7%94%A8c%E5%87%BD%E6%95%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'pil.29lua中调用c函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-03 11:47:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">pil.29lua中调用c函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:32.988Z" title="发表于 2024-04-03 11:47:32">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:32.988Z" title="更新于 2024-04-03 11:47:32">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="pil.29lua中调用c函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>我们在说Lua调用C函数的时候，不是说Lua可以调用所有的C函数，我们必须在传递参数和获得结果之间遵从一些协议。同时，必须要注册C函数，也就是说，要以合适的方式给Lua这个函数的地址。<br/></p>
+<p>我们先来看一个简单的函数：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">	<span class="keyword">double</span> d = lua_tonumber(L, <span class="number">1</span>);</span><br/><span class="line">	lua_pushnumber(L, <span class="built_in">sin</span>(d));</span><br/><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<p>从C的位置来看，这个函数从Lua state获取一个参数，然后把结果压入Lua state。因此，函数在压入结果前不需要清理栈。在函数返回后，Lua会自动的保存结果然后清理C函数的栈。</p>
+<p>在我们可以在Lua中用这个函数前，我们必须先注册。我们使用<code>lua_pushcfunction</code>来实现：获取这个C函数的地址，在Lua中建立一个<code>function</code>的值来保存这个地址。一旦注册后，C函数就跟其他Lua内的函数一样了。</p>
+<p>一个快速但是很不简洁的方法是在官方的lua解释器代码<code>lua.c</code>中放入 <code>l_sin</code>的代码，然后在调用了<code>luaL_openlibs</code>函数后加入下面的两行：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">lua_pushcfunction(L, l_sin);</span><br/><span class="line">lua_setglobal(L, <span class="string">&#34;mysin&#34;</span>);</span><br/></pre></td></tr></tbody></table></figure>
+<p>第一行压入一个函数类型的值；第二行把这个值赋给全局变量<em>mysin</em>。在这些修改后，我们就可以在Lua脚本中使用<code>mysin</code>这个函数了，我们在后面再讨论一些链接C函数到Lua的比较好的方式。我们这里先看一下怎么写C函数。</p>
+<p>对一个更专业sin函数，必须检查参数的类型，lua辅助库可以帮我们完全这个工作。<code>luaL_checknumber</code>检查是不是给了一个数值参数：一旦出错，就会给出一个错误提示信息；不然就返回这个数值。修改后代码应该如下：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span>  <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">        <span class="keyword">double</span> d = luaL_checknumber(L, <span class="number">1</span>);</span><br/><span class="line">        lua_pushnumber(L, <span class="built_in">sin</span>(d));</span><br/><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;  </span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<p>在上面的定义后，我们如果调用<code>mysin(&#39;a&#39;)</code>，就会得到如下的错误：</p>
+<pre><code>bad argument #1 to &#39;mysin&#39; (number expected, got string)
+</code></pre><p>作为一个更复杂的例子，我们来写一个返回指定目录内容的函数。Lua内在标准库内没有提供这个函数，ISO C不提供这样的操作。我们假设我们的系统兼容 POSIX。我们的函数————我们会在Lua把它叫做<em>dir</em>，在C中叫<code>l_dir</code>————获取一个字符串的路径参数，然后返回所有的目录项。具体来说，<code>dir(&#34;/home/lua&#34;)</code>会返回一个表<code>&#123;&#34;.&#34;, &#34;..&#34;, &#34;src&#34;, &#34;bin&#34;, &#34;lib&#34;&#125;</code>。代码如下：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"></span><br/><span class="line">              </span><br/><span class="line">              <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br/><span class="line">              <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br/><span class="line">              <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&#34;lua.h&#34;</span></span></span><br/><span class="line">              <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&#34;lauxlib.h&#34;</span></span></span><br/><span class="line">              <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">l_dir</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">                DIR *dir;</span><br/><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">entry</span>;</span></span><br/><span class="line">                <span class="keyword">int</span> i;</span><br/><span class="line">                <span class="keyword">const</span> <span class="keyword">char</span> *path = luaL_checkstring(L, <span class="number">1</span>);</span><br/><span class="line">                <span class="comment">/* open directory */</span></span><br/><span class="line">                dir = opendir(path);</span><br/><span class="line">                <span class="keyword">if</span> (dir == <span class="literal">NULL</span>) {  <span class="comment">/* error opening the directory? */</span></span><br/><span class="line">                  lua_pushnil(L);  <span class="comment">/* return nil... */</span></span><br/><span class="line">                  lua_pushstring(L, strerror(errno));  <span class="comment">/* and error message */</span></span><br/><span class="line">                  <span class="keyword">return</span> <span class="number">2</span>;  </span><br/><span class="line">}</span><br/><span class="line">                <span class="comment">/* create result table */</span></span><br/><span class="line">                lua_newtable(L);</span><br/><span class="line">                i = <span class="number">1</span>;</span><br/><span class="line">                <span class="keyword">while</span> ((entry = readdir(dir)) != <span class="literal">NULL</span>) {  <span class="comment">/* for each entry */</span></span><br/><span class="line">                  lua_pushinteger(L, i++);  <span class="comment">/* push key */</span></span><br/><span class="line">                  lua_pushstring(L, entry-&gt;d_name);  <span class="comment">/* push value */</span></span><br/><span class="line">                  lua_settable(L, <span class="number">-3</span>);    <span class="comment">/* table[i] = entry name */</span></span><br/><span class="line">}</span><br/><span class="line">                closedir(dir);</span><br/><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;  <span class="comment">/* table is already on top */</span></span><br/><span class="line">              }</span><br/></pre></td></tr></tbody></table></figure>
+<p>此函数通过 <code>luaL_checkstring</code>来检查参数是否为一个字符串。然后通过系统调用<code>opendir</code>来打开目录。如果无法打开目录，就会返回一个<code>nil</code>与错误信息。在打开目录后，会创建一个表，然后把目录项都放在里面。最后，关闭目录，返回值1，这在Lua中表示到达了栈的顶部。（<code>lua_settable</code>会从栈中弹出 键和值。因此，在循环后，在栈顶的元素就是返回的表）</p>
+<h1 id="接续函数"><a href="#接续函数" class="headerlink" title="接续函数"></a>接续函数</h1><p>通过<code>lua_pcall, lua_call</code>，一个在Lua调用的C函数，依然可以调用Lua。某些标准库函数就会这样做：<code>table.sort</code>可以调用一个排序函数；<code>string.gsub</code>可以调用一个替换函数；<code>pcall, xpcall</code>可以在保护模式下调用函数。如果我们记住，Lua的 main函数代码也是从C（宿主程序）调用的，我们的调用流程就跟这样的：C（宿主）调用Lua（脚本），Lua（脚本）调用C（库函数），Lua库函数调用Lua（回调）。</p>
+<p>通常，Lua这样做是没有什么问题的；与C的集合还是Lua语言的一个特色。然后，也有某些情况下这样的交互会导致一些困难：比如协程。</p>
+<p>Lua中的每个协程都有自己的栈，其中保留了这个协程所有挂起的调用信息。特别地，栈内保存了返回地址，参数，以及每个调用的本地变量。对于调用Lua函数，解释器只需要这个栈，我们叫做<code>soft stack</code>。然而，对于调用C函数，解释器必须使用C栈。毕竟，C函数中的返回地址和本地变量是存在与C栈中的。</p>
+<p>让解释器拥有多个<code>soft stack</code>是非常容易的，但是ISO C运行时只有一个内部的栈。因此，Lua协程不能挂起一个C函数的执行：如果一个C函数想要在协程内恢复到其让出时间片的地方，Lua不能C函数的状态来让其恢复。试着看一下下面的代码：Lua 5.1</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line">co = coroutine.<span class="built_in">wrap</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br/><span class="line">		<span class="built_in">print</span>(<span class="built_in">pcall</span>(coroutine.<span class="built_in">yield</span>))</span><br/><span class="line">		<span class="keyword">end</span>)</span><br/><span class="line">co</span><br/><span class="line">	<span class="comment">--&gt; false atttemp to yield across metamethod/C-call boundary</span></span><br/></pre></td></tr></tbody></table></figure>
+<p><code>pcall</code>是一个C函数；所以Lua 5.1不能挂起它，因为ISO C没有一个可以挂起C函数然后恢复运行的方式。</p>
+<p>Lua 5.2和后续的版本通过<em>continuations</em>来减轻这样的困难。Lua通过 long jumps 来实现 yields（让出时间片），这和实现错误是一样的。一个 long jump只是简单的丢C栈中的C函数信息，所以这是不可能恢复运行这个函数的。然而，一个C函数<code>foo</code>可以指定一个连续函数<code>foo_k</code>，这个函数用来在恢复<code>foo</code>的时候进行执行。这就是说，如果解释器检查到要恢复执行<code>foo</code>，但是一个long jump已经丢弃了其在栈中的信息，它就会去调用<code>foo_k</code>。</p>
+<p>为了让事情变得更具体一点，我们看一下<code>pcall</code>的实现例子。在Lua 5.1中，其代码如下：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">luaB_pcall</span> <span class="params">(luaState *L)</span> </span>{</span><br/><span class="line">	<span class="keyword">int</span> status;</span><br/><span class="line">	luaL_checkany(L, <span class="number">1</span>); <span class="comment">/* at least one parameter */</span></span><br/><span class="line">	status = lua_pcall(L, lua_gettop(L) - <span class="number">1</span>, LUA_MULTRET, <span class="number">0</span>);</span><br/><span class="line">	lua_pushboolean(L, (status == LUA_OK)); <span class="comment">/* status */</span></span><br/><span class="line">	lua_insert(L, <span class="number">1</span>); <span class="comment">/* status is first result */</span></span><br/><span class="line">	<span class="keyword">return</span> lua_gettop(L); <span class="comment">/* return status + all results */</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>如果通过<code>lua_pcall</code>调用的函数让出时间片，想要恢复<code>luaB_pcall</code>是不可能的。因此，无论合适，只要在一个受保护的调用中让出时间片，解释器会抛出一个错误。Lua 5.3实现<code>pcall</code>框架上和下面相似：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"></span><br/><span class="line">              <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">finishpcall</span> <span class="params">(lua_State *L, <span class="keyword">int</span> status, <span class="keyword">intptr_t</span> ctx)</span> </span>{</span><br/><span class="line">                (<span class="keyword">void</span>)ctx;   <span class="comment">/* unused parameter */</span></span><br/><span class="line">                status = (status != LUA_OK &amp;&amp; status != LUA_YIELD);</span><br/><span class="line">                lua_pushboolean(L, (status == <span class="number">0</span>));  <span class="comment">/* status */</span></span><br/><span class="line">                lua_insert(L, <span class="number">1</span>);  <span class="comment">/* status is first result */</span></span><br/><span class="line">                <span class="keyword">return</span> lua_gettop(L);  <span class="comment">/* return status + all results */</span></span><br/><span class="line">              }</span><br/><span class="line">              <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">luaB_pcall</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">                <span class="keyword">int</span> status;</span><br/><span class="line">                luaL_checkany(L, <span class="number">1</span>);</span><br/><span class="line">                status = lua_pcallk(L, lua_gettop(L) - <span class="number">1</span>, LUA_MULTRET, <span class="number">0</span>,</span><br/><span class="line">                                    <span class="number">0</span>, finishpcall);</span><br/><span class="line">                <span class="keyword">return</span> finishpcall(L, status, <span class="number">0</span>);</span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<p>这和Lua 5.1有三个重要的不同：</p>
+<ol>
+<li>用<code>lua_pcallk</code>替换了<code>lua_pcall</code>。  </li>
+<li>将所有在调用后要做的事情放在一个复制函数<code>finishcall</code>中。    </li>
+<li><code>lua_callk</code>返回的状态可能是：LUA_YIELD, LUA_OK，或者一个错误。</li>
+</ol>
+<p>如果在调用中没有让出时间片的情况，<code>lua_pcallk</code>与<code>lua_pcall</code>工作起来是一样的。然后，在有让出时间片的情况时，情况就变得非常不同。如果被<code>lua_pcall</code>调用的函数试出让出时间片，Lua会抛出一个错误。但是当<code>lua_pcallk</code>调用的函数要这样做时，这将没有错误：Lua进行一个long jump，然后丢弃所有C栈中<code>luaB_pcall</code>的信息，但是在协程<code>soft stack</code>中保留了一个到<code>continuation function（接续函数）</code>的引用（我们的例子中是<code>finishpcall</code>）。后续在解释器检查到要继续执行<code>luaB_pcall</code>的时候，就会去调用这个接续函数。</p>
+<p>在发生错误的时候也可以调用<code>finishpcall</code>。和原始的<code>luaB_pcall</code>不一样，<code>finishpcall</code>不能获得<code>lua_pcallk</code>返回的值。所以，其通过一个额外的参数来获得这个值，<em>status</em>。当没有错误时，<em>status</em>是<em>LUA_YIELD</em>而不是<em>LUA_OK</em>，这样接续函数就知道它是被怎么样调用的。如果出现了错误，<em>status</em>就是原始的错误代码。</p>
+<p>和调用返回的状态一起，接续函数也接收一个<em>context，上下文</em>.<code>lua_pcallk</code>的第五个参数是一个专门的整数，将会被传递为接续函数的最后一个参数。（参数的类型，<code>intptr_t</code>，允许指针传递）这个值允许原始的函数传输一些专门的信息到接续函数。（我们的例子没有用这个特性）</p>
+<p>Lua 5.3的接续系统是一个非常机灵的做法，但这不是万能的。某些C函数需要传递很多的上下文给他们的接续函数。比如<code>table.sort</code>，使用C栈来进行递归；<code>string.gsub</code>，必须保持一个快照和缓存来给部分结果使用。尽管可以写一个<em>yieldable</em>的函数来替换，但这似乎并不值得增加复杂性和性能的降低。</p>
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><p>一个Lua模块就是一个定义了一些Lua函数并且存储到一个合适地方的<code>chunk（大块代码）</code>，典型例子是表的条目。Lua的C模块模拟了这种行为。在C函数的定义中，也不许定义一个在Lua库中扮演 main chunk的函数。这个函数应该注册模块中的所有C函数和存储到一个合适的地方。和Lua main chunk相似，这函数也会初始化所有需要初始化的东西。</p>
+<p>Lua通过这个注册过程来了解C函数。一旦一个C函数在Lua中存储并表示出来，Lua通过直接也不应该其地址来调用它，这地址是在我们注册的时候给到Lua的。换句话说，Lua不依赖一个函数名，包位置或可见性规则。典型地，一个C模块只有一个 公共（外部）函数，也就是打开这个库的函数。所有其他函数都可以是私有的，在C中用<code>static</code>声明。</p>
+<p>当我们用C函数扩展LUa时，像C模块一样设计我们的代码是非常棒的，即使我们只想注册一个C函数。通常，辅助库提供了一个帮助函数来完成这个任务。宏<code>luaL_newlib</code>把C函数和他们期待的名字放在数组内，然后注册到一个新表中。举个例子，我们想建个库，函数就是我们先前定义的<code>l_dir</code>。</p>
+<p>首先，我们必须定义库函数：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">l_dir</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">as before</span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<p>然后，我们定义一个数组：数组包含模块内的所有函数和他们期待的名字。数组类型<code>luaL_Reg</code>，包含两个字段的结构：函数名（字符串），函数指针。</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">mylib</span> [] = {</span></span><br/><span class="line">	{<span class="string">&#34;dir&#34;</span>, l_dir},</span><br/><span class="line">	{<span class="literal">NULL</span>, <span class="literal">NULL</span>} <span class="comment">/* sentinel */</span></span><br/><span class="line">};</span><br/></pre></td></tr></tbody></table></figure>
+<p>在我们的函数中，只有一个函数<code>l_dir</code>需要声明。数组的最后一对始终是<code>&#123;NULL, NULL&#125;</code>，用来表示结束。</p>
+<p>最后，我们定义一个主函数，使用<code>luaL_newlib</code>：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">luaopen_mylib</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">        luaL_newlib(L, mylib);</span><br/><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<p>调用<code>luaL_newlib</code>创建一个新表，然后用<em>mylib</em>内的键值对进行填充。当其返回时，<code>luaL_newlib</code>将保存库的表留在栈上。<code>luaopen_mylib</code>返回1来向Lua返回这个表。</p>
+<p>在完成这个库后，我们必须把它和解释器链接。最方便的就是用动态链接特性，但这要Lua解释器的支持。 这种情况下，必须先把代码建立成一个动态库（<code>mylib.so</code>，Linux-like系统），然后把它放在C路径中。在这些步骤后，可以通过<code>require</code>来加载代码：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> mylib = <span class="built_in">require</span> <span class="string">&#34;mylib&#34;</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>这个调用让<code>mylib</code>动态库与Lua相链接，先找到<code>luaopen_mylib</code>函数，以一个C函数注册，然后调用它打开模块。（这个行为就解释了为什么<code>luaopen_mylib</code>必须和其他C函数一样有类似的原型）</p>
+<p>为了找到<code>luaopen_mylib</code>，动态链接器必须知道其名字。总是会使用<code>luaopen_</code>加上模块名来进行查找。因此，如果我们的库是<code>mylib</code>，被调用的函数就会是<code>luaopen_mylib</code>。</p>
+<p>如果解释器不支持动态链接，必须使用新库来重新编译Lua。</p>
+<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><p>把上面的总结一下，得出我们的代码：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// mylib.c</span></span><br/><span class="line"></span><br/><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br/><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br/><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&#34;lua.h&#34;</span></span></span><br/><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&#34;lauxlib.h&#34;</span></span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">l_dir</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">  DIR *dir;</span><br/><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">entry</span>;</span></span><br/><span class="line">  <span class="keyword">int</span> i;</span><br/><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *path = luaL_checkstring(L, <span class="number">1</span>);</span><br/><span class="line">  <span class="comment">/* open directory */</span></span><br/><span class="line">  dir = opendir(path);</span><br/><span class="line">  <span class="keyword">if</span> (dir == <span class="literal">NULL</span>) {  <span class="comment">/* error opening the directory? */</span></span><br/><span class="line">    lua_pushnil(L);  <span class="comment">/* return nil... */</span></span><br/><span class="line">    lua_pushstring(L, strerror(errno));  <span class="comment">/* and error message */</span></span><br/><span class="line">    <span class="keyword">return</span> <span class="number">2</span>;  </span><br/><span class="line">}</span><br/><span class="line">  <span class="comment">/* create result table */</span></span><br/><span class="line">  lua_newtable(L);</span><br/><span class="line">  i = <span class="number">1</span>;</span><br/><span class="line">  <span class="keyword">while</span> ((entry = readdir(dir)) != <span class="literal">NULL</span>) {  <span class="comment">/* for each entry */</span></span><br/><span class="line">    lua_pushinteger(L, i++);  <span class="comment">/* push key */</span></span><br/><span class="line">    lua_pushstring(L, entry-&gt;d_name);  <span class="comment">/* push value */</span></span><br/><span class="line">        lua_settable(L, <span class="number">-3</span>);    <span class="comment">/* table[i] = entry name */</span></span><br/><span class="line">}</span><br/><span class="line">  closedir(dir);</span><br/><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;  <span class="comment">/* table is already on top */</span></span><br/><span class="line">}</span><br/><span class="line"></span><br/><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">mylib</span> [] = {</span></span><br/><span class="line">        {<span class="string">&#34;dir&#34;</span>, l_dir},</span><br/><span class="line">        {<span class="literal">NULL</span>, <span class="literal">NULL</span>}</span><br/><span class="line">};</span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">luaopen_mylib</span> <span class="params">(lua_State *L)</span> </span>{</span><br/><span class="line">        luaL_newlib(L, mylib);</span><br/><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></tbody></table></figure>
+<p>把上面代码保存到一个<code>mylib.c</code>文件内。<br/>然后我们的运行环境是macOS，和Linux编译代码有所不同：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">gcc -fPIC -o mylib.o -c mylib.c</span><br/><span class="line">gcc -O2 -bundle -undefined dynamic_lookup -o mylib.so mylib.o</span><br/></pre></td></tr></tbody></table></figure>
+<p>我们可以写一个lua脚本<code>t.lua</code>：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">local</span> mylib = <span class="built_in">require</span> <span class="string">&#34;mylib&#34;</span></span><br/><span class="line"></span><br/><span class="line"><span class="keyword">local</span> t = mylib.dir(<span class="string">&#34;.&#34;</span>)</span><br/><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(t) <span class="keyword">do</span></span><br/><span class="line">         <span class="built_in">print</span>(k, v)</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></tbody></table></figure>
+<p>然后，用<code>lua t.lua</code>，看一下输出：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">1	.</span><br/><span class="line">2	..</span><br/><span class="line">3	mylib.c</span><br/><span class="line">4	mylib.o</span><br/><span class="line">5	mylib.so</span><br/><span class="line">6	t.lua</span><br/></pre></td></tr></tbody></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-1068_pil.29lua%E4%B8%AD%E8%B0%83%E7%94%A8c%E5%87%BD%E6%95%B0/">https://lua.ren/zl/2016-01-01-1068_pil.29lua%E4%B8%AD%E8%B0%83%E7%94%A8c%E5%87%BD%E6%95%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-1066_%E7%BB%99%20openresty%20%E7%9A%84%20luajit%20%E5%AE%89%E8%A3%85%20luarocks/" title="给 openresty 的 luajit 安装 luarocks"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">给 openresty 的 luajit 安装 luarocks</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-1069_leetcode_evaluate%20reverse%20polish%20notation/" title="leetcode_evaluate reverse polish notation"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">leetcode_evaluate reverse polish notation</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A5%E7%BB%AD%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">接续函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97"><span class="toc-number">2.</span> <span class="toc-text">模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">实际操作</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

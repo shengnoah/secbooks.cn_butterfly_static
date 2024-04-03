@@ -1,0 +1,753 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Lua运行时更新代码 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="&lt;p&gt;      最近沉迷lua脚本热更，想说这个可以提高多少菜鸡的调试效率，找了网上好多文章，但是都不行，尝试了很久，并且自己测试和学习，写了一遍，勉强能热更了（还是有个问题，要按2次才能输出正确热更的值，一直找不到，有人找到麻烦告诉我一下308164213）。下面记录一下找热更的过程。&lt;&#x2F;p&gt;  一、用来卸载表格的加载 –最简单粗暴的热更新就是将package.l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua运行时更新代码">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-182_Lua%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81%20/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="&lt;p&gt;      最近沉迷lua脚本热更，想说这个可以提高多少菜鸡的调试效率，找了网上好多文章，但是都不行，尝试了很久，并且自己测试和学习，写了一遍，勉强能热更了（还是有个问题，要按2次才能输出正确热更的值，一直找不到，有人找到麻烦告诉我一下308164213）。下面记录一下找热更的过程。&lt;&#x2F;p&gt;  一、用来卸载表格的加载 –最简单粗暴的热更新就是将package.l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:33.069Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:33.070Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-182_Lua%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81%20/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua运行时更新代码',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-04-03 11:47:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Lua运行时更新代码</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:33.069Z" title="发表于 2024-04-03 11:47:33">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:33.070Z" title="更新于 2024-04-03 11:47:33">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Lua运行时更新代码"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><pre><code>			&lt;p&gt;      最近沉迷lua脚本热更，想说这个可以提高多少菜鸡的调试效率，找了网上好多文章，但是都不行，尝试了很久，并且自己测试和学习，写了一遍，勉强能热更了（还是有个问题，要按2次才能输出正确热更的值，一直找不到，有人找到麻烦告诉我一下308164213）。下面记录一下找热更的过程。&lt;/p&gt;
+</code></pre>
+<p>一、用来卸载表格的加载
+–最简单粗暴的热更新就是将package.loaded[modelname]的值置为nil，强制重新加载：
+function reload_module_obsolete(module_name)
+    package.loaded[module_name] = nil
+    require(module_name)
+end
+–这样做虽然能完成热更，但问题是已经引用了该模块的地方不会得到更新， 因此我们需要将引用该模块的地方的值也做对应的更新。
+function ReloadUtil.Reload_Module(module_name)
+    local old_module = _G[module_name]</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package.loaded[module_name] = nil
+require (module_name)
+<p>local new_module = _G[module_name]<br />
+for k, v in pairs(new_module) do<br />
+old_module[k] = v<br />
+end</p>
+<p>package.loaded[module_name] = old_module end<br />
+</code></pre></div></div></p>
+<p>二、我认为逻辑最清晰的，但是可能是我不会用吧！
+源链接：https://github.com/tickbh/td_rlua/wiki/Lua-%E7%83%AD%E6%9B%B4%E6%96%B0%E5%B0%8F%E7%BB%93</p>
+<p>–region 利用_ENV环境，在加载的时候把数据加载到_ENV下，然后再通过对比的方式修改_G底下的值，从而实现热更新，函数 – 失败</p>
+<p>function ReloadUtil.hotfix(chunk, check_name)
+    check_name = check_name or ‘hotfix’
+    local env = {}
+    setmetatable(env, { __index = _G })
+    local f, err = load(chunk, check_name,  ‘t’, env)
+    assert(f,err)
+    local ok, err = pcall(f)
+    assert(ok,err)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local protection = &#123;
+    setmetatable = true,
+    pairs = true,
+    ipairs = true,
+    next = true,
+    require = true,
+    _ENV = true,
+&#125;
+--防止重复的table替换，造成死循环
+local visited_sig = &#123;&#125;
+<p>function ReloadUtil.update_table(newTable, oldTable, name, deep)<br />
+–对某些关键函数不进行比对<br />
+if protection[newTable] or protection[oldTable] then return end<br />
+–如果原值与当前值内存一致，值一样不进行对比<br />
+if newTable == oldTable then return end<br />
+local signature = tostring(oldTable)…tostring(newTable)<br />
+if visited_sig[signature] then return end<br />
+visited_sig[signature] = true<br />
+–遍历对比值，如进行遍历env类似的步骤<br />
+for name, newValue in pairs(newTable) do<br />
+local old_value = oldTable[name]<br />
+if type(newValue) == type(old_value) then<br />
+if type(newValue) == ‘function’ then<br />
+ReloadUtil.update_func(newValue, old_value, name, deep…’  ‘…name…’  ‘)<br />
+oldTable[name] = newValue<br />
+elseif type(newValue) == ‘table’ then<br />
+ReloadUtil.update_table(newValue, old_value, name, deep…’  ‘…name…’  ‘)<br />
+end<br />
+else<br />
+oldTable[name] = newValue<br />
+end<br />
+end<br />
+–遍历table的元表，进行对比<br />
+local old_meta = debug.getmetatable(oldTable)<br />
+local new_meta = debug.getmetatable(newTable)<br />
+if type(old_meta) == ‘table’ and type(new_meta) == ‘table’ then<br />
+ReloadUtil.update_table(new_meta, old_meta, name…‘s Meta’, deep…’  ‘…name…‘s Meta’…’  ’ )<br />
+end<br />
+end</p>
+<p>function ReloadUtil.update_func(newFunc, oldFunc, name, deep)<br />
+–取得原值所有的upvalue，保存起来<br />
+local old_upvalue_map = &#123;&#125;<br />
+for i = 1, math.huge do<br />
+local name, value = debug.getupvalue(oldFunc, i)<br />
+if not name then break end<br />
+old_upvalue_map[name] = value<br />
+end<br />
+–遍历所有新的upvalue，根据名字和原值对比，如果原值不存在则进行跳过，如果为其它值则进行遍历env类似的步骤<br />
+for i = 1, math.huge do<br />
+local name, value = debug.getupvalue(newFunc, i)<br />
+if not name then break end<br />
+local old_value = old_upvalue_map[name]<br />
+if old_value then<br />
+if type(old_value) ~= type(value) then<br />
+debug.setupvalue(newFunc, i, old_value)<br />
+elseif type(old_value) == ‘function’ then<br />
+ReloadUtil.update_func(value, old_value, name, deep…’  ‘…name…’  ‘)<br />
+elseif type(old_value) == ‘table’ then<br />
+ReloadUtil.update_table(value, old_value, name, deep…’  ‘…name…’  ')<br />
+debug.setupvalue(newFunc, i, old_value)<br />
+else<br />
+debug.setupvalue(newFunc, i, old_value)<br />
+end<br />
+end<br />
+end<br />
+end</p>
+<p>–原理<br />
+–利用_ENV环境，在加载的时候把数据加载到_ENV下，然后再通过对比的方式修改_G底下的值，从而实现热更新，函数<br />
+for name,value in pairs(env) do<br />
+local g_value = _G[name]<br />
+if type(g_value) ~= type(value) then<br />
+_G[name] = value<br />
+elseif type(value) == ‘function’ then<br />
+ReloadUtil.update_func(value, g_value, name, ‘G’…’  ‘)<br />
+_G[name] = value<br />
+elseif type(value) == ‘table’ then<br />
+ReloadUtil.update_table(value, g_value, name, ‘G’…’  ')<br />
+end<br />
+end<br />
+return 0 end<br />
+</code></pre></div></div></p>
+<p>function ReloadUtil.hotfix_file(debugName)
+    local newCode
+    local fp = io.open(debugName)
+    if fp then
+        newCode = fp:read(‘*all’)
+        io.close(fp)
+    end
+    if not newCode then
+        return -1
+    end
+    return ReloadUtil.hotfix(newCode, debugName)
+end</p>
+<p>–endregion</p>
+<p>三、有点复杂，递归了debug.getregistry()，然后去替换旧的值
+源链接：http://asqbtcupid.github.io/luahotupdate1-require/</p>
+<p>有介绍原理，讲得还蛮细的，学习了蛮多，但是这个递归真的是复杂，我注释掉了一些递归，能满足基本的需求。</p>
+<p>local ReloadUtil = {}</p>
+<p>local tableInsert = table.insert
+local tableRemove = table.remove
+local tableConcat = table.concat
+local ioPopen = io.popen
+local ioInput = io.input
+local ioRead = io.read
+local stringMatch = string.match
+local stringFind = string.find
+local stringSub = string.sub
+local stringGsub = string.gsub
+local packageLoaded = package.loaded
+local type = type
+local getfenv = getfenv
+local setfenv = setfenv
+local loadstring = loadstring
+local mathHuge = math.huge
+local debugGetupvalue = debug.getupvalue
+local debugSetupvalue = debug.setupvalue
+local debugGetmetatable = debug.getmetatable
+local debugSetfenv = debug.setfenv</p>
+<p>function ReloadUtil.FailNotify(…)
+    printAError(…)
+end</p>
+<p>function ReloadUtil.DebugNofity(…)
+    print(…)
+end</p>
+<p>function ReloadUtil.ErrorHandle(e)
+    ReloadUtil.FailNotify(“HotUpdate Errorn”..tostring(e))
+    ReloadUtil.ErrorHappen = true
+end</p>
+<p>function ReloadUtil.InitProtection()
+    ReloadUtil.Protection = {}
+    local Protection = ReloadUtil.Protection
+    Protection[setmetatable] = true
+    Protection[pairs] = true
+    Protection[ipairs] = true
+    Protection[next] = true
+    Protection[require] = true
+    Protection[ReloadUtil] = true
+    Protection[ReloadUtil.Meta] = true
+    Protection[math] = true
+    Protection[string] = true
+    Protection[table] = true
+end</p>
+<p>local function Normalize(path)
+    path = path:gsub(“/”,””)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local pathLen = #path
+if path:sub(pathLen, pathLen) == "\" then
+    path = path:sub(1, pathLen - 1)
+end
+<p>local parts = &#123; &#125;<br />
+for w in path:gmatch(“[^]+”) do<br />
+if     w == “…” and #parts ~=0 then tableRemove(parts)<br />
+elseif w ~= “.”  then tableInsert(parts, w)<br />
+end<br />
+end<br />
+return tableConcat(parts, &quot;&quot;) end<br />
+</code></pre></div></div></p>
+<p>– 根据给的路径，找到路径下所有文档，HU.FileMap[FileName] = {SysPath = line, LuaPath = luapath}
+function ReloadUtil.InitFileMap(RootPath)
+    local systemPathList = {}
+    local HotUpdateDic = ReloadUtil.HotUpdateDic
+    local OldCode = ReloadUtil.OldCode
+    RootPath = Normalize(RootPath)
+    –获取一个File对象其下的所有文档和目录的绝对路径: 的所有文档(/S/B)，不包括文档夹（/A:A），ioPopen返回文档句柄file handle
+    –todo 这里有的问题，多次启动后会报bad file decorator ，检查是否是打开文档没有关闭导致
+    local file = ioPopen(“dir /S/B /A:A "”..RootPath..”"”)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for SysPath in ioInput(file):lines() do
+    local FileName = stringMatch(SysPath,".*\(.*)%.lua")
+    --todo meta 优化一下regex
+    local metaFile = stringMatch(SysPath,".*\(.*)%.lua.meta")
+    if FileName ~= nil and metaFile == nil then
+        --todo !!! luaPath在保存的时候是按文档夹路径保存的比如：game.modules.XXX.lua，所以可能要自己搞对这个路径
+<pre><code>    local startIndex = stringFind(SysPath,&quot;game&quot;)
+    local luaPath = stringSub(SysPath, startIndex, #SysPath -4)
+    luaPath = stringGsub(luaPath, &quot;\&quot;, &quot;.&quot;)
+    HotUpdateDic[luaPath] = SysPath
+    tableInsert(systemPathList,SysPath)
+    -- 初始化旧代码
+    ioInput(SysPath)
+    OldCode[SysPath] = ioRead(&quot;*all&quot;)
+    ioInput():close()
+end
+</code></pre>
+<p>end</p>
+<p>file:close()</p>
+<p>return systemPathList end<br />
+</code></pre></div></div></p>
+<p>function ReloadUtil.InitFakeTable()
+    local meta = {}
+    ReloadUtil.Meta = meta
+    local function FakeT() return setmetatable({}, meta) end
+    local function EmptyFunc() end
+    local function pairs() return EmptyFunc end
+    local function setmetatable(t, metaT)
+        ReloadUtil.MetaMap[t] = metaT
+        return t
+    end
+    local function getmetatable(t, metaT)
+        return setmetatable({}, t)
+    end</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local function require(LuaPath)
+    if not ReloadUtil.RequireMap[LuaPath] then
+        local FakeTable = FakeT()
+        ReloadUtil.RequireMap[LuaPath] = FakeTable
+    end
+    return ReloadUtil.RequireMap[LuaPath]
+end
+<p>function meta.__index(table, key)<br />
+if key == “setmetatable” then<br />
+return setmetatable<br />
+elseif key == “pairs” or key == “ipairs” then<br />
+return pairs<br />
+elseif key == “next” then<br />
+return EmptyFunc<br />
+elseif key == “require” then<br />
+return require<br />
+else<br />
+local FakeTable = FakeT()<br />
+rawset(table, key, FakeTable)<br />
+return FakeTable<br />
+end<br />
+end<br />
+function meta.__newindex(table, key, value) rawset(table, key, value) end<br />
+function meta.__call() return FakeT(), FakeT(), FakeT() end<br />
+function meta.__add() return meta.__call() end<br />
+function meta.__sub() return meta.__call() end<br />
+function meta.__mul() return meta.__call() end<br />
+function meta.__div() return meta.__call() end<br />
+function meta.__mod() return meta.__call() end<br />
+function meta.__pow() return meta.__call() end<br />
+function meta.__unm() return meta.__call() end<br />
+function meta.__concat() return meta.__call() end<br />
+function meta.__eq() return meta.__call() end<br />
+function meta.__lt() return meta.__call() end<br />
+function meta.__le() return meta.__call() end<br />
+function meta.__len() return meta.__call() end<br />
+return FakeT end<br />
+</code></pre></div></div></p>
+<p>function ReloadUtil.IsNewCode(SysPath)
+    ioInput(SysPath)
+    local newCode = ioRead(“*all”)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local oldCode = ReloadUtil.OldCode[SysPath]
+if oldCode == newCode then
+    ioInput():close()
+    return false
+end
+<p>ReloadUtil.DebugNofity(SysPath)<br />
+return true, newCode end<br />
+</code></pre></div></div></p>
+<p>function ReloadUtil.GetNewObject(newCode, LuaPath, SysPath)
+    –loadstring 一段lua代码以后，会经过语法解析返回一个函数，执行返回的函数时，字符串中的代码就被执行了。
+    local NewFunction = loadstring(newCode)
+    if not NewFunction then
+        ReloadUtil.FailNotify(SysPath..” has syntax error.”)
+        collectgarbage(“collect”)
+    else
+        – 把加载的字符串放置在空环境了，防止报错
+        setfenv(NewFunction, ReloadUtil.FakeENV)
+        local NewObject
+        ReloadUtil.ErrorHappen = false
+        –类似其它语言里的 try-catch, xpcall 类似 pcall xpcall接受两个参数：调用函数、错误处理函数
+        – todo 父类没拿到
+        xpcall(function () NewObject = NewFunction() end, ReloadUtil.ErrorHandle)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if not ReloadUtil.ErrorHappen then
+        ReloadUtil.OldCode[SysPath] = newCode
+        return NewObject
+    else
+        collectgarbage("collect")
+    end
+end end
+</code></pre></div></div>
+<p>function ReloadUtil.ResetENV(object, name, From, Deepth)
+    local visited = {}
+    local function f(object, name)
+        if not object or visited[object] then return end
+        visited[object] = true
+        if type(object) == “function” then
+            ReloadUtil.DebugNofity(Deepth..”HU.ResetENV”, name, “  from:”..From)
+            xpcall(function () setfenv(object, ReloadUtil.ENV) end, ReloadUtil.FailNotify)
+        elseif type(object) == “table” then
+            ReloadUtil.DebugNofity(Deepth..”HU.ResetENV”, name, “  from:”..From)
+            for k, v in pairs(object) do
+                f(k, tostring(k)..”__key”, “ HU.ResetENV “, Deepth..”    “ )
+                f(v, tostring(k), “ HU.ResetENV “, Deepth..”    “)
+            end
+        end
+    end
+    f(object, name)
+end</p>
+<p>– 遍历_G这张全局表，替换HU.ChangedFuncList 有改动列表 的函数
+function ReloadUtil.Travel_G()
+    local visited = {}
+    local ChangedFuncList = ReloadUtil.ChangedFuncList
+    visited[ReloadUtil] = true</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local function f(table)
+    if (type(table) ~= "function" and type(table) ~= "table") or visited[table] or ReloadUtil.Protection[table] then return end
+<pre><code>visited[table] = true
+
+if type(table) == &quot;function&quot; then
+    for i = 1, mathHuge do
+        local name, value = debugGetupvalue(table, i)
+        if not name then break end
+
+        if type(value) == &quot;function&quot; then
+            for _, funcs in ipairs(ChangedFuncList) do
+                if value == funcs.OldObject then
+                    debugSetupvalue(table, i, funcs.NewObject)
+                end
+            end
+        end
+        -- todo
+        --f(value)
+    end
+elseif type(table) == &quot;table&quot; then
+    -- 不要漏掉元表和upvalue的表，元表的获参考debug.getmetatable，
+    -- todo 这样对于有metatable这个key的元表，也能正确获取。
+    --f(debugGetmetatable(table))
+
+    local changeIndexList = &#123;&#125;
+    for key, value in pairs(table) do
+        -- todo 还有注意table的key也可以是函数。
+        --f(key)
+        f(value)
+
+        if type(value) == &quot;function&quot; then
+            for _, funcs in ipairs(ChangedFuncList) do
+                if value == funcs.OldObject then
+                    table[key] = funcs.NewObject
+                end
+            end
+        end
+
+        -- 找出改动的index
+        if type(key) == &quot;function&quot; then
+            for index, funcs in ipairs(ChangedFuncList) do
+                if key == funcs.OldObject then
+                    changeIndexList[#changeIndexList + 1] = index
+                end
+            end
+        end
+    end
+
+    -- 修改改动的值
+    for _, index in ipairs(changeIndexList) do
+        local funcs = ChangedFuncList[index]
+        table[funcs.NewObject] = table[funcs.OldObject]
+        table[funcs.OldObject] = nil
+    end
+end
+</code></pre>
+<p>end</p>
+<p>–遍历_G这张全局表，_G在registryTable里<br />
+–f(_G)<br />
+–如果有宿主语言，那么还要遍历一下注册表，用debug.getregistry()获得。<br />
+local registryTable = debug.getregistry()<br />
+f(registryTable) end<br />
+</code></pre></div></div></p>
+<p>function ReloadUtil.UpdateTable(OldTable, NewTable, Name, From, Deepth)
+    if ReloadUtil.Protection[OldTable] or ReloadUtil.Protection[NewTable] then return end</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if OldTable == NewTable then return end
+<p>local signature = tostring(OldTable)…tostring(NewTable)</p>
+<p>if ReloadUtil.VisitedSig[signature] then return end</p>
+<p>ReloadUtil.VisitedSig[signature] = true<br />
+ReloadUtil.DebugNofity(Deepth…“HU.UpdateTable “…Name…”  from:”…From)</p>
+<p>for ElementName, newValue in pairs(NewTable) do<br />
+local OldElement = OldTable[ElementName]<br />
+if type(newValue) == type(OldElement) then<br />
+if type(newValue) == “function” then<br />
+ReloadUtil.UpdateOneFunction(OldElement, newValue, ElementName, OldTable, “HU.UpdateTable”, Deepth…&quot;    “)<br />
+elseif type(newValue) == “table” then<br />
+ReloadUtil.UpdateTable(OldElement, newValue, ElementName, “HU.UpdateTable”, Deepth…”    &quot;)<br />
+end<br />
+elseif OldElement == nil and type(newValue) == “function” then<br />
+– 新增的函数，添加到旧环境里<br />
+if pcall(setfenv, newValue, ReloadUtil.ENV) then<br />
+OldTable[ElementName] = newValue<br />
+end<br />
+end<br />
+end</p>
+<p>– todo 更新metatable<br />
+–local OldMeta = debug.getmetatable(OldTable)<br />
+–local NewMeta = ReloadUtil.MetaMap[NewTable]<br />
+–if type(OldMeta) == “table” and type(NewMeta) == “table” then<br />
+–    ReloadUtil.UpdateTable(OldMeta, NewMeta, Name…“'s Meta”, “HU.UpdateTable”, Deepth…&quot;    &quot;)<br />
+–end end<br />
+</code></pre></div></div></p>
+<p>– Upvalue 是指那些函数外被引用到的local变量
+function ReloadUtil.UpdateUpvalue(OldFunction, NewFunction, Name, From, Deepth)
+    ReloadUtil.DebugNofity(Deepth..”HU.UpdateUpvalue”, Name, “  from:”..From)
+    local OldUpvalueMap = {}
+    local OldExistName = {}
+    – 记录旧的upvalue表
+    for i = 1, mathHuge do
+        local name, value = debugGetupvalue(OldFunction, i)
+        if not name then break end
+        OldUpvalueMap[name] = value
+        OldExistName[name] = true
+    end</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-- 新的upvalue表进行替换
+for i = 1, mathHuge do
+    local name, value = debugGetupvalue(NewFunction, i)
+    if not name then break end
+    if OldExistName[name] then
+        local OldValue = OldUpvalueMap[name]
+        if type(OldValue) ~= type(value) then
+            -- 新的upvalue类型不一致时，用旧的upvalue
+            debugSetupvalue(NewFunction, i, OldValue)
+        elseif type(OldValue) == "function" then
+            -- 替换单个函数
+            ReloadUtil.UpdateOneFunction(OldValue, value, name, nil, "HU.UpdateUpvalue", Deepth.."    ")
+        elseif type(OldValue) == "table" then
+            -- 对table里面的函数继续递归替换
+            ReloadUtil.UpdateTable(OldValue, value, name, "HU.UpdateUpvalue", Deepth.."    ")
+            debugSetupvalue(NewFunction, i, OldValue)
+        else
+            -- 其他类型数据有改变，也要用旧的
+            debugSetupvalue(NewFunction, i, OldValue)
+        end
+    else
+        -- 对新添加的upvalue设置正确的环境表
+        ReloadUtil.ResetENV(value, name, "HU.UpdateUpvalue", Deepth.."    ")
+    end
+end end
+</code></pre></div></div>
+<p>function ReloadUtil.UpdateOneFunction(OldObject, NewObject, FuncName, OldTable, From, Deepth)
+    if ReloadUtil.Protection[OldObject] or ReloadUtil.Protection[NewObject] then return end</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if OldObject == NewObject then return end
+<p>local signature = tostring(OldObject)…tostring(NewObject)</p>
+<p>if ReloadUtil.VisitedSig[signature] then return end<br />
+ReloadUtil.DebugNofity(Deepth…“HU.UpdateOneFunction “…FuncName…”  from:”…From)<br />
+ReloadUtil.VisitedSig[signature] = true<br />
+–最后注意把热更新的函数的环境表再改回旧函数的环境表即可，方法是setfenv(newfunction, getfenv(oldfunction))。<br />
+if pcall(debugSetfenv, NewObject, getfenv(OldObject)) then<br />
+ReloadUtil.UpdateUpvalue(OldObject, NewObject, FuncName, “HU.UpdateOneFunction”, Deepth…&quot;    &quot;)<br />
+ReloadUtil.ChangedFuncList[#ReloadUtil.ChangedFuncList + 1] = &#123;OldObject = OldObject,NewObject = NewObject,FuncName = FuncName,OldTable = OldTable&#125;<br />
+end end<br />
+</code></pre></div></div></p>
+<p>function ReloadUtil.ReplaceOld(OldObject, NewObject, LuaPath, From)
+    if type(OldObject) == type(NewObject) then
+        if type(NewObject) == “table” then
+            ReloadUtil.UpdateTable(OldObject, NewObject, LuaPath, From, “”)
+        elseif type(NewObject) == “function” then
+            ReloadUtil.UpdateOneFunction(OldObject, NewObject, LuaPath, nil, From, “”)
+        end
+    end
+end</p>
+<p>function ReloadUtil.HotUpdateCode(LuaPath, SysPath)
+    local OldObject = packageLoaded[LuaPath]
+    if not OldObject then
+        – 没加载的就不热更？？
+        return
+    end</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>local isNew,newCode = ReloadUtil.IsNewCode(SysPath)
+if not isNew then
+    return
+end
+<p>local newObject = ReloadUtil.GetNewObject(newCode,SysPath,LuaPath)<br />
+– 更新旧代码<br />
+ReloadUtil.ReplaceOld(OldObject, newObject, LuaPath, “Main”)</p>
+<p>–原理<br />
+–利用_ENV环境，在加载的时候把数据加载到_ENV下，然后再通过对比的方式修改_G底下的值，从而实现热更新，函数<br />
+–setmetatable(ReloadUtil.FakeENV, nil)<br />
+–todo ？？<br />
+–ReloadUtil.UpdateTable(ReloadUtil.ENV, ReloadUtil.FakeENV, &quot; ENV &quot;, “Main”, “”)</p>
+<p>– 替换完，上一次的代码就是旧代码<br />
+ReloadUtil.OldCode[SysPath] = newCode end<br />
+</code></pre></div></div></p>
+<p>– 外部调用（先Init需要的路径，然后Update是热更时候调用的）</p>
+<p>—@param RootPath 需要被更新的文档夹路径
+—@param UpdateListFile 需要被更新的文档列表,不传为整个文档夹，会卡
+function ReloadUtil.Init(RootPath, ENV)
+    ReloadUtil.HotUpdateDic = {}
+    ReloadUtil.FileMap = {}
+    ReloadUtil.OldCode = {}
+    ReloadUtil.ChangedFuncList = {}
+    ReloadUtil.VisitedSig = {}
+    ReloadUtil.FakeENV = ReloadUtil.InitFakeTable()()
+    –当我们加载lua模块的时候，这时候这个模块信息并不像初始化全局代码一样，就算提前设置了package.loaded[“AA”] = nil,
+    –也不会出现在env中同时也不会调用_G的__newindex函数，也就是说env[“AA”]为空，故这种写法无法进行热更新，所以通常模块的写法改成如下
+    –定义模块AA
+    local AA = {}
+    –相当于package.seeall
+    setmetatable(AA, {__index = _G})
+    –环境隔离
+    local _ENV = AA
+    ReloadUtil.NewENV = _ENV
+    ReloadUtil.ENV = ENV or _G
+    ReloadUtil.InitProtection()
+    ReloadUtil.ALL = false
+    return ReloadUtil.InitFileMap(RootPath)
+end</p>
+<p>function ReloadUtil.Update()
+    ReloadUtil.VisitedSig = {}
+    ReloadUtil.ChangedFuncList = {}
+    for LuaPath, SysPath in pairs(ReloadUtil.HotUpdateDic) do
+        ReloadUtil.HotUpdateCode(LuaPath, SysPath)
+    end</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if #ReloadUtil.ChangedFuncList &gt; 0 then
+    ReloadUtil.Travel_G()
+end
+collectgarbage("collect") end
+</code></pre></div></div>
+<p>    我跟老大炫耀的时候，老大说，那你懂其中的原理吗，一下问懵我了，老大说，你要学习到其他的原理才能进步啊，不然就只是个会用工具的人。好有道理，搞得我羞愧难当，赶紧好好学习其中原理。零零碎碎学习了好久，感觉智商不大够。</p>
+<p>  upvalue
+Upvalue 是指那些函数外被引用到的local变量,比如：
+local a = 1
+function foo()</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print(a)
+</code></pre></div></div>
+<p>end</p>
+<p> 那么a就是这个foo的upvalue。</p>
+<p>getupvalue (f, up)</p>
+<p>此函数返回函数 f 的第 up 个上值的名字和值。 如果该函数没有那个上值，返回 nil 。 
+以 ‘(‘ （开括号）打头的变量名表示没有名字的变量 （去除了调试信息的代码块）。</p>
+<p>setupvalue (f, up, value):</p>
+<p>这个函数将 value 设为函数 f 的第 up 个上值。 如果函数没有那个上值，返回 nil 否则，返回该上值的名字。</p>
+<p>_G和debug.getregistry这2张表
+     学习的时候，我一直以为只有把_G这张全局表的旧值替换掉就好了，然后真正实施的时候，还是会有种种问题，实在是很糟糕，看这段代码的时候一直不是很理解，看了debug.getregistry的定义：</p>
+<p>debug.getregistry（）：返回注册表表，这是一个预定义出来的表， 可以用来保存任何 C 代码想保存的 Lua 值。</p>
+<p>还是半桶水，但是我有注意到_G这种表其实在debug.getregistry返回的这张注册表里有，所以最后就递归这张表其替换里面的旧值就好了。</p>
+<p>getfenv(object):
+返回对象的环境变量。</p>
+<p>setfenv（function,_ENV）
+设置一段代码的运行环境</p>
+<p>最后总结一下流程：</p>
+<p>1. 初始化需要热更的文档路径，用一张哈希表存下来：</p>
+<ol>
+  <li>对了InitFileMap这个函数有个要注意的，luaPath在保存的时候是按文档夹路径保存的比如：game.modules.XXX.lua，所以可能要自己搞对这个路径；</li>
+</ol>
+<p>2. io.popen(“dir /S/B /A:A "”..RootPath..”"”)</p>
+<p>获取一个File对象其下的所有文档和目录的绝对路径: 的所有文档(/S/B)，不包括文档夹（/A:A），io.popen返回文档句柄file handle
+2.  然后遍历这些路径，io.read(“*all”)读取所有的代码，判断是否是新代码，新的话记录到ChangedFuncList</p>
+<p>列表里面</p>
+<ol>
+  <li>
+    <p>新代码的话，就把加载的字符串放置在空环境了，防止报错setfenv(NewFunction, ReloadUtil.FakeENV)</p>
+  </li>
+  <li>
+    <p>代替旧代码，拿着ChangedFuncList列表到注册表(debug.getregistry())里面去找旧值，递归注册表的旧值替换成新的值</p>
+  </li>
+</ol></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-182_Lua%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81%20/">https://lua.ren/zl/2016-01-01-182_Lua%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81%20/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-181_lua%20__index%E5%92%8C__newindex%E5%85%83%E6%96%B9%E6%B3%95/" title="lua __index和__newindex元方法"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">lua __index和__newindex元方法</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-180_Lua%20string.find%20%E4%B8%AD%E7%9A%84%20%E2%80%9C%E5%9D%91%E2%80%9D%20/" title="Lua string.find 中的 “坑”"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Lua string.find 中的 “坑”</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

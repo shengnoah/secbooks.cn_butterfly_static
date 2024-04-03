@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>糖果AIGC实验室-LUA | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="hive、Cortex和MISP可以很好地协同工作，如果你已经阅读了我们6月- 12月17日的路线图，我们的产品与事实上的威胁共享平台的集成将在几个月内变得更好。 在上周的第一次会议演示中，我们展示了一张图片，我们将在这里使用它来解释这三种开源和免费产品是如何相互集成的。   一、TheHive TheHive是一个安全事件响应平台(SIRP)。它可以接收来自不同来源的警报(SIEM、id、电子邮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="糖果AIGC实验室-LUA">
+<meta property="og:url" content="https://lua.ren/sec/TheHive/TheHive%E4%B8%8ECortex%E5%92%8CMISP%E5%AE%83%E4%BB%AC%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E5%90%88%E5%9C%A8%E4%B8%80%E8%B5%B7%E7%9A%84/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="hive、Cortex和MISP可以很好地协同工作，如果你已经阅读了我们6月- 12月17日的路线图，我们的产品与事实上的威胁共享平台的集成将在几个月内变得更好。 在上周的第一次会议演示中，我们展示了一张图片，我们将在这里使用它来解释这三种开源和免费产品是如何相互集成的。   一、TheHive TheHive是一个安全事件响应平台(SIRP)。它可以接收来自不同来源的警报(SIEM、id、电子邮">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-03-14T07:45:09.052Z">
+<meta property="article:modified_time" content="2024-03-14T07:45:09.052Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/sec/TheHive/TheHive%E4%B8%8ECortex%E5%92%8CMISP%E5%AE%83%E4%BB%AC%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E5%90%88%E5%9C%A8%E4%B8%80%E8%B5%B7%E7%9A%84/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '糖果AIGC实验室-LUA',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-03-14 15:45:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-14T07:45:09.052Z" title="发表于 2024-03-14 15:45:09">2024-03-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-14T07:45:09.052Z" title="更新于 2024-03-14 15:45:09">2024-03-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>hive、Cortex和MISP可以很好地协同工作，如果你已经阅读了我们6月- 12月17日的路线图，我们的产品与事实上的威胁共享平台的集成将在几个月内变得更好。</p>
+<p>在上周的第一次会议演示中，我们展示了一张图片，我们将在这里使用它来解释这三种开源和免费产品是如何相互集成的。</p>
+<p><img src="https://gitee.com/shengnoah/picture/raw/master/20240313170242.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-348f0a2d38205bd5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>一、TheHive</p>
+<p>TheHive是一个安全事件响应平台(SIRP)。它可以接收来自不同来源的警报(SIEM、id、电子邮件)。等等)通过它的REST API。这就是警报 feeder发挥作用的地方。</p>
+<p>1.1警报feeder</p>
+<p>可以将警报 feeder看作一个专门的程序，它使用一个安全事件(SIEM警报、电子邮件报告、IDS警报等)，解析它并输出一个警报，该警报通过hive4.py发送给TheHive，我们提供的Python库可以与TheHive的REST API进行交互。</p>
+<p>我们不提供这样的 feeder，但发展他们应该是直接的。如果没有，告诉我们，我们会尽最大努力帮助你。</p>
+<p>1.2警报</p>
+<p>任何发送到TheHive的警报都会显示在警报窗格中。除了上面提到的源之外，如果您将TheHive配置为连接到一个或多个MISP实例，新的或更新的MISP事件也会出现在该区域。如果是这样，TheHive将轮询那些MISP实例在每个间隔寻找新的或更新的事件。如果有，TheHive将生成一个警报，它将结束在警报窗格。<br />
+<img src="https://gitee.com/shengnoah/picture/raw/master/20240313170310.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-8009e1838c199d15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>警报可以被忽略，标记为已读、预览和导入。当一个警报被导入时，它就变成了一个需要进行调查的案例。</p>
+<p>二、案例<br />
+<img src="https://gitee.com/shengnoah/picture/raw/master/20240313170324.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-2d6540debf3ae709.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>案例可以从警报生成，也可以从头创建。它被细分为<strong>任务</strong>(识别、遏制、消除、检查代理日志，等等)和<strong>可观察任务</strong>(IP地址、散列、电子邮件地址、域名、url……)。当分析人员处理任务时，他们会添加日志。在TheHive的术语中，日志是文本条目，其中可能包含附件，以帮助分析人员记录他们所做的事情。可以使用Markdown或富文本编辑器编写日志。</p>
+<p>2.1案例模板</p>
+<p>在处理属于给定类别(DDoS、Malspam、APT……)的情况时，不需要反复添加相同的任务。您可以创建添加任务的自定义模板，如下所示。这在处理警报时非常有用，因此在导入警报时，可以选择想要应用的案例模板，这样就可以了!<br />
+<img src="https://gitee.com/shengnoah/picture/raw/master/20240313170335.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-358662a224669a5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>2.2可观测的对象</p>
+<p>可观察对象可以被标记为IOCs并进行分析。当调查进展顺利或完成时，您可能希望与合作伙伴和同行共享结果IOCs或其中的一部分。在2017年9月，TheHive将支持将数据导出到MISP。在此之前，您仍然可以将IOCs导出为文本、CSV或与MISP兼容的格式，您可以使用freetext编辑器将它们添加到MISP实例中。Hive可以导出IOCs/observable in protected (hxxps://www[.] .)或者unprotected模式。</p>
+<p>每个可见目标必须有一个TLP(红绿灯协议)级别。默认情况下，任何添加的观察对象都被认为是TLP:AMBER。请注意，TLP是考虑到一些分析仪。等等!分析程序?</p>
+<p>三、Cortex</p>
+<p>Cortex是我们独立的分析引擎，是Thehive和MISP的完美伴侣。分析人员可以使用它的Web UI来分析可观察数据，在这种情况下，一次只能提交一个可观察数据。Web UI确实应该被限制为在TheHive(或备用SIRP)中创建案例之前对可观察对象进行快速评估。当您使用它的REST API时，皮层的功能才真正发挥作用。Thehive与Cortex进行原生对话(就像MISP那样)。此外，Thehive可以利用一个或多个Cortex服务器。<br />
+<img src="https://gitee.com/shengnoah/picture/raw/master/20240313170406.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-8c86e53fe3c36d1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>3.1分析程序</p>
+<p>在写这篇文章的时候，Cortex有23个分析仪，总共有39种口味，很快就会有更多。</p>
+<p>分析器可以用Linux支持的任何编程语言编写，尽管我们当前所有的分析器都是用Python编写的。这是因为我们提供了一个名为Cortexutils的Python库，其中包含一组实用工具类，使得用Python编写分析器更加容易。</p>
+<p>3.2口味</p>
+<p>VirusTotal、PassiveTotal或DomainTools等分析工具可以提供不同的分析服务。让我们以VirusTotal为例。您可以扫描一个文件或URL。这是一个味道（Flavors）。您还可以从VirusTotal.com上获得关于文件、散列、域或IP地址的最新报告。这是第二种口味。所以病毒分析仪有两种口味。<br />
+<img src="https://gitee.com/shengnoah/picture/raw/master/20240313170442.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-2a61eb1e8664ff2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>PassiveTotal怎么样?它有8种风格:独特的解析查找、SSL证书历史查找、恶意软件查找、被动DNS查找、数据丰富查找、SSL证书详细信息查找、OSINT查找和WHOIS数据查找。</p>
+<p>3.3MISP搜索分析器</p>
+<p>在这一点上，我们需要提到一个特殊的分析器，它可能会造成一些混乱，如果没有正确理解:MISP搜索分析器。多亏了它，Cortex有能力在MISP实例中搜索可观察到的事物，就像从分析仪到MISP的箭头所代表的那样。<br />
+<img src="https://gitee.com/shengnoah/picture/raw/master/20240313170454.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-08abb5d58063e0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>当在一个事件中发现一个被观察到的对象时，Cortex将返回被发现的记录的数量(即发现被观察到的对象的事件的数量)，以及与这些事件的链接的列表和附加的数据。<br />
+<img src="https://gitee.com/shengnoah/picture/raw/master/20240313170503.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-710e3236e1d0d4bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p><img src="https://gitee.com/shengnoah/picture/raw/master/20240313170512.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-3f06cee12ec75c30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p><img src="https://gitee.com/shengnoah/picture/raw/master/20240313170519.png" alt="image.png" /></p>
+<p><img src="//upload-images.jianshu.io/upload_images/5619637-05813f8004088ff7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="" /></p>
+<p>当前版本的MISP搜索分析器只能在一个MISP实例中进行搜索，但是在不久的将来，它将能够支持多个MISP实例。</p>
+<p>3.4MISP扩展模块</p>
+<p>除了它自己的分析器(包括上面描述的MISP搜索)，Cortex还可以调用MISP扩展模块。MISP通常使用这些来丰富事件中的属性，但皮层也可以利用它们来分析观察到的信息。</p>
+<p>在天然皮层分析仪和MISP扩展模块之间有一些重叠。在选择本机分析器或扩展模块时，我们强烈建议您选择前者。扩展模块在默认的皮层结构中处于失活状态。</p>
+<p>3.5作业</p>
+<p>当您提交一个observable进行分析时，Cortex将创建一个作业，如果成功，它将生成一个JSON格式的分析报告。由于我们提供免费的报告模板，TheHive能够解析这些结果并以一种友好的方式显示它们。因此，当你从Thehive向皮层提交观察结果时，你会得到一份简短(或迷你)的报告和一份冗长的报告。第一个可以被认为是一个非常小的执行分析师摘要，而第二个提供了更多的洞察力和细节。</p>
+<p>结论</p>
+<p>TheHive、Cortex和MISP是三款开源免费的产品，它们可以帮助你对抗威胁，让你远离“怪兽”。</p>
+<p>TheHive，作为一个SIRP，允许你以协作的方式快速调查安全事件。几个分析师可以同时处理任务和案例。虽然可以从头开始创建案例，但由于alert feeders使用多个源生成的安全事件，并使用hive4py Python库将它们提供给TheHive，因此TheHive可以从不同的源接收警报。TheHive还可以同步到一个或多个MISP实例，以接收新的和更新的事件，这些事件将出现在警报窗格中，与其他来源生成的所有其他警报一起。然后，分析人员可以预览新的警报，以决定是否需要对其采取行动。如果是，他们可以使用模板将其转换为调查案例。</p>
+<p>为了分析在调查过程中收集到的观察结果和/或从MISP事件导入的观察结果，hive可以依赖于一个或多个皮层分析引擎。Cortex是我们开发的另一款独立产品，其唯一的目的是让你能够大规模地分析可观测数据，这要归功于它大量的分析仪、MISP扩展模块以及你可能已经开发的其他任何分析仪。Cortex有一个REST API，可以用来增强其他安全产品的功能，比如“分析”软件、备用的sirp或MISP。</p>
+<p>这个非常受欢迎的威胁共享平台确实可以丰富属性，这多亏了Cortex，因为它与它有一个天生的集成。几个月后，您还可以将案例从TheHive导出为MISP事件，与同行和合作伙伴共享。</p>
+<p>如果你愿意分享，你就会关心我们共同的使命，保护我们的数字资产不受损害。所以让我们团结一致。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.thehive-project.org/2017/06/19/thehive-cortex-and-misp-how-they-all-fit-together/">https://blog.thehive-project.org/2017/06/19/thehive-cortex-and-misp-how-they-all-fit-together/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/sec/TheHive/TheHive%E4%B8%8ECortex%E5%92%8CMISP%E5%AE%83%E4%BB%AC%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E5%90%88%E5%9C%A8%E4%B8%80%E8%B5%B7%E7%9A%84/">https://lua.ren/sec/TheHive/TheHive%E4%B8%8ECortex%E5%92%8CMISP%E5%AE%83%E4%BB%AC%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E5%90%88%E5%9C%A8%E4%B8%80%E8%B5%B7%E7%9A%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/sec/Shuffle/%E4%BB%8B%E7%BB%8DShuffle%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90SOAR%E5%B9%B3%E5%8F%B0%E7%AC%AC1%E9%83%A8%E5%88%86/" title="介绍Shuffle一个开源SOAR平台第1部分"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">介绍Shuffle一个开源SOAR平台第1部分</div></div></a></div><div class="next-post pull-right"><a href="/sec/TheHive/TheHive%E4%B8%8ECortex%E5%92%8CMISP%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8/" title="TheHive与Cortex和MISP结合使用"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TheHive与Cortex和MISP结合使用</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

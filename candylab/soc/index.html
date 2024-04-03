@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>HFish蜜罐与SOC安全运营中心 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="HFish蜜罐与SOC安全运营中心   Excerpt 作者：糖果    0x01 传统蜜罐 传统蜜罐在安全运营当中，起到防御与威胁发现的作用。蜜罐系统提供Web（WordPress等）服务模拟、及各种主机服务模拟，比如：ElasticSearch、FTP、Telnet、Redis等。 类似FTP、Telnet等高交互蜜罐，不只是开放各种协议服务的端口监听，还真实的模拟的服务用户的交互逻辑，当攻">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HFish蜜罐与SOC安全运营中心">
+<meta property="og:url" content="https://lua.ren/candylab/soc/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="HFish蜜罐与SOC安全运营中心   Excerpt 作者：糖果    0x01 传统蜜罐 传统蜜罐在安全运营当中，起到防御与威胁发现的作用。蜜罐系统提供Web（WordPress等）服务模拟、及各种主机服务模拟，比如：ElasticSearch、FTP、Telnet、Redis等。 类似FTP、Telnet等高交互蜜罐，不只是开放各种协议服务的端口监听，还真实的模拟的服务用户的交互逻辑，当攻">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-03-14T07:45:09.108Z">
+<meta property="article:modified_time" content="2024-03-14T07:45:09.108Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/candylab/soc/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HFish蜜罐与SOC安全运营中心',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-14 15:45:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">HFish蜜罐与SOC安全运营中心</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-14T07:45:09.108Z" title="发表于 2024-03-14 15:45:09">2024-03-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-14T07:45:09.108Z" title="更新于 2024-03-14 15:45:09">2024-03-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HFish蜜罐与SOC安全运营中心"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="hfish蜜罐与soc安全运营中心"><a class="markdownIt-Anchor" href="#hfish蜜罐与soc安全运营中心"></a> HFish蜜罐与SOC安全运营中心</h1>
+<blockquote>
+<h2 id="excerpt"><a class="markdownIt-Anchor" href="#excerpt"></a> Excerpt</h2>
+<p>作者：糖果</p>
+</blockquote>
+<hr />
+<h1 id="0x01-传统蜜罐"><a class="markdownIt-Anchor" href="#0x01-传统蜜罐"></a> 0x01 传统蜜罐</h1>
+<p>传统蜜罐在安全运营当中，起到防御与威胁发现的作用。蜜罐系统提供Web（WordPress等）服务模拟、及各种主机服务模拟，比如：ElasticSearch、FTP、Telnet、Redis等。 类似FTP、Telnet等高交互蜜罐，不只是开放各种协议服务的端口监听，还真实的模拟的服务用户的交互逻辑，当攻击者访问蜜罐仿真的服务，蜜罐系统会像真的用户访问FTP、Telnet服务一样， 响应用户的操作。</p>
+<h1 id="0x02-反制与溯源"><a class="markdownIt-Anchor" href="#0x02-反制与溯源"></a> 0x02 反制与溯源</h1>
+<p>随时蜜罐技术迭代发展，从传统蜜罐、高交互蜜罐、 发展具有成高阶形式功能的，具有反制溯源、欺骗防御、主动防御的综合服务仿真蜜罐信息系统。 构建安全防御系统，需要各种安全工具链提供支持，蜜罐系统是安全防御工具链中重要的工具，选用几款优秀的蜜罐系统，应用于安全运营实践过程，对防御工作很必要，蜜罐可以分别部署于内、外网环境当中，这一次介绍的是HFIsh。 在攻击的过程，蜜罐系统会接收攻击者的攻击输入信息，包括攻击用的系统及工具的信息，攻击者可能暴露的个人信息，可溯源反制的蜜罐系统，会根据这些信息，进行攻击者身份信息的关联溯源，根据攻击者系统工具的信息，实施基于对方可能存在漏洞的反制攻击。 如果攻击者可暴露给蜜罐系统的输入数据，不够充分有效，反制溯源就比较困难。</p>
+<h1 id="0x03-蜜罐与防御体系融合"><a class="markdownIt-Anchor" href="#0x03-蜜罐与防御体系融合"></a> 0x03 蜜罐与防御体系融合</h1>
+<p>HFish</p>
+<p>以HFish构建的蜜罐系统为例，下面是HFish蜜罐系统在实践过程中，一个系统关联图。</p>
+<p><img src="https://candylab.net/images/HiFishSOC/1.png" alt="" /></p>
+<p>HFish是一个具备典型新型蜜罐特征的蜜罐系统，同时提供、低交互、高交互、反制溯源功能。 蜜罐系统属于安全系统中的一个子系统，在安全运营过程中， 需要将蜜罐系统与整个安全防御体系进行融合，将蜜罐系统、TDP流量分析系统、SIEM事件管理系统、SOC运营系统进行协同，最后成为整SOC安全运营系统功能的一部分，与更多防御信息系统进行协防，比如HIDS系统等。 TDP：TDP和HFish同出一家，TDP是流量分析系统，同时提供HFish的接入功能，在HFish相对早期的版本，我们将HFish接入到TDP系统，尝试让HFish威胁日志接入数据库集群，并在某些安全活动使用。TDP对接HFish，接入数据是蜜罐威胁事件日志，并提供蜜罐结点的威胁的攻击统计、威胁事件告警检索功能。接入蜜罐日志后，并不将威胁日志中的IP与威胁情报进行关联，与威胁情报的关联，是在接入日志之前就完成了，所以需要在HFish中接入IP信誉库API。</p>
+<p><img src="https://candylab.net/images/HiFishSOC/2.png" alt="" /></p>
+<p>IP信誉库：在实践的过程中，蜜罐系统与HIDS系统，在判定IP的威胁时，用了同一套IP信誉库，与TDP不同的是， TDP有本地的威胁情报库，会远程下拉同步威胁情报，所以也没有查询上限的限制， 而其他系统需要通过API来完成IP研判工作，没有本地的威胁情报库，有API每天的调用上限次数限制。</p>
+<h1 id="0x04-事件管理与运营管理"><a class="markdownIt-Anchor" href="#0x04-事件管理与运营管理"></a> 0x04 事件管理与运营管理</h1>
+<p>SIEM：威胁事件管理系统用来处理，TDP接入的蜜罐威胁事件日志， 由TDP转发给SIEM或者，由HFish直接发给SIEM，蜜罐威胁日志成为多条威胁数据管道处理中的一条支流处理分支，然后由SIEM与SOC进行后续的交互，进行威胁的收敛研判。 <img src="https://candylab.net/images/HiFishSOC/3.png" alt="" /></p>
+<p>SOC：安全防御信息系统中，有众多的子系统，SIEM通过数据管道完成威胁事件的聚合管理、数据的中继外发、威胁事件数据提供，SOC的一项功能是，完成威胁事件的收敛工作，并建立收敛后的事件与响应流程的联系， 产出可以是建立响应处理提案、各种形式的告警（邮件、群机器人等）、可视化统计、威胁定位检索等。</p>
+<h1 id="0x05-蜜罐联动实践"><a class="markdownIt-Anchor" href="#0x05-蜜罐联动实践"></a> 0x05 蜜罐联动实践</h1>
+<p>微步在运营HFish之后，HFish不断在升级，各防守单位人员，也加入使用的HFish蜜罐的用户中，配置要求低，上手快，还有可视化大屏幕，支持常见的蜜罐服务和一些比较新威胁服务模拟检测，与威胁情报社区联动，流量分析平台联动。HFish可以与SIP、X社区的联动，使用社区的威胁情报查询Key，进行威胁溯源，还可以与自家的流量威胁检测服务产品TDP进行联动。与TDP的联动最开始因数HFish的输出字段不确定，造成正则不确定，没法正确识别，HFish推送给TDP的告警，但后期这个问题都解决了。包括从本地数据库，迁移到使用云上MySQL也是没问题的，这样相当于分布式蜜罐的报警，可以聚合在TDP流量分析平台上，本地数据都放到云的MySQL上做集中管理。</p>
+<p><img src="https://candylab.net/images/HiFishSOC/4.jpeg" alt="" /></p>
+<p>添加X社区的威胁查询APIKey与IP信誉库进行关联。</p>
+<p><img src="https://candylab.net/images/HiFishSOC/5.jpeg" alt="" /></p>
+<p>申请的API有又上的权限。 <img src="https://candylab.net/images/HiFishSOC/6.jpeg" alt="" /></p>
+<p>大屏幕与TDP的4种视角不同，只有一种模式，但是看着还是很直观的。</p>
+<p><img src="https://candylab.net/images/HiFishSOC/7.jpeg" alt="" /></p>
+<p>HFish支持分布式部署管理，支持与X社区联动，取威胁情报，支持与TDP流理分析平联动，关联攻击IP在内网的所有威胁事件，全流量网络连接分析，这些特性是别的单体蜜罐做不到的，提供的服务要比一般的蜜罐，不能与威胁情报联动，不能与流量分析平台联动相比，功能更丰富立体。下面是HFish提供的蜜罐服务，比之前模拟的服务要多很多，而且很接地气，基本覆盖了常见漏洞服务。</p>
+<p><img src="https://candylab.net/images/HiFishSOC/8.jpeg" alt="" /></p>
+<p>HFish还提供威胁风险的检测识别能力，并且可以自己通过YARA，进行自定义检测规则的编写。</p>
+<p>自己在蜜罐后台上，创建检测规则。HFish与流量分析平台TDP联动 HFish可以将蜜罐的告警发送给TDP，进行威胁聚合，威胁关联。用户可从选择只看攻击蜜罐告警信息，也可以在TDP蜜罐监控界面，查看网络流量中，攻击蜜罐的源IP，所有的威胁事件告警信息，威胁情报，威胁名称等等。</p>
+<p><img src="https://candylab.net/images/HiFishSOC/9.jpeg" alt="" /></p>
+<p>蜜罐上呈现是那些IP攻击了蜜罐，而TDP上可以展现出，攻击蜜罐的IP，在内网所有的威胁事件的信息，全流量通信信息。</p>
+<p><img src="https://candylab.net/images/HiFishSOC/10.jpeg" alt="" /></p>
+<p>HFish蜜罐接入到TDP，需要创建一个数据接受监听，并通过正则进行解析，这个正则是随着HFish输出字段的明确，最后固定下来了的。</p>
+<h1 id="0x06-总结"><a class="markdownIt-Anchor" href="#0x06-总结"></a> 0x06 总结</h1>
+<p>所有子系统的威胁事件管理，可以类似HFish蜜罐接入SOC系统一样，将安全运营人员对蜜罐高频操作的威胁确认、统计、等高频常用工作，融合到SOC 系统中，形成子威胁系统在SOC系统中，对应安全运营角色（蜜罐操作者）的工作流程，不用登录蜜罐子系统，在SOC中集中完成蜜罐相关的安全响应处理工作。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/candylab/soc/">https://lua.ren/candylab/soc/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/candylab/AIGC%E4%B8%8ESOC%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" title="AIGC与SOC安全运营"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">AIGC与SOC安全运营</div></div></a></div><div class="next-post pull-right"><a href="/blog/elasticsearch/" title="ElasticSearch最大返回结果量大小设置"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ElasticSearch最大返回结果量大小设置</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hfish%E8%9C%9C%E7%BD%90%E4%B8%8Esoc%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5%E4%B8%AD%E5%BF%83"><span class="toc-number">1.</span> <span class="toc-text"> HFish蜜罐与SOC安全运营中心</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#excerpt"><span class="toc-number">1.1.</span> <span class="toc-text"> Excerpt</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-%E4%BC%A0%E7%BB%9F%E8%9C%9C%E7%BD%90"><span class="toc-number">2.</span> <span class="toc-text"> 0x01 传统蜜罐</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-%E5%8F%8D%E5%88%B6%E4%B8%8E%E6%BA%AF%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text"> 0x02 反制与溯源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-%E8%9C%9C%E7%BD%90%E4%B8%8E%E9%98%B2%E5%BE%A1%E4%BD%93%E7%B3%BB%E8%9E%8D%E5%90%88"><span class="toc-number">4.</span> <span class="toc-text"> 0x03 蜜罐与防御体系融合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x04-%E4%BA%8B%E4%BB%B6%E7%AE%A1%E7%90%86%E4%B8%8E%E8%BF%90%E8%90%A5%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text"> 0x04 事件管理与运营管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x05-%E8%9C%9C%E7%BD%90%E8%81%94%E5%8A%A8%E5%AE%9E%E8%B7%B5"><span class="toc-number">6.</span> <span class="toc-text"> 0x05 蜜罐联动实践</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x06-%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text"> 0x06 总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>

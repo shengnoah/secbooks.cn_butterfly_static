@@ -1,0 +1,585 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>入职作业之 json 数据与 lua value 转换 | 糖果AIGC实验室-LUA</title><meta name="author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="copyright" content="糖果AIGC实验室 备案:辽ICP备16003836号-5"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="题目任务描述：封装json格式的数据与lua value间的互相转换功能 下载ECMA-404的描述文件，观察json的数据格式。 根据描述，一个json value可以是这些类型: object, array, number, string, true, false, or null。   下面是描述几种数据类型的图。     这些图的描述能力应该等同BNF，所以需要处理的操作大概有：    串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="入职作业之 json 数据与 lua value 转换">
+<meta property="og:url" content="https://lua.ren/zl/2016-01-01-575_%E5%85%A5%E8%81%8C%E4%BD%9C%E4%B8%9A%E4%B9%8B%20json%20%E6%95%B0%E6%8D%AE%E4%B8%8E%20lua%20value%20%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="糖果AIGC实验室-LUA">
+<meta property="og:description" content="题目任务描述：封装json格式的数据与lua value间的互相转换功能 下载ECMA-404的描述文件，观察json的数据格式。 根据描述，一个json value可以是这些类型: object, array, number, string, true, false, or null。   下面是描述几种数据类型的图。     这些图的描述能力应该等同BNF，所以需要处理的操作大概有：    串">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-04-03T03:47:35.826Z">
+<meta property="article:modified_time" content="2024-04-03T03:47:35.826Z">
+<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="lua文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/zl/2016-01-01-575_%E5%85%A5%E8%81%8C%E4%BD%9C%E4%B8%9A%E4%B9%8B%20json%20%E6%95%B0%E6%8D%AE%E4%B8%8E%20lua%20value%20%E8%BD%AC%E6%8D%A2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '入职作业之 json 数据与 lua value 转换',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-04-03 11:47:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">入职作业之 json 数据与 lua value 转换</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T03:47:35.826Z" title="发表于 2024-04-03 11:47:35">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-03T03:47:35.826Z" title="更新于 2024-04-03 11:47:35">2024-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/topic/">topic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="入职作业之 json 数据与 lua value 转换"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>题目任务描述：封装json格式的数据与lua value间的互相转换功能</p>
+<p>下载ECMA-404的描述文件，观察json的数据格式。</p>
+<p>根据描述，一个json value可以是这些类型: object, array, number, string, true, false, or null。</p>
+<p><img src="https://wo1fsea.github.io//images/value.png" alt="value"/></p>
+<p></p>
+<p>下面是描述几种数据类型的图。</p>
+<p><img src="https://wo1fsea.github.io//images/object.png" alt="object"/></p>
+<p><img src="https://wo1fsea.github.io//images/array.png" alt="array"/></p>
+<p><img src="https://wo1fsea.github.io//images/number.png" alt="number"/></p>
+<p><img src="https://wo1fsea.github.io//images/string.png" alt="string"/></p>
+<p>这些图的描述能力应该等同BNF，所以需要处理的操作大概有：</p>
+<ol>
+  <li>串联					如，C等于A串联B(C＝AB)，即匹配一个C等同于匹配一个A接着匹配一个B</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>并联					如，C等于A并联A(C=A</td>
+          <td>B)，即匹配一个C等同于匹配一个A或者匹配一个B</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>匹配0或1次			如，C等于匹配A0或1次(C=A?)，即匹配一个C等同于匹配一个A0或多次，该操作可以由 C=A</td>
+          <td>”” 代替，其中”“表示空串。</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>匹配0或任意次		如，C等于匹配A0或任意次(C=A*)，即匹配一个C等同于匹配一个A0或任意次</li>
+</ol>
+<p>则最简单的，上述的value可以描述成</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>value ＝ object | array | number | string | true | false | null
+</code></pre>
+</div>
+<p>object可以描述成，(引号内表示终结符，括号指示结合顺序)</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>object ＝ &#34;&#123;&#34; ((string &#34;:&#34; value) (&#34;,&#34; string &#34;:&#34; value)*)? &#34;&#125;&#34;
+</code></pre>
+</div>
+<p>其他就依次类推…</p>
+<hr/>
+<p>回来开始写代码：</p>
+<p>先定义最简单的匹配函数的格式：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code> -- the matcher function
+ function matcher(json_str, start)
+ 	...
+ 	return result, value, new_start
+ end
+</code></pre>
+</div>
+<table>
+  <tbody>
+    <tr>
+      <td>最简单的匹配函数，接受一个待匹配的字符串和一个起始下标，返回匹配结果（true</td>
+      <td>false），匹配成功后的返回数据，一个新的起始下标。</td>
+    </tr>
+  </tbody>
+</table>
+<p>定义两个最简单的结果处理函数，一个不处理输入直接返回，另一个直接返回nil，后面会常用到</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- result handler
+local no_h = function(v) return v end
+local nil_h = function() return nil end
+</code></pre>
+</div>
+<p>定义一个生成基本匹配函数的生成函数，接受一个lua find的匹配表达式和一个结果处理函数，返回一个匹配函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- matcher function generator
+local generator = function(pattern, handler)
+<p>– the matcher function<br />
+function matcher(json_str, start)<br />
+local _, e = string.find(json_str, &quot;^&quot;…pattern, start)</p>
+<pre><code>if e then
+  return true, handler(string.sub(json_str, start, e)), e+1
+else
+  return false, nil, start
+end
+</code></pre>
+<p>end</p>
+<p>return matcher<br />
+end<br />
+</code></pre></p>
+</div>
+<p>根据最开始的描述，需要的操作至少还有：并联、串联、匹配0或一次、匹配0或任意次。</p>
+<p>下面是并联多个匹配函数的并联操作，输入一个匹配函数列表和一个结果处理函数，返回一个并联后的匹配函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- parallelize matchers
+parallelize = function(matchers,handler)
+  if handler == nil then
+    handler = no_h
+  end
+<p>– the paralleized matcher function<br />
+function p_matcher(json_str, start)<br />
+local r,v,s</p>
+<pre><code>for i=1,#matchers do
+  r,v,s = matchers[i](json_str, start)
+  if r then
+    if handler == nil_h then return true, nil, s end
+    if handler == no_h then return true, v, s end
+    return r,handler(v),s
+  end
+end
+
+return false,nil,start
+</code></pre>
+<p>end</p>
+<p>return p_matcher<br />
+end<br />
+</code></pre></p>
+</div>
+<p>下面是串联多个匹配函数的串联操作，输入一个匹配函数列表和一个结果处理函数，返回一个串联后的匹配函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- serialize matchers
+serialize = function(matchers,handler)
+  if handler == nil then
+    handler = no_h
+  end
+<p>– the serialized matcher function<br />
+function s_matcher(json_str, start)<br />
+local r,v,s = false,nil,start<br />
+local results = &#123;&#125;</p>
+<pre><code>for i=1,#matchers do
+  r,v,s = matchers[i](json_str, s)
+  if r == false then
+    return false,nil,start
+  end
+  table.insert(results,v)
+end
+
+if handler == nil_h then return true, nil, s end
+if handler == no_h then return true, results, s end
+return true,handler(results),s
+</code></pre>
+<p>end</p>
+<p>return s_matcher<br />
+end<br />
+</code></pre></p>
+</div>
+<p>匹配0或任意次和匹配1或任意次之间存在转换关系，实现中选了1或任意次匹配作为原子操作，0或任意次可以描述为:(““表示空串)</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>0_or_more = one_or_more | &#34;&#34;
+</code></pre>
+</div>
+<p>下面是1或任意次匹配操作，接受一个匹配函数和一个结果处理函数，返回一个匹配1次或任意次的匹配函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- make a matcher match one or more
+one_or_more = function(matcher, handler)
+  if handler == nil then
+    handler = function(v) return v end
+  end
+<p>– the one or more matcher function<br />
+function oom_matcher(json_str, start)<br />
+local r,v,s = false,nil,start<br />
+local results = &#123;&#125;</p>
+<pre><code>r,v,s = matcher(json_str, s)
+if r == false then
+  return false,nil,s
+end
+table.insert(results,v)
+
+while true do
+  r,v,s = matcher(json_str, s)
+  if r == false then
+    break
+  end
+  table.insert(results,v)
+end
+
+if handler == nil_h then return true, nil, s end
+if handler == no_h then return true, results, s end
+return true,handler(results),s
+</code></pre>
+<p>end</p>
+<p>return oom_matcher<br />
+end<br />
+</code></pre></p>
+</div>
+<p>下面定义了一个空串匹配函数，和定义一个0或1次匹配操作函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- empty
+local empty_m = generator(&#34;&#34;,nil_h)
+<p>– or empty helper<br />
+local or_empty = function(matcher)<br />
+return parallelize&#123;matcher,empty_m&#125;<br />
+end<br />
+</code></pre></p>
+</div>
+<p>定义完这些，就可以开始描述我们的匹配函数了。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- main matchers
+local null_m, boolean_m, number_m, string_m, object_m, array_m, value_m, value_a
+</code></pre>
+</div>
+<p>value匹配函数的描述，value为number_m,string_m,boolean_m,null_m,object_m,array_m并联。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- value
+value_m = function(json_str,s)
+  -- use value_a to bootup
+  if value_a==nil then
+    value_a = parallelize&#123;number_m,string_m,boolean_m,null_m,object_m,array_m&#125;
+  end
+  return value_a(json_str,s)
+end
+</code></pre>
+</div>
+<p>这里的value需要使用value_a来协助描述，因为代码最终会出现循环引用，此时number_m,string_m,boolean_m,null_m,object_m,array_m都还没定义，需要在定义好后，才能生成value的匹配函数。</p>
+<p>匹配null的函数，使用生成函数生成。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- null
+null_m = generator(&#34;null&#34;,function() return nil end)
+</code></pre>
+</div>
+<p>匹配boolean的函数，true和false使用生成函数生成，然后并联true和false匹配函数，生成boolean匹配函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- boolean
+local true_m = generator(&#34;true&#34;, function() return true end)
+local false_m = generator(&#34;false&#34;, function() return false end)
+boolean_m = parallelize&#123;true_m,false_m&#125;
+</code></pre>
+</div>
+<p>匹配number的函数，根据最上面的图，描述为如下：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- number
+local sign_m = generator(&#34;[+-]?&#34;,no_h)
+local minus_or_no_m = generator(&#34;[-]?&#34;,no_h)
+local number_no_0_m = generator(&#34;[1-9]%d*&#34;,no_h)
+local number_0_m = generator(&#34;0&#34;,no_h)
+local dot_number_m = generator(&#34;%.%d+&#34;,no_h)
+local e_number_m = generator(&#34;[eE][+-]?%d+&#34;,no_h)
+<p>number_m = serialize(<br />
+&#123;<br />
+minus_or_no_m,<br />
+parallelize&#123;number_0_m,number_no_0_m&#125;,<br />
+or_empty(dot_number_m),<br />
+or_empty(e_number_m)<br />
+&#125;,<br />
+function(t) return tonumber(table.concat(t)) end<br />
+)<br />
+</code></pre></p>
+</div>
+<p>string需要处理unicode2utf8编码转换及转义符号。</p>
+<p>unicode到utf8转换函数：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- string
+local function hex2utf8(hex)
+  local v, utf8str = 0, &#34;&#34;  
+  v = tonumber(hex,16)
+  if v &gt;= 0x0800 then
+    utf8str = string.char(v%0x40+0x80)
+    v = math.modf(v/0x40)
+    vv = v % 0x40
+    utf8str = string.char(vv+0x80) .. utf8str
+    v = math.modf(v/0x40)
+    utf8str = string.char(v+0xe0) .. utf8str
+  elseif v &gt;= 0x0080 then
+    utf8str = string.char(v%0x40+0x80)
+    v = math.modf(v/0x40)
+    utf8str = string.char(v+0xc0) .. utf8str
+  else
+    utf8str = string.char(v)
+  end
+  return utf8str
+end
+</code></pre>
+</div>
+<p>匹配引号的函数，使用生成函数生成。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- string
+local quotation_m = generator(&#34;&#34;&#34;,nil_h)
+</code></pre>
+</div>
+<p>匹配非”&#34;字符的函数，生成函数生成。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>local char_m = generator(&#34;[^&#34;\]+&#34;, no_h)
+</code></pre>
+</div>
+<p>转义表</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>local escape_char = &#123;
+    [&#34;&#34;&#34;] = &#34;&#34;&#34;,
+    [&#34;\&#34;] = &#34;\&#34;,
+    [&#34;/&#34;]  = &#34;/&#34;,
+    [&#34;b&#34;]  = &#34;b&#34;,
+    [&#34;f&#34;]  = &#34;f&#34;,
+    [&#34;n&#34;]  = &#34;n&#34;,
+    [&#34;r&#34;]  = &#34;r&#34;,
+    [&#34;t&#34;]  = &#34;t&#34;,
+  &#125;
+</code></pre>
+</div>
+<p>匹配”&#34;字符函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>local backslash_m = generator(&#34;\&#34;, nil_h)
+</code></pre>
+</div>
+<p>转义符号匹配和处理函数，注意传入的结果处理函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>local escape_char_m = generator(&#34;[&#34;\/bfnrt]&#34;,function(c) return escape_char[c] end)
+</code></pre>
+</div>
+<p>unicode匹配和处理函数，注意传入的结果处理函数。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>local unicode_char_m = generator(&#34;u[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]&#34;, function(v) return hex2utf8(string.sub(v,2)) end)
+</code></pre>
+</div>
+<p>string的描述</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>string_m = serialize(
+  &#123;
+    quotation_m,
+    or_empty(
+        one_or_more(
+          parallelize&#123;
+            char_m,
+            serialize(
+              &#123;
+                backslash_m,
+                parallelize&#123;escape_char_m,unicode_char_m&#125;
+              &#125;,
+              table.concat
+              ),
+            &#125;,
+          table.concat
+          )
+      ),
+    quotation_m
+  &#125;,
+  table.concat
+)
+</code></pre>
+</div>
+<p>object的描述，各层结果处理函数比较复杂。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- object
+-- brace_l
+local brace_l_m = generator(&#34;%s*&#34; .. &#34;&#123;&#34; .. &#34;%s*&#34;,nil_h)
+local brace_r_m = generator(&#34;%s*&#34; .. &#34;&#125;&#34; .. &#34;%s*&#34;,nil_h)
+local colon_m = generator(&#34;%s*:%s*&#34;,nil_h)
+local comma_m = generator(&#34;%s*,%s*&#34;,nil_h)
+<p>local object_item_m = serialize&#123;string_m,colon_m,value_m&#125;</p>
+<p>object_m = serialize(<br />
+&#123;<br />
+brace_l_m,<br />
+or_empty(<br />
+serialize(<br />
+&#123;<br />
+object_item_m,<br />
+or_empty(<br />
+one_or_more(<br />
+serialize(<br />
+&#123;comma_m,object_item_m&#125;,<br />
+function(t) return t[1] end<br />
+)<br />
+)<br />
+)<br />
+&#125;,<br />
+function(t)<br />
+if t[2] then<br />
+table.insert(t[2],t[1])<br />
+return t[2]<br />
+else<br />
+return &#123;t[1]&#125;<br />
+end<br />
+end<br />
+)<br />
+),<br />
+brace_r_m<br />
+&#125;,<br />
+function(t)<br />
+local o = &#123;&#125;</p>
+<pre><code>if t[1] then
+  for k,v in pairs(t[1]) do
+    o[v[1]] = v[2]
+  end
+end
+
+return o
+</code></pre>
+<p>end<br />
+)<br />
+</code></pre></p>
+</div>
+<p>array的描述，array需要保持一个状态index，如果直接用基本操作描述，传入的结果处理函数会比较蛋疼，所以用函数实现了。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-- arrary
+local bracket_l_m = generator(&#34;%s*%[%s*&#34;,nil_h)
+local bracket_r_m = generator(&#34;%s*%]%s*&#34;,nil_h)
+<p>array_m = function(json_str, start)</p>
+<p>local array,index = &#123;&#125;, 1<br />
+local add_item = function(v) array[index] = v[1]; index=index+1 end<br />
+local array_item_m = serialize(&#123;value_m&#125;,add_item)</p>
+<p>local array_a = serialize&#123;<br />
+bracket_l_m,<br />
+or_empty(<br />
+serialize&#123;<br />
+array_item_m,<br />
+or_empty(<br />
+one_or_more(serialize&#123;comma_m,array_item_m&#125;)<br />
+)<br />
+&#125;<br />
+),<br />
+bracket_r_m<br />
+&#125;</p>
+<p>local r,v,s = array_a(json_str,start)<br />
+return r,array,s<br />
+end<br />
+</code></pre></p>
+</div>
+<p>最后，匹配函数</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>local function Marshal(json_str)
+  local result,value,start = value_m(json_str,1)
+  if result and start == #json_str+1 then
+    return value
+  else
+    return nil, &#34;error_type&#34;
+  end
+end
+</code></pre>
+</div>
+<p>lua table 反解析成 json string 的比较直观，对每一种lua value类型写一个转换函数即可，此处不冗述。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">糖果AIGC实验室 备案:辽ICP备16003836号-5</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/zl/2016-01-01-575_%E5%85%A5%E8%81%8C%E4%BD%9C%E4%B8%9A%E4%B9%8B%20json%20%E6%95%B0%E6%8D%AE%E4%B8%8E%20lua%20value%20%E8%BD%AC%E6%8D%A2/">https://lua.ren/zl/2016-01-01-575_%E5%85%A5%E8%81%8C%E4%BD%9C%E4%B8%9A%E4%B9%8B%20json%20%E6%95%B0%E6%8D%AE%E4%B8%8E%20lua%20value%20%E8%BD%AC%E6%8D%A2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">糖果AIGC实验室-LUA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/lua%E6%96%87%E7%AB%A0/">lua文章</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/zl/2016-01-01-577_Lua%E8%AF%AD%E6%B3%95%E9%82%AE%E7%AE%B1sina/" title="Lua语法邮箱sina"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua语法邮箱sina</div></div></a></div><div class="next-post pull-right"><a href="/zl/2016-01-01-574_LUA_API/" title="LUA_API"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">LUA_API</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/zl/2016-01-01-2_AutoToolboxPopluate/" title="AutoToolboxPopluate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">AutoToolboxPopluate</div></div></a></div><div><a href="/zl/2016-01-01-1001_Lua%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lua正则表达式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua正则表达式</div></div></a></div><div><a href="/zl/2016-01-01-1003_lua%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="lua快速入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">lua快速入门</div></div></a></div><div><a href="/zl/2016-01-01-1004_C#%20%E4%BD%BF%E7%94%A8%20Lua%20%E5%8F%96%E5%BE%97%20Redis%20%E8%87%AA%E8%A8%82%E8%A4%87%E9%9B%9C%E5%9E%8B%E5%88%A5/" title="C# 使用 Lua 取得 Redis 自訂複雜型別"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">C# 使用 Lua 取得 Redis 自訂複雜型別</div></div></a></div><div><a href="/zl/2016-01-01-1005_Lua%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Lua语言学习（二）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua语言学习（二）</div></div></a></div><div><a href="/zl/2016-01-01-1002_Lua%20%E5%AD%A6%E4%B9%A0%20chapter7%20/" title="Lua 学习 chapter7"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">Lua 学习 chapter7</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></body></html>
