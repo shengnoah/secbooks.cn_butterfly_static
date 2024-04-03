@@ -70,7 +70,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-04-03 12:52:13'
+  postUpdate: '2024-04-03 14:58:23'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -174,218 +174,118 @@
       }
     }
     detectApple()
-    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/topic/178/" title="nil、null与ngx.null"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nil、null与ngx.null"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/178/" title="nil、null与ngx.null">nil、null与ngx.null</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">问题概述 
-今天第一次在nginx+lua架构下，写了个需要操作Redis的后台接口，该接口的功能主要是接受客户端的json格式的post请求，实现对保存在redis中的任务插入、删除、查询等。虽然nginx，lua等都是刚接触，但这几个接口还是顺风顺水的坐下来了，不能忘了感谢春哥章亦春。
-在Redis中记录的任务其实很简单，每插入一个任务，就在redis中增加一个HASH结构，每次查询返回该SET的各个Field和对应的Value值，例如md5，filesize等。由于任务类型的不同，有的Field可能在该任务中不存在，此时在以json格式将查询结果返回时不应显示该Field。
-以md5域为例，在对当前任务以md5域执行hget后，应该对返回结果做一个判断，如果该HASH结构并没有设置md5这个域，则跳过，继续执行后面的逻辑，如果设置了md5域，则把该域的Value取出来，插入到结果table中，后续再作为json格式返回结果的一部分，返回给后台。
-测试时，却发现在某些域未设置时，查询结果中却仍然会把该域返回给查询调用者，但其Value部分是null。例如,执行下面的测试用例：
-cu ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/182/" title="Lrexlib安装(Lua PCRE)"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lrexlib安装(Lua PCRE)"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/182/" title="Lrexlib安装(Lua PCRE)">Lrexlib安装(Lua PCRE)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
-Lrexlib是PCRE的Lua调用库。在此说一下 Lrexlib的安装过程。
-Ubuntu下安装：
-1.首先是安装依赖。
-apt-get install libpcre3
-apt-get install libpcre3-dev
-2.建立连接。
-Ubuntu安装的是pcre3，安装完之后系统内才能有libpcre.so的库。
-apt-get安装的库文件没有在/usr/lib文件夹下，需要建立连接。
-ln -s &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libpcre.so.3 &#x2F;usr&#x2F;lib&#x2F;libpcre.so
-3.使用luarocks安装PCRE。
-sudo luarocks install lrexlib-PCRE PCRE_LIBDIR&#x3D;&#x2F;usr&#x2F;lib&#x2F;
-4.测试库。
-lua -e &quot;require &#39;rex_pcre&#39;&quot;
-Centos下安装PCRE：
-1.首先是安装依赖。
-yum install pcre
-yum inst ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/topic/183/" title="Tup与Moonscript自动编译"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tup与Moonscript自动编译"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/183/" title="Tup与Moonscript自动编译">Tup与Moonscript自动编译</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">tup可以监控文件变动的，再执行相应有执行动作。可以设定tupfile规则，当监控目录中的文件发生变化的时候，实时执行编译脚本，只要文件有改动，然后openresty服务会reload文件，刷新一下url就可以看到新的变动结果（LUA）。
-安装TUP首先要在Linux上安装FUSE。
-第一步：安装FUSE。
-yum install fuse
-只安装fuse是不够的，还需要安装fuse-devel，在之后的编译需要.h和库文件。
-yum list fuse*
+    })(window)</script></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1788</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">212</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">104</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="糖果AIGC实验室-LUA"><span class="site-name">糖果AIGC实验室-LUA</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清單</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/topic/156/" title="LUA调用C语言实现的SO库"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LUA调用C语言实现的SO库"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/156/" title="LUA调用C语言实现的SO库">LUA调用C语言实现的SO库</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
+这篇文章归纳lua5.1的C语言模库so的“标准”写法，代码都是编译通过的，可直接参考使用！
+tangguo.h
+#ifndef __tangguo_h__
+#define __tangguo_h__
+#include "lauxlib.h"
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
 
-yum install fuse-devel
-如果是在ubuntu下：
-sudo apt-get install libfuse-dev
-第二步：下载tup。
-git clone https:&#x2F;&#x2F;github.com&#x2F;gittup&#x2F;tup.git
+extern int add(lua_State* L);
+extern int sub(lua_State* L);
+extern int luaopen_libtangguo(lua_State* L);
+static luaL_Reg libtangguo[] = &#123;
+        &#123;"add", add&#125;,
+        &#123;"sub", sub&#125;,
+        &#123;NULL, NULL&#125;
+&#125;;
 
-.&#x2F;build.sh linux
+#endif
 
-sudo .&#x2F;bootstrap.sh
-第三步：运行tup。
+tangguo.c
+#include "tangguo.h"
 
-ln tup &#x2F;usr&#x2F;bin
+int sub(lua_State* L) &#12 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/158/" title="Lua动态加载脚本( loadstring )"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua动态加载脚本( loadstring )"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/158/" title="Lua动态加载脚本( loadstring )">Lua动态加载脚本( loadstring )</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
+下面是代码：
+local lua_script = [[
+     local var = 1
+     print(var)
+]]
 
-tup init
 
-sudo tup
+local  script = lua_script 
+local tb=assert(loadstring(script))()
+print(tb[0].text)
+const char* testfunc = "print (add(1.0, 2.0)) print(sub(20.1, 19))";
 
-sudo tup monitor ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/184/" title="Moonscript的常用WEB特性"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Moonscript的常用WEB特性"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/184/" title="Moonscript的常用WEB特性">Moonscript的常用WEB特性</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">下面是一个简单的moonscript脚本，值得注意的地方有几点。
-1.Moonscript如何表示List列比数据结构。
-2.Moonscript的路由样式。
-3.Moonscript如何取得请求URL中的参数变量值。
-4.Moonscript如何遍历List数据结构。（pairs）
-5.Moonscript如何显示HTML。
-6.Moonscript判空语句。
-  1.Moonscript如何表示List列比数据结构。 
-Lua种的Table在Moonscript种，便成了如下的格式。
-– Moonscript
-[code]
-list_items =  {
-“item1”:“test item1”
-“item2”:“test item2”
-“item3”:“test item3”
-}
-[/code]
-–Lua
-[code]
-local list_items = {
-[“item1”] = “test item1”,
-[“item2”] = “test item2”,
-[“item3”] = “test item3”
-}
-[/code]
-值得注意的地方就是，每个表元素之间没有了&quo ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/topic/185/" title="Moonscript的WEB工程配置文件"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Moonscript的WEB工程配置文件"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/185/" title="Moonscript的WEB工程配置文件">Moonscript的WEB工程配置文件</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
-http://www.lua.ren
-Lapis框架默认是没有配置文件，lapis new 创建出来的工程没有对监听的端口和数据库的相关设置，需要在工程目录下创建一个config.moon或是moon.lua配置文件，进行相关的设定。
-首先，看一下如何通过Moonscript设置工程Openresty监听的端口号和数据库配置信息。
-config = require("lapis.config")
-config "development", ->
-  port 8080
-  mysql ->
-    host "127.0.0.1"
-    user "moonscript"
-    password "moonscript"
-    database "moonscript"
-我们来看一下config.moon，被翻译成Lua之后的形态。
-local config = require("lapis.config")
-return config("development", function()
-  port(8080)
-  return mysql(function()
-  ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/186/" title="老衲，这代码不能要！"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="老衲，这代码不能要！"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/186/" title="老衲，这代码不能要！">老衲，这代码不能要！</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">Christ people. This is just sh*t.
-The conflict I get is due to stupid new gcc header file crap. But what
-makes me upset is that the crap is for completely bogus reasons.
-This is the old code in net/ipv6/ip6_output.c:
-mtu -= hlen + sizeof(struct frag_hdr);
-and this is the new “improved” code that uses fancy stuff that wants
-magical built-in compiler support and has silly wrapper functions for
-when it doesn’t exist:
-[code]
-if (overflow_usub(mtu, hlen + sizeof(struct frag_hdr), &amp;mtu) ||
-mtu &lt ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/topic/187/" title="Moonscript的循环结构"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Moonscript的循环结构"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/187/" title="Moonscript的循环结构">Moonscript的循环结构</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">除了使用迭代器，某些应用场合，我们还需要使用固定次数的循环结构，Moonscript提供While风格
-的固定循环控制。
-Moonscript
-class extends lapis.Application
-  [loop: "/loop"]:=>
-    @html ->
-      i =  10
-      while i > 0
-        div text "Moonscript"
-        i -= 1
-我们把纯循环的代码，从Moonscript Lapis框架代码独立出来：
-Moonscript
-i = 100
-my_func = ->
-  i = 10
-  while i > 0
-    print i
-    i -= 1
+int main()
+&#123;
+        lua_State* L = luaL_newstate();
+        luaL_openlibs(L);
+        lua_register(L, "add", add);
+        lua_register(L, "sub", sub);
 
-my_func!
+        if (luaL_dostring(L, testfunc))
+                printf("Failed to invoke.\n");
 
-print i
-Lua
-local i = 100
-local my_func
-my_func = function()
-  i = 10
-  while i > 0 do
-    print(i)
-    i = i - 1
-  end
-end
-my_func()
-return print(i)
-为什么这个？用这种 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/189/" title="Moonscript的Busted单体测试"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Moonscript的Busted单体测试"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/189/" title="Moonscript的Busted单体测试">Moonscript的Busted单体测试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
-Busted是Lua的单体测试工具。
-去官网Github看一下，也支持Moonscript的单体测试。
-moonunit.moon
-describe 'moonscript tests', ->
-  it 'works', ->
-    assert.are.equal true, true
-    return
-  return
-return
-Describe关键字：描述了一组单元测试。
-It关键字： 是对一个Case的描述。
-把Moonscript脚本，翻译成Lua脚本。
-moonc  moonunit.moon
-describe('moonscript tests', function()
-  it('works', function()
-    assert.are.equal(true, true)
-  end)
-end)
-其实，不用有这个翻译过程，因为busted直接可以解析.moon脚本。
-因为这个脚本只有一个Case，所有显示结果如下：
- busted moonunit.moon 
-●
-1 success &#x2F; 0 failures &#x2F; 0 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/topic/188/" title="给Vanilla框架的路由模块加入单体测试"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="给Vanilla框架的路由模块加入单体测试"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/188/" title="给Vanilla框架的路由模块加入单体测试">给Vanilla框架的路由模块加入单体测试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">作者：糖果
-下面是单体测试的代码：
--- perf
-local error = error
-local sgmatch = string.gmatch
+        lua_close(L);
+   ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/topic/157/" title="LUA书"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LUA书"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/157/" title="LUA书">LUA书</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">var jd_union_pid="936552349";var jd_union_euid="";
+var jd_union_pid="936550394";var jd_union_euid="";
+var jd_union_pid="936535377";var jd_union_euid="";
+var jd_union_pid="936553329";var jd_union_euid="";
+var jd_union_pid="936538385";var jd_union_euid="";
+var jd_union_pid="936561407";var jd_union_euid="";
+var jd_union_pid="936538386";var jd_union_euid="";
+var jd_union_pid="936532392";var jd_union_euid="";
+var jd_union_pid="936530400";var jd_union_euid="";
+var jd_union_pid="936530401";var jd_union ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/166/" title="Nginx共享内存"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nginx共享内存"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/166/" title="Nginx共享内存">Nginx共享内存</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">本文由李航老师创建，李航老师的微博账号是：
+http://weibo.com/lidaohang
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/topic/163/" title="Lua快速入门书"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua快速入门书"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/163/" title="Lua快速入门书">Lua快速入门书</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">这是一本lua的入门书籍。
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/167/" title="Openresty 火焰图"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Openresty 火焰图"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/167/" title="Openresty 火焰图">Openresty 火焰图</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">这是群里的小伙伴分享，感谢这位小伙伴，mc!
+信春哥，看文档。
 
--- init Simple and set routes
-local Simple = &#123;&#125;
-
-function Simple:new(request)
-    local instance = &#123;
-        route_name = 'vanilla.v.routes.simple',
-    	request = request
-    &#125;
-
-    setmetatable(instance, &#123;
-        __index = self,
-        __tostring = function(self) return self.route_name end
-        &#125;)
-    return instance
-end
-
-function Simple:match()
-    local uri = self.request.uri
-    l ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/190/" title="Vanilla工程如何设置静态文件夹static"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vanilla工程如何设置静态文件夹static"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/190/" title="Vanilla工程如何设置静态文件夹static">Vanilla工程如何设置静态文件夹static</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">修改/config/nginx.conf
-加入路由设置
-[code]
-location /static/ {
-alias static/;
-}
-[/code]
-完整的配置文件，如下：
-[code]
-pid tmp/-nginx.pid;
- This number should be at maxium the number of CPU on the server
-worker_processes 4;
-events {
-# Number of connections per worker
-worker_connections 4096;
-}
-http {
-# use sendfile
-sendfile on;
-# Va initialization
-&#123;&#123;LUA_PACKAGE_PATH&#125;&#125;
-&#123;&#123;LUA_PACKAGE_CPATH&#125;&#125;
-&#123;&#123;LUA_CODE_CACHE&#125;&#125;
-&#123;&#123;LUA_SHARED_DICT&#125;&#125;
-&#123;&# ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/153/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/#content-inner">153</a><span class="page-number current">154</span><a class="page-number" href="/page/155/#content-inner">155</a><span class="space">&hellip;</span><a class="page-number" href="/page/177/#content-inner">177</a><a class="extend next" rel="next" href="/page/155/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1769</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">195</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">96</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入 Lua Garbage Collector(三)"/></a><div class="content"><a class="title" href="/zl/2016-01-01-99_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E4%B8%89)/" title="深入 Lua Garbage Collector(三)">深入 Lua Garbage Collector(三)</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Evaluating Polynomials"/></a><div class="content"><a class="title" href="/zl/2016-01-01-9_Evaluating%20Polynomials/" title="Evaluating Polynomials">Evaluating Polynomials</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入Lua"/></a><div class="content"><a class="title" href="/zl/2016-01-01-999_%E6%B7%B1%E5%85%A5Lua%20/" title="深入Lua">深入Lua</a><time datetime="2024-04-03T03:47:36.244Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="evaluation and selection · ngc7293's blog"/></a><div class="content"><a class="title" href="/zl/2016-01-01-996_evaluation%20and%20selection%20%C2%B7%20ngc7293's%20blog/" title="evaluation and selection · ngc7293's blog">evaluation and selection · ngc7293's blog</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lua 基础数据类型"/></a><div class="content"><a class="title" href="/zl/2016-01-01-998_lua%20%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="lua 基础数据类型">lua 基础数据类型</a><time datetime="2024-04-03T03:47:36.243Z" title="发表于 2024-04-03 11:47:36">2024-04-03</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+Openresty最佳实践—讲火焰图
+https:&#x2F;&#x2F;github.com&#x2F;moonbingbing&#x2F;nginx-systemtap-toolkit&#x2F;blob&#x2F;master&#x2F;README-CN.markdown#sample-bt   
+LUA火焰图
+https:&#x2F;&#x2F;github.com&#x2F;openresty&#x2F;stapxx#lj-lua-bt
+具体的，可以参考以下文章： http://openresty.com.cn/pra_flame_install.html
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/topic/168/" title="Lua相关资源的下载"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua相关资源的下载"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/168/" title="Lua相关资源的下载">Lua相关资源的下载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">一个WEB框架
+https://github.com/appwilldev/moochine
+压力测试工具
+loadrunner
+淘宝使用的压测工具
+tsung
+压测工具
+tcpcopy
+cosbench分布式压力测度工具
+http://reins.se.sjtu.edu.cn/cosbench/
+https://github.com/intel-cloud/cosbench/releases
+luarocks install --server=http://gin.io/repo gin
+http://keplerproject.github.io/luarocks/releases/
+ftp://ftp.gnu.org/gnu/readline/
+http://ftp.gnu.org/pub/gnu/ncurses/
+lua 5.1源码下载
+apt-get install libncurses5-dev
+lua51.dll(lua5.1.dll)文件下载
+ngx_http_lua_balancer版Openresty下载
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/169/" title="LUA FAQ提问区"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LUA FAQ提问区"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/169/" title="LUA FAQ提问区">LUA FAQ提问区</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">如果您希望Lua FAQ出现一些您感兴趣的课题，请在评论下留言!😃
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/topic/170/" title="为何巴西人能做出 Lua 这种出彩的东西？"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="为何巴西人能做出 Lua 这种出彩的东西？"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/170/" title="为何巴西人能做出 Lua 这种出彩的东西？">为何巴西人能做出 Lua 这种出彩的东西？</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">著作权归作者所有。
+商业转载请联系作者获得授权，非商业转载请注明出处。
+作者：冯东
+链接：http://www.zhihu.com/question/24596411/answer/36516759
+来源：知乎
+再推荐一次这本书：Coding Places: Software Practice in a South American City (Acting with Technology): Yuri Takhteyev: 9780262018074: Amazon.com: Books本答案大部分观点都来自于上面这本书。如果想看短一点，可以看：From Brazil to Wikipedia
+首先要说，Lua 在巴西受到的重视是非常低的。因为巴西没有 Blizzard 这样的公司，没有 Adobe 这样的公司，也没有人有热情维护一个独立的 web server 模块。Lua 初期的资金支持确实来自巴西本土的石油公司，但是从一开始 Lua 就肩负着另一项任务：出 paper。
+当然，出 paper 这个动力会导致什么样的投入，就要看巴西国内的学术氛围。巴西国内的大学分为三个层次，从低 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/topic/171/" title="快讯"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="快讯"></a></div><div class="recent-post-info"><a class="article-title" href="/topic/171/" title="快讯">快讯</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-09-17T14:50:18.000Z" title="发表于 2016-09-17 22:50:18">2016-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/topic/">topic</a></span></div><div class="content">2015/11/26
+人民邮电出版社-异步社区-两本免费电子书 
+众妙之门——国际顶级Web设计师成功法则
+众妙之门——移动Web设计精髓
+过期
+Openresty 2015大会现场直播
+请点击进入观看：
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/153/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/#content-inner">153</a><span class="page-number current">154</span><a class="page-number" href="/page/155/#content-inner">155</a><span class="space">&hellip;</span><a class="page-number" href="/page/179/#content-inner">179</a><a class="extend next" rel="next" href="/page/155/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="author-info__description">AIGC</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1788</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">212</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">104</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：糖果的实验室 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/topic/%E5%9C%A8Mac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E5%B0%86%E9%BB%98%E8%AE%A4%E7%9A%84GCC%E5%88%87%E6%8D%A2%E5%88%B0LLVM%E7%9A%84Clang/" title="在Mac系统上将默认的GCC切换到LLVM的Clang"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在Mac系统上将默认的GCC切换到LLVM的Clang"/></a><div class="content"><a class="title" href="/topic/%E5%9C%A8Mac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E5%B0%86%E9%BB%98%E8%AE%A4%E7%9A%84GCC%E5%88%87%E6%8D%A2%E5%88%B0LLVM%E7%9A%84Clang/" title="在Mac系统上将默认的GCC切换到LLVM的Clang">在Mac系统上将默认的GCC切换到LLVM的Clang</a><time datetime="2024-04-03T06:54:26.659Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/Lazygit%E7%9A%84%E5%AE%89%E8%A3%85/" title="Lazygit的安装"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lazygit的安装"/></a><div class="content"><a class="title" href="/topic/Lazygit%E7%9A%84%E5%AE%89%E8%A3%85/" title="Lazygit的安装">Lazygit的安装</a><time datetime="2024-04-03T06:54:26.658Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/hello-world/" title="Hello World"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/topic/hello-world/" title="Hello World">Hello World</a><time datetime="2024-04-03T06:54:26.658Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85Conda%E7%9A%84%E6%AD%A5%E9%AA%A4/" title="CentOS8下安装Conda的步骤"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CentOS8下安装Conda的步骤"/></a><div class="content"><a class="title" href="/topic/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85Conda%E7%9A%84%E6%AD%A5%E9%AA%A4/" title="CentOS8下安装Conda的步骤">CentOS8下安装Conda的步骤</a><time datetime="2024-04-03T06:54:26.657Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/topic/ChatGPT-lua-unit/" title="用ChatGPT生成Lua单体测试代码"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用ChatGPT生成Lua单体测试代码"/></a><div class="content"><a class="title" href="/topic/ChatGPT-lua-unit/" title="用ChatGPT生成Lua单体测试代码">用ChatGPT生成Lua单体测试代码</a><time datetime="2024-04-03T06:54:26.656Z" title="发表于 2024-04-03 14:54:26">2024-04-03</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             <a class="card-more-btn" href="/categories/" title="查看更多">
     <i class="fas fa-angle-right"></i></a>
             </div>
             <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">117</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AI-gateway/"><span class="card-category-list-name">AI gateway</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Amphion/"><span class="card-category-list-name">Amphion</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AnimateAnyone/"><span class="card-category-list-name">AnimateAnyone</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AudioCraft/"><span class="card-category-list-name">AudioCraft</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Gradio/"><span class="card-category-list-name">Gradio</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Mixtral-8x7B/"><span class="card-category-list-name">Mixtral-8x7B</span><span class="card-category-list-count">1</span></a></li></ul></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/english/" style="font-size: 1.18em; color: #999ca1">english</a> <a href="/tags/gfpgan/" style="font-size: 1.18em; color: #999ca1">gfpgan</a> <a href="/tags/ThreatIngestor/" style="font-size: 1.1em; color: #999">ThreatIngestor</a> <a href="/tags/ATTCK/" style="font-size: 1.18em; color: #999ca1">ATTCK</a> <a href="/tags/ElasticSearch/" style="font-size: 1.1em; color: #999">ElasticSearch</a> <a href="/tags/pdf/" style="font-size: 1.1em; color: #999">pdf</a> <a href="/tags/math/" style="font-size: 1.1em; color: #999">math</a> <a href="/tags/x99/" style="font-size: 1.1em; color: #999">x99</a> <a href="/tags/WhisperSpeech/" style="font-size: 1.1em; color: #999">WhisperSpeech</a> <a href="/tags/%E7%A3%81%E7%9B%98/" style="font-size: 1.1em; color: #999">磁盘</a> <a href="/tags/picgo/" style="font-size: 1.1em; color: #999">picgo</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">无线键盘</a> <a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.1em; color: #999">索引</a> <a href="/tags/%E5%9B%BE%E4%B9%A6/" style="font-size: 1.18em; color: #999ca1">图书</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" style="font-size: 1.18em; color: #999ca1">大数据安全</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 1.1em; color: #999">内存</a> <a href="/tags/%E5%B9%B3%E6%96%B9%E5%92%8C%E5%85%AC%E5%BC%8F/" style="font-size: 1.1em; color: #999">平方和公式</a> <a href="/tags/Shuffle/" style="font-size: 1.18em; color: #999ca1">Shuffle</a> <a href="/tags/RE%E4%B8%8ECT%E6%A1%86%E6%9E%B6/" style="font-size: 1.1em; color: #999">RE与CT框架</a> <a href="/tags/OpenResty/" style="font-size: 1.1em; color: #999">OpenResty</a> <a href="/tags/obsidian/" style="font-size: 1.26em; color: #999fa8">obsidian</a> <a href="/tags/lua-json/" style="font-size: 1.1em; color: #999">lua json</a> <a href="/tags/WavJourney/" style="font-size: 1.1em; color: #999">WavJourney</a> <a href="/tags/nvidia-smi/" style="font-size: 1.1em; color: #999">nvidia-smi</a> <a href="/tags/%E7%A1%AC%E7%9B%98/" style="font-size: 1.1em; color: #999">硬盘</a> <a href="/tags/huaggingface/" style="font-size: 1.1em; color: #999">huaggingface</a> <a href="/tags/LUA/" style="font-size: 1.1em; color: #999">LUA</a> <a href="/tags/Graylog/" style="font-size: 1.34em; color: #99a3b0">Graylog</a> <a href="/tags/conda/" style="font-size: 1.26em; color: #999fa8">conda</a> <a href="/tags/%E7%99%BE%E5%BA%A6AI/" style="font-size: 1.1em; color: #999">百度AI</a> <a href="/tags/iptables/" style="font-size: 1.1em; color: #999">iptables</a> <a href="/tags/soc/" style="font-size: 1.18em; color: #999ca1">soc</a> <a href="/tags/%E5%BF%83%E9%87%8C%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">心里学</a> <a href="/tags/ASCII%E6%94%BB%E5%87%BB/" style="font-size: 1.1em; color: #999">ASCII攻击</a> <a href="/tags/AIGC/" style="font-size: 1.42em; color: #99a6b7">AIGC</a> <a href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">人际关系</a> <a href="/tags/Cortex/" style="font-size: 1.26em; color: #999fa8">Cortex</a> <a href="/tags/dev/" style="font-size: 1.1em; color: #999">dev</a> <a href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.1em; color: #999">图数据库</a> <a href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" style="font-size: 1.1em; color: #999">激活函数</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1135</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">324</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2017/09/"><span class="card-archive-list-date">九月 2017</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/09/"><span class="card-archive-list-date">九月 2016</span><span class="card-archive-list-count">307</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">1769</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-04-03T04:52:05.954Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">117</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AI-gateway/"><span class="card-category-list-name">AI gateway</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Amphion/"><span class="card-category-list-name">Amphion</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AnimateAnyone/"><span class="card-category-list-name">AnimateAnyone</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/AudioCraft/"><span class="card-category-list-name">AudioCraft</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/ChatGLM/"><span class="card-category-list-name">ChatGLM</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Gradio/"><span class="card-category-list-name">Gradio</span><span class="card-category-list-count">1</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/NPM/" style="font-size: 1.1em; color: #999">NPM</a> <a href="/tags/database/" style="font-size: 1.1em; color: #999">database</a> <a href="/tags/OOTDiffusion/" style="font-size: 1.1em; color: #999">OOTDiffusion</a> <a href="/tags/API/" style="font-size: 1.1em; color: #999">API</a> <a href="/tags/Cherry%EF%BC%88%E9%94%AE%E7%9B%98%EF%BC%89/" style="font-size: 1.1em; color: #999">Cherry（键盘）</a> <a href="/tags/OpenResty/" style="font-size: 1.23em; color: #999ea6">OpenResty</a> <a href="/tags/%E7%A3%81%E7%9B%98/" style="font-size: 1.1em; color: #999">磁盘</a> <a href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.1em; color: #999">图数据库</a> <a href="/tags/ASCII%E6%94%BB%E5%87%BB/" style="font-size: 1.1em; color: #999">ASCII攻击</a> <a href="/tags/iptables/" style="font-size: 1.1em; color: #999">iptables</a> <a href="/tags/chromadb/" style="font-size: 1.1em; color: #999">chromadb</a> <a href="/tags/%E4%BA%92%E8%81%94%E7%BD%91/" style="font-size: 1.1em; color: #999">互联网</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E8%BF%90%E8%90%A5/" style="font-size: 1.1em; color: #999">安全数据运营</a> <a href="/tags/CVE/" style="font-size: 1.1em; color: #999">CVE</a> <a href="/tags/python/" style="font-size: 1.23em; color: #999ea6">python</a> <a href="/tags/blog/" style="font-size: 1.1em; color: #999">blog</a> <a href="/tags/cuDNN/" style="font-size: 1.1em; color: #999">cuDNN</a> <a href="/tags/gfpgan/" style="font-size: 1.23em; color: #999ea6">gfpgan</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.23em; color: #999ea6">Web安全</a> <a href="/tags/TTPs/" style="font-size: 1.1em; color: #999">TTPs</a> <a href="/tags/%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98/" style="font-size: 1.23em; color: #999ea6">机械键盘</a> <a href="/tags/lsof/" style="font-size: 1.1em; color: #999">lsof</a> <a href="/tags/WhisperSpeech/" style="font-size: 1.1em; color: #999">WhisperSpeech</a> <a href="/tags/%E5%9B%BE%E4%B9%A6/" style="font-size: 1.23em; color: #999ea6">图书</a> <a href="/tags/django/" style="font-size: 1.1em; color: #999">django</a> <a href="/tags/sora/" style="font-size: 1.37em; color: #99a4b2">sora</a> <a href="/tags/Mac/" style="font-size: 1.1em; color: #999">Mac</a> <a href="/tags/x79/" style="font-size: 1.1em; color: #999">x79</a> <a href="/tags/%E5%B9%B3%E6%96%B9%E5%B7%AE%E5%85%AC%E5%BC%8F/" style="font-size: 1.1em; color: #999">平方差公式</a> <a href="/tags/%E9%9D%99%E7%94%B5%E5%AE%B9%E5%BC%8F%E9%94%AE%E7%9B%98/" style="font-size: 1.1em; color: #999">静电容式键盘</a> <a href="/tags/linux/" style="font-size: 1.5em; color: #99a9bf">linux</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" style="font-size: 1.23em; color: #999ea6">大数据安全</a> <a href="/tags/OpenAI/" style="font-size: 1.1em; color: #999">OpenAI</a> <a href="/tags/riggrep/" style="font-size: 1.1em; color: #999">riggrep</a> <a href="/tags/Quiver/" style="font-size: 1.1em; color: #999">Quiver</a> <a href="/tags/jupyter/" style="font-size: 1.1em; color: #999">jupyter</a> <a href="/tags/%E9%94%AE%E7%9B%98%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%89/" style="font-size: 1.23em; color: #999ea6">键盘（计算机）</a> <a href="/tags/ChatGLM2/" style="font-size: 1.1em; color: #999">ChatGLM2</a> <a href="/tags/ATTCK/" style="font-size: 1.23em; color: #999ea6">ATTCK</a> <a href="/tags/book/" style="font-size: 1.1em; color: #999">book</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1142</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">324</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/12/"><span class="card-archive-list-date">十二月 2019</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/05/"><span class="card-archive-list-date">五月 2019</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">1788</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-04-03T06:58:16.873Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 糖果AIGC实验室 备案:辽ICP备16003836号-5</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><script>(function () {
   var meta = document.createElement('meta');
   meta.content = 'no-referrer';
   meta.name = 'referrer';
