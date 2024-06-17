@@ -26,24 +26,24 @@ var _hmt = _hmt || [];
   
 
   
-  <title>糖果AIGC实验室-LUA</title>
+  <title>Lua基础入门教程</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="AIGC">
+  <meta name="description" content="Lua基础入门教程">
 <meta property="og:type" content="website">
-<meta property="og:title" content="糖果AIGC实验室-LUA">
+<meta property="og:title" content="Lua基础入门教程">
 <meta property="og:url" content="https://lua.ren/page/47/index.html">
-<meta property="og:site_name" content="糖果AIGC实验室-LUA">
-<meta property="og:description" content="AIGC">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:description" content="Lua基础入门教程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
-<meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
+<meta property="article:author" content="Lua基础教程 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="Lua,Lua教程,Lua入门">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="糖果AIGC实验室-LUA" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Lua基础入门教程" type="application/atom+xml">
   
   
     <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
@@ -82,7 +82,7 @@ var _hmt = _hmt || [];
         <div class="dot"></div>
         <div class="dot"></div>
       </div>
-      <div>糖果AIGC实验室-LUA </div>
+      <div>Lua基础入门教程 </div>
     </a>
   </nav>
   <nav id="main-nav">
@@ -139,7 +139,7 @@ var _hmt = _hmt || [];
       <div class="img-dim"></div>
     </div>
     <div class="info">
-      <div class="username">糖果的实验室-LUA教程 </div>
+      <div class="username">LUA教程 </div>
       <div class="dot"></div>
       <div class="subtitle">Lua基础入门教程 </div>
       <div class="link-list">
@@ -345,6 +345,87 @@ var _hmt = _hmt || [];
    
 
 
+<article id="post-zl/2016-01-01-242_Mac下编写lua的C模块" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-242_Mac%E4%B8%8B%E7%BC%96%E5%86%99lua%E7%9A%84C%E6%A8%A1%E5%9D%97/">Mac下编写lua的C模块</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:25.214Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.5k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              &lt;p&gt;最近在研究lua下protobuf的使用，必然就会接触到了云风大侠的pbc，github上下了源码进行编译，发现想要把binding下面的测试代码运行起来，还是有一些坑点的。&lt;/p&gt;
+
+在 /binding/lua53 目录下有 Makefile pbc-lua53.c protobuf.lua test.lua几个主要的文档。
+调用的层次大概是：test.lua会 require protobuf.lua 文档，它是对 pbc-lua53.c 导出的C函数库的一个封装，因此 protobuf.lua是真正 require C函数库的。Makefile 复杂将pbc-lua53.c 编译成动态链接库。
+但是要注意Linux和Mac上编译选项的差异，直接在命令行下 make 会报错:
+Undefined symbols for architecture x86_64:
+  "_luaL_buffinit", referenced from:
+      __pattern_pack in pbc-lua53-57d6af.o
+  "_luaL_chec...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-242_Mac%E4%B8%8B%E7%BC%96%E5%86%99lua%E7%9A%84C%E6%A8%A1%E5%9D%97/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
 <article id="post-zl/2016-01-01-263_Lua学习笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -416,87 +497,6 @@ a or b a为nil返回b,否则返回a
     <a class="right-panel  non-pic  "
       
       href="/zl/2016-01-01-263_Lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-zl/2016-01-01-242_Mac下编写lua的C模块" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/zl/2016-01-01-242_Mac%E4%B8%8B%E7%BC%96%E5%86%99lua%E7%9A%84C%E6%A8%A1%E5%9D%97/">Mac下编写lua的C模块</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-04-03T07:31:25.214Z" itemprop="datePublished">2024-04-03</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/categories/topic/">topic</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            1.5k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              &lt;p&gt;最近在研究lua下protobuf的使用，必然就会接触到了云风大侠的pbc，github上下了源码进行编译，发现想要把binding下面的测试代码运行起来，还是有一些坑点的。&lt;/p&gt;
-
-在 /binding/lua53 目录下有 Makefile pbc-lua53.c protobuf.lua test.lua几个主要的文档。
-调用的层次大概是：test.lua会 require protobuf.lua 文档，它是对 pbc-lua53.c 导出的C函数库的一个封装，因此 protobuf.lua是真正 require C函数库的。Makefile 复杂将pbc-lua53.c 编译成动态链接库。
-但是要注意Linux和Mac上编译选项的差异，直接在命令行下 make 会报错:
-Undefined symbols for architecture x86_64:
-  "_luaL_buffinit", referenced from:
-      __pattern_pack in pbc-lua53-57d6af.o
-  "_luaL_chec...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/zl/2016-01-01-242_Mac%E4%B8%8B%E7%BC%96%E5%86%99lua%E7%9A%84C%E6%A8%A1%E5%9D%97/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -1193,7 +1193,7 @@ unsigned char key[8]=&#123;0x12,0x34,0x56,0x78,0x90...
   
   <div id="footer-info" class="inner">
     
-    &copy; 2024 糖果的实验室-LUA教程<br>
+    &copy; 2024 LUA教程<br>
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
   </div>
 </footer>

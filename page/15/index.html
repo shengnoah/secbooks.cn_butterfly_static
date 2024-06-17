@@ -26,24 +26,24 @@ var _hmt = _hmt || [];
   
 
   
-  <title>糖果AIGC实验室-LUA</title>
+  <title>Lua基础入门教程</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="AIGC">
+  <meta name="description" content="Lua基础入门教程">
 <meta property="og:type" content="website">
-<meta property="og:title" content="糖果AIGC实验室-LUA">
+<meta property="og:title" content="Lua基础入门教程">
 <meta property="og:url" content="https://lua.ren/page/15/index.html">
-<meta property="og:site_name" content="糖果AIGC实验室-LUA">
-<meta property="og:description" content="AIGC">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:description" content="Lua基础入门教程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
-<meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
+<meta property="article:author" content="Lua基础教程 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="Lua,Lua教程,Lua入门">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="糖果AIGC实验室-LUA" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Lua基础入门教程" type="application/atom+xml">
   
   
     <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
@@ -82,7 +82,7 @@ var _hmt = _hmt || [];
         <div class="dot"></div>
         <div class="dot"></div>
       </div>
-      <div>糖果AIGC实验室-LUA </div>
+      <div>Lua基础入门教程 </div>
     </a>
   </nav>
   <nav id="main-nav">
@@ -139,7 +139,7 @@ var _hmt = _hmt || [];
       <div class="img-dim"></div>
     </div>
     <div class="info">
-      <div class="username">糖果的实验室-LUA教程 </div>
+      <div class="username">LUA教程 </div>
       <div class="dot"></div>
       <div class="subtitle">Lua基础入门教程 </div>
       <div class="link-list">
@@ -1198,7 +1198,7 @@ Web 编程
    
 
 
-<article id="blog-lua/2016-06-01-repeat-until" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="blog-lua/2016-06-01-while" class="h-entry article article-type-blog" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -1209,7 +1209,7 @@ Web 编程
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/lua_guide/until/">repeat...until 循环</a>
+        <a class="p-name article-title" href="/lua_guide/while/">Lua的while循环</a>
       </h1>
     
   
@@ -1222,48 +1222,50 @@ Web 编程
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-  <a class="meta-cate-link" href="/categories/lua-guide/">lua_guide</a>
+  <a class="meta-cate-link" href="/categories/lua-guide/">lua_guide</a>><a class="meta-cate-link" href="/categories/lua-guide/LUA%E6%95%99%E7%A8%8B/">LUA教程</a>
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            447 词 
+            457 词 
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/" rel="tag">lua</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LUA%E6%95%99%E7%A8%8B/" rel="tag">LUA教程</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-               repeat…until 循环
-与 for 和 while 循环中先检测条件再决定是否执行循环不同，repeat…until 先执行循环再检测条件判断是否再次执行。
-除了 repeat…until 循环一定会执行一次之外，repeat…until 与 while 循环很相似。
+               Lua while 循环
+在 Lua 语言中，只要 while 循环条件为真，while 语句就会一直执行，直到 while 循环条件为假为止。
  语法
-Lua 语言中 repeat…until 循环的语法如下：
-repeat
+Lua 语言中 while 循环的语法如下所示：
+while(condition)
+do
    statement(s)
-until( condition )
-请注意，条件表达式出现在循环的结束处，所以在检查条件之前，循环体中语句 statement(s) 已经执行了一次。
-如果条件为假，则控制回到循环开始再次执行循环体。这个过程一直重复到条件为真时结束。
+end
+其中，statement(s) 可能只是一条语句也可能是一个语句块。条件可以是任何表达式，若表达式结果为真，则循环继续。
+循环为假时，程序结束 while 循环，执行 while 后面的代码。
  流程图
 
+请注意，while 循环的关键点在于循环可能根本不会执行。当检测条件为假是，程序会跳过 while 循环体而直接执行 while 后的第一条语句。
  示例
---[ 局部变量定义 --]
-local a = 10
---[ 重复循环执行 --]
-repeat
+a=10
+while( a &lt; 20 )
+do
    print("value of a:", a)
-   a = a + 1
-until( a > 15 )
+   a = a+1
+end
 执行上面的代码，将会得到如下的结果：
 value of a:	10
 value of a:	11
 value of a:	12
-v...
+value of a:	13
+value of a:	14
+value of a...
             
           </div>
         
@@ -1275,7 +1277,7 @@ v...
      
     <a class="right-panel  non-pic  "
       
-      href="/lua_guide/until/" 
+      href="/lua_guide/while/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -1313,7 +1315,7 @@ v...
   
   <div id="footer-info" class="inner">
     
-    &copy; 2024 糖果的实验室-LUA教程<br>
+    &copy; 2024 LUA教程<br>
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
   </div>
 </footer>

@@ -26,24 +26,24 @@ var _hmt = _hmt || [];
   
 
   
-  <title>糖果AIGC实验室-LUA</title>
+  <title>Lua基础入门教程</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="AIGC">
+  <meta name="description" content="Lua基础入门教程">
 <meta property="og:type" content="website">
-<meta property="og:title" content="糖果AIGC实验室-LUA">
+<meta property="og:title" content="Lua基础入门教程">
 <meta property="og:url" content="https://lua.ren/page/131/index.html">
-<meta property="og:site_name" content="糖果AIGC实验室-LUA">
-<meta property="og:description" content="AIGC">
+<meta property="og:site_name" content="Lua基础入门教程">
+<meta property="og:description" content="Lua基础入门教程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="糖果AIGC实验室 备案:辽ICP备16003836号-5">
-<meta property="article:tag" content="AIGC,LLM,糖果AIGC实验室">
+<meta property="article:author" content="Lua基础教程 备案:辽ICP备16003836号-5">
+<meta property="article:tag" content="Lua,Lua教程,Lua入门">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="糖果AIGC实验室-LUA" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Lua基础入门教程" type="application/atom+xml">
   
   
     <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
@@ -82,7 +82,7 @@ var _hmt = _hmt || [];
         <div class="dot"></div>
         <div class="dot"></div>
       </div>
-      <div>糖果AIGC实验室-LUA </div>
+      <div>Lua基础入门教程 </div>
     </a>
   </nav>
   <nav id="main-nav">
@@ -139,7 +139,7 @@ var _hmt = _hmt || [];
       <div class="img-dim"></div>
     </div>
     <div class="info">
-      <div class="username">糖果的实验室-LUA教程 </div>
+      <div class="username">LUA教程 </div>
       <div class="dot"></div>
       <div class="subtitle">Lua基础入门教程 </div>
       <div class="link-list">
@@ -451,6 +451,85 @@ function deepcopy( src )
    
 
 
+<article id="post-zl/2016-01-01-74_Lua GC 参数的含义" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/zl/2016-01-01-74_Lua%20GC%20%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89/">Lua GC 参数的含义</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T07:31:24.873Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/topic/">topic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.7k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              lua实现了简单的incremental mark-and-sweep collector，有两个参数会影响GC的工作方式：pause和step multiplier。
+概念
+GC完整地清理一次内存的过程(“full gc”或”cycle”)由”标记内存是否垃圾”(mark)和”释放垃圾内存”(sweep“)两个阶段构成。一个cycle的开销通常比较大，理想情况下应该分割成多个开销较小的step。lua的GC引入一个变量debt,用以分割step，单位和内存是等比例的。如果debt是无穷大，一个step就会完成一个cycle的工作。debt&lt;=0时，GC停止工作。分配内存时debt会等比例的增大。在mark过程中，每标记一个正在使用的object，就会根据这个object的大小从debt减去一个等比例的数值。在sweep过程中，每释放一个object，就会根据这个object的大小从debt减去一个等比例的数值。在一个cycle完成后，GC会根据当前使用的内存和pause的值计算一个新的debt。
+数量关系
+声明以下变量：
+
+  TotalMemory: Lua占用的内存。...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/zl/2016-01-01-74_Lua%20GC%20%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
 <article id="post-zl/2016-01-01-748_深入 Lua Garbage Collector(四)" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -513,85 +592,6 @@ lua 的 GC 分为八个阶段。GC 处于哪个阶段（代码中被称为状态
     <a class="right-panel  non-pic  "
       
       href="/zl/2016-01-01-748_%E6%B7%B1%E5%85%A5%20Lua%20Garbage%20Collector(%E5%9B%9B)/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-zl/2016-01-01-74_Lua GC 参数的含义" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/zl/2016-01-01-74_Lua%20GC%20%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89/">Lua GC 参数的含义</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-04-03T07:31:24.873Z" itemprop="datePublished">2024-04-03</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/categories/topic/">topic</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            1.7k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua%E6%96%87%E7%AB%A0/" rel="tag">lua文章</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              lua实现了简单的incremental mark-and-sweep collector，有两个参数会影响GC的工作方式：pause和step multiplier。
-概念
-GC完整地清理一次内存的过程(“full gc”或”cycle”)由”标记内存是否垃圾”(mark)和”释放垃圾内存”(sweep“)两个阶段构成。一个cycle的开销通常比较大，理想情况下应该分割成多个开销较小的step。lua的GC引入一个变量debt,用以分割step，单位和内存是等比例的。如果debt是无穷大，一个step就会完成一个cycle的工作。debt&lt;=0时，GC停止工作。分配内存时debt会等比例的增大。在mark过程中，每标记一个正在使用的object，就会根据这个object的大小从debt减去一个等比例的数值。在sweep过程中，每释放一个object，就会根据这个object的大小从debt减去一个等比例的数值。在一个cycle完成后，GC会根据当前使用的内存和pause的值计算一个新的debt。
-数量关系
-声明以下变量：
-
-  TotalMemory: Lua占用的内存。...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/zl/2016-01-01-74_Lua%20GC%20%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -1132,7 +1132,7 @@ getmetatable(table)：此方法用于获取表的元表对象。
   
   <div id="footer-info" class="inner">
     
-    &copy; 2024 糖果的实验室-LUA教程<br>
+    &copy; 2024 LUA教程<br>
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
   </div>
 </footer>
