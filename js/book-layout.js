@@ -98,7 +98,11 @@
 
     // 响应式显示切换按钮 + 隐藏顶部 nav
     function checkWidth() {
-      const isMobile = window.innerWidth <= 768;
+      // 真机上可能出现：横屏 / “请求桌面站点” / 平板等导致 innerWidth > 768
+      // 因此以“触控设备”优先，其次再用宽度兜底。
+      const isCoarsePointer = window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      const isSmallScreen = window.innerWidth <= 1024;
+      const isMobile = isCoarsePointer || isSmallScreen;
 
       if (isMobile) {
         toggleBtn.style.display = 'block';
@@ -133,6 +137,7 @@
     toggleBtn.addEventListener('click', toggleButterflySidebarMenu);
 
     window.addEventListener('resize', checkWidth);
+    window.addEventListener('orientationchange', checkWidth);
     checkWidth();
   }
 
