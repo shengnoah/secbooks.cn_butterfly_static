@@ -1,0 +1,448 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>目录</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  #menus .menus_items {
+    display: none;
+  }
+  
+  #toggle-menu {
+    display: block;
+  }
+  
+  #nav {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* 调整book容器顶部间距 */
+.book-container {
+  margin-top: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-brain"></i><span> Obsidian教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-home"></i><span> 教程首页</span></a></li><li><a class="site-page child" href="/obsidian/menu.html"><i class="fa-fw fas fa-list"></i><span> 完整目录</span></a></li><li><a class="site-page child" href="/obsidian/01-intro.html"><i class="fa-fw fas fa-book-open"></i><span> Obsidian基础</span></a></li><li><a class="site-page child" href="/obsidian/31-text-generator-setup.html"><i class="fa-fw fas fa-robot"></i><span> AI插件详解</span></a></li><li><a class="site-page child" href="/obsidian/47-personal-knowledge-base.html"><i class="fa-fw fas fa-project-diagram"></i><span> 实战应用</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘布局</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><div class="book-brand"><a href="/openresty-waf/home.html"><h2>OpenResty WAF教程</h2></a></div><div class="book-menu"><div class="menu-nav"><h3>📚 教程目录</h3><ul><li><a href="/openresty-waf/01-intro.html">1.1 WAF与OpenResty简介</a></li><li><a href="/openresty-waf/02-architecture.html">1.2 架构与阶段</a></li><li><a href="/openresty-waf/03-planning.html">1.3 环境规划</a></li><li><a href="/openresty-waf/04-openresty-install.html">2.1 OpenResty安装</a></li><li><a href="/openresty-waf/07-request-inspection.html">3.1 请求解析</a></li><li><a href="/openresty-waf/10-rate-limit.html">4.1 限流与速率控制</a></li></ul><a class="view-all" href="/openresty-waf/menu.html">查看完整目录 →</a></div></div><div class="book-meta"><h3>🏷️ 标签（2）</h3><ul><li><a href="/tags/OpenResty/">OpenResty</a></li><li><a href="/tags/WAF/">WAF</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（3）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/OpenResty/">OpenResty</a></li><li><a href="/categories/WAF/">WAF</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">目录</h1><div class="book-body"><h1 id="openresty-waf-完全教程-目录"><a class="markdownIt-Anchor" href="#openresty-waf-完全教程-目录"></a> OpenResty WAF 完全教程 - 目录</h1>
+<h2 id="第一部分基础与部署"><a class="markdownIt-Anchor" href="#第一部分基础与部署"></a> 第一部分：基础与部署</h2>
+<h3 id="1-基础概念"><a class="markdownIt-Anchor" href="#1-基础概念"></a> 1. 基础概念</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="01-intro.html">1.1 WAF 与 OpenResty 简介</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="02-architecture.html">1.2 OpenResty 架构与阶段</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="03-planning.html">1.3 环境规划与部署拓扑</a> ✅</p>
+</li>
+</ul>
+<h3 id="2-安装与入门"><a class="markdownIt-Anchor" href="#2-安装与入门"></a> 2. 安装与入门</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="04-openresty-install.html">2.1 OpenResty 安装</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="05-lua-basics.html">2.2 Lua 基础与开发环境</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="06-nginx-phases.html">2.3 Nginx 请求处理阶段</a> ✅</p>
+</li>
+</ul>
+<h2 id="第二部分检测与拦截"><a class="markdownIt-Anchor" href="#第二部分检测与拦截"></a> 第二部分：检测与拦截</h2>
+<h3 id="3-请求解析与检测"><a class="markdownIt-Anchor" href="#3-请求解析与检测"></a> 3. 请求解析与检测</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="07-request-inspection.html">3.1 请求结构解析</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="08-rule-engine.html">3.2 规则引擎设计</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="09-ip-reputation.html">3.3 IP 信誉与威胁情报</a> ✅</p>
+</li>
+</ul>
+<h3 id="4-策略与控制"><a class="markdownIt-Anchor" href="#4-策略与控制"></a> 4. 策略与控制</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="10-rate-limit.html">4.1 限流与速率控制</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="11-cc-protection.html">4.2 CC 防护与挑战</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="12-bot-management.html">4.3 Bot 管理</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="13-upload-defense.html">4.4 文件上传防护</a> ✅</p>
+</li>
+</ul>
+<h3 id="5-日志与审计"><a class="markdownIt-Anchor" href="#5-日志与审计"></a> 5. 日志与审计</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="14-logging.html">5.1 安全日志规范</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="15-whitelist.html">5.2 白名单策略</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="16-blacklist.html">5.3 黑名单策略</a> ✅</p>
+</li>
+</ul>
+<h2 id="第三部分漏洞防护"><a class="markdownIt-Anchor" href="#第三部分漏洞防护"></a> 第三部分：漏洞防护</h2>
+<h3 id="6-规则与特征"><a class="markdownIt-Anchor" href="#6-规则与特征"></a> 6. 规则与特征</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="17-signature.html">6.1 签名规则管理</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="18-geo-control.html">6.2 Geo/区域访问控制</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="19-hot-reload.html">6.3 配置热更新</a> ✅</p>
+</li>
+</ul>
+<h3 id="7-性能与可用性"><a class="markdownIt-Anchor" href="#7-性能与可用性"></a> 7. 性能与可用性</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="20-performance.html">7.1 性能优化</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="21-redis-store.html">7.2 Redis 与共享存储</a> ✅</p>
+</li>
+</ul>
+<h3 id="8-常见漏洞"><a class="markdownIt-Anchor" href="#8-常见漏洞"></a> 8. 常见漏洞</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="22-sqli.html">8.1 SQL 注入防护</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="23-xss.html">8.2 XSS 防护</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="24-csrf.html">8.3 CSRF 防护</a> ✅</p>
+</li>
+</ul>
+<h3 id="9-api-防护与运维"><a class="markdownIt-Anchor" href="#9-api-防护与运维"></a> 9. API 防护与运维</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="25-api-protection.html">9.1 API 防护策略</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="26-monitoring.html">9.2 监控与告警</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="27-deployment.html">9.3 上线与灰度发布</a> ✅</p>
+</li>
+</ul>
+<hr />
+<p><a href="home.html">返回首页</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>顶部导航</h3><ul><li class="group-title">1. 基础概念</li><ul class="submenu"><li><a href="/openresty-waf/01-intro.html">1.1 WAF 与 OpenResty 简介</a></li><li><a href="/openresty-waf/02-architecture.html">1.2 OpenResty 架构与阶段</a></li><li><a href="/openresty-waf/03-planning.html">1.3 环境规划与部署拓扑</a></li></ul><li class="group-title">2. 安装与入门</li><ul class="submenu"><li><a href="/openresty-waf/04-openresty-install.html">2.1 OpenResty 安装</a></li><li><a href="/openresty-waf/05-lua-basics.html">2.2 Lua 基础与开发环境</a></li><li><a href="/openresty-waf/06-nginx-phases.html">2.3 Nginx 请求处理阶段</a></li></ul><li class="group-title">3. 请求解析与检测</li><ul class="submenu"><li><a href="/openresty-waf/07-request-inspection.html">3.1 请求结构解析</a></li><li><a href="/openresty-waf/08-rule-engine.html">3.2 规则引擎设计</a></li><li><a href="/openresty-waf/09-ip-reputation.html">3.3 IP 信誉与威胁情报</a></li></ul><li class="group-title">4. 策略与控制</li><ul class="submenu"><li><a href="/openresty-waf/10-rate-limit.html">4.1 限流与速率控制</a></li><li><a href="/openresty-waf/11-cc-protection.html">4.2 CC 防护与挑战</a></li><li><a href="/openresty-waf/12-bot-management.html">4.3 Bot 管理</a></li><li><a href="/openresty-waf/13-upload-defense.html">4.4 文件上传防护</a></li></ul><li class="group-title">5. 日志与审计</li><ul class="submenu"><li><a href="/openresty-waf/14-logging.html">5.1 安全日志规范</a></li><li><a href="/openresty-waf/15-whitelist.html">5.2 白名单策略</a></li><li><a href="/openresty-waf/16-blacklist.html">5.3 黑名单策略</a></li></ul><li class="group-title">6. 规则与特征</li><ul class="submenu"><li><a href="/openresty-waf/17-signature.html">6.1 签名规则管理</a></li><li><a href="/openresty-waf/18-geo-control.html">6.2 Geo/区域访问控制</a></li><li><a href="/openresty-waf/19-hot-reload.html">6.3 配置热更新</a></li></ul><li class="group-title">7. 性能与可用性</li><ul class="submenu"><li><a href="/openresty-waf/20-performance.html">7.1 性能优化</a></li><li><a href="/openresty-waf/21-redis-store.html">7.2 Redis 与共享存储</a></li></ul><li class="group-title">8. 常见漏洞</li><ul class="submenu"><li><a href="/openresty-waf/22-sqli.html">8.1 SQL 注入防护</a></li><li><a href="/openresty-waf/23-xss.html">8.2 XSS 防护</a></li><li><a href="/openresty-waf/24-csrf.html">8.3 CSRF 防护</a></li></ul><li class="group-title">9. API 防护与运维</li><ul class="submenu"><li><a href="/openresty-waf/25-api-protection.html">9.1 API 防护策略</a></li><li><a href="/openresty-waf/26-monitoring.html">9.2 监控与告警</a></li><li><a href="/openresty-waf/27-deployment.html">9.3 上线与灰度发布</a></li></ul></ul></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>计算题高频模型：公式、步骤、典型题完整解答</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  #menus .menus_items {
+    display: none;
+  }
+  
+  #toggle-menu {
+    display: block;
+  }
+  
+  #nav {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* 调整book容器顶部间距 */
+.book-container {
+  margin-top: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-brain"></i><span> Obsidian教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-home"></i><span> 教程首页</span></a></li><li><a class="site-page child" href="/obsidian/menu.html"><i class="fa-fw fas fa-list"></i><span> 完整目录</span></a></li><li><a class="site-page child" href="/obsidian/01-intro.html"><i class="fa-fw fas fa-book-open"></i><span> Obsidian基础</span></a></li><li><a class="site-page child" href="/obsidian/31-text-generator-setup.html"><i class="fa-fw fas fa-robot"></i><span> AI插件详解</span></a></li><li><a class="site-page child" href="/obsidian/47-personal-knowledge-base.html"><i class="fa-fw fas fa-project-diagram"></i><span> 实战应用</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘布局</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><div class="book-brand"><a href="/ruankao-gaoxiang/home.html"><h2>软考高项教程</h2></a></div><div class="book-menu"><div class="menu-nav"><h3>📚 教程目录</h3><ul><li><a href="/ruankao-gaoxiang/01-exam-overview.html">1.1 考试与题型速览</a></li><li><a href="/ruankao-gaoxiang/02-calculation-problems.html">2.1 计算题高频模型</a></li><li><a href="/ruankao-gaoxiang/03-essays-10-areas.html">3.1 十大管理作文</a></li></ul><a class="view-all" href="/ruankao-gaoxiang/menu.html">查看完整目录 →</a></div></div><div class="book-meta"><h3>🏷️ 标签（5）</h3><ul><li><a href="/tags/%E8%BD%AF%E8%80%83%E9%AB%98%E9%A1%B9/">软考高项</a></li><li><a href="/tags/%E8%AE%A1%E7%AE%97%E9%A2%98/">计算题</a></li><li><a href="/tags/%E6%8C%A3%E5%80%BC%E7%AE%A1%E7%90%86/">挣值管理</a></li><li><a href="/tags/%E7%BD%91%E7%BB%9C%E8%AE%A1%E5%88%92/">网络计划</a></li><li><a href="/tags/%E6%A6%82%E7%8E%87/">概率</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（3）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/%E8%BD%AF%E8%80%83/">软考</a></li><li><a href="/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">项目管理</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">计算题高频模型：公式、步骤、典型题完整解答</h1><div class="book-body"><h1 id="02-计算题高频模型公式-步骤-典型题完整解答"><a class="markdownIt-Anchor" href="#02-计算题高频模型公式-步骤-典型题完整解答"></a> 02. 计算题高频模型：公式、步骤、典型题完整解答</h1>
+<blockquote>
+<p>目标：把高频计算模型做成“见题就套”的固定流程。</p>
+</blockquote>
+<h2 id="0-计算题通用写法强烈建议每题按此落笔"><a class="markdownIt-Anchor" href="#0-计算题通用写法强烈建议每题按此落笔"></a> 0. 计算题通用写法（强烈建议每题按此落笔）</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>已知</strong>：摘录数据（带单位）</p>
+</li>
+<li class="lvl-2">
+<p><strong>求</strong>：题目问的量</p>
+</li>
+<li class="lvl-2">
+<p><strong>公式/方法</strong>：写核心公式</p>
+</li>
+<li class="lvl-2">
+<p><strong>计算过程</strong>：代入 → 中间量 → 结论</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：写“过程”能拿步骤分；只写结果风险很大。</p>
+</blockquote>
+<hr />
+<h2 id="1-挣值管理evm高频中的高频"><a class="markdownIt-Anchor" href="#1-挣值管理evm高频中的高频"></a> 1. 挣值管理（EVM）——高频中的高频</h2>
+<h3 id="11-必背量与公式"><a class="markdownIt-Anchor" href="#11-必背量与公式"></a> 1.1 必背量与公式</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>PV（计划价值）</strong>：计划到某时点应该完成的工作量对应预算</p>
+</li>
+<li class="lvl-2">
+<p><strong>EV（挣值）</strong>：实际完成的工作量对应预算</p>
+</li>
+<li class="lvl-2">
+<p><strong>AC（实际成本）</strong>：实际花了多少钱</p>
+</li>
+</ul>
+<p>派生量：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>SV = EV - PV</strong>（进度偏差）</p>
+</li>
+<li class="lvl-2">
+<p><strong>CV = EV - AC</strong>（成本偏差）</p>
+</li>
+<li class="lvl-2">
+<p><strong>SPI = EV / PV</strong>（进度绩效指数）</p>
+</li>
+<li class="lvl-2">
+<p><strong>CPI = EV / AC</strong>（成本绩效指数）</p>
+</li>
+</ul>
+<p>完工估算（常考两类）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>EAC = BAC / CPI</strong>（假设未来绩效与当前一致）</p>
+</li>
+<li class="lvl-2">
+<p><strong>ETC = EAC - AC</strong>（完工尚需估算）</p>
+</li>
+</ul>
+<blockquote>
+<p>经验：题目没特别说明时，优先用 <code>EAC = BAC / CPI</code>。</p>
+</blockquote>
+<h3 id="12-典型题完整解答"><a class="markdownIt-Anchor" href="#12-典型题完整解答"></a> 1.2 典型题（完整解答）</h3>
+<p><strong>题目</strong>：某项目总预算 <strong>BAC=100 万元</strong>。到第 6 个月时：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>计划完成 60% 工作量（即 PV 对应 60%）</p>
+</li>
+<li class="lvl-2">
+<p>实际完成 50% 工作量（即 EV 对应 50%）</p>
+</li>
+<li class="lvl-2">
+<p>实际已花费 AC=55 万元</p>
+</li>
+</ul>
+<p>求：SV、CV、SPI、CPI，并判断进度/成本状况；按当前绩效估算 EAC。</p>
+<p><strong>解答</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>已知</strong>：BAC=100 万；PV=60%×100=60 万；EV=50%×100=50 万；AC=55 万</p>
+</li>
+<li class="lvl-3">
+<p><strong>求</strong>：SV、CV、SPI、CPI、EAC</p>
+</li>
+<li class="lvl-3">
+<p><strong>公式</strong>：</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>SV=EV-PV</p>
+</li>
+<li class="lvl-2">
+<p>CV=EV-AC</p>
+</li>
+<li class="lvl-2">
+<p>SPI=EV/PV</p>
+</li>
+<li class="lvl-2">
+<p>CPI=EV/AC</p>
+</li>
+<li class="lvl-2">
+<p>EAC=BAC/CPI</p>
+</li>
+</ul>
+<ol start="4">
+<li class="lvl-3">
+<p><strong>计算</strong>：</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>SV=50-60=-10（万元）→ <strong>进度落后</strong></p>
+</li>
+<li class="lvl-2">
+<p>CV=50-55=-5（万元）→ <strong>成本超支</strong></p>
+</li>
+<li class="lvl-2">
+<p>SPI=50/60=0.8333→ <strong>小于 1，进度绩效差</strong></p>
+</li>
+<li class="lvl-2">
+<p>CPI=50/55=0.9091→ <strong>小于 1，成本绩效差</strong></p>
+</li>
+<li class="lvl-2">
+<p>EAC=100/0.9091≈110（万元）→ <strong>预计超支约 10 万</strong></p>
+</li>
+</ul>
+<p><strong>结论</strong>：进度落后、成本超支；若不纠偏，完工估算约 110 万。</p>
+<h3 id="13-易错点"><a class="markdownIt-Anchor" href="#13-易错点"></a> 1.3 易错点</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>“完成比例”用于 EV，“计划比例”用于 PV。</p>
+</li>
+<li class="lvl-2">
+<p>SPI/CPI <strong>小于 1</strong> 表示绩效差（落后/超支）。</p>
+</li>
+<li class="lvl-2">
+<p>单位保持一致（万元/元）并写清楚。</p>
+</li>
+</ul>
+<hr />
+<h2 id="2-网络计划cpm-关键路径工期与时差"><a class="markdownIt-Anchor" href="#2-网络计划cpm-关键路径工期与时差"></a> 2. 网络计划（CPM / 关键路径）——工期与时差</h2>
+<h3 id="21-核心概念"><a class="markdownIt-Anchor" href="#21-核心概念"></a> 2.1 核心概念</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>ES/EF</strong>：最早开始/最早完成（正推）</p>
+</li>
+<li class="lvl-2">
+<p><strong>LS/LF</strong>：最迟开始/最迟完成（逆推）</p>
+</li>
+<li class="lvl-2">
+<p><strong>总时差 TF = LS - ES = LF - EF</strong></p>
+</li>
+<li class="lvl-2">
+<p><strong>关键路径</strong>：TF=0 的活动链；其长度=项目工期</p>
+</li>
+</ul>
+<h3 id="22-典型题aon活动在节点给持续时间与前置关系"><a class="markdownIt-Anchor" href="#22-典型题aon活动在节点给持续时间与前置关系"></a> 2.2 典型题（AON，活动在节点，给持续时间与前置关系）</h3>
+<p><strong>题目</strong>：活动如下（单位：天）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>A：3（无前置）</p>
+</li>
+<li class="lvl-2">
+<p>B：4（前置 A）</p>
+</li>
+<li class="lvl-2">
+<p>C：2（前置 A）</p>
+</li>
+<li class="lvl-2">
+<p>D：5（前置 B、C）</p>
+</li>
+<li class="lvl-2">
+<p>E：2（前置 D）</p>
+</li>
+</ul>
+<p>求：项目工期、关键路径；并求活动 C 的总时差 TF。</p>
+<p><strong>解答</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>正推（ES/EF）</strong>：</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>A：ES=0，EF=3</p>
+</li>
+<li class="lvl-2">
+<p>B：ES=3，EF=7</p>
+</li>
+<li class="lvl-2">
+<p>C：ES=3，EF=5</p>
+</li>
+<li class="lvl-2">
+<p>D：ES=max(EF_B,EF_C)=max(7,5)=7，EF=12</p>
+</li>
+<li class="lvl-2">
+<p>E：ES=12，EF=14</p>
+</li>
+</ul>
+<p>→ <strong>项目工期=14 天</strong></p>
+<ol start="2">
+<li class="lvl-3">
+<p><strong>逆推（LS/LF）</strong>（从终点 E 开始）：</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>E：LF=14，LS=12</p>
+</li>
+<li class="lvl-2">
+<p>D：LF=LS_E=12，LS=7</p>
+</li>
+<li class="lvl-2">
+<p>B：LF=LS_D=7，LS=3</p>
+</li>
+<li class="lvl-2">
+<p>C：LF=LS_D=7，LS=5</p>
+</li>
+<li class="lvl-2">
+<p>A：LF=min(LS_B,LS_C)=min(3,5)=3，LS=0</p>
+</li>
+</ul>
+<ol start="3">
+<li class="lvl-3">
+<p><strong>关键路径</strong>：TF=0 的活动</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>A：TF=LS-ES=0-0=0</p>
+</li>
+<li class="lvl-2">
+<p>B：TF=3-3=0</p>
+</li>
+<li class="lvl-2">
+<p>D：TF=7-7=0</p>
+</li>
+<li class="lvl-2">
+<p>E：TF=12-12=0</p>
+</li>
+</ul>
+<p>→ <strong>关键路径：A-B-D-E</strong></p>
+<ol start="4">
+<li class="lvl-3">
+<p><strong>活动 C 的总时差</strong>：TF_C=LS-ES=5-3=2（天）</p>
+</li>
+</ol>
+<h3 id="23-易错点"><a class="markdownIt-Anchor" href="#23-易错点"></a> 2.3 易错点</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>合并点（多前置）取 <code>max(EF)</code>；分叉点（多后继）逆推取 <code>min(LS)</code>。</p>
+</li>
+<li class="lvl-2">
+<p>题目若从 1 天开始计，也可用 0 开始计；关键是保持一致。</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-三点估算pert期望工期与方差"><a class="markdownIt-Anchor" href="#3-三点估算pert期望工期与方差"></a> 3. 三点估算（PERT）——期望工期与方差</h2>
+<h3 id="31-公式"><a class="markdownIt-Anchor" href="#31-公式"></a> 3.1 公式</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>期望：<code>TE = (O + 4M + P) / 6</code></p>
+</li>
+<li class="lvl-2">
+<p>标准差：<code>σ = (P - O) / 6</code></p>
+</li>
+<li class="lvl-2">
+<p>方差：<code>σ²</code></p>
+</li>
+</ul>
+<h3 id="32-典型题完整解答"><a class="markdownIt-Anchor" href="#32-典型题完整解答"></a> 3.2 典型题（完整解答）</h3>
+<p><strong>题目</strong>：某任务乐观 O=6 天，最可能 M=9 天，悲观 P=18 天。求期望工期 TE 与标准差 σ。</p>
+<p><strong>解答</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>TE=(6+4×9+18)/6=(6+36+18)/6=60/6=10（天）</p>
+</li>
+<li class="lvl-2">
+<p>σ=(18-6)/6=12/6=2（天）</p>
+</li>
+</ul>
+<hr />
+<h2 id="4-风险概率与期望货币值emv会算也要会选"><a class="markdownIt-Anchor" href="#4-风险概率与期望货币值emv会算也要会选"></a> 4. 风险概率与期望货币值（EMV）——会算也要会选</h2>
+<h3 id="41-公式"><a class="markdownIt-Anchor" href="#41-公式"></a> 4.1 公式</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>EMV = Σ(概率 × 影响)</strong></p>
+</li>
+</ul>
+<h3 id="42-典型题决策树口径"><a class="markdownIt-Anchor" href="#42-典型题决策树口径"></a> 4.2 典型题（决策树口径）</h3>
+<p><strong>题目</strong>：方案 X 成本 20 万，成功概率 0.7，成功收益 50 万；失败概率 0.3，失败损失 10 万（损失视为负收益）。求 EMV。</p>
+<p><strong>解答</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>成功净收益=50-20=30</p>
+</li>
+<li class="lvl-2">
+<p>失败净收益= -10-20 = -30</p>
+</li>
+<li class="lvl-2">
+<p>EMV=0.7×30 + 0.3×(-30)=21-9=12（万元）</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：题目如果把“成本”已经包含在收益里，就不要重复减。</p>
+</blockquote>
+<hr />
+<h2 id="5-质量管理常考缺陷密度-抽样-控制界限概念-简算"><a class="markdownIt-Anchor" href="#5-质量管理常考缺陷密度-抽样-控制界限概念-简算"></a> 5. 质量管理常考：缺陷密度 / 抽样 / 控制界限（概念 + 简算）</h2>
+<p>这类题通常计算不难，但容易在“定义”上扣分。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>缺陷密度</strong>：缺陷数 / 规模（如 KLOC、功能点）</p>
+</li>
+<li class="lvl-2">
+<p><strong>控制界限</strong>（概念题多）：通常为均值 ±3σ（题目给均值与 σ 时可代入）</p>
+</li>
+</ul>
+<hr />
+<h2 id="6-成本-收益类投资回收期-roi-npv-irr高频"><a class="markdownIt-Anchor" href="#6-成本-收益类投资回收期-roi-npv-irr高频"></a> 6. 成本-收益类：投资回收期 / ROI / NPV / IRR（高频）</h2>
+<h3 id="61-roi"><a class="markdownIt-Anchor" href="#61-roi"></a> 6.1 ROI</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>ROI = (收益 - 成本) / 成本</code></p>
+</li>
+</ul>
+<h3 id="62-npv净现值"><a class="markdownIt-Anchor" href="#62-npv净现值"></a> 6.2 NPV（净现值）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>NPV = Σ(现金流_t / (1+i)^t) - 初始投资</code></p>
+</li>
+</ul>
+<blockquote>
+<p>考场技巧：把折现系数写出来，分步相加，最后再减初始投资。</p>
+</blockquote>
+<h3 id="63-典型题npv-完整解答"><a class="markdownIt-Anchor" href="#63-典型题npv-完整解答"></a> 6.3 典型题（NPV 完整解答）</h3>
+<p><strong>题目</strong>：某项目初始投资 100 万，未来 3 年每年年末净现金流分别为 40 万、50 万、60 万。折现率 i=10%。求 NPV（保留 2 位小数）。</p>
+<p><strong>解答</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>年 1 折现：40/(1.1)^1=36.36</p>
+</li>
+<li class="lvl-2">
+<p>年 2 折现：50/(1.1)^2=41.32</p>
+</li>
+<li class="lvl-2">
+<p>年 3 折现：60/(1.1)^3=45.08</p>
+</li>
+<li class="lvl-2">
+<p>现值合计=36.36+41.32+45.08=122.76</p>
+</li>
+<li class="lvl-2">
+<p>NPV=122.76-100=22.76（万元）</p>
+</li>
+</ul>
+<p>结论：NPV&gt;0，财务上可行。</p>
+<hr />
+<h2 id="7-计算题高频清单速记"><a class="markdownIt-Anchor" href="#7-计算题高频清单速记"></a> 7. 计算题“高频清单”速记</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>挣值：PV/EV/AC → SV/CV/SPI/CPI → EAC/ETC</p>
+</li>
+<li class="lvl-2">
+<p>网络计划：正推/逆推 → TF → 关键路径</p>
+</li>
+<li class="lvl-2">
+<p>PERT：TE、σ</p>
+</li>
+<li class="lvl-2">
+<p>风险：EMV、决策树</p>
+</li>
+<li class="lvl-2">
+<p>财务：ROI、回收期、NPV/IRR</p>
+</li>
+</ul>
+<blockquote>
+<p>下一章开始写作：看 <a href="source/ruankao-gaoxiang/03-essays-10-areas.md:1"><code>source/ruankao-gaoxiang/03-essays-10-areas.md</code></a></p>
+</blockquote>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>顶部导航</h3><ul><li class="group-title">1. 考试速览</li><ul class="submenu"><li><a href="/ruankao-gaoxiang/01-exam-overview.html">1.1 考试与题型速览：高项怎么考、怎么拿分</a></li></ul><li class="group-title">2. 计算题高频模型</li><ul class="submenu"><li><a href="/ruankao-gaoxiang/02-calculation-problems.html">2.1 计算题高频模型：公式、步骤、典型题完整解答</a></li></ul><li class="group-title">3. 十大管理作文</li><ul class="submenu"><li><a href="/ruankao-gaoxiang/03-essays-10-areas.html">3.1 十大管理作文：通用模板 + 10 篇案例例文</a></li></ul></ul></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

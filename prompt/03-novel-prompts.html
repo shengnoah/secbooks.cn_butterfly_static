@@ -1,0 +1,548 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>小说提示词：不同风格的模板与示例</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  #menus .menus_items {
+    display: none;
+  }
+  
+  #toggle-menu {
+    display: block;
+  }
+  
+  #nav {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* 调整book容器顶部间距 */
+.book-container {
+  margin-top: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-brain"></i><span> Obsidian教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-home"></i><span> 教程首页</span></a></li><li><a class="site-page child" href="/obsidian/menu.html"><i class="fa-fw fas fa-list"></i><span> 完整目录</span></a></li><li><a class="site-page child" href="/obsidian/01-intro.html"><i class="fa-fw fas fa-book-open"></i><span> Obsidian基础</span></a></li><li><a class="site-page child" href="/obsidian/31-text-generator-setup.html"><i class="fa-fw fas fa-robot"></i><span> AI插件详解</span></a></li><li><a class="site-page child" href="/obsidian/47-personal-knowledge-base.html"><i class="fa-fw fas fa-project-diagram"></i><span> 实战应用</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘布局</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><div class="book-brand"><a href="/prompt/home.html"><h2>AI提示词教程</h2></a></div><div class="book-menu"><div class="menu-nav"><h3>📚 教程目录</h3><ul><li><a href="/prompt/01-prompt-basics.html">1.1 提示词基础</a></li><li><a href="/prompt/02-text-prompts.html">2.1 文字类提示词</a></li><li><a href="/prompt/03-novel-prompts.html">3.1 小说提示词</a></li><li><a href="/prompt/04-image-prompts.html">4.1 图片提示词</a></li><li><a href="/prompt/05-video-prompts.html">5.1 视频提示词</a></li><li><a href="/prompt/06-workflow.html">6.1 实战工作流</a></li></ul><a class="view-all" href="/prompt/menu.html">查看完整目录 →</a></div></div><div class="book-meta"><h3>🏷️ 标签（3）</h3><ul><li><a href="/tags/Prompt/">Prompt</a></li><li><a href="/tags/%E5%B0%8F%E8%AF%B4/">小说</a></li><li><a href="/tags/%E5%86%99%E4%BD%9C/">写作</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（2）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/AIGC/">AIGC</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">小说提示词：不同风格的模板与示例</h1><div class="book-body"><h1 id="03-小说提示词不同风格的模板与示例"><a class="markdownIt-Anchor" href="#03-小说提示词不同风格的模板与示例"></a> 03. 小说提示词：不同风格的模板与示例</h1>
+<p>写小说的关键不是“让模型自由发挥”，而是：<strong>让模型在一个清晰的叙事框架里发挥</strong>。</p>
+<p>本章给出：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>1 套小说通用模板（可复用）</p>
+</li>
+<li class="lvl-2">
+<p>6+ 种常见风格小说提示词写法与实例（悬疑/科幻/奇幻/言情/武侠/历史/治愈日常）</p>
+</li>
+<li class="lvl-2">
+<p>“续写/改写/扩写/对齐风格”的补写模板</p>
+</li>
+</ul>
+<hr />
+<h2 id="1-小说提示词通用模板强烈推荐先用这个"><a class="markdownIt-Anchor" href="#1-小说提示词通用模板强烈推荐先用这个"></a> 1. 小说提示词通用模板（强烈推荐先用这个）</h2>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是一位&#123;类型&#125;小说的畅销作者，同时也是严谨的故事结构师。
+
+【目标】写一个 &#123;字数&#125; 字短篇小说。
+【题材/风格】&#123;悬疑/科幻/奇幻/言情/武侠/历史/治愈&#125;。
+【受众】&#123;如：18-35，网文读者；或：青少年&#125;。
+【叙事】&#123;第一/第三人称&#125;，&#123;过去/现在时&#125;。
+
+【必须元素】
+- 主角：&#123;姓名/身份/缺陷/欲望&#125;
+- 对手/阻力：&#123;人/制度/自然/内心&#125;
+- 核心冲突：&#123;一句话&#125;
+- 场景：&#123;地点/时代/氛围&#125;
+- 关键道具/线索：&#123;物品&#125;
+
+【结构约束】采用三幕式：
+1) 开端：&#123;触发事件&#125;（不超过 20%）
+2) 发展：升级与误导（不超过 60%）
+3) 结尾：反转/解决 + 余韵（不超过 20%）
+
+【风格约束】
+- 语言：&#123;简洁/华丽/冷峻/轻松&#125;
+- 节奏：&#123;快/中/慢&#125;
+- 禁止：套路化口号、过度形容词堆砌
+
+【输出格式】
+1) 标题
+2) 人物表（角色-动机-秘密）
+3) 大纲（按三幕）
+4) 正文
+5) 结尾“作者后记”：用 3 条解释你埋了哪些伏笔<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>提示：小说最容易“散”，所以强烈建议保留“<strong>大纲</strong>”与“<strong>作者后记自检</strong>”。</p>
+<hr />
+<h2 id="2-悬疑推理提示词写法"><a class="markdownIt-Anchor" href="#2-悬疑推理提示词写法"></a> 2. 悬疑推理：提示词写法</h2>
+<p>悬疑的本质是：<strong>信息控制</strong>。你要告诉模型：哪些信息不能提前说，伏笔怎么埋。</p>
+<h3 id="悬疑模板可直接复制"><a class="markdownIt-Anchor" href="#悬疑模板可直接复制"></a> 悬疑模板（可直接复制）</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是推理小说作者。
+写一个 2000 字悬疑短篇。
+
+要求：
+- 采用“有限视角”（读者只知道主角看到的）
+- 至少埋 3 个伏笔（前文出现但意义不明）
+- 至少 2 次误导（合理但最终被推翻）
+- 真相必须由“证据链”推出，不允许天降设定
+- 结尾 200 字内揭示关键证据
+
+设定：
+- 场景：&#123;如：暴雨夜的民宿&#125;
+- 受害者：&#123;身份&#125;
+- 侦查者：&#123;身份/缺陷&#125;
+- 关键道具：&#123;物品&#125;
+
+输出：标题 + 正文 + 伏笔清单（伏笔→出现位置→最终解释）。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="悬疑示例变量填充"><a class="markdownIt-Anchor" href="#悬疑示例变量填充"></a> 悬疑示例（变量填充）</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">场景：暴雨夜的山间民宿
+受害者：民宿老板
+侦查者：来采访的记者（嗅觉过敏、讨厌密闭空间）
+关键道具：一把旧雨伞<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="3-科幻提示词写法"><a class="markdownIt-Anchor" href="#3-科幻提示词写法"></a> 3. 科幻：提示词写法</h2>
+<p>科幻的本质是：<strong>一个“新规则”引发的连锁反应</strong>。</p>
+<h3 id="科幻模板"><a class="markdownIt-Anchor" href="#科幻模板"></a> 科幻模板</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是硬科幻作者。
+写一篇 2500 字短篇。
+
+核心设定（只允许 1 个“新规则”）：
+- &#123;例如：人类可以把记忆上传到公共云，但每次上传会丢失一种情绪&#125;
+
+要求：
+- 先用 5 句话解释新规则（像科普一样清晰）
+- 主线围绕“新规则带来的伦理/社会后果”
+- 至少出现 1 个具体技术细节（但不要堆术语）
+- 结尾给一个“代价/选择”而非完美胜利
+
+输出：标题 + 设定说明 + 正文。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="4-奇幻提示词写法"><a class="markdownIt-Anchor" href="#4-奇幻提示词写法"></a> 4. 奇幻：提示词写法</h2>
+<p>奇幻的本质是：<strong>世界观一致性 + 代价机制</strong>。</p>
+<h3 id="奇幻模板"><a class="markdownIt-Anchor" href="#奇幻模板"></a> 奇幻模板</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是奇幻小说作者。
+写一个 2200 字短篇。
+
+世界观：
+- 魔法来源：&#123;例如：与“名字”签订契约&#125;
+- 代价机制：&#123;例如：每施法一次会忘记一个亲人&#125;
+- 地理/势力：&#123;王国/学院/教会/边境&#125;
+
+剧情要求：
+- 主角一开始“缺少某种能力/身份”
+- 中段获得力量，但代价开始显现
+- 结尾必须让主角在“力量 vs 重要之物”之间选择
+
+输出：标题 + 世界观规则（5条）+ 正文 + 代价清单。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="5-言情提示词写法"><a class="markdownIt-Anchor" href="#5-言情提示词写法"></a> 5. 言情：提示词写法</h2>
+<p>言情的本质是：<strong>关系变化曲线</strong>，而不是事件堆叠。</p>
+<h3 id="言情模板"><a class="markdownIt-Anchor" href="#言情模板"></a> 言情模板</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是都市言情作者。
+写一个 1800 字短篇。
+
+人物：
+- 女主：&#123;性格/困境/底线&#125;
+- 男主：&#123;性格/秘密/创伤&#125;
+
+关系曲线（必须出现）：
+1) 初遇：误会或立场冲突
+2) 靠近：一次共同解决问题
+3) 拉开：秘密/底线触发矛盾
+4) 和解：用“行动”而不是“道歉台词”证明改变
+
+风格：克制、对话自然，避免腻味形容词。
+输出：标题 + 正文 + 关系节点清单。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="6-武侠提示词写法"><a class="markdownIt-Anchor" href="#6-武侠提示词写法"></a> 6. 武侠：提示词写法</h2>
+<p>武侠的本质是：<strong>江湖规矩 + 身份束缚 + 一招一式的气</strong>。</p>
+<h3 id="武侠模板"><a class="markdownIt-Anchor" href="#武侠模板"></a> 武侠模板</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是武侠小说作者。
+写一个 2300 字短篇。
+
+要素：
+- 门派/势力：&#123;如：青城/锦衣/盐帮&#125;
+- 江湖规矩：&#123;如：不杀降者/欠债必还/以信立身&#125;
+- 主角：&#123;小人物/弃徒/镖师&#125;
+- 关键武学：&#123;一招&#125;（写出招式细节与代价）
+
+剧情：
+- 开头：一桩“不得不管”的事
+- 中段：规矩与生存冲突
+- 结尾：主角用行动守住或打破规矩，并承担后果
+
+语言：有古韵但不文绉绉。
+输出：标题 + 正文。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="7-历史偏真实提示词写法"><a class="markdownIt-Anchor" href="#7-历史偏真实提示词写法"></a> 7. 历史（偏真实）：提示词写法</h2>
+<p>历史向的重点是：<strong>时代氛围 + 事实边界</strong>。</p>
+<h3 id="历史模板强调不胡编"><a class="markdownIt-Anchor" href="#历史模板强调不胡编"></a> 历史模板（强调不胡编）</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是历史小说作者。
+写一个 2000 字历史短篇。
+
+时代：&#123;朝代/年份/地点&#125;
+人物：
+- 主角：虚构小人物（不得冒充真实历史名人）
+- 真实人物：最多出现 1 位，且只作为背景出现
+
+要求：
+- 不编造重大历史事件的因果
+- 生活细节要贴近时代（衣食住行、称谓、货币）
+- 结尾给“史实说明”：列出 5 条你遵守的史实边界
+
+输出：标题 + 正文 + 史实说明。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="8-治愈日常提示词写法"><a class="markdownIt-Anchor" href="#8-治愈日常提示词写法"></a> 8. 治愈日常：提示词写法</h2>
+<p>治愈的本质是：<strong>小冲突 + 小解决 + 情绪回落</strong>。</p>
+<h3 id="治愈模板"><a class="markdownIt-Anchor" href="#治愈模板"></a> 治愈模板</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是治愈系日常作者。
+写一个 1500 字短篇。
+
+设定：
+- 场景：&#123;咖啡馆/便利店/旧书店/雨天公交&#125;
+- 主角：&#123;一个小烦恼&#125;
+- 遇到的人/物：&#123;带来微小改变的对象&#125;
+
+要求：
+- 冲突必须很小、很真实
+- 用动作与细节表达情绪，不要说教
+- 结尾留余韵：一句话让读者心里一松
+
+输出：标题 + 正文。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="9-续写扩写对齐风格补写模板"><a class="markdownIt-Anchor" href="#9-续写扩写对齐风格补写模板"></a> 9. 续写/扩写/对齐风格：补写模板</h2>
+<p>你在实践中最常用的“补写法”是：给模型一段已有文本，让它延续并保持一致。</p>
+<h3 id="91-续写保持文风与设定"><a class="markdownIt-Anchor" href="#91-续写保持文风与设定"></a> 9.1 续写（保持文风与设定）</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是小说续写编辑。
+请续写下面文本，要求：
+- 保持原文视角、时态、节奏、语言风格
+- 不引入新的世界观大设定
+- 将当前冲突推进到“一个小高潮”，并以悬念收尾
+- 续写长度：800 字
+
+原文：
+"""
+&#123;粘贴原文&#125;
+"""
+
+输出：仅续写内容。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="92-扩写把一段变成一章"><a class="markdownIt-Anchor" href="#92-扩写把一段变成一章"></a> 9.2 扩写（把一段变成一章）</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是网文编辑。
+请把下面这段扩写为一章（2500 字），要求：
+- 新增：环境描写 1 段、对话 8~12 轮、动作细节 2 处
+- 不改变事件结果
+
+原文：
+"""
+&#123;段落&#125;
+"""
+
+输出：章节标题 + 正文。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<p>下一章：图片提示词模板与不同风格案例，见 <a href="source/prompt/04-image-prompts.md:1"><code>source/prompt/04-image-prompts.md</code></a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>顶部导航</h3><ul><li class="group-title">1. 入门</li><ul class="submenu"><li><a href="/prompt/01-prompt-basics.html">1.1 提示词基础：把需求说清楚</a></li></ul><li class="group-title">2. 文字类提示词</li><ul class="submenu"><li><a href="/prompt/02-text-prompts.html">2.1 文字类提示词：通用模板与“小学生表达”</a></li></ul><li class="group-title">3. 小说提示词</li><ul class="submenu"><li><a href="/prompt/03-novel-prompts.html">3.1 小说提示词：不同风格的模板与示例</a></li></ul><li class="group-title">4. 图片提示词</li><ul class="submenu"><li><a href="/prompt/04-image-prompts.html">4.1 图片提示词：通用模板、负面词与风格案例</a></li></ul><li class="group-title">5. 视频提示词</li><ul class="submenu"><li><a href="/prompt/05-video-prompts.html">5.1 视频提示词：故事模板、分镜补写法与实战</a></li></ul><li class="group-title">6. 实战工作流</li><ul class="submenu"><li><a href="/prompt/06-workflow.html">6.1 实战工作流：迭代、评审、复用与提示词库</a></li></ul></ul></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,943 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>1.2 安装与配置</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  #menus .menus_items {
+    display: none;
+  }
+  
+  #toggle-menu {
+    display: block;
+  }
+  
+  #nav {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* 调整book容器顶部间距 */
+.book-container {
+  margin-top: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-brain"></i><span> Obsidian教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-home"></i><span> 教程首页</span></a></li><li><a class="site-page child" href="/obsidian/menu.html"><i class="fa-fw fas fa-list"></i><span> 完整目录</span></a></li><li><a class="site-page child" href="/obsidian/01-intro.html"><i class="fa-fw fas fa-book-open"></i><span> Obsidian基础</span></a></li><li><a class="site-page child" href="/obsidian/31-text-generator-setup.html"><i class="fa-fw fas fa-robot"></i><span> AI插件详解</span></a></li><li><a class="site-page child" href="/obsidian/47-personal-knowledge-base.html"><i class="fa-fw fas fa-project-diagram"></i><span> 实战应用</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘布局</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><div class="book-brand"><a href="/obsidian/home.html"><h2>Obsidian教程</h2></a></div><div class="book-menu"><div class="menu-nav"><h3>📚 教程目录</h3><ul><li><a href="/obsidian/01-intro.html">1.1 Obsidian简介</a></li><li><a href="/obsidian/02-installation.html">1.2 安装与配置</a></li><li><a href="/obsidian/03-interface.html">1.3 界面介绍</a></li><li><a href="/obsidian/31-text-generator-setup.html">AI: Text Generator</a></li><li><a href="/obsidian/36-smart-connections.html">AI: Smart Connections</a></li><li><a href="/obsidian/39-copilot.html">AI: Copilot</a></li></ul><a class="view-all" href="/obsidian/menu.html">查看完整目录 →</a></div></div><div class="book-meta"><h3>🏷️ 标签（1）</h3><ul><li><a href="/tags/Obsidian/">Obsidian</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（2）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/Obsidian/">Obsidian</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">1.2 安装与配置</h1><div class="book-body"><h1 id="12-安装与配置"><a class="markdownIt-Anchor" href="#12-安装与配置"></a> 1.2 安装与配置</h1>
+<h2 id="系统要求"><a class="markdownIt-Anchor" href="#系统要求"></a> 系统要求</h2>
+<p>Obsidian支持多个平台，系统要求如下：</p>
+<h3 id="windows"><a class="markdownIt-Anchor" href="#windows"></a> Windows</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Windows 10或更高版本</p>
+</li>
+<li class="lvl-2">
+<p>64位系统</p>
+</li>
+<li class="lvl-2">
+<p>至少4GB内存（推荐8GB）</p>
+</li>
+</ul>
+<h3 id="macos"><a class="markdownIt-Anchor" href="#macos"></a> macOS</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>macOS 10.13或更高版本</p>
+</li>
+<li class="lvl-2">
+<p>Intel或Apple Silicon处理器</p>
+</li>
+<li class="lvl-2">
+<p>至少4GB内存（推荐8GB）</p>
+</li>
+</ul>
+<h3 id="linux"><a class="markdownIt-Anchor" href="#linux"></a> Linux</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>64位系统</p>
+</li>
+<li class="lvl-2">
+<p>支持AppImage、Snap或Flatpak</p>
+</li>
+<li class="lvl-2">
+<p>至少4GB内存（推荐8GB）</p>
+</li>
+</ul>
+<h3 id="移动端"><a class="markdownIt-Anchor" href="#移动端"></a> 移动端</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>iOS</strong>: iOS 14或更高版本</p>
+</li>
+<li class="lvl-2">
+<p><strong>Android</strong>: Android 5.0或更高版本</p>
+</li>
+</ul>
+<h2 id="下载obsidian"><a class="markdownIt-Anchor" href="#下载obsidian"></a> 下载Obsidian</h2>
+<h3 id="官方网站下载"><a class="markdownIt-Anchor" href="#官方网站下载"></a> 官方网站下载</h3>
+<p>访问Obsidian官方网站下载：</p>
+<p>🌐 <strong>官方网站</strong>: <a target="_blank" rel="noopener" href="https://obsidian.md">https://obsidian.md</a></p>
+<ol>
+<li class="lvl-3">
+<p>点击&quot;Download&quot;按钮</p>
+</li>
+<li class="lvl-3">
+<p>选择你的操作系统</p>
+</li>
+<li class="lvl-3">
+<p>下载安装包</p>
+</li>
+</ol>
+<h3 id="各平台下载链接"><a class="markdownIt-Anchor" href="#各平台下载链接"></a> 各平台下载链接</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>Windows</strong>: 下载<code>.exe</code>安装程序</p>
+</li>
+<li class="lvl-2">
+<p><strong>macOS</strong>: 下载<code>.dmg</code>安装包</p>
+</li>
+<li class="lvl-2">
+<p><strong>Linux</strong>: 下载<code>.AppImage</code>或使用包管理器</p>
+</li>
+<li class="lvl-2">
+<p><strong>iOS</strong>: 在App Store搜索&quot;Obsidian&quot;</p>
+</li>
+<li class="lvl-2">
+<p><strong>Android</strong>: 在Google Play搜索&quot;Obsidian&quot;</p>
+</li>
+</ul>
+<h2 id="安装步骤"><a class="markdownIt-Anchor" href="#安装步骤"></a> 安装步骤</h2>
+<h3 id="windows安装"><a class="markdownIt-Anchor" href="#windows安装"></a> Windows安装</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>运行安装程序</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">双击下载的<code>.exe</code>文件</li>
+<li class="lvl-5">如果出现安全提示，点击&quot;运行&quot;</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>选择安装位置</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">默认安装到 C:\Users\用户名\AppData\Local\Obsidian</li>
+<li class="lvl-5">可以自定义安装路径</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>完成安装</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">等待安装完成</li>
+<li class="lvl-5">选择是否创建桌面快捷方式</li>
+</ul>
+</li>
+</ol>
+<h3 id="macos安装"><a class="markdownIt-Anchor" href="#macos安装"></a> macOS安装</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>打开DMG文件</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">双击下载的<code>.dmg</code>文件</li>
+<li class="lvl-5">等待挂载完成</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>拖动到Applications</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">将Obsidian图标拖动到Applications文件夹</li>
+<li class="lvl-5">等待复制完成</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>首次运行</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">从Applications文件夹打开Obsidian</li>
+<li class="lvl-5">如果出现安全提示，在系统偏好设置中允许运行</li>
+</ul>
+</li>
+</ol>
+<h3 id="linux安装"><a class="markdownIt-Anchor" href="#linux安装"></a> Linux安装</h3>
+<h4 id="使用appimage"><a class="markdownIt-Anchor" href="#使用appimage"></a> 使用AppImage</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下载AppImage文件</span>
+<span class="token function">wget</span> https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage
+
+<span class="token comment"># 添加执行权限</span>
+<span class="token function">chmod</span> +x Obsidian-1.5.3.AppImage
+
+<span class="token comment"># 运行Obsidian</span>
+./Obsidian-1.5.3.AppImage<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="使用snap"><a class="markdownIt-Anchor" href="#使用snap"></a> 使用Snap</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> snap <span class="token function">install</span> obsidian <span class="token parameter variable">--classic</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="使用flatpak"><a class="markdownIt-Anchor" href="#使用flatpak"></a> 使用Flatpak</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">flatpak <span class="token function">install</span> flathub md.obsidian.Obsidian<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="移动端安装"><a class="markdownIt-Anchor" href="#移动端安装"></a> 移动端安装</h3>
+<h4 id="ios安装"><a class="markdownIt-Anchor" href="#ios安装"></a> iOS安装</h4>
+<ol>
+<li class="lvl-3">
+<p>打开App Store</p>
+</li>
+<li class="lvl-3">
+<p>搜索&quot;Obsidian&quot;</p>
+</li>
+<li class="lvl-3">
+<p>点击&quot;获取&quot;下载安装</p>
+</li>
+<li class="lvl-3">
+<p>等待安装完成</p>
+</li>
+</ol>
+<h4 id="android安装"><a class="markdownIt-Anchor" href="#android安装"></a> Android安装</h4>
+<ol>
+<li class="lvl-3">
+<p>打开Google Play商店</p>
+</li>
+<li class="lvl-3">
+<p>搜索&quot;Obsidian&quot;</p>
+</li>
+<li class="lvl-3">
+<p>点击&quot;安装&quot;</p>
+</li>
+<li class="lvl-3">
+<p>等待安装完成</p>
+</li>
+</ol>
+<h2 id="首次启动"><a class="markdownIt-Anchor" href="#首次启动"></a> 首次启动</h2>
+<h3 id="创建或打开仓库"><a class="markdownIt-Anchor" href="#创建或打开仓库"></a> 创建或打开仓库</h3>
+<p>首次启动Obsidian时，你需要选择：</p>
+<h4 id="选项1创建新仓库"><a class="markdownIt-Anchor" href="#选项1创建新仓库"></a> 选项1：创建新仓库</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>点击&quot;Create new vault&quot;</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>设置仓库名称</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">输入一个有意义的名称，如&quot;我的知识库&quot;</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>选择存储位置</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">选择一个容易找到的位置</li>
+<li class="lvl-5">推荐：<code>Documents/Obsidian</code></li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>点击&quot;Create&quot;</strong></p>
+</li>
+</ol>
+<h4 id="选项2打开现有文件夹"><a class="markdownIt-Anchor" href="#选项2打开现有文件夹"></a> 选项2：打开现有文件夹</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>点击&quot;Open folder as vault&quot;</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>选择包含Markdown文件的文件夹</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>点击&quot;Open&quot;</strong></p>
+</li>
+</ol>
+<h4 id="选项3打开帮助文档"><a class="markdownIt-Anchor" href="#选项3打开帮助文档"></a> 选项3：打开帮助文档</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>点击&quot;Open help vault&quot;</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>浏览Obsidian官方帮助文档</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>学习基础功能</strong></p>
+</li>
+</ol>
+<h3 id="仓库vault的概念"><a class="markdownIt-Anchor" href="#仓库vault的概念"></a> 仓库（Vault）的概念</h3>
+<p>**仓库（Vault）**是Obsidian中的核心概念：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>📁 一个仓库就是一个文件夹</p>
+</li>
+<li class="lvl-2">
+<p>📝 包含你的所有笔记和配置</p>
+</li>
+<li class="lvl-2">
+<p>🔧 每个仓库有独立的设置和插件</p>
+</li>
+<li class="lvl-2">
+<p>💡 可以创建多个仓库用于不同目的</p>
+</li>
+</ul>
+<h2 id="基础配置"><a class="markdownIt-Anchor" href="#基础配置"></a> 基础配置</h2>
+<h3 id="语言设置"><a class="markdownIt-Anchor" href="#语言设置"></a> 语言设置</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>打开设置</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">点击左下角的齿轮图标⚙️</li>
+<li class="lvl-5">或使用快捷键<code>Ctrl/Cmd + ,</code></li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>选择语言</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">在左侧菜单选择&quot;About&quot;</li>
+<li class="lvl-5">找到&quot;Language&quot;选项</li>
+<li class="lvl-5">选择&quot;简体中文&quot;</li>
+<li class="lvl-5">重启Obsidian生效</li>
+</ul>
+</li>
+</ol>
+<h3 id="外观设置"><a class="markdownIt-Anchor" href="#外观设置"></a> 外观设置</h3>
+<h4 id="选择主题"><a class="markdownIt-Anchor" href="#选择主题"></a> 选择主题</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>打开设置 → 外观</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>选择基础主题</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">Light（浅色）</li>
+<li class="lvl-5">Dark（深色）</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>浏览社区主题</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">点击&quot;管理&quot;按钮</li>
+<li class="lvl-5">浏览和安装社区主题</li>
+</ul>
+</li>
+</ol>
+<h4 id="调整字体"><a class="markdownIt-Anchor" href="#调整字体"></a> 调整字体</h4>
+<pre class="line-numbers language-none"><code class="language-none">设置 → 外观 → 字体<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>文本字体</strong>: 正文使用的字体</p>
+</li>
+<li class="lvl-2">
+<p><strong>等宽字体</strong>: 代码块使用的字体</p>
+</li>
+<li class="lvl-2">
+<p><strong>字体大小</strong>: 调整文本大小</p>
+</li>
+</ul>
+<h3 id="编辑器设置"><a class="markdownIt-Anchor" href="#编辑器设置"></a> 编辑器设置</h3>
+<h4 id="基础编辑器设置"><a class="markdownIt-Anchor" href="#基础编辑器设置"></a> 基础编辑器设置</h4>
+<pre class="line-numbers language-none"><code class="language-none">设置 → 编辑器<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>推荐配置：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>✅ <strong>显示行号</strong>: 方便定位</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>自动配对括号</strong>: 提高效率</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>智能缩进</strong>: 自动缩进</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>Vim模式</strong>: 如果你熟悉Vim（可选）</p>
+</li>
+</ul>
+<h4 id="文件与链接"><a class="markdownIt-Anchor" href="#文件与链接"></a> 文件与链接</h4>
+<pre class="line-numbers language-none"><code class="language-none">设置 → 文件与链接<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>推荐配置：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>新建笔记的存放位置</strong>: 选择默认文件夹</p>
+</li>
+<li class="lvl-2">
+<p><strong>新链接格式</strong>: 推荐&quot;相对路径&quot;</p>
+</li>
+<li class="lvl-2">
+<p><strong>使用Wiki链接</strong>: 开启（Obsidian特色）</p>
+</li>
+<li class="lvl-2">
+<p><strong>自动更新内部链接</strong>: 开启</p>
+</li>
+</ul>
+<h3 id="核心插件配置"><a class="markdownIt-Anchor" href="#核心插件配置"></a> 核心插件配置</h3>
+<p>Obsidian内置了多个核心插件：</p>
+<h4 id="启用推荐的核心插件"><a class="markdownIt-Anchor" href="#启用推荐的核心插件"></a> 启用推荐的核心插件</h4>
+<pre class="line-numbers language-none"><code class="language-none">设置 → 核心插件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>推荐启用：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>✅ <strong>文件恢复</strong>: 自动备份，防止数据丢失</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>快速切换</strong>: 快速打开文件</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>命令面板</strong>: 快速执行命令</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>模板</strong>: 使用模板创建笔记</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>日记</strong>: 每日笔记功能</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>标签面板</strong>: 管理标签</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>大纲</strong>: 显示文档大纲</p>
+</li>
+<li class="lvl-2">
+<p>✅ <strong>反向链接</strong>: 显示反向链接</p>
+</li>
+</ul>
+<h2 id="文件夹结构建议"><a class="markdownIt-Anchor" href="#文件夹结构建议"></a> 文件夹结构建议</h2>
+<h3 id="推荐的文件夹结构"><a class="markdownIt-Anchor" href="#推荐的文件夹结构"></a> 推荐的文件夹结构</h3>
+<pre class="line-numbers language-none"><code class="language-none">我的知识库&#x2F;
+├── 📁 00-收件箱&#x2F;          # 临时笔记和想法
+├── 📁 01-项目&#x2F;            # 项目相关笔记
+├── 📁 02-领域&#x2F;            # 按领域分类的笔记
+│   ├── 编程&#x2F;
+│   ├── 设计&#x2F;
+│   └── 写作&#x2F;
+├── 📁 03-资源&#x2F;            # 参考资料
+│   ├── 书籍&#x2F;
+│   ├── 文章&#x2F;
+│   └── 课程&#x2F;
+├── 📁 04-归档&#x2F;            # 已完成的内容
+├── 📁 附件&#x2F;               # 图片、PDF等附件
+└── 📁 模板&#x2F;               # 笔记模板<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建文件夹"><a class="markdownIt-Anchor" href="#创建文件夹"></a> 创建文件夹</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>在文件浏览器中右键</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>选择&quot;新建文件夹&quot;</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>输入文件夹名称</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>按Enter确认</strong></p>
+</li>
+</ol>
+<h2 id="同步配置"><a class="markdownIt-Anchor" href="#同步配置"></a> 同步配置</h2>
+<h3 id="官方同步服务"><a class="markdownIt-Anchor" href="#官方同步服务"></a> 官方同步服务</h3>
+<p><strong>Obsidian Sync</strong> ($10/月)</p>
+<p>优点：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>✅ 端到端加密</p>
+</li>
+<li class="lvl-2">
+<p>✅ 版本历史</p>
+</li>
+<li class="lvl-2">
+<p>✅ 自动同步</p>
+</li>
+<li class="lvl-2">
+<p>✅ 支持所有平台</p>
+</li>
+</ul>
+<p>设置方法：</p>
+<ol>
+<li class="lvl-3">
+<p>订阅Obsidian Sync</p>
+</li>
+<li class="lvl-3">
+<p>设置 → Sync</p>
+</li>
+<li class="lvl-3">
+<p>登录账号</p>
+</li>
+<li class="lvl-3">
+<p>选择要同步的仓库</p>
+</li>
+</ol>
+<h3 id="第三方同步方案"><a class="markdownIt-Anchor" href="#第三方同步方案"></a> 第三方同步方案</h3>
+<h4 id="icloudmacosios"><a class="markdownIt-Anchor" href="#icloudmacosios"></a> iCloud（macOS/iOS）</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>将仓库放在iCloud Drive</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">~&#x2F;Library&#x2F;Mobile Documents&#x2F;iCloud~md~obsidian&#x2F;Documents&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p><strong>在iOS设备上打开同一仓库</strong></p>
+</li>
+</ol>
+<h4 id="dropbox"><a class="markdownIt-Anchor" href="#dropbox"></a> Dropbox</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>将仓库放在Dropbox文件夹</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>在其他设备上打开同一仓库</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>注意</strong>: 避免同时编辑同一文件</p>
+</li>
+</ol>
+<h4 id="git高级用户"><a class="markdownIt-Anchor" href="#git高级用户"></a> Git（高级用户）</h4>
+<p>使用Git进行版本控制和同步：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 初始化Git仓库</span>
+<span class="token builtin class-name">cd</span> /path/to/vault
+<span class="token function">git</span> init
+
+<span class="token comment"># 添加.gitignore</span>
+<span class="token builtin class-name">echo</span> <span class="token string">".obsidian/workspace*"</span> <span class="token operator">>></span> .gitignore
+<span class="token builtin class-name">echo</span> <span class="token string">".obsidian/cache"</span> <span class="token operator">>></span> .gitignore
+
+<span class="token comment"># 提交更改</span>
+<span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"Initial commit"</span>
+
+<span class="token comment"># 推送到远程仓库</span>
+<span class="token function">git</span> remote <span class="token function">add</span> origin <span class="token operator">&lt;</span>your-repo-url<span class="token operator">></span>
+<span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>推荐插件：<strong>Obsidian Git</strong></p>
+<h4 id="syncthing开源方案"><a class="markdownIt-Anchor" href="#syncthing开源方案"></a> Syncthing（开源方案）</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>安装Syncthing</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>配置同步文件夹</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>在多个设备间同步</strong></p>
+</li>
+</ol>
+<p>优点：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>✅ 完全免费</p>
+</li>
+<li class="lvl-2">
+<p>✅ 开源</p>
+</li>
+<li class="lvl-2">
+<p>✅ 点对点同步</p>
+</li>
+<li class="lvl-2">
+<p>✅ 跨平台</p>
+</li>
+</ul>
+<h2 id="备份策略"><a class="markdownIt-Anchor" href="#备份策略"></a> 备份策略</h2>
+<h3 id="自动备份"><a class="markdownIt-Anchor" href="#自动备份"></a> 自动备份</h3>
+<h4 id="使用文件恢复插件"><a class="markdownIt-Anchor" href="#使用文件恢复插件"></a> 使用文件恢复插件</h4>
+<pre class="line-numbers language-none"><code class="language-none">设置 → 核心插件 → 文件恢复<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>自动保存文件历史</p>
+</li>
+<li class="lvl-2">
+<p>可以恢复到之前的版本</p>
+</li>
+<li class="lvl-2">
+<p>保留时间可配置</p>
+</li>
+</ul>
+<h4 id="使用第三方备份工具"><a class="markdownIt-Anchor" href="#使用第三方备份工具"></a> 使用第三方备份工具</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>Windows</strong>: Windows备份</p>
+</li>
+<li class="lvl-2">
+<p><strong>macOS</strong>: Time Machine</p>
+</li>
+<li class="lvl-2">
+<p><strong>Linux</strong>: rsync、Timeshift</p>
+</li>
+</ul>
+<h3 id="手动备份"><a class="markdownIt-Anchor" href="#手动备份"></a> 手动备份</h3>
+<p>定期备份整个仓库：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 复制整个仓库</span>
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> /path/to/vault /path/to/backup/vault-<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span> +%Y%m%d<span class="token variable">)</span></span>
+
+<span class="token comment"># 或使用rsync</span>
+<span class="token function">rsync</span> <span class="token parameter variable">-av</span> /path/to/vault/ /path/to/backup/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="性能优化"><a class="markdownIt-Anchor" href="#性能优化"></a> 性能优化</h2>
+<h3 id="大型仓库优化"><a class="markdownIt-Anchor" href="#大型仓库优化"></a> 大型仓库优化</h3>
+<p>如果你的仓库包含大量文件：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>排除大文件</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">设置 → 文件与链接 → 排除的文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>添加：<code>*.pdf, *.mp4, *.zip</code></p>
+</li>
+<li class="lvl-3">
+<p><strong>禁用不需要的插件</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">只启用必要的插件</li>
+<li class="lvl-5">定期检查插件性能</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>使用文件夹</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">合理组织文件结构</li>
+<li class="lvl-5">避免单个文件夹文件过多</li>
+</ul>
+</li>
+</ol>
+<h3 id="启动优化"><a class="markdownIt-Anchor" href="#启动优化"></a> 启动优化</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>关闭不需要的核心插件</p>
+</li>
+<li class="lvl-2">
+<p>减少社区插件数量</p>
+</li>
+<li class="lvl-2">
+<p>使用工作区保存常用布局</p>
+</li>
+</ul>
+<h2 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h2>
+<h3 id="q-obsidian是否需要联网"><a class="markdownIt-Anchor" href="#q-obsidian是否需要联网"></a> Q: Obsidian是否需要联网？</h3>
+<p>A: 不需要。Obsidian完全可以离线使用，所有数据存储在本地。</p>
+<h3 id="q-如何卸载obsidian"><a class="markdownIt-Anchor" href="#q-如何卸载obsidian"></a> Q: 如何卸载Obsidian？</h3>
+<p>A:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>Windows</strong>: 控制面板 → 程序和功能</p>
+</li>
+<li class="lvl-2">
+<p><strong>macOS</strong>: 从Applications文件夹删除</p>
+</li>
+<li class="lvl-2">
+<p><strong>Linux</strong>: 删除AppImage文件或使用包管理器卸载</p>
+</li>
+</ul>
+<h3 id="q-仓库可以移动吗"><a class="markdownIt-Anchor" href="#q-仓库可以移动吗"></a> Q: 仓库可以移动吗？</h3>
+<p>A: 可以。直接移动整个文件夹，然后在Obsidian中重新打开即可。</p>
+<h3 id="q-如何更新obsidian"><a class="markdownIt-Anchor" href="#q-如何更新obsidian"></a> Q: 如何更新Obsidian？</h3>
+<p>A: Obsidian会自动检查更新。也可以在设置 → 关于中手动检查更新。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<p>本章我们学习了：</p>
+<ol>
+<li class="lvl-3">
+<p>✅ Obsidian的系统要求</p>
+</li>
+<li class="lvl-3">
+<p>✅ 各平台的安装方法</p>
+</li>
+<li class="lvl-3">
+<p>✅ 首次启动和仓库创建</p>
+</li>
+<li class="lvl-3">
+<p>✅ 基础配置和推荐设置</p>
+</li>
+<li class="lvl-3">
+<p>✅ 文件夹结构建议</p>
+</li>
+<li class="lvl-3">
+<p>✅ 同步和备份方案</p>
+</li>
+</ol>
+<p>现在你已经成功安装并配置了Obsidian，接下来我们将学习Obsidian的界面和基本操作。</p>
+<hr />
+<p><strong>上一节</strong>: <a href="01-intro.html">1.1 Obsidian简介</a><br />
+<strong>下一节</strong>: <a href="03-interface.html">1.3 界面介绍</a></p>
+<p><a href="menu.html">返回目录</a> | <a href="home.html">返回首页</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>顶部导航</h3><ul><li class="group-title">1. Obsidian入门</li><ul class="submenu"><li><a href="/obsidian/01-intro.html">1.1 Obsidian简介</a></li><li><a href="/obsidian/02-installation.html">1.2 安装与配置</a></li><li><a href="/obsidian/03-interface.html">1.3 界面介绍</a></li></ul><li class="group-title">2. Markdown基础</li><ul class="submenu"><li><a href="/obsidian/04-markdown-basics.html">2.1 Markdown语法</a></li><li><a href="/obsidian/05-obsidian-markdown.html">2.2 Obsidian扩展语法</a></li><li><a href="/obsidian/06-code-math.html">2.3 代码块与公式</a></li></ul><li class="group-title">3. 笔记管理</li><ul class="submenu"><li><a href="/obsidian/07-note-creation.html">3.1 创建与编辑笔记</a></li><li><a href="/obsidian/08-folder-organization.html">3.2 文件夹组织</a></li><li><a href="/obsidian/09-naming-conventions.html">3.3 笔记命名规范</a></li></ul><li class="group-title">4. 链接系统</li><ul class="submenu"><li><a href="/obsidian/10-internal-links.html">4.1 内部链接</a></li><li><a href="/obsidian/11-backlinks.html">4.2 双向链接</a></li><li><a href="/obsidian/12-graph-view.html">4.3 关系图谱</a></li></ul><li class="group-title">5. 标签与元数据</li><ul class="submenu"><li><a href="/obsidian/13-tags.html">5.1 标签系统</a></li><li><a href="/obsidian/14-front-matter.html">5.2 Front Matter</a></li><li><a href="/obsidian/15-properties.html">5.3 属性管理</a></li></ul><li class="group-title">6. 搜索与查询</li><ul class="submenu"><li><a href="/obsidian/16-basic-search.html">6.1 基础搜索</a></li><li><a href="/obsidian/17-advanced-search.html">6.2 高级搜索</a></li><li><a href="/obsidian/18-search-tips.html">6.3 搜索技巧</a></li><li><a href="/obsidian/19-rag-ollama.html">6.4 Obsidian + Ollama 实现 RAG</a></li></ul><li class="group-title">7. 模板功能</li><ul class="submenu"><li><a href="/obsidian/19-template-basics.html">7.1 模板基础</a></li><li><a href="/obsidian/20-template-variables.html">7.2 模板变量</a></li><li><a href="/obsidian/21-template-examples.html">7.3 模板实战</a></li></ul><li class="group-title">8. Dataview插件</li><ul class="submenu"><li><a href="/obsidian/22-dataview-intro.html">8.1 Dataview简介</a></li><li><a href="/obsidian/23-dataview-query.html">8.2 查询语法</a></li><li><a href="/obsidian/24-dataview-examples.html">8.3 实用案例</a></li></ul><li class="group-title">9. 自定义与美化</li><ul class="submenu"><li><a href="/obsidian/25-themes.html">9.1 主题系统</a></li><li><a href="/obsidian/26-custom-css.html">9.2 自定义CSS</a></li><li><a href="/obsidian/27-css-snippets.html">9.3 CSS代码片段</a></li></ul><li class="group-title">10. 工作流优化</li><ul class="submenu"><li><a href="/obsidian/28-hotkeys.html">10.1 快捷键设置</a></li><li><a href="/obsidian/29-workspaces.html">10.2 工作区管理</a></li><li><a href="/obsidian/30-productivity-tips.html">10.3 效率技巧</a></li></ul><li class="group-title">11. Text Generator插件</li><ul class="submenu"><li><a href="/obsidian/31-text-generator-setup.html">11.1 Text Generator安装配置</a></li><li><a href="/obsidian/32-text-generator-basics.html">11.2 基础使用</a></li><li><a href="/obsidian/33-text-generator-prompts.html">11.3 自定义提示词</a></li><li><a href="/obsidian/34-text-generator-advanced.html">11.4 高级功能</a></li></ul><li class="group-title">12. Smart Connections插件</li><ul class="submenu"><li><a href="/obsidian/35-smart-connections-intro.html">12.1 Smart Connections简介</a></li><li><a href="/obsidian/36-semantic-search.html">12.2 语义搜索</a></li><li><a href="/obsidian/37-smart-recommendations.html">12.3 智能推荐</a></li></ul><li class="group-title">13. Copilot插件</li><ul class="submenu"><li><a href="/obsidian/38-copilot-setup.html">13.1 Copilot安装使用</a></li><li><a href="/obsidian/39-copilot-chat.html">13.2 对话功能</a></li><li><a href="/obsidian/40-copilot-tips.html">13.3 实用技巧</a></li></ul><li class="group-title">14. ChatGPT MD插件</li><ul class="submenu"><li><a href="/obsidian/41-chatgpt-md-setup.html">14.1 ChatGPT MD配置</a></li><li><a href="/obsidian/42-chatgpt-md-conversations.html">14.2 对话管理</a></li><li><a href="/obsidian/43-chatgpt-md-advanced.html">14.3 高级应用</a></li></ul><li class="group-title">15. AI辅助写作</li><ul class="submenu"><li><a href="/obsidian/44-ai-writing-workflow.html">15.1 AI写作工作流</a></li><li><a href="/obsidian/45-prompt-engineering.html">15.2 提示词工程</a></li><li><a href="/obsidian/46-ai-best-practices.html">15.3 AI最佳实践</a></li></ul><li class="group-title">16. 知识管理系统</li><ul class="submenu"><li><a href="/obsidian/47-personal-knowledge-base.html">16.1 个人知识库搭建</a></li><li><a href="/obsidian/48-zettelkasten.html">16.2 卡片笔记法</a></li><li><a href="/obsidian/49-knowledge-network.html">16.3 知识网络构建</a></li></ul><li class="group-title">17. 学术研究</li><ul class="submenu"><li><a href="/obsidian/50-literature-management.html">17.1 文献管理</a></li><li><a href="/obsidian/51-reading-notes.html">17.2 读书笔记</a></li><li><a href="/obsidian/52-academic-writing.html">17.3 论文写作</a></li></ul><li class="group-title">18. 项目管理</li><ul class="submenu"><li><a href="/obsidian/53-task-management.html">18.1 任务管理</a></li><li><a href="/obsidian/54-gtd-system.html">18.2 GTD系统</a></li><li><a href="/obsidian/55-project-tracking.html">18.3 项目追踪</a></li></ul><li class="group-title">19. 写作工作流</li><ul class="submenu"><li><a href="/obsidian/56-idea-collection.html">19.1 创意收集</a></li><li><a href="/obsidian/57-content-creation.html">19.2 内容创作</a></li><li><a href="/obsidian/58-publishing-workflow.html">19.3 发布流程</a></li></ul><li class="group-title">20. 最佳实践</li><ul class="submenu"><li><a href="/obsidian/59-backup-strategies.html">20.1 数据备份</a></li><li><a href="/obsidian/60-sync-solutions.html">20.2 同步方案</a></li><li><a href="/obsidian/61-performance-optimization.html">20.3 性能优化</a></li><li><a href="/obsidian/62-faq.html">20.4 常见问题</a></li></ul></ul></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
