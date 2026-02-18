@@ -275,16 +275,51 @@ nav#nav .menus_item_child a:hover span {
 }
 
 @media (max-width: 768px) {
+  /* 移动端：隐藏顶部横向菜单，改用汉堡菜单 */
   #menus .menus_items {
     display: none;
   }
-  
+
   #toggle-menu {
     display: block;
   }
-  
-  #nav {
-    padding: 0.8rem 1rem;
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    max-width: 55vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  nav#nav #menus {
+    flex: 0 0 auto !important;
+    gap: 0.4rem !important;
+    overflow: visible !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
   }
 }
 
