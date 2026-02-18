@@ -26,8 +26,28 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // 简单展示：用空格连接
-    keyHistoryEl.textContent = keyHistoryQueue.join('  ');
+    // 用队列渲染：最新一个为红色，其余为黑色
+    keyHistoryEl.textContent = '';
+
+    const lastIndex = keyHistoryQueue.length - 1;
+    keyHistoryQueue.forEach((label, idx) => {
+      const span = document.createElement('span');
+      span.textContent = label;
+
+      if (idx === lastIndex) {
+        span.style.color = '#d9534f';
+        span.style.fontWeight = 'bold';
+      } else {
+        span.style.color = '#333';
+      }
+
+      keyHistoryEl.appendChild(span);
+
+      // 间隔
+      if (idx !== lastIndex) {
+        keyHistoryEl.appendChild(document.createTextNode('  '));
+      }
+    });
   }
 
   function enqueueKeyHistory(label) {
