@@ -117,6 +117,20 @@ p.description {
   flex-shrink: 0;
 }
 
+/*
+ * 悬停时保持字体颜色不变（避免主题/浏览器的全局 hover 样式影响）
+ * - 普通键：保持默认字体色
+ * - 已按下/激活键：保持激活字体色
+ */
+.key:hover {
+  color: var(--key-text);
+}
+
+.key.pressed:hover,
+.key.active:hover {
+  color: var(--key-active-text);
+}
+
 /* 特殊按键宽度 (u * 50 + (u-1) * 6) */
 /* 
    Backspace: 2u = 106px
@@ -257,4 +271,32 @@ Row 4 只有 4, 5, 6，原本 NumpadAdd 的位置是空的。
   color: #d9534f;
   font-weight: bold;
   margin: 0 5px;
+}
+
+/* 按键历史队列展示 */
+.key-history {
+  margin-top: 16px;
+  text-align: center;
+  color: #333;
+}
+
+.key-history > p {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.key-history-list {
+  display: inline-block;
+  max-width: 1200px;
+  padding: 10px 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
