@@ -58,6 +58,84 @@
     checkWidth();
   }
 
+  // 顶部导航切换按钮（移动端，右侧悬浮按钮，样式与 book-sidebar-toggle 一致）
+  function initTopNavToggle() {
+    const nav = document.getElementById('nav');
+    const bookContainer = document.getElementById('book-container') || document.querySelector('.book-container');
+
+    // 创建切换按钮
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'book-topnav-toggle';
+    toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    toggleBtn.setAttribute('aria-label', '打开顶部导航');
+    toggleBtn.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100000;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    `;
+
+    document.body.appendChild(toggleBtn);
+
+    function openButterflySidebarMenu() {
+      // 直接打开 sidebar（不依赖触发 #toggle-menu click，避免元素被 display:none 时部分浏览器不触发）
+      const menuMask = document.getElementById('menu-mask');
+      const sidebarMenus = document.getElementById('sidebar-menus');
+      if (!menuMask || !sidebarMenus) return;
+
+      document.body.style.overflow = 'hidden';
+      menuMask.style.display = 'block';
+      sidebarMenus.classList.add('open');
+    }
+
+    // 响应式显示切换按钮 + 隐藏顶部 nav
+    function checkWidth() {
+      const isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        toggleBtn.style.display = 'block';
+        if (nav) nav.style.display = 'none';
+        if (bookContainer) bookContainer.style.marginTop = '20px';
+      } else {
+        toggleBtn.style.display = 'none';
+        if (nav) nav.style.display = '';
+        if (bookContainer) bookContainer.style.marginTop = '';
+      }
+    }
+
+    function closeButterflySidebarMenu() {
+      const menuMask = document.getElementById('menu-mask');
+      const sidebarMenus = document.getElementById('sidebar-menus');
+      if (!menuMask || !sidebarMenus) return;
+      sidebarMenus.classList.remove('open');
+      menuMask.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function toggleButterflySidebarMenu() {
+      const sidebarMenus = document.getElementById('sidebar-menus');
+      if (sidebarMenus && sidebarMenus.classList.contains('open')) {
+        closeButterflySidebarMenu();
+      } else {
+        openButterflySidebarMenu();
+      }
+    }
+
+    // 点击按钮：打开/关闭 菜单
+    toggleBtn.addEventListener('click', toggleButterflySidebarMenu);
+
+    window.addEventListener('resize', checkWidth);
+    checkWidth();
+  }
+
   // 平滑滚动
   function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -253,6 +331,7 @@
   // 初始化所有功能
   function init() {
     initSidebarToggle();
+    initTopNavToggle();
     initSmoothScroll();
     initCodeCopy();
     initTocHighlight();
