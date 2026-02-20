@@ -557,31 +557,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  document.getElementById('rightside').addEventListener('click', function (e) {
-    const $target = e.target.id ? e.target : e.target.parentNode
-    switch ($target.id) {
-      case 'go-up':
-        rightSideFn.scrollToTop()
-        break
-      case 'rightside_config':
-        rightSideFn.showOrHideBtn($target)
-        break
-      case 'mobile-toc-button':
-        rightSideFn.runMobileToc()
-        break
-      case 'readmode':
-        rightSideFn.switchReadMode()
-        break
-      case 'darkmode':
-        rightSideFn.switchDarkMode()
-        break
-      case 'hide-aside-btn':
-        rightSideFn.hideAsideBtn()
-        break
-      default:
-        break
-    }
-  })
+  const $rightsideRoot = document.getElementById('rightside')
+  // book layout / 部分页面可能未渲染 #rightside，避免空指针报错
+  if ($rightsideRoot) {
+    $rightsideRoot.addEventListener('click', function (e) {
+      const $target = e.target.id ? e.target : e.target.parentNode
+      switch ($target.id) {
+        case 'go-up':
+          rightSideFn.scrollToTop()
+          break
+        case 'rightside_config':
+          rightSideFn.showOrHideBtn($target)
+          break
+        case 'mobile-toc-button':
+          rightSideFn.runMobileToc()
+          break
+        case 'readmode':
+          rightSideFn.switchReadMode()
+          break
+        case 'darkmode':
+          rightSideFn.switchDarkMode()
+          break
+        case 'hide-aside-btn':
+          rightSideFn.hideAsideBtn()
+          break
+        default:
+          break
+      }
+    })
+  }
 
   /**
    * menu

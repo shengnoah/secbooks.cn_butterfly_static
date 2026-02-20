@@ -63,27 +63,15 @@
     const nav = document.getElementById('nav');
     const bookContainer = document.getElementById('book-container') || document.querySelector('.book-container');
 
-    // 创建切换按钮
-    const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'book-topnav-toggle';
-    toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    toggleBtn.setAttribute('aria-label', '打开顶部导航');
-    toggleBtn.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 100000;
-      background: #3498db;
-      color: #fff;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    `;
+    // book.pug 已固定输出按钮：确保所有 book layout 页面移动端都一定存在
+    const btnList = Array.from(document.querySelectorAll('.book-topnav-toggle'));
+    if (!btnList.length) return;
 
-    document.body.appendChild(toggleBtn);
+    // 清理历史遗留的“动态创建按钮”，避免偶发重复/错乱
+    const toggleBtn = btnList[0];
+    btnList.slice(1).forEach(btn => btn.remove());
+
+    toggleBtn.setAttribute('aria-label', '打开菜单');
 
     function openButterflySidebarMenu() {
       // 直接打开 sidebar（不依赖触发 #toggle-menu click，避免元素被 display:none 时部分浏览器不触发）
@@ -100,9 +88,7 @@
     function checkWidth() {
       // 真机上可能出现：横屏 / “请求桌面站点” / 平板等导致 innerWidth > 768
       // 因此以“触控设备”优先，其次再用宽度兜底。
-      const isCoarsePointer = window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-      const isSmallScreen = window.innerWidth <= 1024;
-      const isMobile = isCoarsePointer || isSmallScreen;
+      const isMobile = window.innerWidth <= 1024;
 
       if (isMobile) {
         toggleBtn.style.display = 'block';
@@ -124,6 +110,25 @@
       document.body.style.overflow = '';
     }
 
+    // 移动端：点击遮罩（非导航区域）关闭菜单（避免重复绑定）
+    ;(function bindOutsideClose() {
+      const menuMask = document.getElementById('menu-mask');
+      const sidebarMenus = document.getElementById('sidebar-menus');
+      if (!menuMask || !sidebarMenus) return;
+      if (menuMask.dataset.bookTopnavOutsideCloseBound === '1') return;
+      menuMask.dataset.bookTopnavOutsideCloseBound = '1';
+
+      // 点击遮罩关闭
+      menuMask.addEventListener('click', function () {
+        closeButterflySidebarMenu();
+      });
+
+      // 点击菜单内容区不冒泡到遮罩（避免误关）
+      sidebarMenus.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+    })();
+
     function toggleButterflySidebarMenu() {
       const sidebarMenus = document.getElementById('sidebar-menus');
       if (sidebarMenus && sidebarMenus.classList.contains('open')) {
@@ -133,11 +138,18 @@
       }
     }
 
-    // 点击按钮：打开/关闭 菜单
-    toggleBtn.addEventListener('click', toggleButterflySidebarMenu);
+    // 点击按钮：打开/关闭 菜单（避免重复绑定）
+    if (toggleBtn.dataset.bookTopnavToggleBound !== '1') {
+      toggleBtn.addEventListener('click', toggleButterflySidebarMenu);
+      toggleBtn.dataset.bookTopnavToggleBound = '1';
+    }
 
-    window.addEventListener('resize', checkWidth);
-    window.addEventListener('orientationchange', checkWidth);
+    if (!window.__bookTopnavResizeBound) {
+      window.__bookTopnavResizeBound = true;
+      window.addEventListener('resize', checkWidth);
+      window.addEventListener('orientationchange', checkWidth);
+    }
+
     checkWidth();
   }
 
@@ -185,9 +197,17 @@
   }
 
   // 代码块复制功能
+  // 注意：不要处理 Hexo/Butterfly 的 `figure.highlight`，否则会破坏主题自带的复制按钮（.fas.fa-copy）逻辑
   function initCodeCopy() {
-    document.querySelectorAll('pre code').forEach(block => {
+    document.querySelectorAll('.book-body pre code').forEach(block => {
       const pre = block.parentElement;
+
+      // 跳过 highlight 代码块（其复制按钮由 themes/butterfly/source/js/main.js 管理）
+      if (pre.closest('figure.highlight') || pre.closest('.highlight')) return;
+
+      // 避免重复包裹
+      if (pre.parentElement && pre.parentElement.classList && pre.parentElement.classList.contains('code-wrapper')) return;
+
       const wrapper = document.createElement('div');
       wrapper.className = 'code-wrapper';
       wrapper.style.position = 'relative';
@@ -377,5 +397,9 @@
   } else {
     init();
   }
+
+  // 兼容 PJAX：切换页面后重新初始化（避免某些页面按钮不出现）
+  document.addEventListener('pjax:complete', init);
+  document.addEventListener('pjax:end', init);
 
 })();

@@ -17,7 +17,7 @@
   position: fixed;
   top: 90px;
   right: 20px;
-  width: 220px;
+  width: 260px;
   max-height: calc(100vh - 120px);
   overflow-y: auto;
   background: #ffffff;
@@ -26,6 +26,17 @@
   box-shadow: 0 6px 16px rgba(0,0,0,0.08);
   padding: 16px;
   z-index: 120;
+}
+
+/* book-topnav-toggle：兜底显示规则（避免个别页面 JS 判定失败导致按钮不出现） */
+.book-topnav-toggle {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .book-topnav-toggle {
+    display: block !important;
+  }
 }
 
 .book-top-links h3 {
@@ -244,7 +255,7 @@
 /* 主内容区样式 */
 .book-main {
   margin-left: 280px;
-  margin-right: 260px;
+  margin-right: 300px;
   flex: 1;
   padding: 40px 60px;
   background: #fff;
@@ -346,6 +357,53 @@
   color: inherit;
   padding: 0;
   font-size: 14px;
+}
+
+/* 兼容 Hexo highlight 结构（figure.highlight > table > .gutter/.code）
+   避免被 .book-body table 样式影响而导致“布局混乱” */
+.book-body figure.highlight {
+  margin: 20px 0;
+  background: #2c3e50;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.book-body figure.highlight table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.book-body figure.highlight td {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.book-body figure.highlight pre {
+  margin: 0;
+  padding: 20px;
+  background: transparent;
+  color: #ecf0f1;
+  overflow-x: auto;
+}
+
+.book-body figure.highlight .gutter {
+  width: 3.2em;
+  background: rgba(0,0,0,0.18);
+  user-select: none;
+}
+
+.book-body figure.highlight .gutter pre {
+  padding: 20px 10px;
+  text-align: right;
+  color: rgba(236,240,241,0.6);
+}
+
+/* figure.highlight 内的 code 不额外加背景 */
+.book-body figure.highlight code {
+  background: transparent;
+  color: inherit;
 }
 
 .book-body ul, .book-body ol {
