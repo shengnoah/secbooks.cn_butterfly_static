@@ -141,17 +141,44 @@
     checkWidth();
   }
 
-  // 平滑滚动
+  // 平滑滚动（兼容中文/URL encode 的 hash；并处理固定顶部导航偏移）
   function initSmoothScroll() {
+    function getFixedTopOffset() {
+      const nav = document.getElementById('nav');
+      if (!nav) return 0;
+      const navDisplay = window.getComputedStyle(nav).display;
+      if (navDisplay === 'none') return 0;
+      // 额外留一点间距，避免标题贴边
+      return (nav.offsetHeight || 0) + 12;
+    }
+
+    function scrollToTarget(target) {
+      const offset = getFixedTopOffset();
+      const top = window.scrollY + target.getBoundingClientRect().top - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
+        const rawHref = this.getAttribute('href');
+        if (!rawHref || rawHref === '#') return;
+
+        // toc() 生成的 href 可能是 encodeURI 的（尤其中文标题），这里先 decode 再找元素
+        const decodedHash = decodeURI(rawHref);
+        const id = decodedHash.replace(/^#/, '');
+        if (!id) return;
+
+        const target = document.getElementById(id);
+        if (!target) return;
+
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+        scrollToTarget(target);
+
+        // 更新地址栏 hash（不强制跳到页面顶部）
+        try {
+          history.pushState(null, '', '#' + encodeURI(id));
+        } catch (err) {
+          // ignore
         }
       });
     });

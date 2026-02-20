@@ -53,6 +53,42 @@
 .book-top-links a:hover {
   color: #2980b9;
 }
+/* 右侧 TOC：强制左对齐（目录文案左对齐） */
+.book-top-links,
+.book-article-toc,
+.book-article-toc * {
+  text-align: left;
+}
+
+/* 去掉 TOC 左侧序号/圆点（无论 toc() 输出 ul/ol） */
+.book-article-toc ul,
+.book-article-toc ol,
+.book-article-toc li {
+  list-style: none;
+}
+
+.book-article-toc ul,
+.book-article-toc ol {
+  margin: 0;
+  padding-left: 0;
+}
+
+.book-article-toc li {
+  margin: 6px 0;
+}
+
+/* 子级缩进 */
+.book-article-toc li > ul,
+.book-article-toc li > ol {
+  padding-left: 14px;
+}
+
+.book-article-toc-empty {
+  margin: 0;
+  font-size: 13px;
+  color: #7f8c8d;
+  text-align: left;
+}
 
 .book-top-links .group-title {
   font-size: 13px;
@@ -116,9 +152,19 @@
   transition: all 0.3s;
 }
 
+/* 防止点击后被浏览器/主题的 visited/active 样式改色（保持目录初始颜色） */
+.book-menu a:link,
+.book-menu a:visited,
+.book-menu a:active,
+.book-menu a:focus,
+.book-menu a:focus-visible {
+  color: #bdc3c7 !important;
+  outline: none;
+}
+
 .book-menu a:hover {
   background: rgba(255,255,255,0.1);
-  color: #3498db;
+  color: #3498db !important;
   padding-left: 16px;
 }
 
