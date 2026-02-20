@@ -1,0 +1,779 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Claude 教程：经典 GitHub 项目清单（含用途与上手）</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Claude 教程：经典 GitHub 项目清单（含用途与上手）',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-21 00:51:47'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">164</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">82</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><h2>教程导航</h2><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>第一部分：Claude Code 实战</h3><ul><li><a href="/claude/01-office-visualizer.html">第 01 章：Claude Office Visualizer 安装与使用</a></li><li><a href="/claude/02-classic-github-projects.html">第 02 章：经典 GitHub 项目清单（含用途与上手）</a></li></ul></div></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">Claude 教程：经典 GitHub 项目清单（含用途与上手）</h1><div class="book-body" id="article-container"><p>本文按「<strong>官方 SDK / Claude Code 生态 / MCP 生态 / 可视化 / 网关与观测</strong>」分类整理一些常用、口碑较好的 Claude 相关项目，并给出最小上手方式。</p>
+<blockquote>
+<p>说明：星标数量会随时间变化；以“是否常用/是否代表性/是否能解决实际问题”为主。</p>
+</blockquote>
+<hr />
+<h2 id="1-官方-sdk-cookbook推荐优先看"><a class="markdownIt-Anchor" href="#1-官方-sdk-cookbook推荐优先看"></a> 1. 官方 SDK / Cookbook（推荐优先看）</h2>
+<h3 id="11-anthropicsclaude-cookbookscookbook"><a class="markdownIt-Anchor" href="#11-anthropicsclaude-cookbookscookbook"></a> 1.1 anthropics/claude-cookbooks（Cookbook）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-cookbooks">https://github.com/anthropics/claude-cookbooks</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：官方示例/Notebook 合集，覆盖提示词模式、工具调用、RAG、结构化输出等常见需求。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：需要“可运行的配方”来验证某个能力或快速抄作业。</p>
+</li>
+</ul>
+<p>上手建议：</p>
+<ol>
+<li class="lvl-3">
+<p>先按 README 把示例跑通。</p>
+</li>
+<li class="lvl-3">
+<p>把你项目里的“业务输入/输出”替换进去，形成自己的最小模板。</p>
+</li>
+</ol>
+<hr />
+<h3 id="12-anthropicsanthropic-sdk-pythonpython-sdk"><a class="markdownIt-Anchor" href="#12-anthropicsanthropic-sdk-pythonpython-sdk"></a> 1.2 anthropics/anthropic-sdk-python（Python SDK）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/anthropics/anthropic-sdk-python">https://github.com/anthropics/anthropic-sdk-python</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：在 Python 服务/脚本里调用 Claude API。</p>
+</li>
+</ul>
+<p>最小上手（示意）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> anthropic<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> anthropic <span class="token keyword">import</span> Anthropic
+
+client <span class="token operator">=</span> Anthropic<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 通过环境变量配置密钥</span>
+msg <span class="token operator">=</span> client<span class="token punctuation">.</span>messages<span class="token punctuation">.</span>create<span class="token punctuation">(</span>
+    model<span class="token operator">=</span><span class="token string">"claude-3-5-sonnet-latest"</span><span class="token punctuation">,</span>
+    max_tokens<span class="token operator">=</span><span class="token number">256</span><span class="token punctuation">,</span>
+    messages<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"用一句话解释 MCP 是什么"</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h3 id="13-anthropicsanthropic-sdk-typescripttypescript-sdk"><a class="markdownIt-Anchor" href="#13-anthropicsanthropic-sdk-typescripttypescript-sdk"></a> 1.3 anthropics/anthropic-sdk-typescript（TypeScript SDK）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/anthropics/anthropic-sdk-typescript">https://github.com/anthropics/anthropic-sdk-typescript</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：Node.js/TS 项目里调用 Claude API（适合 Web/Serverless/工具链）。</p>
+</li>
+</ul>
+<p>最小上手（示意）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> i @anthropic-ai/sdk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> Anthropic <span class="token keyword">from</span> <span class="token string">"@anthropic-ai/sdk"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Anthropic</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> apiKey<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">ANTHROPIC_API_KEY</span><span class="token operator">!</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> msg <span class="token operator">=</span> <span class="token keyword">await</span> client<span class="token punctuation">.</span>messages<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  model<span class="token operator">:</span> <span class="token string">"claude-3-5-sonnet-latest"</span><span class="token punctuation">,</span>
+  max_tokens<span class="token operator">:</span> <span class="token number">256</span><span class="token punctuation">,</span>
+  messages<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span> role<span class="token operator">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span> content<span class="token operator">:</span> <span class="token string">"给我一个 10 行的 TypeScript 示例"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="2-claude-code-生态插件-模板-用量分析"><a class="markdownIt-Anchor" href="#2-claude-code-生态插件-模板-用量分析"></a> 2. Claude Code 生态（插件 / 模板 / 用量分析）</h2>
+<blockquote>
+<p>这一类通常解决：<strong>多任务/多会话管理、审计与回放、用量统计、工作流模板化</strong>。</p>
+</blockquote>
+<h3 id="21-thedotmackclaude-memclaude-code-记忆插件"><a class="markdownIt-Anchor" href="#21-thedotmackclaude-memclaude-code-记忆插件"></a> 2.1 thedotmack/claude-mem（Claude Code “记忆”插件）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/thedotmack/claude-mem">https://github.com/thedotmack/claude-mem</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：自动捕获 Claude Code 会话内容，并用模型做“压缩记忆/摘要”，让后续会话更可持续。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：长项目、多天迭代、上下文容易爆、想把“做过什么”系统化沉淀。</p>
+</li>
+</ul>
+<p>上手建议：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>按项目 README 安装为 Claude Code 插件；</p>
+</li>
+<li class="lvl-2">
+<p>配合你团队的约定（例如：每次合并前/每天收工时生成一次摘要）。</p>
+</li>
+</ul>
+<hr />
+<h3 id="22-ryoppippiccusageclaude-code-用量统计"><a class="markdownIt-Anchor" href="#22-ryoppippiccusageclaude-code-用量统计"></a> 2.2 ryoppippi/ccusage（Claude Code 用量统计）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/ryoppippi/ccusage">https://github.com/ryoppippi/ccusage</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：解析 Claude Code 本地 JSONL 日志，统计 token/成本/模型用量等。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：想把 Claude Code 当“工程资源”做成本管理/用量看板。</p>
+</li>
+</ul>
+<p>典型用法：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>统计近 7 天用量，找出异常飙升的会话；</p>
+</li>
+<li class="lvl-2">
+<p>对比不同提示词模板的成本差异。</p>
+</li>
+</ul>
+<hr />
+<h3 id="23-davila7claude-code-templates模板与工作流"><a class="markdownIt-Anchor" href="#23-davila7claude-code-templates模板与工作流"></a> 2.3 davila7/claude-code-templates（模板与工作流）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/davila7/claude-code-templates">https://github.com/davila7/claude-code-templates</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：提供 Claude Code 的模板化能力（把常用任务“固化成模板/命令”）。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：重复任务多（代码审计、重构、生成测试、写文档），想要“一键化”。</p>
+</li>
+</ul>
+<p>建议：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>先做 3 个模板：</p>
+<ul class="lvl-2">
+<li class="lvl-4">“从需求生成实施计划”；</li>
+<li class="lvl-4">“变更后补测试 + 解释边界”；</li>
+<li class="lvl-4">“PR 自检清单”。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="24-composiohqawesome-claude-plugins插件生态清单"><a class="markdownIt-Anchor" href="#24-composiohqawesome-claude-plugins插件生态清单"></a> 2.4 ComposioHQ/awesome-claude-plugins（插件生态清单）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/ComposioHQ/awesome-claude-plugins">https://github.com/ComposioHQ/awesome-claude-plugins</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：收录 Claude Code 插件/自定义命令/hooks/MCP servers。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：想快速浏览社区有哪些可直接复用的插件。</p>
+</li>
+</ul>
+<p>使用方式：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>当“插件商店目录”，按类别挑选。</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-mcpmodel-context-protocol生态推荐系统学习"><a class="markdownIt-Anchor" href="#3-mcpmodel-context-protocol生态推荐系统学习"></a> 3. MCP（Model Context Protocol）生态（推荐系统学习）</h2>
+<blockquote>
+<p>MCP 解决的是：<strong>模型如何以统一方式“接入工具/数据源/应用能力”</strong>。</p>
+</blockquote>
+<h3 id="31-modelcontextprotocolmodelcontextprotocol规范"><a class="markdownIt-Anchor" href="#31-modelcontextprotocolmodelcontextprotocol规范"></a> 3.1 modelcontextprotocol/modelcontextprotocol（规范）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/modelcontextprotocol">https://github.com/modelcontextprotocol/modelcontextprotocol</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：MCP 协议规范与文档。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：要理解 MCP 的抽象层（resources/tools/prompts、transport、capabilities）。</p>
+</li>
+</ul>
+<p>学习路径：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>先看 specification 的最小概念；</p>
+</li>
+<li class="lvl-2">
+<p>再看官方 servers 里你感兴趣的数据源（比如 DB / 文件 / 网页转换等）。</p>
+</li>
+</ul>
+<hr />
+<h3 id="32-modelcontextprotocolservers官方-servers-合集"><a class="markdownIt-Anchor" href="#32-modelcontextprotocolservers官方-servers-合集"></a> 3.2 modelcontextprotocol/servers（官方 Servers 合集）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/servers">https://github.com/modelcontextprotocol/servers</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：官方 MCP servers 集合，覆盖常见能力。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：需要“拿来就用”的 server，或参考实现写自己的 server。</p>
+</li>
+</ul>
+<hr />
+<h3 id="33-官方-sdk"><a class="markdownIt-Anchor" href="#33-官方-sdk"></a> 3.3 官方 SDK</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>TypeScript：<a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/typescript-sdk">https://github.com/modelcontextprotocol/typescript-sdk</a></p>
+</li>
+<li class="lvl-2">
+<p>Python：<a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/python-sdk">https://github.com/modelcontextprotocol/python-sdk</a></p>
+</li>
+</ul>
+<p>用途：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>快速开发 MCP server/client；</p>
+</li>
+<li class="lvl-2">
+<p>与 Claude Desktop/Claude Code 等支持 MCP 的客户端打通。</p>
+</li>
+</ul>
+<hr />
+<h2 id="4-可视化-ui把-claude-code-的过程看得见"><a class="markdownIt-Anchor" href="#4-可视化-ui把-claude-code-的过程看得见"></a> 4. 可视化 / UI（把 Claude Code 的过程“看得见”）</h2>
+<h3 id="41-paulrobelloclaude-office像素办公室可视化"><a class="markdownIt-Anchor" href="#41-paulrobelloclaude-office像素办公室可视化"></a> 4.1 paulrobello/claude-office（像素办公室可视化）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/paulrobello/claude-office">https://github.com/paulrobello/claude-office</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：实时像素办公室，把 Claude Code 的主 agent 与 subagent 行为可视化。</p>
+</li>
+<li class="lvl-2">
+<p>建议：见上一章《Claude Office Visualizer 安装与使用》。</p>
+</li>
+</ul>
+<hr />
+<h3 id="42-yuyz0112claude-code-reverse交互可视化分析"><a class="markdownIt-Anchor" href="#42-yuyz0112claude-code-reverse交互可视化分析"></a> 4.2 Yuyz0112/claude-code-reverse（交互可视化/分析）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/Yuyz0112/claude-code-reverse">https://github.com/Yuyz0112/claude-code-reverse</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：把 Claude Code 与 LLM 的交互过程可视化/分析。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：想做“请求级别”的定位（例如某次输出异常、某次成本异常）。</p>
+</li>
+</ul>
+<hr />
+<h3 id="43-seifghaziclaude-code-proxy代理抓包-可视化"><a class="markdownIt-Anchor" href="#43-seifghaziclaude-code-proxy代理抓包-可视化"></a> 4.3 seifghazi/claude-code-proxy（代理抓包 + 可视化）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/seifghazi/claude-code-proxy">https://github.com/seifghazi/claude-code-proxy</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：作为代理捕获并可视化 Claude Code 的请求与对话。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：需要可观测性、想做审计或复盘。</p>
+</li>
+</ul>
+<hr />
+<h3 id="44-preset-ioagor多会话协作画布"><a class="markdownIt-Anchor" href="#44-preset-ioagor多会话协作画布"></a> 4.4 preset-io/agor（多会话协作画布）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/preset-io/agor">https://github.com/preset-io/agor</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：在画布上编排 Claude Code/Codex/Gemini 的会话与任务，适合多人协作与并行。</p>
+</li>
+</ul>
+<hr />
+<h2 id="5-网关与观测工程化落地常用"><a class="markdownIt-Anchor" href="#5-网关与观测工程化落地常用"></a> 5. 网关与观测（工程化落地常用）</h2>
+<h3 id="51-berriailitellm多模型网关代理"><a class="markdownIt-Anchor" href="#51-berriailitellm多模型网关代理"></a> 5.1 BerriAI/litellm（多模型网关/代理）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/BerriAI/litellm">https://github.com/BerriAI/litellm</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：统一调用 100+ LLM（含 Anthropic），“OpenAI-compatible” 的代理层；可做路由、降级、成本/配额控制。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：</p>
+<ul class="lvl-2">
+<li class="lvl-4">想把 Claude 接入现有 OpenAI SDK/生态；</li>
+<li class="lvl-4">需要多供应商容灾（Claude/GPT/Gemini 互备）；</li>
+<li class="lvl-4">想做成本可视化与限流。</li>
+</ul>
+</li>
+</ul>
+<p>典型落地：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>在公司内网部署一个 LLM Gateway；</p>
+</li>
+<li class="lvl-2">
+<p>上游应用统一走网关，不直接打供应商 API。</p>
+</li>
+</ul>
+<hr />
+<h3 id="52-agentops-aiagentopsagent-观测与成本"><a class="markdownIt-Anchor" href="#52-agentops-aiagentopsagent-观测与成本"></a> 5.2 AgentOps-AI/agentops（Agent 观测与成本）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/AgentOps-AI/agentops">https://github.com/AgentOps-AI/agentops</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：对 agent 运行做 tracing/监控/成本统计（多模型可接）。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：Agent 流程复杂，需要“像 APM 一样”观察每一步调用。</p>
+</li>
+</ul>
+<hr />
+<h2 id="6-代表性-mcp-servers可直接补齐能力"><a class="markdownIt-Anchor" href="#6-代表性-mcp-servers可直接补齐能力"></a> 6. 代表性 MCP Servers（可直接补齐能力）</h2>
+<h3 id="61-zcaceresmarkdownify-mcp内容转-markdown"><a class="markdownIt-Anchor" href="#61-zcaceresmarkdownify-mcp内容转-markdown"></a> 6.1 zcaceres/markdownify-mcp（内容转 Markdown）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/zcaceres/markdownify-mcp">https://github.com/zcaceres/markdownify-mcp</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：把网页/HTML/各种内容转换为 Markdown，方便进入知识库或做 RAG。</p>
+</li>
+</ul>
+<hr />
+<h3 id="62-bytebasedbhub数据库-mcp-server"><a class="markdownIt-Anchor" href="#62-bytebasedbhub数据库-mcp-server"></a> 6.2 bytebase/dbhub（数据库 MCP Server）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/bytebase/dbhub">https://github.com/bytebase/dbhub</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：对 Postgres/MySQL/SQL Server/MariaDB/SQLite 等提供统一的 MCP 数据库访问。</p>
+</li>
+<li class="lvl-2">
+<p>适合你：希望 Claude 以“工具”的方式查库、写 SQL、生成报表。</p>
+</li>
+</ul>
+<hr />
+<h3 id="63-quantgeekdevmcp-framework写-mcp-server-的-ts-框架"><a class="markdownIt-Anchor" href="#63-quantgeekdevmcp-framework写-mcp-server-的-ts-框架"></a> 6.3 QuantGeekDev/mcp-framework（写 MCP Server 的 TS 框架）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仓库：<a target="_blank" rel="noopener" href="https://github.com/QuantGeekDev/mcp-framework">https://github.com/QuantGeekDev/mcp-framework</a></p>
+</li>
+<li class="lvl-2">
+<p>用途：更快搭一个 MCP server 的工程框架/脚手架。</p>
+</li>
+</ul>
+<hr />
+<h2 id="7-怎么选给一个实用决策树"><a class="markdownIt-Anchor" href="#7-怎么选给一个实用决策树"></a> 7. 怎么选（给一个实用决策树）</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>你只想“直接调用 Claude API”：先用官方 SDK（Python/TS）+ cookbook 抄模板。</p>
+</li>
+<li class="lvl-2">
+<p>你在用 Claude Code 做工程：</p>
+<ul class="lvl-2">
+<li class="lvl-4">想要“可视化”：<code>claude-office</code> / <code>claude-code-proxy</code>。</li>
+<li class="lvl-4">想要“会话沉淀/压缩”：<code>claude-mem</code>。</li>
+<li class="lvl-4">想要“成本与用量管理”：<code>ccusage</code>。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>你需要把工具/数据源接入模型：系统学习 MCP，并选几款 servers 直接上。</p>
+</li>
+<li class="lvl-2">
+<p>你要企业化落地：网关（LiteLLM）+ 观测（AgentOps）是一条常见路线。</p>
+</li>
+</ul>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%98%E6%96%B9-sdk-cookbook%E6%8E%A8%E8%8D%90%E4%BC%98%E5%85%88%E7%9C%8B"><span class="toc-number">1.</span> <span class="toc-text"> 1. 官方 SDK &#x2F; Cookbook（推荐优先看）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-anthropicsclaude-cookbookscookbook"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.1 anthropics&#x2F;claude-cookbooks（Cookbook）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-anthropicsanthropic-sdk-pythonpython-sdk"><span class="toc-number">1.2.</span> <span class="toc-text"> 1.2 anthropics&#x2F;anthropic-sdk-python（Python SDK）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-anthropicsanthropic-sdk-typescripttypescript-sdk"><span class="toc-number">1.3.</span> <span class="toc-text"> 1.3 anthropics&#x2F;anthropic-sdk-typescript（TypeScript SDK）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-claude-code-%E7%94%9F%E6%80%81%E6%8F%92%E4%BB%B6-%E6%A8%A1%E6%9D%BF-%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 2. Claude Code 生态（插件 &#x2F; 模板 &#x2F; 用量分析）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-thedotmackclaude-memclaude-code-%E8%AE%B0%E5%BF%86%E6%8F%92%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text"> 2.1 thedotmack&#x2F;claude-mem（Claude Code “记忆”插件）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-ryoppippiccusageclaude-code-%E7%94%A8%E9%87%8F%E7%BB%9F%E8%AE%A1"><span class="toc-number">2.2.</span> <span class="toc-text"> 2.2 ryoppippi&#x2F;ccusage（Claude Code 用量统计）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-davila7claude-code-templates%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-number">2.3.</span> <span class="toc-text"> 2.3 davila7&#x2F;claude-code-templates（模板与工作流）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24-composiohqawesome-claude-plugins%E6%8F%92%E4%BB%B6%E7%94%9F%E6%80%81%E6%B8%85%E5%8D%95"><span class="toc-number">2.4.</span> <span class="toc-text"> 2.4 ComposioHQ&#x2F;awesome-claude-plugins（插件生态清单）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-mcpmodel-context-protocol%E7%94%9F%E6%80%81%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text"> 3. MCP（Model Context Protocol）生态（推荐系统学习）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-modelcontextprotocolmodelcontextprotocol%E8%A7%84%E8%8C%83"><span class="toc-number">3.1.</span> <span class="toc-text"> 3.1 modelcontextprotocol&#x2F;modelcontextprotocol（规范）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-modelcontextprotocolservers%E5%AE%98%E6%96%B9-servers-%E5%90%88%E9%9B%86"><span class="toc-number">3.2.</span> <span class="toc-text"> 3.2 modelcontextprotocol&#x2F;servers（官方 Servers 合集）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#33-%E5%AE%98%E6%96%B9-sdk"><span class="toc-number">3.3.</span> <span class="toc-text"> 3.3 官方 SDK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8F%AF%E8%A7%86%E5%8C%96-ui%E6%8A%8A-claude-code-%E7%9A%84%E8%BF%87%E7%A8%8B%E7%9C%8B%E5%BE%97%E8%A7%81"><span class="toc-number">4.</span> <span class="toc-text"> 4. 可视化 &#x2F; UI（把 Claude Code 的过程“看得见”）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#41-paulrobelloclaude-office%E5%83%8F%E7%B4%A0%E5%8A%9E%E5%85%AC%E5%AE%A4%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">4.1.</span> <span class="toc-text"> 4.1 paulrobello&#x2F;claude-office（像素办公室可视化）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#42-yuyz0112claude-code-reverse%E4%BA%A4%E4%BA%92%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90"><span class="toc-number">4.2.</span> <span class="toc-text"> 4.2 Yuyz0112&#x2F;claude-code-reverse（交互可视化&#x2F;分析）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#43-seifghaziclaude-code-proxy%E4%BB%A3%E7%90%86%E6%8A%93%E5%8C%85-%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">4.3.</span> <span class="toc-text"> 4.3 seifghazi&#x2F;claude-code-proxy（代理抓包 + 可视化）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#44-preset-ioagor%E5%A4%9A%E4%BC%9A%E8%AF%9D%E5%8D%8F%E4%BD%9C%E7%94%BB%E5%B8%83"><span class="toc-number">4.4.</span> <span class="toc-text"> 4.4 preset-io&#x2F;agor（多会话协作画布）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%BD%91%E5%85%B3%E4%B8%8E%E8%A7%82%E6%B5%8B%E5%B7%A5%E7%A8%8B%E5%8C%96%E8%90%BD%E5%9C%B0%E5%B8%B8%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text"> 5. 网关与观测（工程化落地常用）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#51-berriailitellm%E5%A4%9A%E6%A8%A1%E5%9E%8B%E7%BD%91%E5%85%B3%E4%BB%A3%E7%90%86"><span class="toc-number">5.1.</span> <span class="toc-text"> 5.1 BerriAI&#x2F;litellm（多模型网关&#x2F;代理）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#52-agentops-aiagentopsagent-%E8%A7%82%E6%B5%8B%E4%B8%8E%E6%88%90%E6%9C%AC"><span class="toc-number">5.2.</span> <span class="toc-text"> 5.2 AgentOps-AI&#x2F;agentops（Agent 观测与成本）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BB%A3%E8%A1%A8%E6%80%A7-mcp-servers%E5%8F%AF%E7%9B%B4%E6%8E%A5%E8%A1%A5%E9%BD%90%E8%83%BD%E5%8A%9B"><span class="toc-number">6.</span> <span class="toc-text"> 6. 代表性 MCP Servers（可直接补齐能力）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#61-zcaceresmarkdownify-mcp%E5%86%85%E5%AE%B9%E8%BD%AC-markdown"><span class="toc-number">6.1.</span> <span class="toc-text"> 6.1 zcaceres&#x2F;markdownify-mcp（内容转 Markdown）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#62-bytebasedbhub%E6%95%B0%E6%8D%AE%E5%BA%93-mcp-server"><span class="toc-number">6.2.</span> <span class="toc-text"> 6.2 bytebase&#x2F;dbhub（数据库 MCP Server）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#63-quantgeekdevmcp-framework%E5%86%99-mcp-server-%E7%9A%84-ts-%E6%A1%86%E6%9E%B6"><span class="toc-number">6.3.</span> <span class="toc-text"> 6.3 QuantGeekDev&#x2F;mcp-framework（写 MCP Server 的 TS 框架）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%80%8E%E4%B9%88%E9%80%89%E7%BB%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91"><span class="toc-number">7.</span> <span class="toc-text"> 7. 怎么选（给一个实用决策树）</span></a></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
