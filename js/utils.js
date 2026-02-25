@@ -291,3 +291,71 @@ const btf = {
     return percentage
   }
 }
+
+/**
+ * Legacy global resource loaders used across Butterfly scripts and partials.
+ *
+ * Some theme modules (e.g. Mermaid renderer, justifiedGallery) call global
+ * `getScript()` / `getCSS()` helpers. If they are missing, Mermaid will not
+ * render and console will show "getScript is not defined".
+ */
+;(() => {
+  if (typeof window === 'undefined') return
+
+  const SCRIPT_CACHE = window.__btfScriptCache || (window.__btfScriptCache = new Map())
+  const CSS_CACHE = window.__btfCssCache || (window.__btfCssCache = new Map())
+
+  /**
+   * Load an external script once.
+   * @param {string} url
+   * @param {Record<string, string>} [attrs]
+   * @returns {Promise<void>}
+   */
+  window.getScript = window.getScript || function getScript (url, attrs = {}) {
+    if (!url) return Promise.reject(new Error('getScript: url is required'))
+    if (SCRIPT_CACHE.has(url)) return SCRIPT_CACHE.get(url)
+
+    const p = new Promise((resolve, reject) => {
+      const s = document.createElement('script')
+      s.src = url
+      s.async = true
+
+      for (const [k, v] of Object.entries(attrs || {})) {
+        try {
+          s.setAttribute(k, String(v))
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      s.onload = () => resolve()
+      s.onerror = () => reject(new Error('Failed to load script: ' + url))
+      document.head.appendChild(s)
+    })
+
+    SCRIPT_CACHE.set(url, p)
+    return p
+  }
+
+  /**
+   * Load an external stylesheet once.
+   * @param {string} url
+   * @returns {Promise<void>}
+   */
+  window.getCSS = window.getCSS || function getCSS (url) {
+    if (!url) return Promise.reject(new Error('getCSS: url is required'))
+    if (CSS_CACHE.has(url)) return CSS_CACHE.get(url)
+
+    const p = new Promise((resolve, reject) => {
+      const l = document.createElement('link')
+      l.rel = 'stylesheet'
+      l.href = url
+      l.onload = () => resolve()
+      l.onerror = () => reject(new Error('Failed to load css: ' + url))
+      document.head.appendChild(l)
+    })
+
+    CSS_CACHE.set(url, p)
+    return p
+  }
+})()
