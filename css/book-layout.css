@@ -1,0 +1,597 @@
+/* Book Layout Styles for Go Tutorial */
+
+.book-layout {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #f5f7fa;
+}
+
+.book-container {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+/* 右侧顶部导航链接（备用） */
+.book-right {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  width: 260px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #ecf0f1;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  padding: 16px;
+  z-index: 120;
+}
+
+/* book-topnav-toggle：兜底显示规则（避免个别页面 JS 判定失败导致按钮不出现） */
+.book-topnav-toggle {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .book-topnav-toggle {
+    display: block !important;
+  }
+}
+
+.book-top-links h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.book-top-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px 0;
+}
+
+.book-top-links li {
+  margin: 6px 0;
+}
+
+.book-top-links a {
+  color: #3498db;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.book-top-links a:hover {
+  color: #2980b9;
+}
+/* 右侧 TOC：强制左对齐（目录文案左对齐） */
+.book-top-links,
+.book-article-toc,
+.book-article-toc * {
+  text-align: left;
+}
+
+/* 去掉 TOC 左侧序号/圆点（无论 toc() 输出 ul/ol） */
+.book-article-toc ul,
+.book-article-toc ol,
+.book-article-toc li {
+  list-style: none;
+}
+
+.book-article-toc ul,
+.book-article-toc ol {
+  margin: 0;
+  padding-left: 0;
+}
+
+.book-article-toc li {
+  margin: 6px 0;
+}
+
+/* 子级缩进 */
+.book-article-toc li > ul,
+.book-article-toc li > ol {
+  padding-left: 14px;
+}
+
+.book-article-toc-empty {
+  margin: 0;
+  font-size: 13px;
+  color: #7f8c8d;
+  text-align: left;
+}
+
+.book-top-links .group-title {
+  font-size: 13px;
+  color: #2c3e50;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.book-top-links .submenu {
+  margin: 6px 0 0 10px;
+}
+
+/* 侧边栏样式 */
+.book-sidebar {
+  width: 280px;
+  background: #2c3e50;
+  color: #ecf0f1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+}
+
+/* 左侧：返回首页按钮（位于 book-brand 上方） */
+.book-back-home {
+  display: block;
+  margin: 0 0 12px 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ecf0f1 !important;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
+}
+
+.book-back-home:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff !important;
+}
+
+.book-brand {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.book-brand h2 {
+  color: #3498db;
+  font-size: 24px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.book-brand-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.book-brand-home {
+  font-size: 12px;
+  color: #bdc3c7;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.book-brand-home:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.book-brand a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.book-brand a:hover h2 {
+  color: #5dade2;
+}
+
+.book-menu {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.book-menu a {
+  color: #bdc3c7;
+  text-decoration: none;
+  display: block;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+/* 防止点击后被浏览器/主题的 visited/active 样式改色（保持目录初始颜色） */
+.book-menu a:link,
+.book-menu a:visited,
+.book-menu a:active,
+.book-menu a:focus,
+.book-menu a:focus-visible {
+  color: #bdc3c7 !important;
+  outline: none;
+}
+
+.book-menu a:hover {
+  background: rgba(255,255,255,0.1);
+  color: #3498db !important;
+  padding-left: 16px;
+}
+
+.book-menu h1, .book-menu h2, .book-menu h3 {
+  color: #ecf0f1;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0 10px 0;
+}
+
+.book-menu h3 {
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.book-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.book-menu li {
+  margin: 5px 0;
+}
+
+.book-menu li.disabled {
+  color: #7f8c8d;
+  padding: 8px 12px;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.menu-nav h3 {
+  color: #3498db;
+  font-size: 16px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.view-all {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: rgba(52, 152, 219, 0.1);
+  border-radius: 6px;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.view-all:hover {
+  background: rgba(52, 152, 219, 0.2);
+  transform: translateX(5px);
+}
+
+.menu-content {
+  padding: 15px;
+  background: rgba(52, 152, 219, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.menu-content a {
+  color: #3498db;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* 主内容区样式 */
+.book-main {
+  margin-left: 280px;
+  margin-right: 300px;
+  flex: 1;
+  padding: 40px 60px;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.book-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#book-article {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.book-title {
+  font-size: 36px;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #3498db;
+  font-weight: 700;
+}
+
+.book-body {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #34495e;
+}
+
+.book-body h1 {
+  font-size: 32px;
+  color: #2c3e50;
+  margin: 40px 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.book-body h2 {
+  font-size: 28px;
+  color: #34495e;
+  margin: 35px 0 18px 0;
+  padding-left: 12px;
+  border-left: 4px solid #3498db;
+}
+
+.book-body h3 {
+  font-size: 24px;
+  color: #34495e;
+  margin: 30px 0 15px 0;
+}
+
+.book-body h4 {
+  font-size: 20px;
+  color: #7f8c8d;
+  margin: 25px 0 12px 0;
+}
+
+.book-body p {
+  margin: 15px 0;
+  text-align: justify;
+}
+
+.book-body a {
+  color: #3498db;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s;
+}
+
+.book-body a:hover {
+  color: #2980b9;
+  border-bottom-color: #2980b9;
+}
+
+.book-body code {
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  font-size: 14px;
+  color: #e74c3c;
+}
+
+.book-body pre {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.book-body pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: 14px;
+}
+
+/* 兼容 Hexo highlight 结构（figure.highlight > table > .gutter/.code）
+   避免被 .book-body table 样式影响而导致“布局混乱” */
+.book-body figure.highlight {
+  margin: 20px 0;
+  background: #2c3e50;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.book-body figure.highlight table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.book-body figure.highlight td {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.book-body figure.highlight pre {
+  margin: 0;
+  padding: 20px;
+  background: transparent;
+  color: #ecf0f1;
+  overflow-x: auto;
+}
+
+.book-body figure.highlight .gutter {
+  width: 3.2em;
+  background: rgba(0,0,0,0.18);
+  user-select: none;
+}
+
+.book-body figure.highlight .gutter pre {
+  padding: 20px 10px;
+  text-align: right;
+  color: rgba(236,240,241,0.6);
+}
+
+/* figure.highlight 内的 code 不额外加背景 */
+.book-body figure.highlight code {
+  background: transparent;
+  color: inherit;
+}
+
+.book-body ul, .book-body ol {
+  margin: 15px 0;
+  padding-left: 30px;
+}
+
+.book-body li {
+  margin: 8px 0;
+}
+
+.book-body blockquote {
+  border-left: 4px solid #3498db;
+  padding: 15px 20px;
+  margin: 20px 0;
+  background: #f8f9fa;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.book-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.book-body table th {
+  background: #3498db;
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.book-body table td {
+  padding: 12px;
+  border: 1px solid #ecf0f1;
+}
+
+.book-body table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.book-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.book-body hr {
+  border: none;
+  border-top: 2px solid #ecf0f1;
+  margin: 40px 0;
+}
+
+/* 页面导航 */
+.book-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 2px solid #ecf0f1;
+}
+
+.book-navigation a {
+  padding: 12px 24px;
+  background: #3498db;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s;
+  font-weight: 600;
+}
+
+.book-navigation a:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.book-navigation .prev-page {
+  margin-right: auto;
+}
+
+.book-navigation .next-page {
+  margin-left: auto;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .book-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  
+  .book-sidebar.active {
+    transform: translateX(0);
+  }
+  
+  .book-main {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 30px 20px;
+  }
+
+  .book-right {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .book-title {
+    font-size: 28px;
+  }
+  
+  .book-body h1 {
+    font-size: 26px;
+  }
+  
+  .book-body h2 {
+    font-size: 22px;
+  }
+  
+  .book-body {
+    font-size: 15px;
+  }
+  
+  #book-article {
+    padding: 20px;
+  }
+}
+
+/* 滚动条样式 */
+.book-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.book-sidebar::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+}
+
+.book-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+.book-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.5);
+}

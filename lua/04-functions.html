@@ -1,0 +1,656 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Lua 教程 - 第四章：函数深入</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua 教程 - 第四章：函数深入',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><h2>教程导航</h2><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>第一部分：基础入门</h3><ul><li><a href="/lua/01-intro.html">第 01 章：Lua 入门基础</a></li><li><a href="/lua/02-datatypes.html">第 02 章：数据类型与值</a></li><li><a href="/lua/03-control-flow.html">第 03 章：控制流与循环</a></li></ul><h3>第二部分：核心语法</h3><ul><li><a href="/lua/04-functions.html">第 04 章：函数与作用域</a></li><li><a href="/lua/05-tables.html">第 05 章：表（Table）与数据结构</a></li><li><a href="/lua/06-strings.html">第 06 章：字符串与模式匹配</a></li></ul><h3>第三部分：工程与实战</h3><ul><li><a href="/lua/07-io.html">第 07 章：输入输出与文件系统</a></li><li><a href="/lua/08-debug.html">第 08 章：调试与错误处理</a></li><li><a href="/lua/09-stdlib.html">第 09 章：标准库速查</a></li><li><a href="/lua/10-c-api.html">第 10 章：Lua C API 入门</a></li><li><a href="/lua/11-projects.html">第 11 章：项目实践与模块化</a></li><li><a href="/lua/12-best-practices.html">第 12 章：最佳实践与优化</a></li></ul></div></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">Lua 教程 - 第四章：函数深入</h1><div class="book-body" id="article-container"><h1 id="第四章函数深入"><a class="markdownIt-Anchor" href="#第四章函数深入"></a> 第四章：函数深入</h1>
+<p>函数是 Lua 程序的重要组成部分。在 Lua 中，函数是第一类值（First-Class Value），这意味着函数可以存储在变量中，可以作为参数传递给其他函数，也可以作为返回值。</p>
+<p>本章将深入讲解函数的定义、参数传递、多返回值、可变参数以及闭包等高级特性。</p>
+<h2 id="41-函数基础"><a class="markdownIt-Anchor" href="#41-函数基础"></a> 4.1 函数基础</h2>
+<h3 id="函数调用流程"><a class="markdownIt-Anchor" href="#函数调用流程"></a> 函数调用流程</h3>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+flowchart TD
+    A[函数调用] --> B[参数传递]
+    B --> C[参数匹配]
+    C --> D&#123;参数数量&#125;
+    D -->|参数不足| E[缺失参数 = nil]
+    D -->|参数匹配| F[正常赋值]
+    D -->|参数过多| G[多余参数被忽略]
+    E --> H[执行函数体]
+    F --> H[执行函数体]
+    G --> H[执行函数体]
+    H --> I&#123;有返回值?&#125;
+    I -->|是| J[返回值]
+    I -->|否| K[返回 nil]
+    J --> L[调用结束]
+    K --> L[调用结束]
+</pre></div>
+<h3 id="函数定义"><a class="markdownIt-Anchor" href="#函数定义"></a> 函数定义</h3>
+<p>使用 <code>function</code> 关键字定义函数。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">-- 定义一个计算阶乘的函数</span>
+<span class="token keyword">function</span> <span class="token function">factorial</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token keyword">else</span>
+        <span class="token keyword">return</span> n <span class="token operator">*</span> <span class="token function">factorial</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">factorial</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- 120</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这实际上是以下形式的语法糖：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">factorial <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+    <span class="token comment">-- ...</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="函数调用"><a class="markdownIt-Anchor" href="#函数调用"></a> 函数调用</h3>
+<p>调用函数时，如果有参数，必须加上圆括号 <code>()</code>。哪怕没有参数，也必须加上 <code>()</code>。<br />
+<strong>特例</strong>：如果函数只有一个参数，且该参数是<strong>字符串字面量</strong>或<strong>表构造器</strong>，则可以省略括号。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">print <span class="token string">"Hello"</span>      <span class="token comment">-- 等同于 print("Hello")</span>
+<span class="token function">print</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">&#125;</span>    <span class="token comment">-- 等同于 print(&#123;1, 2, 3&#125;)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="参数传递"><a class="markdownIt-Anchor" href="#参数传递"></a> 参数传递</h3>
+<p>Lua 的参数传递机制类似于赋值：实参的值被赋给形参。</p>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p>多余的参数会被忽略。</p>
+</li>
+<li class="lvl-4">
+<p>缺少的参数会被初始化为 <code>nil</code>。</p>
+</li>
+</ul>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>        <span class="token comment">-- 1   nil</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>     <span class="token comment">-- 1   2</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>  <span class="token comment">-- 1   2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="多返回值"><a class="markdownIt-Anchor" href="#多返回值"></a> 多返回值</h3>
+<p>Lua 函数非常独特的一点是支持返回多个值。只需在 <code>return</code> 语句后列出所有返回值即可。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">swap</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> y<span class="token punctuation">,</span> x
+<span class="token keyword">end</span>
+
+a<span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token comment">-- 20  10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果函数调用不是表达式的最后一个元素，只返回第一个值。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">swap</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"end"</span><span class="token punctuation">)</span> <span class="token comment">-- 20  end</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">swap</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span>        <span class="token comment">-- 20  10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="变长参数"><a class="markdownIt-Anchor" href="#变长参数"></a> 变长参数</h3>
+<p>使用 <code>...</code> 表示变长参数。在函数体内，<code>...</code> 表现为一个包含所有额外参数的表达式。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token punctuation">...</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> s <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> v <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">&#123;</span><span class="token punctuation">...</span><span class="token punctuation">&#125;</span> <span class="token keyword">do</span>
+        s <span class="token operator">=</span> s <span class="token operator">+</span> v
+    <span class="token keyword">end</span>
+    <span class="token keyword">return</span> s
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- 10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在 Lua 5.2+ 中，还可以使用 <code>table.pack(...)</code> 将参数打包成一个表，这对于包含 <code>nil</code> 的参数列表更安全（因为它包含一个 <code>n</code> 字段表示参数个数）。</p>
+<h2 id="42-高级函数特性"><a class="markdownIt-Anchor" href="#42-高级函数特性"></a> 4.2 高级函数特性</h2>
+<h3 id="闭包机制"><a class="markdownIt-Anchor" href="#闭包机制"></a> 闭包机制</h3>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+flowchart TD
+    A[外部函数 newCounter] --> B[创建局部变量 count = 0]
+    B --> C[返回内部函数]
+    C --> D[闭包形成]
+    D --> E[闭包包含]
+    E --> E1[函数代码]
+    E --> E2[外部变量 count]
+
+    F[调用闭包 c1] --> G[访问 count]
+    G --> H[修改 count]
+    H --> I[返回新值]
+
+    J[创建新闭包 c2] --> K[独立的 count 变量]
+    K --> L[独立计数]
+</pre></div>
+<h3 id="闭包-closure"><a class="markdownIt-Anchor" href="#闭包-closure"></a> 闭包 (Closure)</h3>
+<p>闭包是指一个函数加上该函数所需访问的非局部变量（Upvalue）。简单来说，闭包可以让函数访问并操作其定义时所在作用域的变量，即使该作用域已经结束。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">newCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> count <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">-- 匿名函数</span>
+        count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> count
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+c1 <span class="token operator">=</span> <span class="token function">newCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">c1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- 1</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">c1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- 2</span>
+
+c2 <span class="token operator">=</span> <span class="token function">newCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">-- 新的闭包，拥有独立的 count</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token function">c2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- 1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在上面的例子中，<code>newCounter</code> 返回了一个匿名函数。虽然 <code>newCounter</code> 执行完毕后局部变量 <code>count</code> 本该销毁，但因为返回的匿名函数引用了它，所以 <code>count</code> 会一直存在于闭包中。</p>
+<h3 id="尾调用-tail-call"><a class="markdownIt-Anchor" href="#尾调用-tail-call"></a> 尾调用 (Tail Call)</h3>
+<p>尾调用是指函数的最后一个动作是调用另一个函数。Lua 支持尾调用优化（Tail Call Optimization），这意味着尾调用不会消耗栈空间。这使得我们可以编写无限递归函数而不会导致栈溢出。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> n <span class="token operator">></span> <span class="token number">0</span> <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token function">foo</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment">-- 尾调用</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以下情况<strong>不是</strong>尾调用：</p>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><code>return foo(n) + 1</code> (调用后还有加法操作)</p>
+</li>
+<li class="lvl-4">
+<p><code>return (foo(n))</code> (被括号包裹，强制返回一个值)</p>
+</li>
+</ul>
+<h3 id="函数作为参数高阶函数"><a class="markdownIt-Anchor" href="#函数作为参数高阶函数"></a> 函数作为参数（高阶函数）</h3>
+<p>函数可以作为参数传递给另一个函数。例如 <code>table.sort</code> 就接受一个比较函数。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">students <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">&#123;</span>name <span class="token operator">=</span> <span class="token string">"Alice"</span><span class="token punctuation">,</span> score <span class="token operator">=</span> <span class="token number">90</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>name <span class="token operator">=</span> <span class="token string">"Bob"</span><span class="token punctuation">,</span> score <span class="token operator">=</span> <span class="token number">85</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>name <span class="token operator">=</span> <span class="token string">"Charlie"</span><span class="token punctuation">,</span> score <span class="token operator">=</span> <span class="token number">95</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+table<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>students<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> a<span class="token punctuation">.</span>score <span class="token operator">></span> b<span class="token punctuation">.</span>score <span class="token comment">-- 按分数降序排列</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> _<span class="token punctuation">,</span> s <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>students<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>name<span class="token punctuation">,</span> s<span class="token punctuation">.</span>score<span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="43-函数式编程初探"><a class="markdownIt-Anchor" href="#43-函数式编程初探"></a> 4.3 函数式编程初探</h2>
+<p>Lua 的灵活性使其非常适合函数式编程风格。</p>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><strong>map</strong>: 对集合中的每个元素应用函数。</p>
+</li>
+<li class="lvl-4">
+<p><strong>filter</strong>: 筛选符合条件的元素。</p>
+</li>
+<li class="lvl-4">
+<p><strong>reduce</strong>: 将集合归约为单个值。</p>
+</li>
+</ul>
+<p>虽然 Lua 标准库没有直接提供这些函数，但我们可以轻松实现它们。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">map</span><span class="token punctuation">(</span>func<span class="token punctuation">,</span> t<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> new_t <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> v <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        new_t<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">func</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+    <span class="token keyword">return</span> new_t
+<span class="token keyword">end</span>
+
+t <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">&#125;</span>
+t2 <span class="token operator">=</span> <span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">return</span> x <span class="token operator">*</span> <span class="token number">2</span> <span class="token keyword">end</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span>
+<span class="token comment">-- t2 is &#123;2, 4, 6&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="练习题"><a class="markdownIt-Anchor" href="#练习题"></a> 练习题</h2>
+<ol>
+<li class="lvl-4">
+<p>编写一个函数 <code>average(...)</code>，计算任意数量参数的平均值。</p>
+</li>
+<li class="lvl-4">
+<p>编写一个函数 <code>power(x, n)</code>，使用递归计算 <code>x</code> 的 <code>n</code> 次幂。</p>
+</li>
+<li class="lvl-4">
+<p>利用闭包实现一个简单的“状态机”，每次调用返回 “STATE_A”, “STATE_B”, “STATE_C” 循环切换。</p>
+</li>
+<li class="lvl-4">
+<p>重写 4.1 节的 <code>sum</code> 函数，使其支持直接传入一个数组作为参数（提示：检查第一个参数类型）。</p>
+</li>
+</ol>
+<hr />
+<p><strong>下一章预告</strong>：表（Table）是 Lua 最强大的数据结构，也是唯一的复合数据结构。下一章我们将深入研究表的操作、元表（Metatable）以及如何实现面向对象编程。</p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%87%BD%E6%95%B0%E6%B7%B1%E5%85%A5"><span class="toc-number">1.</span> <span class="toc-text"> 第四章：函数深入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#41-%E5%87%BD%E6%95%B0%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text"> 4.1 函数基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 函数调用流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 函数定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 函数调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 参数传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 多返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0"><span class="toc-number">1.1.6.</span> <span class="toc-text"> 变长参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#42-%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0%E7%89%B9%E6%80%A7"><span class="toc-number">1.2.</span> <span class="toc-text"> 4.2 高级函数特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E6%9C%BA%E5%88%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 闭包机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%8C%85-closure"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 闭包 (Closure)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%BE%E8%B0%83%E7%94%A8-tail-call"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 尾调用 (Tail Call)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 函数作为参数（高阶函数）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#43-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%88%9D%E6%8E%A2"><span class="toc-number">1.3.</span> <span class="toc-text"> 4.3 函数式编程初探</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text"> 练习题</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

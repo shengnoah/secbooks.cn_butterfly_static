@@ -1,0 +1,606 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>AI安全运营 - AI安全运营</title><meta name="author" content="AI安全运营"><meta name="copyright" content="AI安全运营"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AI安全运营">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI安全运营">
+<meta property="og:url" content="https://lua.ren/index.html">
+<meta property="og:site_name" content="AI安全运营">
+<meta property="og:description" content="AI安全运营">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg">
+<meta property="article:author" content="AI安全运营">
+<meta property="article:tag" content="AI安全运营">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'AI安全运营',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-25 10:45:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img has-home-swiper" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div class="home-swiper"><div class="home-swiper-track"><div class="home-swiper-slide" style="background-image:url('https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg')"></div><div class="home-swiper-slide" style="background-image:url('https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg')"></div><div class="home-swiper-slide" style="background-image:url('https://images.pexels.com/photos/248159/pexels-photo-248159.jpeg')"></div></div><div class="home-swiper-dots"><button class="home-swiper-dot" type="button" data-index="0" aria-label="slide-1"></button><button class="home-swiper-dot" type="button" data-index="1" aria-label="slide-2"></button><button class="home-swiper-dot" type="button" data-index="2" aria-label="slide-3"></button></div></div><script>(function(){
+  var root = document.querySelector('#page-header.has-home-swiper .home-swiper');
+  if (!root || root.dataset.inited) return;
+  root.dataset.inited = 'true';
+  var track = root.querySelector('.home-swiper-track');
+  var dots = root.querySelectorAll('.home-swiper-dot');
+  var count = dots.length;
+  var index = 0;
+  var timer;
+  function go(i){
+    index = (i + count) % count;
+    track.style.transform = 'translateX(' + (-index * 100) + '%)';
+    dots.forEach(function(d, di){ d.classList.toggle('active', di === index); });
+  }
+  function start(){
+    timer = setInterval(function(){ go(index + 1); }, 5000);
+  }
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){
+      var i = parseInt(d.getAttribute('data-index'), 10);
+      go(i);
+      clearInterval(timer);
+      start();
+    });
+  });
+  go(0);
+  start();
+})();</script></header><main class="layout    " id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/lua/2025-01-01-lua-intro/" title="Lua 教程 - 第一章：Lua 入门基础"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第一章：Lua 入门基础"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-01-lua-intro/" title="Lua 教程 - 第一章：Lua 入门基础">Lua 教程 - 第一章：Lua 入门基础</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-01T02:00:00.000Z" title="发表于 2025-01-01 10:00:00">2025-01-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第一章：Lua 入门基础
+欢迎开始 Lua 学习之旅！Lua 是一种轻量级、高效且可嵌入的脚本语言。它的设计目标是作为一种扩展语言，嵌入到应用程序中，为其提供脚本功能。
+ 1.1 简介
+ Lua 的历史与发展
+
+timeline
+    title Lua 发展历程
+    section 1993年
+        Lua 诞生 : 巴西里约热内卢天主教大学
+                 : Roberto Ierusalimschy
+                 : Luiz Henrique de Figueiredo
+                 : Waldemar Celes
+    section 1990年代
+        Lua 1.0-3.0 : 基础功能完善
+                    : 数据库引擎扩展
+    section 2000年代
+        Lua 5.0 : 新增完整元表
+                 : 匿名函数
+        Lua 5.1 : 虚拟机重写
+                 : 模块系统
+  ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/lua/2025-01-02-lua-datatypes/" title="Lua 教程 - 第二章：数据类型与值"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第二章：数据类型与值"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-02-lua-datatypes/" title="Lua 教程 - 第二章：数据类型与值">Lua 教程 - 第二章：数据类型与值</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-02T02:00:00.000Z" title="发表于 2025-01-02 10:00:00">2025-01-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第二章：数据类型与值
+在 Lua 中，值（Value）是一等公民，而变量本身没有类型，只有值才有类型。这意味着你可以将任何类型的值赋给任何变量。Lua 是一种动态类型语言，这为编程带来了极大的灵活性。
+本章将详细介绍 Lua 的 8 种基本数据类型，并深入探讨字符串和表（Table）的基础用法。
+ 2.1 基本数据类型
+Lua 包含以下 8 种基本数据类型：
+
+
+
+类型
+描述
+
+
+
+
+nil
+空值，表示无效值。
+
+
+boolean
+布尔值，包含 true 和 false。
+
+
+number
+数字，Lua 5.3+ 支持整数和浮点数。
+
+
+string
+字符串，字符序列。
+
+
+function
+函数，由 C 或 Lua 编写。
+
+
+userdata
+用户数据，用于存储 C 数据结构。
+
+
+thread
+线程，用于协程（Coroutine）。
+
+
+table
+表，Lua 中唯一的数据结构。
+
+
+
+
+graph TD
+    A[Lua 数据类型] --> B[简单类型]
+    A --> C[复合类型]
+    A --> D[特殊类型]
+
+    B --> B1[nil 空值]
+  ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/lua/2025-01-03-lua-control-flow/" title="Lua 教程 - 第三章：流程控制"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第三章：流程控制"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-03-lua-control-flow/" title="Lua 教程 - 第三章：流程控制">Lua 教程 - 第三章：流程控制</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-03T02:00:00.000Z" title="发表于 2025-01-03 10:00:00">2025-01-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第三章：流程控制
+掌握了基础语法和数据类型后，我们需要学习如何控制程序的执行流程。Lua 提供了传统的条件语句和循环结构，但其语法与其他语言略有不同，更加简洁明了。
+本章将详细讲解 if 条件判断、while 循环、for 循环（数值型和泛型）以及 repeat-until 循环。
+ 3.1 条件语句
+ if 语句
+if 语句用于根据条件执行代码块。
+local age = 20
+
+if age >= 18 then
+    print("成年人")
+end
+ if-else 语句
+如果条件为假，执行 else 块。
+local age = 15
+
+if age >= 18 then
+    print("成年人")
+else
+    print("未成年人")
+end
+ if-elseif-else 语句
+处理多重条件。注意关键字是 elseif（中间没有空格）。
+local score = 85
+
+if score >= 90 then
+    print("优秀")
+elseif score >= 80 then
+    print("良好")
+elseif score >=  ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/lua/2025-01-04-lua-functions/" title="Lua 教程 - 第四章：函数深入"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第四章：函数深入"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-04-lua-functions/" title="Lua 教程 - 第四章：函数深入">Lua 教程 - 第四章：函数深入</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-04T02:00:00.000Z" title="发表于 2025-01-04 10:00:00">2025-01-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第四章：函数深入
+函数是 Lua 程序的重要组成部分。在 Lua 中，函数是第一类值（First-Class Value），这意味着函数可以存储在变量中，可以作为参数传递给其他函数，也可以作为返回值。
+本章将深入讲解函数的定义、参数传递、多返回值、可变参数以及闭包等高级特性。
+ 4.1 函数基础
+ 函数定义
+使用 function 关键字定义函数。
+-- 定义一个计算阶乘的函数
+function factorial(n)
+    if n == 0 then
+        return 1
+    else
+        return n * factorial(n - 1)
+    end
+end
+
+print(factorial(5)) -- 120
+这实际上是以下形式的语法糖：
+factorial = function(n)
+    -- ...
+end
+ 函数调用
+调用函数时，如果有参数，必须加上圆括号 ()。哪怕没有参数，也必须加上 ()。
+特例：如果函数只有一个参数，且该参数是字符串字面量或表构造器，则可以省略括号。
+print "Hello"      -- 等同于 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/lua/2025-01-05-lua-tables/" title="Lua 教程 - 第五章：表的高级应用"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第五章：表的高级应用"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-05-lua-tables/" title="Lua 教程 - 第五章：表的高级应用">Lua 教程 - 第五章：表的高级应用</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-05T02:00:00.000Z" title="发表于 2025-01-05 10:00:00">2025-01-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第五章：表的高级应用
+表（Table）不仅仅是数据容器，它还是 Lua 模块系统、面向对象编程和元编程的基石。在前面的章节中，我们学习了表的基础操作，本章将深入探讨表的更多高级特性。
+我们将学习如何操作表、使用元表（Metatable）改变表的行为，以及如何利用表来实现面向对象编程（OOP）。
+ 5.1 表操作
+Lua 的 table 库提供了许多实用的函数来操作数组类型的表。
+ 插入与删除
+
+
+table.insert(list, [pos,] value): 在指定位置插入元素。默认插入末尾。
+
+
+table.remove(list, [pos]): 删除指定位置的元素，并返回该元素。默认删除最后一个。
+
+
+local t = &#123;10, 20, 30&#125;
+table.insert(t, 40)      -- &#123;10, 20, 30, 40&#125;
+table.insert(t, 2, 15)   -- &#123;10, 15, 20, 30, 40&#125;
+print(table.remove(t, 1)) -- 10, t 变为 &#12 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/lua/2025-01-06-lua-strings/" title="Lua 教程 - 第六章：字符串进阶"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第六章：字符串进阶"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-06-lua-strings/" title="Lua 教程 - 第六章：字符串进阶">Lua 教程 - 第六章：字符串进阶</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-06T02:00:00.000Z" title="发表于 2025-01-06 10:00:00">2025-01-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第六章：字符串进阶
+Lua 的字符串处理能力非常强大，尤其是它的模式匹配（Pattern Matching）机制。虽然它不像 Perl 或 Python 的正则表达式（Regex）那样功能全面，但 Lua 的模式匹配设计得更加轻量、高效，足以应对绝大多数日常需求。
+本章将详细讲解 Lua 的模式匹配语法、常用的字符串函数以及如何进行高效的文本处理。
+ 6.1 模式匹配基础
+Lua 的模式匹配使用一些特殊字符来描述字符串的结构。
+ 字符类 (Character Classes)
+字符类用于匹配一组字符中的任意一个。
+
+
+.: 任意字符
+
+
+%a: 字母
+
+
+%c: 控制字符
+
+
+%d: 数字
+
+
+%l: 小写字母
+
+
+%p: 标点符号
+
+
+%s: 空白字符
+
+
+%u: 大写字母
+
+
+%w: 字母和数字
+
+
+%x: 十六进制数字
+
+
+%z: 内部表示为 0 的字符
+
+
+注意：大写形式表示补集。例如 %D 表示非数字，%S 表示非空白字符。
+ 自定义字符类
+使用 [] 可以自定义字符类。
+
+
+[abc]: 匹配 a, b, 或 c
+
+
+[0-9]: 匹配 0 到 9 的数字 (等同于 %d ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/lua/2025-01-07-lua-io/" title="Lua 教程 - 第七章：I/O 操作"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第七章：I/O 操作"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-07-lua-io/" title="Lua 教程 - 第七章：I/O 操作">Lua 教程 - 第七章：I/O 操作</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-07T02:00:00.000Z" title="发表于 2025-01-07 10:00:00">2025-01-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第七章：I/O 操作
+任何有用的程序都需要与外部世界交互。Lua 的 I/O 库提供了两种模型来处理文件输入输出：简单 I/O 模型和完整 I/O 模型。
+
+
+简单模型：假设有一个当前输入文件和一个当前输出文件，所有的 I/O 操作都针对这两个文件。
+
+
+完整模型：使用文件句柄（File Handles），类似于 C 语言中的 FILE*，可以同时操作多个文件。
+
+
+ 7.1 简单 I/O 模型
+简单模型非常适合处理标准输入（stdin）和标准输出（stdout），或者简单的文件读写任务。
+ io.input 和 io.output
+
+
+io.input(filename): 设置默认输入文件。如果不带参数，返回当前输入文件句柄。
+
+
+io.output(filename): 设置默认输出文件。
+
+
+ io.read
+从默认输入文件中读取数据。参数决定了读取的方式：
+
+
+&quot;a&quot;: 读取整个文件。
+
+
+&quot;l&quot;: 读取下一行（丢弃换行符）。这是默认值。
+
+
+&quot;L&quot;: 读取下一行（保留换行符）。
+
+
+n: 读取指定数量的字符。
+
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/lua/2025-01-08-lua-debug/" title="Lua 教程 - 第八章：错误处理与调试"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第八章：错误处理与调试"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-08-lua-debug/" title="Lua 教程 - 第八章：错误处理与调试">Lua 教程 - 第八章：错误处理与调试</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-08T02:00:00.000Z" title="发表于 2025-01-08 10:00:00">2025-01-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第八章：错误处理与调试
+在编程过程中，错误是不可避免的。Lua 提供了几种处理错误和调试代码的机制，帮助我们编写更健壮的程序。
+Lua 将错误主要分为两类：语法错误（Syntax Errors）和运行时错误（Runtime Errors）。本章主要讨论运行时错误的捕获与处理。
+ 8.1 错误处理
+ error 函数
+我们可以使用 error 函数显式地抛出一个错误，终止程序的执行。
+print("Enter a number:")
+local n = io.read("n")
+if not n then
+    error("Invalid input! Not a number.")
+end
+ assert 函数
+assert(v [, message]) 检查第一个参数 v 是否为真（非 false 且非 nil）。如果是真，返回 v；如果是假，抛出一个错误，错误信息为 message（默认为 “assertion failed!”）。
+local n = assert(io.read("n"), "invalid input")
+相当于：
+local n = io.read(" ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/lua/2025-01-09-lua-stdlib/" title="Lua 教程 - 第九章：标准库"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第九章：标准库"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-09-lua-stdlib/" title="Lua 教程 - 第九章：标准库">Lua 教程 - 第九章：标准库</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-09T02:00:00.000Z" title="发表于 2025-01-09 10:00:00">2025-01-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第九章：标准库
+Lua 为了保持轻量级，核心语言非常小。但它提供了一组实用的标准库，涵盖了常用的功能。这些库由 C 语言实现，效率极高。
+前面几章我们已经介绍了 string, table, io, debug 库。本章将重点介绍 math (数学) 和 os (操作系统) 库。
+ 9.1 数学库 (math)
+math 库包含了常用的数学函数。
+ 常用三角函数
+
+
+math.sin(x), math.cos(x), math.tan(x): 参数 x 为弧度。
+
+
+math.deg(x): 弧度转角度。
+
+
+math.rad(x): 角度转弧度。
+
+
+print(math.sin(math.pi / 2)) -- 1.0
+print(math.deg(math.pi))     -- 180.0
+ 取整与绝对值
+
+
+math.floor(x): 向下取整。
+
+
+math.ceil(x): 向上取整。
+
+
+math.abs(x): 绝对值。
+
+
+math.fmod(x, y): 取模（浮点数）。
+
+
+print(math.floor(3.7)) -- 3
+print(math.cei ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/lua/2025-01-10-lua-c-api/" title="Lua 教程 - 第十章：Lua 与 C 交互"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 教程 - 第十章：Lua 与 C 交互"></a></div><div class="recent-post-info"><a class="article-title" href="/lua/2025-01-10-lua-c-api/" title="Lua 教程 - 第十章：Lua 与 C 交互">Lua 教程 - 第十章：Lua 与 C 交互</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-10T02:00:00.000Z" title="发表于 2025-01-10 10:00:00">2025-01-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Lua/">Lua</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Lua/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content"> 第十章：Lua 与 C 交互
+Lua 的设计目标之一就是作为一种嵌入式语言，方便地与 C/C++ 等宿主语言进行交互。Lua 提供了丰富的 C API，允许我们在 C 代码中操作 Lua 状态机、调用 Lua 函数、读写 Lua 变量，反之亦然。
+本章将介绍 Lua C API 的基础知识，包括栈操作、调用 Lua 函数以及在 C 中编写可供 Lua 调用的函数。
+ 10.1 Lua C API 基础：虚拟栈
+Lua 与 C 之间的数据交换是通过一个抽象的栈（Stack）来进行的。
+
+
+Lua 将数据压入栈中，C 从栈中取出数据。
+
+
+C 将数据压入栈中，Lua 从栈中取出数据。
+
+
+ 栈索引
+栈中的每个元素都有一个索引。
+
+
+正索引：从栈底开始，1 表示栈底第一个元素，2 表示第二个，依此类推。
+
+
+负索引：从栈顶开始，-1 表示栈顶元素，-2 表示栈顶下面的那个，依此类推。
+
+
+ 常用栈操作 API
+
+
+lua_pushnil(L): 压入 nil。
+
+
+lua_pushboolean(L, b): 压入布尔值。
+
+
+lua_pushnumber(L, n): 压入数字。
+
+
+l ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#content-inner">18</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content aside-left" id="aside-content-left"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">AI安全运营</div><div class="author-info__description">AI安全运营</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：AI安全运营 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Claude/"><span class="card-category-list-name">Claude</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Ollama/"><span class="card-category-list-name">Ollama</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/OpenClaw/"><span class="card-category-list-name">OpenClaw</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/"><span class="card-category-list-name">Lua</span><span class="card-category-list-count">12</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/%E6%95%99%E7%A8%8B/"><span class="card-category-list-name">教程</span><span class="card-category-list-count">12</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Security-Ops/"><span class="card-category-list-name">Security Ops</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/claude/"><span class="card-category-list-name">claude</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div></div></div><div class="aside-content aside-right" id="aside-content-right"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/claude/2026-02-24-claude-vscode-pixel-agents/" title="Pixel Agents：把 Claude Code 变成像素办公模拟器"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pixel Agents：把 Claude Code 变成像素办公模拟器"/></a><div class="content"><a class="title" href="/claude/2026-02-24-claude-vscode-pixel-agents/" title="Pixel Agents：把 Claude Code 变成像素办公模拟器">Pixel Agents：把 Claude Code 变成像素办公模拟器</a><time datetime="2026-02-23T16:00:00.000Z" title="发表于 2026-02-24 00:00:00">2026-02-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/openclaw/2026-02-21-openclaw-tavily-skills-web-search/" title="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）"/></a><div class="content"><a class="title" href="/openclaw/2026-02-21-openclaw-tavily-skills-web-search/" title="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）">OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）</a><time datetime="2026-02-21T02:30:00.000Z" title="发表于 2026-02-21 10:30:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-attack-technique-embedding-faiss/" title="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-attack-technique-embedding-faiss/" title="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）">ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）</a><time datetime="2026-02-21T02:30:00.000Z" title="发表于 2026-02-21 10:30:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-attack-nsm-mapping/" title="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-attack-nsm-mapping/" title="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）">MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）</a><time datetime="2026-02-21T02:00:00.000Z" title="发表于 2026-02-21 10:00:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-shannon-automation-security-testing-guide/" title="Shannon 自动化安全测试系统（Web 控制台）通用使用指南"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shannon 自动化安全测试系统（Web 控制台）通用使用指南"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-shannon-automation-security-testing-guide/" title="Shannon 自动化安全测试系统（Web 控制台）通用使用指南">Shannon 自动化安全测试系统（Web 控制台）通用使用指南</a><time datetime="2026-02-20T16:00:00.000Z" title="发表于 2026-02-21 00:00:00">2026-02-21</time></div></div></div></div><div class="sticky_layout"><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><span class="card-archive-list-count">136</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">35</span></a></li></ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/TypeScript/" style="font-size: 1.18em; color: #999ca1">TypeScript</a> <a href="/tags/%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90/" style="font-size: 1.18em; color: #999ca1">威胁分析</a> <a href="/tags/LLM/" style="font-size: 1.18em; color: #999ca1">LLM</a> <a href="/tags/NSM/" style="font-size: 1.18em; color: #999ca1">NSM</a> <a href="/tags/Claude-Code/" style="font-size: 1.1em; color: #999">Claude Code</a> <a href="/tags/%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" style="font-size: 1.1em; color: #999">条件语句</a> <a href="/tags/IO/" style="font-size: 1.1em; color: #999">IO</a> <a href="/tags/%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94/" style="font-size: 1.1em; color: #999">事件响应</a> <a href="/tags/AppSec/" style="font-size: 1.1em; color: #999">AppSec</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 1.1em; color: #999">性能优化</a> <a href="/tags/%E5%AE%89%E5%85%A8%E7%9B%91%E6%8E%A7/" style="font-size: 1.1em; color: #999">安全监控</a> <a href="/tags/%E7%A7%91%E7%9B%AE%E4%B8%80/" style="font-size: 1.1em; color: #999">科目一</a> <a href="/tags/Skills/" style="font-size: 1.18em; color: #999ca1">Skills</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 1.1em; color: #999">面向对象</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 1.1em; color: #999">向量检索</a> <a href="/tags/os/" style="font-size: 1.1em; color: #999">os</a> <a href="/tags/%E6%89%80%E6%9C%89%E6%9D%83/" style="font-size: 1.1em; color: #999">所有权</a> <a href="/tags/C-API/" style="font-size: 1.1em; color: #999">C API</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">线程</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 1.18em; color: #999ca1">模块</a> <a href="/tags/%E7%B1%BB/" style="font-size: 1.1em; color: #999">类</a> <a href="/tags/Trait/" style="font-size: 1.1em; color: #999">Trait</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 1.1em; color: #999">自动化</a> <a href="/tags/SAST/" style="font-size: 1.1em; color: #999">SAST</a> <a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 1.1em; color: #999">枚举</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 1.26em; color: #999fa8">数据类型</a> <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">并发编程</a> <a href="/tags/Tavily/" style="font-size: 1.1em; color: #999">Tavily</a> <a href="/tags/Graylog/" style="font-size: 1.5em; color: #99a9bf">Graylog</a> <a href="/tags/Lua/" style="font-size: 1.34em; color: #99a3b0">Lua</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/ATT-CK/" style="font-size: 1.18em; color: #999ca1">ATT&CK</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">系统编程</a> <a href="/tags/Claude/" style="font-size: 1.1em; color: #999">Claude</a> <a href="/tags/Agent/" style="font-size: 1.18em; color: #999ca1">Agent</a> <a href="/tags/Ollama/" style="font-size: 1.18em; color: #999ca1">Ollama</a> <a href="/tags/WAF/" style="font-size: 1.42em; color: #99a6b7">WAF</a> <a href="/tags/%E5%A4%87%E8%80%83/" style="font-size: 1.1em; color: #999">备考</a> <a href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" style="font-size: 1.1em; color: #999">应急响应</a> <a href="/tags/%E5%80%9F%E7%94%A8/" style="font-size: 1.1em; color: #999">借用</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By AI安全运营</div><div class="framework-info"><span>( </span><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">备案:辽ICP备16003836号-5</a><span class="footer-separator"> </span><span>) </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"></a></div><div class="footer_webinfo"><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">171</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-25T02:45:56.234Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="/js/lua-swiper-directory.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

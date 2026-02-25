@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>6.1 签名规则管理</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '6.1 签名规则管理',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><a href="/openresty-waf/home.html"><h2>OpenResty WAF教程</h2></a><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>1. 基础概念</h3><ul><li><a href="/openresty-waf/01-intro.html">1.1 WAF 与 OpenResty 简介</a></li><li><a href="/openresty-waf/02-architecture.html">1.2 OpenResty 架构与阶段</a></li><li><a href="/openresty-waf/03-planning.html">1.3 环境规划与部署拓扑</a></li></ul><h3>2. 安装与入门</h3><ul><li><a href="/openresty-waf/04-openresty-install.html">2.1 OpenResty 安装</a></li><li><a href="/openresty-waf/05-lua-basics.html">2.2 Lua 基础与开发环境</a></li><li><a href="/openresty-waf/06-nginx-phases.html">2.3 Nginx 请求处理阶段</a></li></ul><h3>3. 请求解析与检测</h3><ul><li><a href="/openresty-waf/07-request-inspection.html">3.1 请求结构解析</a></li><li><a href="/openresty-waf/08-rule-engine.html">3.2 规则引擎设计</a></li><li><a href="/openresty-waf/09-ip-reputation.html">3.3 IP 信誉与威胁情报</a></li></ul><h3>4. 策略与控制</h3><ul><li><a href="/openresty-waf/10-rate-limit.html">4.1 限流与速率控制</a></li><li><a href="/openresty-waf/11-cc-protection.html">4.2 CC 防护与挑战</a></li><li><a href="/openresty-waf/12-bot-management.html">4.3 Bot 管理</a></li><li><a href="/openresty-waf/13-upload-defense.html">4.4 文件上传防护</a></li></ul><h3>5. 日志与审计</h3><ul><li><a href="/openresty-waf/14-logging.html">5.1 安全日志规范</a></li><li><a href="/openresty-waf/15-whitelist.html">5.2 白名单策略</a></li><li><a href="/openresty-waf/16-blacklist.html">5.3 黑名单策略</a></li></ul><h3>6. 规则与特征</h3><ul><li><a href="/openresty-waf/17-signature.html">6.1 签名规则管理</a></li><li><a href="/openresty-waf/18-geo-control.html">6.2 Geo/区域访问控制</a></li><li><a href="/openresty-waf/19-hot-reload.html">6.3 配置热更新</a></li></ul><h3>7. 性能与可用性</h3><ul><li><a href="/openresty-waf/20-performance.html">7.1 性能优化</a></li><li><a href="/openresty-waf/21-redis-store.html">7.2 Redis 与共享存储</a></li></ul><h3>8. 常见漏洞</h3><ul><li><a href="/openresty-waf/22-sqli.html">8.1 SQL 注入防护</a></li><li><a href="/openresty-waf/23-xss.html">8.2 XSS 防护</a></li><li><a href="/openresty-waf/24-csrf.html">8.3 CSRF 防护</a></li></ul><h3>9. API 防护与运维</h3><ul><li><a href="/openresty-waf/25-api-protection.html">9.1 API 防护策略</a></li><li><a href="/openresty-waf/26-monitoring.html">9.2 监控与告警</a></li><li><a href="/openresty-waf/27-deployment.html">9.3 上线与灰度发布</a></li></ul></div></div><div class="book-meta"><h3>🏷️ 标签（2）</h3><ul><li><a href="/tags/OpenResty/">OpenResty</a></li><li><a href="/tags/WAF/">WAF</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（3）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/OpenResty/">OpenResty</a></li><li><a href="/categories/WAF/">WAF</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">6.1 签名规则管理</h1><div class="book-body" id="article-container"><h1 id="61-签名规则管理"><a class="markdownIt-Anchor" href="#61-签名规则管理"></a> 6.1 签名规则管理</h1>
+<p>正则、关键词与规则更新机制。</p>
+<h2 id="关键要点"><a class="markdownIt-Anchor" href="#关键要点"></a> 关键要点</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>目标与边界清晰</p>
+</li>
+<li class="lvl-2">
+<p>规则可配置、可回滚</p>
+</li>
+<li class="lvl-2">
+<p>性能与安全平衡</p>
+</li>
+</ul>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<p>本章完成基础说明与实践要点。</p>
+<hr />
+<p><strong>下一节</strong>：<a href="18-geo-control.html">下一章</a></p>
+<p><a href="menu.html">返回目录</a> | <a href="home.html">返回首页</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#61-%E7%AD%BE%E5%90%8D%E8%A7%84%E5%88%99%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text"> 6.1 签名规则管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%A6%81%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text"> 关键要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.2.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

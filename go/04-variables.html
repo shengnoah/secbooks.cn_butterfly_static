@@ -1,0 +1,871 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>2.1 变量与常量</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '2.1 变量与常量',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><a href="/go/home.html"><h2>Go语言教程</h2></a><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>1. Go语言入门</h3><ul><li><a href="/go/01-intro.html">1.1 Go语言简介</a></li><li><a href="/go/02-setup.html">1.2 环境搭建</a></li><li><a href="/go/03-hello-world.html">1.3 第一个Go程序</a></li></ul><h3>2. 基本语法</h3><ul><li><a href="/go/04-variables.html">2.1 变量与常量</a></li><li><a href="/go/05-datatypes.html">2.2 数据类型</a></li><li><a href="/go/06-operators.html">2.3 运算符</a></li></ul><h3>3. 控制流程</h3><ul><li><a href="/go/XX.html">3.1 条件语句</a></li><li><a href="/go/XX.html">3.2 循环语句</a></li><li><a href="/go/XX.html">3.3 Switch语句</a></li></ul><h3>4. 函数</h3><ul><li><a href="/go/XX.html">4.1 函数定义与调用</a></li><li><a href="/go/XX.html">4.2 多返回值</a></li><li><a href="/go/XX.html">4.3 匿名函数与闭包</a></li></ul><h3>5. 复合数据类型</h3><ul><li><a href="/go/XX.html">5.1 数组</a></li><li><a href="/go/XX.html">5.2 切片</a></li><li><a href="/go/XX.html">5.3 映射</a></li></ul><h3>6. 结构体与方法</h3><ul><li><a href="/go/XX.html">6.1 结构体</a></li><li><a href="/go/XX.html">6.2 方法</a></li><li><a href="/go/XX.html">6.3 嵌入与组合</a></li></ul><h3>7. 接口</h3><ul><li><a href="/go/XX.html">7.1 接口定义</a></li><li><a href="/go/XX.html">7.2 接口实现</a></li><li><a href="/go/XX.html">7.3 空接口与类型断言</a></li></ul><h3>8. 并发编程</h3><ul><li><a href="/go/XX.html">8.1 Goroutine</a></li><li><a href="/go/XX.html">8.2 Channel</a></li><li><a href="/go/XX.html">8.3 Select语句</a></li><li><a href="/go/XX.html">8.4 并发模式</a></li></ul><h3>9. 错误处理</h3><ul><li><a href="/go/XX.html">9.1 错误处理基础</a></li><li><a href="/go/XX.html">9.2 自定义错误</a></li><li><a href="/go/XX.html">9.3 Panic与Recover</a></li></ul><h3>10. 包与模块</h3><ul><li><a href="/go/XX.html">10.1 包的概念</a></li><li><a href="/go/XX.html">10.2 Go Modules</a></li><li><a href="/go/XX.html">10.3 包管理最佳实践</a></li></ul><h3>11. 测试</h3><ul><li><a href="/go/XX.html">11.1 单元测试</a></li><li><a href="/go/XX.html">11.2 基准测试</a></li><li><a href="/go/XX.html">11.3 示例测试</a></li></ul><h3>12. 反射与泛型</h3><ul><li><a href="/go/XX.html">12.1 反射机制</a></li><li><a href="/go/XX.html">12.2 泛型编程</a></li></ul><h3>13. 常用标准库</h3><ul><li><a href="/go/XX.html">13.1 fmt包</a></li><li><a href="/go/XX.html">13.2 strings包</a></li><li><a href="/go/XX.html">13.3 time包</a></li><li><a href="/go/XX.html">13.4 io包</a></li><li><a href="/go/XX.html">13.5 os包</a></li></ul><h3>14. 网络编程</h3><ul><li><a href="/go/XX.html">14.1 HTTP客户端</a></li><li><a href="/go/XX.html">14.2 HTTP服务器</a></li><li><a href="/go/XX.html">14.3 JSON处理</a></li></ul><h3>15. Web开发</h3><ul><li><a href="/go/XX.html">15.1 Web框架选择</a></li><li><a href="/go/XX.html">15.2 RESTful API开发</a></li><li><a href="/go/XX.html">15.3 中间件</a></li></ul><h3>16. 数据库操作</h3><ul><li><a href="/go/XX.html">16.1 database/sql包</a></li><li><a href="/go/XX.html">16.2 MySQL操作</a></li><li><a href="/go/XX.html">16.3 ORM框架</a></li></ul><h3>17. 微服务</h3><ul><li><a href="/go/XX.html">17.1 微服务架构</a></li><li><a href="/go/XX.html">17.2 gRPC</a></li><li><a href="/go/XX.html">17.3 服务发现</a></li></ul><h3>18. 最佳实践</h3><ul><li><a href="/go/XX.html">18.1 代码规范</a></li><li><a href="/go/XX.html">18.2 性能优化</a></li><li><a href="/go/XX.html">18.3 项目结构</a></li></ul></div></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">2.1 变量与常量</h1><div class="book-body" id="article-container"><h1 id="21-变量与常量"><a class="markdownIt-Anchor" href="#21-变量与常量"></a> 2.1 变量与常量</h1>
+<p>变量和常量是编程语言的基础。本节将详细介绍Go语言中变量和常量的声明、使用和特点。</p>
+<h2 id="变量"><a class="markdownIt-Anchor" href="#变量"></a> 变量</h2>
+<h3 id="变量声明"><a class="markdownIt-Anchor" href="#变量声明"></a> 变量声明</h3>
+<p>Go语言提供了多种变量声明方式。</p>
+<h4 id="方式一标准声明"><a class="markdownIt-Anchor" href="#方式一标准声明"></a> 方式一：标准声明</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> name <span class="token builtin">string</span>
+<span class="token keyword">var</span> age <span class="token builtin">int</span>
+<span class="token keyword">var</span> isStudent <span class="token builtin">bool</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="方式二声明并初始化"><a class="markdownIt-Anchor" href="#方式二声明并初始化"></a> 方式二：声明并初始化</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> name <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">"张三"</span>
+<span class="token keyword">var</span> age <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">25</span>
+<span class="token keyword">var</span> isStudent <span class="token builtin">bool</span> <span class="token operator">=</span> <span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="方式三类型推导"><a class="markdownIt-Anchor" href="#方式三类型推导"></a> 方式三：类型推导</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">"张三"</span>      <span class="token comment">// 自动推导为string</span>
+<span class="token keyword">var</span> age <span class="token operator">=</span> <span class="token number">25</span>          <span class="token comment">// 自动推导为int</span>
+<span class="token keyword">var</span> isStudent <span class="token operator">=</span> <span class="token boolean">true</span>  <span class="token comment">// 自动推导为bool</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="方式四短变量声明最常用"><a class="markdownIt-Anchor" href="#方式四短变量声明最常用"></a> 方式四：短变量声明（最常用）</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">name <span class="token operator">:=</span> <span class="token string">"张三"</span>
+age <span class="token operator">:=</span> <span class="token number">25</span>
+isStudent <span class="token operator">:=</span> <span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>注意</strong>：短变量声明只能在函数内部使用。</p>
+<h4 id="方式五批量声明"><a class="markdownIt-Anchor" href="#方式五批量声明"></a> 方式五：批量声明</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+    name      <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">"张三"</span>
+    age       <span class="token builtin">int</span>    <span class="token operator">=</span> <span class="token number">25</span>
+    isStudent <span class="token builtin">bool</span>   <span class="token operator">=</span> <span class="token boolean">true</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="完整示例"><a class="markdownIt-Anchor" href="#完整示例"></a> 完整示例</h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 标准声明</span>
+    <span class="token keyword">var</span> x <span class="token builtin">int</span>
+    x <span class="token operator">=</span> <span class="token number">10</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"x ="</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span>
+
+    <span class="token comment">// 声明并初始化</span>
+    <span class="token keyword">var</span> y <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">20</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"y ="</span><span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+
+    <span class="token comment">// 类型推导</span>
+    <span class="token keyword">var</span> z <span class="token operator">=</span> <span class="token number">30</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"z ="</span><span class="token punctuation">,</span> z<span class="token punctuation">)</span>
+
+    <span class="token comment">// 短变量声明</span>
+    w <span class="token operator">:=</span> <span class="token number">40</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"w ="</span><span class="token punctuation">,</span> w<span class="token punctuation">)</span>
+
+    <span class="token comment">// 批量声明</span>
+    <span class="token keyword">var</span> <span class="token punctuation">(</span>
+        a <span class="token operator">=</span> <span class="token number">1</span>
+        b <span class="token operator">=</span> <span class="token number">2</span>
+        c <span class="token operator">=</span> <span class="token number">3</span>
+    <span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"a, b, c ="</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="零值"><a class="markdownIt-Anchor" href="#零值"></a> 零值</h3>
+<p>未初始化的变量会被赋予零值：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> i <span class="token builtin">int</span>       <span class="token comment">// 0</span>
+<span class="token keyword">var</span> f <span class="token builtin">float64</span>   <span class="token comment">// 0.0</span>
+<span class="token keyword">var</span> b <span class="token builtin">bool</span>      <span class="token comment">// false</span>
+<span class="token keyword">var</span> s <span class="token builtin">string</span>    <span class="token comment">// ""（空字符串）</span>
+<span class="token keyword">var</span> p <span class="token operator">*</span><span class="token builtin">int</span>      <span class="token comment">// nil</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> i <span class="token builtin">int</span>
+    <span class="token keyword">var</span> f <span class="token builtin">float64</span>
+    <span class="token keyword">var</span> b <span class="token builtin">bool</span>
+    <span class="token keyword">var</span> s <span class="token builtin">string</span>
+
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"int: %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span>       <span class="token comment">// 0</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"float64: %f\n"</span><span class="token punctuation">,</span> f<span class="token punctuation">)</span>   <span class="token comment">// 0.000000</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"bool: %t\n"</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span>      <span class="token comment">// false</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"string: %q\n"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span>    <span class="token comment">// ""</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="多变量声明"><a class="markdownIt-Anchor" href="#多变量声明"></a> 多变量声明</h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 同类型多变量</span>
+<span class="token keyword">var</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c <span class="token builtin">int</span>
+<span class="token keyword">var</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span>
+
+<span class="token comment">// 不同类型多变量</span>
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+    name   <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">"Go"</span>
+    age    <span class="token builtin">int</span>    <span class="token operator">=</span> <span class="token number">14</span>
+    active <span class="token builtin">bool</span>   <span class="token operator">=</span> <span class="token boolean">true</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 短变量声明</span>
+name<span class="token punctuation">,</span> age <span class="token operator">:=</span> <span class="token string">"Go"</span><span class="token punctuation">,</span> <span class="token number">14</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="变量赋值"><a class="markdownIt-Anchor" href="#变量赋值"></a> 变量赋值</h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 单个赋值</span>
+x <span class="token operator">:=</span> <span class="token number">10</span>
+x <span class="token operator">=</span> <span class="token number">20</span>
+
+<span class="token comment">// 多重赋值</span>
+a<span class="token punctuation">,</span> b <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span>
+a<span class="token punctuation">,</span> b <span class="token operator">=</span> b<span class="token punctuation">,</span> a  <span class="token comment">// 交换值</span>
+
+<span class="token comment">// 使用函数返回值</span>
+<span class="token keyword">func</span> <span class="token function">getValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token number">42</span><span class="token punctuation">,</span> <span class="token string">"answer"</span>
+<span class="token punctuation">&#125;</span>
+
+num<span class="token punctuation">,</span> str <span class="token operator">:=</span> <span class="token function">getValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="匿名变量"><a class="markdownIt-Anchor" href="#匿名变量"></a> 匿名变量</h3>
+<p>使用下划线<code>_</code>忽略不需要的值：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">getValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"hello"</span><span class="token punctuation">,</span> <span class="token boolean">true</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 只需要第一个和第三个值</span>
+num<span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> flag <span class="token operator">:=</span> <span class="token function">getValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="变量作用域"><a class="markdownIt-Anchor" href="#变量作用域"></a> 变量作用域</h3>
+<h4 id="局部变量"><a class="markdownIt-Anchor" href="#局部变量"></a> 局部变量</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    x <span class="token operator">:=</span> <span class="token number">10</span>  <span class="token comment">// 局部变量，仅在main函数内可见</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="全局变量"><a class="markdownIt-Anchor" href="#全局变量"></a> 全局变量</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">var</span> globalVar <span class="token operator">=</span> <span class="token string">"我是全局变量"</span>  <span class="token comment">// 全局变量</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>globalVar<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">otherFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>globalVar<span class="token punctuation">)</span>  <span class="token comment">// 其他函数也可以访问</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="块级作用域"><a class="markdownIt-Anchor" href="#块级作用域"></a> 块级作用域</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    x <span class="token operator">:=</span> <span class="token number">10</span>
+    
+    <span class="token keyword">if</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
+        y <span class="token operator">:=</span> <span class="token number">20</span>  <span class="token comment">// y只在if块内可见</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token comment">// fmt.Println(y)  // 错误：y在此处不可见</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="常量"><a class="markdownIt-Anchor" href="#常量"></a> 常量</h2>
+<p>常量是在编译时就确定的值，运行时不能改变。</p>
+<h3 id="常量声明"><a class="markdownIt-Anchor" href="#常量声明"></a> 常量声明</h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> PI <span class="token operator">=</span> <span class="token number">3.14159</span>
+<span class="token keyword">const</span> GREETING <span class="token operator">=</span> <span class="token string">"Hello, World!"</span>
+<span class="token keyword">const</span> MAX_SIZE <span class="token operator">=</span> <span class="token number">100</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="批量声明常量"><a class="markdownIt-Anchor" href="#批量声明常量"></a> 批量声明常量</h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    StatusOK       <span class="token operator">=</span> <span class="token number">200</span>
+    StatusNotFound <span class="token operator">=</span> <span class="token number">404</span>
+    StatusError    <span class="token operator">=</span> <span class="token number">500</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常量的特点"><a class="markdownIt-Anchor" href="#常量的特点"></a> 常量的特点</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>必须在声明时初始化</strong></p>
+</li>
+</ol>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token number">10</span>     <span class="token comment">// 正确</span>
+<span class="token keyword">const</span> y <span class="token builtin">int</span>      <span class="token comment">// 错误：常量必须初始化</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li class="lvl-3">
+<p><strong>值不可修改</strong></p>
+</li>
+</ol>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token number">10</span>
+x <span class="token operator">=</span> <span class="token number">20</span>  <span class="token comment">// 错误：不能修改常量</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
+<li class="lvl-3">
+<p><strong>可以是任意基本类型</strong></p>
+</li>
+</ol>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    name    <span class="token operator">=</span> <span class="token string">"Go"</span>
+    version <span class="token operator">=</span> <span class="token number">1.21</span>
+    active  <span class="token operator">=</span> <span class="token boolean">true</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="iota枚举器"><a class="markdownIt-Anchor" href="#iota枚举器"></a> iota枚举器</h3>
+<p><code>iota</code>是Go的常量计数器，用于创建枚举值。</p>
+<h4 id="基本用法"><a class="markdownIt-Anchor" href="#基本用法"></a> 基本用法</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    Sunday    <span class="token operator">=</span> <span class="token boolean">iota</span>  <span class="token comment">// 0</span>
+    Monday            <span class="token comment">// 1</span>
+    Tuesday           <span class="token comment">// 2</span>
+    Wednesday         <span class="token comment">// 3</span>
+    Thursday          <span class="token comment">// 4</span>
+    Friday            <span class="token comment">// 5</span>
+    Saturday          <span class="token comment">// 6</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="跳过某些值"><a class="markdownIt-Anchor" href="#跳过某些值"></a> 跳过某些值</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    a <span class="token operator">=</span> <span class="token boolean">iota</span>  <span class="token comment">// 0</span>
+    b         <span class="token comment">// 1</span>
+    <span class="token boolean">_</span>         <span class="token comment">// 2（跳过）</span>
+    c         <span class="token comment">// 3</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="从1开始"><a class="markdownIt-Anchor" href="#从1开始"></a> 从1开始</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    January <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token operator">+</span> <span class="token number">1</span>  <span class="token comment">// 1</span>
+    February            <span class="token comment">// 2</span>
+    March               <span class="token comment">// 3</span>
+    April               <span class="token comment">// 4</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="位运算"><a class="markdownIt-Anchor" href="#位运算"></a> 位运算</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    Read   <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token boolean">iota</span>  <span class="token comment">// 1 &lt;&lt; 0 = 1</span>
+    Write               <span class="token comment">// 1 &lt;&lt; 1 = 2</span>
+    Execute             <span class="token comment">// 1 &lt;&lt; 2 = 4</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="复杂表达式"><a class="markdownIt-Anchor" href="#复杂表达式"></a> 复杂表达式</h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    KB <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token number">10</span> <span class="token operator">*</span> <span class="token boolean">iota</span><span class="token punctuation">)</span>  <span class="token comment">// 1 &lt;&lt; 0 = 1</span>
+    MB                      <span class="token comment">// 1 &lt;&lt; 10 = 1024</span>
+    GB                      <span class="token comment">// 1 &lt;&lt; 20 = 1048576</span>
+    TB                      <span class="token comment">// 1 &lt;&lt; 30 = 1073741824</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="完整示例-2"><a class="markdownIt-Anchor" href="#完整示例-2"></a> 完整示例</h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token comment">// 定义常量</span>
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    PI     <span class="token operator">=</span> <span class="token number">3.14159</span>
+    E      <span class="token operator">=</span> <span class="token number">2.71828</span>
+    AUTHOR <span class="token operator">=</span> <span class="token string">"Go Team"</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 使用iota定义枚举</span>
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    Sunday <span class="token operator">=</span> <span class="token boolean">iota</span>
+    Monday
+    Tuesday
+    Wednesday
+    Thursday
+    Friday
+    Saturday
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 文件权限</span>
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    Read   <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token boolean">iota</span>  <span class="token comment">// 1</span>
+    Write               <span class="token comment">// 2</span>
+    Execute             <span class="token comment">// 4</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"PI ="</span><span class="token punctuation">,</span> PI<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"E ="</span><span class="token punctuation">,</span> E<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"AUTHOR ="</span><span class="token punctuation">,</span> AUTHOR<span class="token punctuation">)</span>
+
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"\n星期枚举:"</span><span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Sunday ="</span><span class="token punctuation">,</span> Sunday<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Monday ="</span><span class="token punctuation">,</span> Monday<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Saturday ="</span><span class="token punctuation">,</span> Saturday<span class="token punctuation">)</span>
+
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"\n文件权限:"</span><span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Read ="</span><span class="token punctuation">,</span> Read<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Write ="</span><span class="token punctuation">,</span> Write<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Execute ="</span><span class="token punctuation">,</span> Execute<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Read+Write ="</span><span class="token punctuation">,</span> Read<span class="token operator">|</span>Write<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="变量-vs-常量"><a class="markdownIt-Anchor" href="#变量-vs-常量"></a> 变量 vs 常量</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>变量</th>
+<th>常量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>声明关键字</td>
+<td><code>var</code></td>
+<td><code>const</code></td>
+</tr>
+<tr>
+<td>是否可修改</td>
+<td>可以</td>
+<td>不可以</td>
+</tr>
+<tr>
+<td>是否必须初始化</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>作用域</td>
+<td>局部/全局</td>
+<td>局部/全局</td>
+</tr>
+<tr>
+<td>类型推导</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+</tbody>
+</table>
+<h2 id="命名规范"><a class="markdownIt-Anchor" href="#命名规范"></a> 命名规范</h2>
+<h3 id="变量命名"><a class="markdownIt-Anchor" href="#变量命名"></a> 变量命名</h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 驼峰命名法</span>
+userName <span class="token operator">:=</span> <span class="token string">"张三"</span>
+userAge <span class="token operator">:=</span> <span class="token number">25</span>
+isActive <span class="token operator">:=</span> <span class="token boolean">true</span>
+
+<span class="token comment">// 首字母大写表示导出（公开）</span>
+<span class="token keyword">var</span> UserName <span class="token builtin">string</span>  <span class="token comment">// 可被其他包访问</span>
+<span class="token keyword">var</span> userName <span class="token builtin">string</span>  <span class="token comment">// 仅包内可访问</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常量命名"><a class="markdownIt-Anchor" href="#常量命名"></a> 常量命名</h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 全大写（可选）</span>
+<span class="token keyword">const</span> MAX_SIZE <span class="token operator">=</span> <span class="token number">100</span>
+<span class="token keyword">const</span> DEFAULT_TIMEOUT <span class="token operator">=</span> <span class="token number">30</span>
+
+<span class="token comment">// 驼峰命名法（推荐）</span>
+<span class="token keyword">const</span> MaxSize <span class="token operator">=</span> <span class="token number">100</span>
+<span class="token keyword">const</span> DefaultTimeout <span class="token operator">=</span> <span class="token number">30</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="命名建议"><a class="markdownIt-Anchor" href="#命名建议"></a> 命名建议</h3>
+<ol>
+<li class="lvl-3">
+<p>使用有意义的名称</p>
+</li>
+<li class="lvl-3">
+<p>避免使用单字母（除了循环变量）</p>
+</li>
+<li class="lvl-3">
+<p>缩写要全部大写或全部小写：<code>userID</code>、<code>HTTPServer</code></p>
+</li>
+<li class="lvl-3">
+<p>包级别的变量和常量首字母大写表示导出</p>
+</li>
+</ol>
+<h2 id="类型转换"><a class="markdownIt-Anchor" href="#类型转换"></a> 类型转换</h2>
+<p>Go不支持隐式类型转换，必须显式转换。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> i <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">42</span>
+<span class="token keyword">var</span> f <span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token function">float64</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+<span class="token keyword">var</span> u <span class="token builtin">uint</span> <span class="token operator">=</span> <span class="token function">uint</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+
+<span class="token comment">// 字符串转换</span>
+s <span class="token operator">:=</span> <span class="token function">string</span><span class="token punctuation">(</span><span class="token number">65</span><span class="token punctuation">)</span>  <span class="token comment">// "A"</span>
+
+<span class="token comment">// 数值转字符串</span>
+<span class="token keyword">import</span> <span class="token string">"strconv"</span>
+str <span class="token operator">:=</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span>  <span class="token comment">// "42"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="练习"><a class="markdownIt-Anchor" href="#练习"></a> 练习</h2>
+<h3 id="练习1变量声明"><a class="markdownIt-Anchor" href="#练习1变量声明"></a> 练习1：变量声明</h3>
+<p>声明并初始化以下变量：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>姓名（字符串）</p>
+</li>
+<li class="lvl-2">
+<p>年龄（整数）</p>
+</li>
+<li class="lvl-2">
+<p>身高（浮点数）</p>
+</li>
+<li class="lvl-2">
+<p>是否学生（布尔值）</p>
+</li>
+</ul>
+<h3 id="练习2变量交换"><a class="markdownIt-Anchor" href="#练习2变量交换"></a> 练习2：变量交换</h3>
+<p>不使用第三个变量，交换两个变量的值。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">a <span class="token operator">:=</span> <span class="token number">10</span>
+b <span class="token operator">:=</span> <span class="token number">20</span>
+<span class="token comment">// 交换a和b的值</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="练习3常量定义"><a class="markdownIt-Anchor" href="#练习3常量定义"></a> 练习3：常量定义</h3>
+<p>定义一个表示一周七天的常量枚举。</p>
+<h3 id="练习4文件大小"><a class="markdownIt-Anchor" href="#练习4文件大小"></a> 练习4：文件大小</h3>
+<p>使用iota定义文件大小单位（B, KB, MB, GB, TB）。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<p>本节我们学习了：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>变量的多种声明方式</p>
+</li>
+<li class="lvl-2">
+<p>变量的零值和作用域</p>
+</li>
+<li class="lvl-2">
+<p>常量的声明和使用</p>
+</li>
+<li class="lvl-2">
+<p>iota枚举器的用法</p>
+</li>
+<li class="lvl-2">
+<p>变量和常量的命名规范</p>
+</li>
+<li class="lvl-2">
+<p>类型转换</p>
+</li>
+</ul>
+<p>掌握变量和常量是学习Go语言的基础。下一节，我们将学习Go语言的数据类型。</p>
+<hr />
+<p><strong>上一节</strong>: <a href="03-hello-world.html">1.3 第一个Go程序</a> | <strong>下一节</strong>: <a href="05-datatypes.html">2.2 数据类型</a></p>
+<p><a href="menu.html">返回目录</a> | <a href="home.html">返回首页</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#21-%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F"><span class="toc-number">1.</span> <span class="toc-text"> 2.1 变量与常量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.</span> <span class="toc-text"> 变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 变量声明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%E6%A0%87%E5%87%86%E5%A3%B0%E6%98%8E"><span class="toc-number">1.1.1.1.</span> <span class="toc-text"> 方式一：标准声明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%E5%A3%B0%E6%98%8E%E5%B9%B6%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.1.1.2.</span> <span class="toc-text"> 方式二：声明并初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%89%E7%B1%BB%E5%9E%8B%E6%8E%A8%E5%AF%BC"><span class="toc-number">1.1.1.3.</span> <span class="toc-text"> 方式三：类型推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E5%9B%9B%E7%9F%AD%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E6%9C%80%E5%B8%B8%E7%94%A8"><span class="toc-number">1.1.1.4.</span> <span class="toc-text"> 方式四：短变量声明（最常用）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%94%E6%89%B9%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">1.1.1.5.</span> <span class="toc-text"> 方式五：批量声明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 完整示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E5%80%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 零值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 多变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 变量赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.6.</span> <span class="toc-text"> 匿名变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.1.7.</span> <span class="toc-text"> 变量作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.7.1.</span> <span class="toc-text"> 局部变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.7.2.</span> <span class="toc-text"> 全局变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.1.7.3.</span> <span class="toc-text"> 块级作用域</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">1.2.</span> <span class="toc-text"> 常量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 常量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%A3%B0%E6%98%8E%E5%B8%B8%E9%87%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 批量声明常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 常量的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iota%E6%9E%9A%E4%B8%BE%E5%99%A8"><span class="toc-number">1.2.4.</span> <span class="toc-text"> iota枚举器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">1.2.4.1.</span> <span class="toc-text"> 基本用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%B3%E8%BF%87%E6%9F%90%E4%BA%9B%E5%80%BC"><span class="toc-number">1.2.4.2.</span> <span class="toc-text"> 跳过某些值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E1%E5%BC%80%E5%A7%8B"><span class="toc-number">1.2.4.3.</span> <span class="toc-text"> 从1开始</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">1.2.4.4.</span> <span class="toc-text"> 位运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.2.4.5.</span> <span class="toc-text"> 复杂表达式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%A4%BA%E4%BE%8B-2"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 完整示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F-vs-%E5%B8%B8%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text"> 变量 vs 常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-number">1.4.</span> <span class="toc-text"> 命名规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 变量命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E5%91%BD%E5%90%8D"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 常量命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 命名建议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.5.</span> <span class="toc-text"> 类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-number">1.6.</span> <span class="toc-text"> 练习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A01%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 练习1：变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A02%E5%8F%98%E9%87%8F%E4%BA%A4%E6%8D%A2"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 练习2：变量交换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A03%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 练习3：常量定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A04%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.6.4.</span> <span class="toc-text"> 练习4：文件大小</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

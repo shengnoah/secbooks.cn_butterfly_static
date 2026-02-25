@@ -1,0 +1,687 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Lua 教程 - 第三章：流程控制</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua 教程 - 第三章：流程控制',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><h2>教程导航</h2><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>第一部分：基础入门</h3><ul><li><a href="/lua/01-intro.html">第 01 章：Lua 入门基础</a></li><li><a href="/lua/02-datatypes.html">第 02 章：数据类型与值</a></li><li><a href="/lua/03-control-flow.html">第 03 章：控制流与循环</a></li></ul><h3>第二部分：核心语法</h3><ul><li><a href="/lua/04-functions.html">第 04 章：函数与作用域</a></li><li><a href="/lua/05-tables.html">第 05 章：表（Table）与数据结构</a></li><li><a href="/lua/06-strings.html">第 06 章：字符串与模式匹配</a></li></ul><h3>第三部分：工程与实战</h3><ul><li><a href="/lua/07-io.html">第 07 章：输入输出与文件系统</a></li><li><a href="/lua/08-debug.html">第 08 章：调试与错误处理</a></li><li><a href="/lua/09-stdlib.html">第 09 章：标准库速查</a></li><li><a href="/lua/10-c-api.html">第 10 章：Lua C API 入门</a></li><li><a href="/lua/11-projects.html">第 11 章：项目实践与模块化</a></li><li><a href="/lua/12-best-practices.html">第 12 章：最佳实践与优化</a></li></ul></div></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">Lua 教程 - 第三章：流程控制</h1><div class="book-body" id="article-container"><h1 id="第三章流程控制"><a class="markdownIt-Anchor" href="#第三章流程控制"></a> 第三章：流程控制</h1>
+<p>掌握了基础语法和数据类型后，我们需要学习如何控制程序的执行流程。Lua 提供了传统的条件语句和循环结构，但其语法与其他语言略有不同，更加简洁明了。</p>
+<p>本章将详细讲解 <code>if</code> 条件判断、<code>while</code> 循环、<code>for</code> 循环（数值型和泛型）以及 <code>repeat-until</code> 循环。</p>
+<h2 id="31-条件语句"><a class="markdownIt-Anchor" href="#31-条件语句"></a> 3.1 条件语句</h2>
+<h3 id="条件判断流程"><a class="markdownIt-Anchor" href="#条件判断流程"></a> 条件判断流程</h3>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+flowchart TD
+    A[开始] --> B&#123;if 条件&#125;
+    B -->|true| C[执行 then 块]
+    B -->|false| D&#123;有 elseif?&#125;
+    D -->|是| E&#123;elseif 条件&#125;
+    E -->|true| F[执行 elseif 块]
+    E -->|false| G&#123;更多 elseif?&#125;
+    G -->|是| E
+    G -->|否| H&#123;有 else?&#125;
+    H -->|是| I[执行 else 块]
+    H -->|否| J[跳过]
+    C --> K[继续]
+    F --> K[继续]
+    I --> K[继续]
+    J --> K[继续]
+</pre></div>
+<h3 id="if-语句"><a class="markdownIt-Anchor" href="#if-语句"></a> if 语句</h3>
+<p><code>if</code> 语句用于根据条件执行代码块。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> age <span class="token operator">=</span> <span class="token number">20</span>
+
+<span class="token keyword">if</span> age <span class="token operator">>=</span> <span class="token number">18</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"成年人"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="if-else-语句"><a class="markdownIt-Anchor" href="#if-else-语句"></a> if-else 语句</h3>
+<p>如果条件为假，执行 <code>else</code> 块。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> age <span class="token operator">=</span> <span class="token number">15</span>
+
+<span class="token keyword">if</span> age <span class="token operator">>=</span> <span class="token number">18</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"成年人"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"未成年人"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="if-elseif-else-语句"><a class="markdownIt-Anchor" href="#if-elseif-else-语句"></a> if-elseif-else 语句</h3>
+<p>处理多重条件。注意关键字是 <code>elseif</code>（中间没有空格）。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> score <span class="token operator">=</span> <span class="token number">85</span>
+
+<span class="token keyword">if</span> score <span class="token operator">>=</span> <span class="token number">90</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"优秀"</span><span class="token punctuation">)</span>
+<span class="token keyword">elseif</span> score <span class="token operator">>=</span> <span class="token number">80</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"良好"</span><span class="token punctuation">)</span>
+<span class="token keyword">elseif</span> score <span class="token operator">>=</span> <span class="token number">60</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"及格"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"不及格"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>提示</strong>：Lua 中没有 <code>switch</code> 语句，通常使用 <code>if-elseif</code> 或表（Table）来替代。</p>
+<h2 id="32-循环语句"><a class="markdownIt-Anchor" href="#32-循环语句"></a> 3.2 循环语句</h2>
+<h3 id="循环结构流程"><a class="markdownIt-Anchor" href="#循环结构流程"></a> 循环结构流程</h3>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+flowchart TD
+    A[循环类型选择] --> B[while 循环]
+    A --> C[repeat-until 循环]
+    A --> D[for 循环]
+
+    B --> B1[检查条件]
+    B1 -->|true| B2[执行循环体]
+    B2 --> B1
+    B1 -->|false| B3[退出循环]
+
+    C --> C1[执行循环体]
+    C1 --> C2[检查条件]
+    C2 -->|false| C1
+    C2 -->|true| C3[退出循环]
+
+    D --> D1[数值 for]
+    D --> D2[泛型 for]
+
+    D1 --> D3[初始化变量]
+    D3 --> D4[检查范围]
+    D4 -->|在范围内| D5[执行循环体]
+    D5 --> D6[更新变量]
+    D6 --> D4
+    D4 -->|超出范围| D7[退出循环]
+
+    D2 --> D8[获取迭代器]
+    D8 --> D9&#123;有下一个元素?&#125;
+    D9 -->|是| D10[执行循环体]
+    D10 --> D9
+    D9 -->|否| D11[退出循环]
+</pre></div>
+<h3 id="while-循环"><a class="markdownIt-Anchor" href="#while-循环"></a> while 循环</h3>
+<p><code>while</code> 循环在条件为真时重复执行代码块。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> i <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">while</span> i <span class="token operator">&lt;=</span> <span class="token number">5</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="repeat-until-循环"><a class="markdownIt-Anchor" href="#repeat-until-循环"></a> repeat-until 循环</h3>
+<p><code>repeat-until</code> 类似于其他语言的 <code>do-while</code> 循环。代码块至少执行一次，直到条件为真时<strong>停止</strong>。<br />
+<strong>注意</strong>：条件判断是在循环体执行之后进行的。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> x <span class="token operator">=</span> <span class="token number">10</span>
+<span class="token keyword">repeat</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    x <span class="token operator">=</span> x <span class="token operator">-</span> <span class="token number">1</span>
+<span class="token keyword">until</span> x <span class="token operator">==</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="for-循环"><a class="markdownIt-Anchor" href="#for-循环"></a> for 循环</h3>
+<p>Lua 有两种 <code>for</code> 循环：数值 <code>for</code> 和泛型 <code>for</code>。</p>
+<h4 id="数值-for-循环"><a class="markdownIt-Anchor" href="#数值-for-循环"></a> 数值 for 循环</h4>
+<p>语法：<code>for var = start, end, step do ... end</code></p>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><code>var</code>: 循环变量，自动声明为局部变量。</p>
+</li>
+<li class="lvl-4">
+<p><code>start</code>: 起始值。</p>
+</li>
+<li class="lvl-4">
+<p><code>end</code>: 终止值（包含）。</p>
+</li>
+<li class="lvl-4">
+<p><code>step</code>: 步长（可选，默认为 1）。</p>
+</li>
+</ul>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">-- 从 1 数到 10</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 从 10 倒数到 1，步长为 -1</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 指定步长</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">2</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token comment">-- 1, 3, 5, 7, 9</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="泛型-for-循环"><a class="markdownIt-Anchor" href="#泛型-for-循环"></a> 泛型 for 循环</h4>
+<p>泛型 <code>for</code> 循环通过迭代器函数来遍历集合。最常用的是 <code>ipairs</code>（用于数组）和 <code>pairs</code>（用于表）。</p>
+<p><strong>遍历数组</strong>：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> fruits <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"Apple"</span><span class="token punctuation">,</span> <span class="token string">"Banana"</span><span class="token punctuation">,</span> <span class="token string">"Orange"</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">for</span> i<span class="token punctuation">,</span> v <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>fruits<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> v<span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>遍历表（字典）</strong>：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> user <span class="token operator">=</span> <span class="token punctuation">&#123;</span>name <span class="token operator">=</span> <span class="token string">"John"</span><span class="token punctuation">,</span> age <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span> v<span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="循环控制"><a class="markdownIt-Anchor" href="#循环控制"></a> 循环控制</h3>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><code>break</code>: 立即跳出当前循环（<code>for</code>, <code>while</code>, <code>repeat</code>）。</p>
+</li>
+<li class="lvl-4">
+<p><code>return</code>: 从函数返回结果（如果在循环中使用，会结束函数执行，也就自然结束了循环）。</p>
+</li>
+<li class="lvl-4">
+<p><strong>注意</strong>：Lua 5.1 及更早版本没有 <code>continue</code> 语句（跳过本次循环）。但在 Lua 5.2+ 中可以使用 <code>goto</code> 模拟，或者使用 <code>if</code> 条件包裹循环体来实现类似效果。</p>
+</li>
+</ul>
+<p><strong>使用 break</strong>：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">5</span> <span class="token keyword">then</span>
+        <span class="token keyword">break</span>
+    <span class="token keyword">end</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">-- 输出: 1 2 3 4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="33-流程控制最佳实践"><a class="markdownIt-Anchor" href="#33-流程控制最佳实践"></a> 3.3 流程控制最佳实践</h2>
+<h3 id="避免无限循环"><a class="markdownIt-Anchor" href="#避免无限循环"></a> 避免无限循环</h3>
+<p>在使用 <code>while</code> 和 <code>repeat</code> 循环时，务必确保循环条件最终会变为假（<code>while</code>）或真（<code>until</code>），否则会导致程序卡死。</p>
+<h3 id="循环性能优化"><a class="markdownIt-Anchor" href="#循环性能优化"></a> 循环性能优化</h3>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p>在 <code>for</code> 循环中，循环变量是局部的，这很好。</p>
+</li>
+<li class="lvl-4">
+<p>如果循环次数非常多，尽量避免在循环体内创建新的表或闭包，这会增加垃圾回收的压力。</p>
+</li>
+<li class="lvl-4">
+<p>对于数值 <code>for</code> 循环，它的 <code>start</code>, <code>end</code>, <code>step</code> 表达式只会在循环开始前计算一次。</p>
+</li>
+</ul>
+<h3 id="替代-switch-语句"><a class="markdownIt-Anchor" href="#替代-switch-语句"></a> 替代 switch 语句</h3>
+<p>虽然 Lua 没有 <code>switch</code>，但利用表可以写出更优雅的代码。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">-- 传统写法</span>
+<span class="token keyword">if</span> action <span class="token operator">==</span> <span class="token string">"start"</span> <span class="token keyword">then</span>
+    <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">elseif</span> action <span class="token operator">==</span> <span class="token string">"stop"</span> <span class="token keyword">then</span>
+    <span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">elseif</span> action <span class="token operator">==</span> <span class="token string">"pause"</span> <span class="token keyword">then</span>
+    <span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 表驱动写法 (更加清晰和易扩展)</span>
+<span class="token keyword">local</span> actions <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    start <span class="token operator">=</span> start<span class="token punctuation">,</span>
+    stop <span class="token operator">=</span> stop<span class="token punctuation">,</span>
+    pause <span class="token operator">=</span> pause
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">if</span> actions<span class="token punctuation">[</span>action<span class="token punctuation">]</span> <span class="token keyword">then</span>
+    actions<span class="token punctuation">[</span>action<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Invalid action"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="练习题"><a class="markdownIt-Anchor" href="#练习题"></a> 练习题</h2>
+<ol>
+<li class="lvl-4">
+<p>使用 <code>for</code> 循环计算 1 到 100 的总和。</p>
+</li>
+<li class="lvl-4">
+<p>使用 <code>while</code> 循环打印 1 到 10 之间的所有偶数。</p>
+</li>
+<li class="lvl-4">
+<p>创建一个包含若干数字的数组，使用泛型 <code>for</code> 循环找出其中的最大值。</p>
+</li>
+<li class="lvl-4">
+<p>编写一个程序，判断一个年份是否为闰年（能被 4 整除但不能被 100 整除，或者能被 400 整除）。</p>
+</li>
+</ol>
+<hr />
+<p><strong>下一章预告</strong>：函数是 Lua 中非常重要的概念。下一章我们将深入探讨函数的定义、多返回值、变长参数以及闭包等高级特性。</p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text"> 第三章：流程控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#31-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.1.</span> <span class="toc-text"> 3.1 条件语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 条件判断流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.1.2.</span> <span class="toc-text"> if 语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-else-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.1.3.</span> <span class="toc-text"> if-else 语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-elseif-else-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.1.4.</span> <span class="toc-text"> if-elseif-else 语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.2.</span> <span class="toc-text"> 3.2 循环语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 循环结构流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#while-%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.2.2.</span> <span class="toc-text"> while 循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#repeat-until-%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.2.3.</span> <span class="toc-text"> repeat-until 循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.2.4.</span> <span class="toc-text"> for 循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%80%BC-for-%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.2.4.1.</span> <span class="toc-text"> 数值 for 循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B-for-%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.2.4.2.</span> <span class="toc-text"> 泛型 for 循环</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 循环控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#33-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.3.</span> <span class="toc-text"> 3.3 流程控制最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E6%97%A0%E9%99%90%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 避免无限循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 循环性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E4%BB%A3-switch-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 替代 switch 语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text"> 练习题</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

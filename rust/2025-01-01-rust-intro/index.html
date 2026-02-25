@@ -1,0 +1,591 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Rust 入门教程 | AI安全运营</title><meta name="author" content="AI安全运营"><meta name="copyright" content="AI安全运营"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是 Rust？ Rust 是一门系统编程语言，专注于安全、并发和性能。它由 Mozilla 研究院开发，于 2010 年首次发布，2021 年成为 Linux 内核官方支持的第二种语言。  Rust 的核心特性   内存安全：通过所有权（Ownership）系统在编译时保证内存安全   零成本抽象：高级抽象不会带来运行时开销   并发安全：编译器阻止数据竞争   性能高效：与 C++ 相当的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust 入门教程">
+<meta property="og:url" content="https://lua.ren/rust/2025-01-01-rust-intro/index.html">
+<meta property="og:site_name" content="AI安全运营">
+<meta property="og:description" content="什么是 Rust？ Rust 是一门系统编程语言，专注于安全、并发和性能。它由 Mozilla 研究院开发，于 2010 年首次发布，2021 年成为 Linux 内核官方支持的第二种语言。  Rust 的核心特性   内存安全：通过所有权（Ownership）系统在编译时保证内存安全   零成本抽象：高级抽象不会带来运行时开销   并发安全：编译器阻止数据竞争   性能高效：与 C++ 相当的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2025-01-01T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-24T11:29:15.771Z">
+<meta property="article:author" content="AI安全运营">
+<meta property="article:tag" content="入门教程">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="系统编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/rust/2025-01-01-rust-intro/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Rust 入门教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout    " id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Rust 入门教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-01T02:00:00.000Z" title="发表于 2025-01-01 10:00:00">2025-01-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-02-24T11:29:15.771Z" title="更新于 2026-02-24 19:29:15">2026-02-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/">Rust</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Rust 入门教程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="什么是-rust"><a class="markdownIt-Anchor" href="#什么是-rust"></a> 什么是 Rust？</h2>
+<p>Rust 是一门系统编程语言，专注于安全、并发和性能。它由 Mozilla 研究院开发，于 2010 年首次发布，2021 年成为 Linux 内核官方支持的第二种语言。</p>
+<h3 id="rust-的核心特性"><a class="markdownIt-Anchor" href="#rust-的核心特性"></a> Rust 的核心特性</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>内存安全</strong>：通过所有权（Ownership）系统在编译时保证内存安全</p>
+</li>
+<li class="lvl-3">
+<p><strong>零成本抽象</strong>：高级抽象不会带来运行时开销</p>
+</li>
+<li class="lvl-3">
+<p><strong>并发安全</strong>：编译器阻止数据竞争</p>
+</li>
+<li class="lvl-3">
+<p><strong>性能高效</strong>：与 C++ 相当的性能</p>
+</li>
+<li class="lvl-3">
+<p><strong>工具链完善</strong>：包管理器（Cargo）、构建工具、格式化工具等</p>
+</li>
+</ol>
+<h3 id="rust-的应用场景"><a class="markdownIt-Anchor" href="#rust-的应用场景"></a> Rust 的应用场景</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>系统编程</p>
+</li>
+<li class="lvl-2">
+<p>WebAssembly</p>
+</li>
+<li class="lvl-2">
+<p>网络服务</p>
+</li>
+<li class="lvl-2">
+<p>嵌入式开发</p>
+</li>
+<li class="lvl-2">
+<p>命令行工具</p>
+</li>
+<li class="lvl-2">
+<p>区块链</p>
+</li>
+</ul>
+<h2 id="安装-rust"><a class="markdownIt-Anchor" href="#安装-rust"></a> 安装 Rust</h2>
+<h3 id="使用-rustup-安装推荐"><a class="markdownIt-Anchor" href="#使用-rustup-安装推荐"></a> 使用 rustup 安装（推荐）</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">--proto</span> <span class="token string">'=https'</span> <span class="token parameter variable">--tlsv1.2</span> <span class="token parameter variable">-sSf</span> https://sh.rustup.rs <span class="token operator">|</span> <span class="token function">sh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>安装完成后，重新加载环境变量：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> <span class="token environment constant">$HOME</span>/.cargo/env<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="验证安装"><a class="markdownIt-Anchor" href="#验证安装"></a> 验证安装</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rustc <span class="token parameter variable">--version</span>
+<span class="token function">cargo</span> <span class="token parameter variable">--version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="第一个-rust-程序"><a class="markdownIt-Anchor" href="#第一个-rust-程序"></a> 第一个 Rust 程序</h2>
+<h3 id="创建项目"><a class="markdownIt-Anchor" href="#创建项目"></a> 创建项目</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cargo</span> new hello_rust
+<span class="token builtin class-name">cd</span> hello_rust<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这会创建以下项目结构：</p>
+<pre class="line-numbers language-none"><code class="language-none">hello_rust&#x2F;
+├── Cargo.toml    # 项目配置文件
+└── src&#x2F;
+    └── main.rs   # 主程序文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编写代码"><a class="markdownIt-Anchor" href="#编写代码"></a> 编写代码</h3>
+<p>打开 <code>src/main.rs</code>，你会看到：</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"Hello, world!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="运行程序"><a class="markdownIt-Anchor" href="#运行程序"></a> 运行程序</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cargo</span> run<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>输出：</p>
+<pre class="line-numbers language-none"><code class="language-none">Hello, world!<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="rust-基础语法"><a class="markdownIt-Anchor" href="#rust-基础语法"></a> Rust 基础语法</h2>
+<h3 id="变量与可变性"><a class="markdownIt-Anchor" href="#变量与可变性"></a> 变量与可变性</h3>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 不可变变量（默认）</span>
+    <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"x 的值是: &#123;&#125;"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 可变变量</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> y <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"y 的值是: &#123;&#125;"</span><span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    y <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"y 的新值是: &#123;&#125;"</span><span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 常量</span>
+    <span class="token keyword">const</span> <span class="token constant">MAX_POINTS</span><span class="token punctuation">:</span> <span class="token keyword">u32</span> <span class="token operator">=</span> <span class="token number">100_000</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"最大点数: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token constant">MAX_POINTS</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 遮蔽（Shadowing）</span>
+    <span class="token keyword">let</span> x <span class="token operator">=</span> x <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"x 加 1 后: &#123;&#125;"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"x 现在是: &#123;&#125;"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="数据类型"><a class="markdownIt-Anchor" href="#数据类型"></a> 数据类型</h3>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 标量类型</span>
+    
+    <span class="token comment">// 整数</span>
+    <span class="token keyword">let</span> small<span class="token punctuation">:</span> <span class="token keyword">i8</span> <span class="token operator">=</span> <span class="token number">127</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> medium<span class="token punctuation">:</span> <span class="token keyword">i32</span> <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> large<span class="token punctuation">:</span> <span class="token keyword">i64</span> <span class="token operator">=</span> <span class="token number">1_000_000</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> unsigned<span class="token punctuation">:</span> <span class="token keyword">u32</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 浮点数</span>
+    <span class="token keyword">let</span> float1<span class="token punctuation">:</span> <span class="token keyword">f32</span> <span class="token operator">=</span> <span class="token number">3.14</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> float2<span class="token punctuation">:</span> <span class="token keyword">f64</span> <span class="token operator">=</span> <span class="token number">2.718281828</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 布尔值</span>
+    <span class="token keyword">let</span> is_active<span class="token punctuation">:</span> <span class="token keyword">bool</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> is_greater<span class="token punctuation">:</span> <span class="token keyword">bool</span> <span class="token operator">=</span> <span class="token number">10</span> <span class="token operator">></span> <span class="token number">5</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 字符类型</span>
+    <span class="token keyword">let</span> c<span class="token punctuation">:</span> <span class="token keyword">char</span> <span class="token operator">=</span> <span class="token char">'z'</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> emoji<span class="token punctuation">:</span> <span class="token keyword">char</span> <span class="token operator">=</span> '😊'<span class="token punctuation">;</span>
+    
+    <span class="token comment">// 复合类型</span>
+    
+    <span class="token comment">// 元组</span>
+    <span class="token keyword">let</span> tup<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token keyword">i32</span><span class="token punctuation">,</span> <span class="token keyword">f64</span><span class="token punctuation">,</span> <span class="token keyword">u8</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">6.4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> <span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">)</span> <span class="token operator">=</span> tup<span class="token punctuation">;</span>  <span class="token comment">// 解构</span>
+    <span class="token keyword">let</span> first <span class="token operator">=</span> tup<span class="token number">.0</span><span class="token punctuation">;</span>    <span class="token comment">// 通过索引访问</span>
+    
+    <span class="token comment">// 数组</span>
+    <span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> first <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> second <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="函数"><a class="markdownIt-Anchor" href="#函数"></a> 函数</h3>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"调用 greet 函数:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">let</span> sum <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"5 + 10 = &#123;&#125;"</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token function">multiply</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"3 * 4 = &#123;&#125;"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 表达式与语句</span>
+    <span class="token keyword">let</span> y <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        x <span class="token operator">+</span> <span class="token number">1</span>  <span class="token comment">// 注意：没有分号，这是一个表达式</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"y 的值是: &#123;&#125;"</span><span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 无参数无返回值</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"Hello, Rust!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 带参数的函数</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">:</span> <span class="token keyword">i32</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token keyword">i32</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">i32</span> <span class="token punctuation">&#123;</span>
+    a <span class="token operator">+</span> b  <span class="token comment">// 表达式，作为返回值</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 带返回值的函数</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">multiply</span><span class="token punctuation">(</span>a<span class="token punctuation">:</span> <span class="token keyword">i32</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token keyword">i32</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">i32</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> a <span class="token operator">*</span> b<span class="token punctuation">;</span>  <span class="token comment">// 早期返回需要 return 关键字</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="注释"><a class="markdownIt-Anchor" href="#注释"></a> 注释</h3>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 单行注释</span>
+    
+    <span class="token comment">/*
+     * 多行注释
+     * 可以跨越多行
+     */</span>
+    
+    <span class="token comment">/// 文档注释（用于函数、结构体等）</span>
+    <span class="token comment">/// 这是一个计算平方的函数</span>
+    <span class="token comment">/// </span>
+    <span class="token comment">/// # 参数</span>
+    <span class="token comment">/// </span>
+    <span class="token comment">/// * `x` - 要计算平方的数字</span>
+    <span class="token comment">/// </span>
+    <span class="token comment">/// # 返回值</span>
+    <span class="token comment">/// </span>
+    <span class="token comment">/// 返回 x 的平方</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">square</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> <span class="token keyword">i32</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">i32</span> <span class="token punctuation">&#123;</span>
+        x <span class="token operator">*</span> x
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token function">square</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"5 的平方是: &#123;&#125;"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="控制流初步"><a class="markdownIt-Anchor" href="#控制流初步"></a> 控制流初步</h2>
+<h3 id="if-表达式"><a class="markdownIt-Anchor" href="#if-表达式"></a> if 表达式</h3>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> number <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">if</span> number <span class="token operator">&lt;</span> <span class="token number">5</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"条件为真"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"条件为假"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token comment">// if 表达式可以赋值</span>
+    <span class="token keyword">let</span> condition <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> number <span class="token operator">=</span> <span class="token keyword">if</span> condition <span class="token punctuation">&#123;</span> <span class="token number">5</span> <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span> <span class="token number">6</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"number 的值是: &#123;&#125;"</span><span class="token punctuation">,</span> number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="循环"><a class="markdownIt-Anchor" href="#循环"></a> 循环</h3>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// loop 无限循环</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">loop</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"count = &#123;&#125;"</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        count <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> count <span class="token operator">==</span> <span class="token number">5</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>  <span class="token comment">// 跳出循环</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token comment">// while 循环</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> number <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> number <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;!"</span><span class="token punctuation">,</span> number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        number <span class="token operator">-=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"LIFTOFF!!!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// for 循环</span>
+    <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> element <span class="token keyword">in</span> a<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"值是: &#123;&#125;"</span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token comment">// 使用范围</span>
+    <span class="token keyword">for</span> number <span class="token keyword">in</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">..</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">rev</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;!"</span><span class="token punctuation">,</span> number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"LIFTOFF!!!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="cargo-工具"><a class="markdownIt-Anchor" href="#cargo-工具"></a> Cargo 工具</h2>
+<h3 id="常用命令"><a class="markdownIt-Anchor" href="#常用命令"></a> 常用命令</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建新项目</span>
+<span class="token function">cargo</span> new project_name
+
+<span class="token comment"># 构建项目（发布版本）</span>
+<span class="token function">cargo</span> build <span class="token parameter variable">--release</span>
+
+<span class="token comment"># 运行项目</span>
+<span class="token function">cargo</span> run
+
+<span class="token comment"># 检查代码（不生成二进制文件）</span>
+<span class="token function">cargo</span> check
+
+<span class="token comment"># 更新依赖</span>
+<span class="token function">cargo</span> update
+
+<span class="token comment"># 运行测试</span>
+<span class="token function">cargo</span> <span class="token builtin class-name">test</span>
+
+<span class="token comment"># 生成文档</span>
+<span class="token function">cargo</span> doc <span class="token parameter variable">--open</span>
+
+<span class="token comment"># 运行 Clippy（代码检查工具）</span>
+<span class="token function">cargo</span> clippy
+
+<span class="token comment"># 格式化代码</span>
+<span class="token function">cargo</span> <span class="token function">fmt</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="cargotoml-配置"><a class="markdownIt-Anchor" href="#cargotoml-配置"></a> Cargo.toml 配置</h3>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token punctuation">[</span><span class="token table class-name">package</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">"my_project"</span>
+<span class="token key property">version</span> <span class="token punctuation">=</span> <span class="token string">"0.1.0"</span>
+<span class="token key property">edition</span> <span class="token punctuation">=</span> <span class="token string">"2021"</span>
+<span class="token key property">authors</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"Your Name &lt;your.email@example.com>"</span><span class="token punctuation">]</span>
+
+<span class="token punctuation">[</span><span class="token table class-name">dependencies</span><span class="token punctuation">]</span>
+<span class="token comment"># 添加依赖</span>
+<span class="token key property">serde</span> <span class="token punctuation">=</span> <span class="token string">"1.0"</span>
+<span class="token key property">rand</span> <span class="token punctuation">=</span> <span class="token string">"0.8"</span>
+
+<span class="token punctuation">[</span><span class="token table class-name">dev-dependencies</span><span class="token punctuation">]</span>
+<span class="token comment"># 开发依赖</span>
+<span class="token key property">test-case</span> <span class="token punctuation">=</span> <span class="token string">"2.0"</span>
+
+<span class="token punctuation">[</span><span class="token table class-name">profile.release</span><span class="token punctuation">]</span>
+<span class="token key property">opt-level</span> <span class="token punctuation">=</span> <span class="token number">3</span>  <span class="token comment"># 优化级别</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>本教程介绍了 Rust 的基本概念和基础语法：</p>
+<ol>
+<li class="lvl-3">
+<p>Rust 是一门安全、高效的系统编程语言</p>
+</li>
+<li class="lvl-3">
+<p>使用 <code>rustup</code> 安装 Rust 工具链</p>
+</li>
+<li class="lvl-3">
+<p><code>cargo</code> 是 Rust 的包管理和构建工具</p>
+</li>
+<li class="lvl-3">
+<p>Rust 的变量默认不可变，通过 <code>mut</code> 关键字声明可变变量</p>
+</li>
+<li class="lvl-3">
+<p>Rust 丰富的类型系统：整型、浮点型、布尔型、字符型、元组、数组</p>
+</li>
+<li class="lvl-3">
+<p>使用 <code>fn</code> 关键字定义函数</p>
+</li>
+<li class="lvl-3">
+<p>控制流：<code>if</code> 表达式、<code>loop</code>、<code>while</code>、<code>for</code> 循环</p>
+</li>
+</ol>
+<h2 id="下一步"><a class="markdownIt-Anchor" href="#下一步"></a> 下一步</h2>
+<p>在下一教程中，我们将深入学习 Rust 的数据类型和更复杂的控制流结构，包括：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>match 表达式</p>
+</li>
+<li class="lvl-2">
+<p>结构体</p>
+</li>
+<li class="lvl-2">
+<p>枚举</p>
+</li>
+<li class="lvl-2">
+<p>Option 和 Result 类型</p>
+</li>
+</ul>
+<p>继续学习 Rust，探索这门强大语言的更多特性！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">AI安全运营</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/rust/2025-01-01-rust-intro/">https://lua.ren/rust/2025-01-01-rust-intro/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">AI安全运营</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">入门教程</a><a class="post-meta__tags" href="/tags/Rust/">Rust</a><a class="post-meta__tags" href="/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">系统编程</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/lua/2025-01-01-lua-intro/" title="Lua 教程 - 第一章：Lua 入门基础"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua 教程 - 第一章：Lua 入门基础</div></div></a></div><div class="next-post pull-right"><a href="/security-ops/2025-01-01-security-ops-intro/" title="网络安全运营管理入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">网络安全运营管理入门</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/javascript/2026-02-15-javascript-intro/" title="JavaScript 入门教程"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-15</div><div class="title">JavaScript 入门教程</div></div></a></div><div><a href="/security-ops/2025-01-01-security-ops-intro/" title="网络安全运营管理入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-01</div><div class="title">网络安全运营管理入门</div></div></a></div><div><a href="/typescript/2025-01-01-typescript-intro/" title="TypeScript 入门教程"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-01</div><div class="title">TypeScript 入门教程</div></div></a></div><div><a href="/rust/2025-01-02-rust-datatypes/" title="Rust 数据类型详解"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-02</div><div class="title">Rust 数据类型详解</div></div></a></div><div><a href="/rust/2025-01-04-rust-ownership/" title="Rust 所有权与借用详解"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-04</div><div class="title">Rust 所有权与借用详解</div></div></a></div><div><a href="/rust/2025-01-03-rust-control-flow/" title="Rust 控制流详解"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-03</div><div class="title">Rust 控制流详解</div></div></a></div></div></div></div><div class="aside-content aside-left" id="aside-content-left"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">AI安全运营</div><div class="author-info__description">AI安全运营</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：AI安全运营 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Claude/"><span class="card-category-list-name">Claude</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Ollama/"><span class="card-category-list-name">Ollama</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/OpenClaw/"><span class="card-category-list-name">OpenClaw</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/"><span class="card-category-list-name">Lua</span><span class="card-category-list-count">12</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/%E6%95%99%E7%A8%8B/"><span class="card-category-list-name">教程</span><span class="card-category-list-count">12</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Security-Ops/"><span class="card-category-list-name">Security Ops</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/claude/"><span class="card-category-list-name">claude</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div></div></div><div class="aside-content aside-right" id="aside-content-right"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/claude/2026-02-24-claude-vscode-pixel-agents/" title="Pixel Agents：把 Claude Code 变成像素办公模拟器"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pixel Agents：把 Claude Code 变成像素办公模拟器"/></a><div class="content"><a class="title" href="/claude/2026-02-24-claude-vscode-pixel-agents/" title="Pixel Agents：把 Claude Code 变成像素办公模拟器">Pixel Agents：把 Claude Code 变成像素办公模拟器</a><time datetime="2026-02-23T16:00:00.000Z" title="发表于 2026-02-24 00:00:00">2026-02-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/openclaw/2026-02-21-openclaw-tavily-skills-web-search/" title="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）"/></a><div class="content"><a class="title" href="/openclaw/2026-02-21-openclaw-tavily-skills-web-search/" title="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）">OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）</a><time datetime="2026-02-21T02:30:00.000Z" title="发表于 2026-02-21 10:30:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-attack-technique-embedding-faiss/" title="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-attack-technique-embedding-faiss/" title="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）">ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）</a><time datetime="2026-02-21T02:30:00.000Z" title="发表于 2026-02-21 10:30:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-attack-nsm-mapping/" title="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-attack-nsm-mapping/" title="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）">MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）</a><time datetime="2026-02-21T02:00:00.000Z" title="发表于 2026-02-21 10:00:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-shannon-automation-security-testing-guide/" title="Shannon 自动化安全测试系统（Web 控制台）通用使用指南"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shannon 自动化安全测试系统（Web 控制台）通用使用指南"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-shannon-automation-security-testing-guide/" title="Shannon 自动化安全测试系统（Web 控制台）通用使用指南">Shannon 自动化安全测试系统（Web 控制台）通用使用指南</a><time datetime="2026-02-20T16:00:00.000Z" title="发表于 2026-02-21 00:00:00">2026-02-21</time></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-rust"><span class="toc-number">1.</span> <span class="toc-text"> 什么是 Rust？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rust-%E7%9A%84%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text"> Rust 的核心特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rust-%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text"> Rust 的应用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-rust"><span class="toc-number">2.</span> <span class="toc-text"> 安装 Rust</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-rustup-%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90"><span class="toc-number">2.1.</span> <span class="toc-text"> 使用 rustup 安装（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text"> 验证安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA-rust-%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text"> 第一个 Rust 程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.1.</span> <span class="toc-text"> 创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="toc-number">3.2.</span> <span class="toc-text"> 编写代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.3.</span> <span class="toc-text"> 运行程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rust-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text"> Rust 基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text"> 变量与可变性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.2.</span> <span class="toc-text"> 数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">4.3.</span> <span class="toc-text"> 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-number">4.4.</span> <span class="toc-text"> 注释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E5%88%9D%E6%AD%A5"><span class="toc-number">5.</span> <span class="toc-text"> 控制流初步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#if-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">5.1.</span> <span class="toc-text"> if 表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-number">5.2.</span> <span class="toc-text"> 循环</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cargo-%E5%B7%A5%E5%85%B7"><span class="toc-number">6.</span> <span class="toc-text"> Cargo 工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">6.1.</span> <span class="toc-text"> 常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cargotoml-%E9%85%8D%E7%BD%AE"><span class="toc-number">6.2.</span> <span class="toc-text"> Cargo.toml 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">8.</span> <span class="toc-text"> 下一步</span></a></li></ol></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><span class="card-archive-list-count">136</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">35</span></a></li></ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/TypeScript/" style="font-size: 1.18em; color: #999ca1">TypeScript</a> <a href="/tags/%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90/" style="font-size: 1.18em; color: #999ca1">威胁分析</a> <a href="/tags/LLM/" style="font-size: 1.18em; color: #999ca1">LLM</a> <a href="/tags/NSM/" style="font-size: 1.18em; color: #999ca1">NSM</a> <a href="/tags/Claude-Code/" style="font-size: 1.1em; color: #999">Claude Code</a> <a href="/tags/%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" style="font-size: 1.1em; color: #999">条件语句</a> <a href="/tags/IO/" style="font-size: 1.1em; color: #999">IO</a> <a href="/tags/%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94/" style="font-size: 1.1em; color: #999">事件响应</a> <a href="/tags/AppSec/" style="font-size: 1.1em; color: #999">AppSec</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 1.1em; color: #999">性能优化</a> <a href="/tags/%E5%AE%89%E5%85%A8%E7%9B%91%E6%8E%A7/" style="font-size: 1.1em; color: #999">安全监控</a> <a href="/tags/%E7%A7%91%E7%9B%AE%E4%B8%80/" style="font-size: 1.1em; color: #999">科目一</a> <a href="/tags/Skills/" style="font-size: 1.18em; color: #999ca1">Skills</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 1.1em; color: #999">面向对象</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 1.1em; color: #999">向量检索</a> <a href="/tags/os/" style="font-size: 1.1em; color: #999">os</a> <a href="/tags/%E6%89%80%E6%9C%89%E6%9D%83/" style="font-size: 1.1em; color: #999">所有权</a> <a href="/tags/C-API/" style="font-size: 1.1em; color: #999">C API</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">线程</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 1.18em; color: #999ca1">模块</a> <a href="/tags/%E7%B1%BB/" style="font-size: 1.1em; color: #999">类</a> <a href="/tags/Trait/" style="font-size: 1.1em; color: #999">Trait</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 1.1em; color: #999">自动化</a> <a href="/tags/SAST/" style="font-size: 1.1em; color: #999">SAST</a> <a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 1.1em; color: #999">枚举</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 1.26em; color: #999fa8">数据类型</a> <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">并发编程</a> <a href="/tags/Tavily/" style="font-size: 1.1em; color: #999">Tavily</a> <a href="/tags/Graylog/" style="font-size: 1.5em; color: #99a9bf">Graylog</a> <a href="/tags/Lua/" style="font-size: 1.34em; color: #99a3b0">Lua</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/ATT-CK/" style="font-size: 1.18em; color: #999ca1">ATT&CK</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">系统编程</a> <a href="/tags/Claude/" style="font-size: 1.1em; color: #999">Claude</a> <a href="/tags/Agent/" style="font-size: 1.18em; color: #999ca1">Agent</a> <a href="/tags/Ollama/" style="font-size: 1.18em; color: #999ca1">Ollama</a> <a href="/tags/WAF/" style="font-size: 1.42em; color: #99a6b7">WAF</a> <a href="/tags/%E5%A4%87%E8%80%83/" style="font-size: 1.1em; color: #999">备考</a> <a href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" style="font-size: 1.1em; color: #999">应急响应</a> <a href="/tags/%E5%80%9F%E7%94%A8/" style="font-size: 1.1em; color: #999">借用</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By AI安全运营</div><div class="framework-info"><span>( </span><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">备案:辽ICP备16003836号-5</a><span class="footer-separator"> </span><span>) </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"></a></div><div class="footer_webinfo"><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">171</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-25T02:45:56.234Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="/js/lua-swiper-directory.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

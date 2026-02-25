@@ -1,0 +1,703 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Lua 教程 - 第五章：表的高级应用</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lua 教程 - 第五章：表的高级应用',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><h2>教程导航</h2><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>第一部分：基础入门</h3><ul><li><a href="/lua/01-intro.html">第 01 章：Lua 入门基础</a></li><li><a href="/lua/02-datatypes.html">第 02 章：数据类型与值</a></li><li><a href="/lua/03-control-flow.html">第 03 章：控制流与循环</a></li></ul><h3>第二部分：核心语法</h3><ul><li><a href="/lua/04-functions.html">第 04 章：函数与作用域</a></li><li><a href="/lua/05-tables.html">第 05 章：表（Table）与数据结构</a></li><li><a href="/lua/06-strings.html">第 06 章：字符串与模式匹配</a></li></ul><h3>第三部分：工程与实战</h3><ul><li><a href="/lua/07-io.html">第 07 章：输入输出与文件系统</a></li><li><a href="/lua/08-debug.html">第 08 章：调试与错误处理</a></li><li><a href="/lua/09-stdlib.html">第 09 章：标准库速查</a></li><li><a href="/lua/10-c-api.html">第 10 章：Lua C API 入门</a></li><li><a href="/lua/11-projects.html">第 11 章：项目实践与模块化</a></li><li><a href="/lua/12-best-practices.html">第 12 章：最佳实践与优化</a></li></ul></div></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">Lua 教程 - 第五章：表的高级应用</h1><div class="book-body" id="article-container"><h1 id="第五章表的高级应用"><a class="markdownIt-Anchor" href="#第五章表的高级应用"></a> 第五章：表的高级应用</h1>
+<p>表（Table）不仅仅是数据容器，它还是 Lua 模块系统、面向对象编程和元编程的基石。在前面的章节中，我们学习了表的基础操作，本章将深入探讨表的更多高级特性。</p>
+<p>我们将学习如何操作表、使用元表（Metatable）改变表的行为，以及如何利用表来实现面向对象编程（OOP）。</p>
+<h2 id="51-表操作"><a class="markdownIt-Anchor" href="#51-表操作"></a> 5.1 表操作</h2>
+<p>Lua 的 <code>table</code> 库提供了许多实用的函数来操作数组类型的表。</p>
+<h3 id="插入与删除"><a class="markdownIt-Anchor" href="#插入与删除"></a> 插入与删除</h3>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><code>table.insert(list, [pos,] value)</code>: 在指定位置插入元素。默认插入末尾。</p>
+</li>
+<li class="lvl-4">
+<p><code>table.remove(list, [pos])</code>: 删除指定位置的元素，并返回该元素。默认删除最后一个。</p>
+</li>
+</ul>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> t <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">&#125;</span>
+table<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">)</span>      <span class="token comment">-- &#123;10, 20, 30, 40&#125;</span>
+table<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span>   <span class="token comment">-- &#123;10, 15, 20, 30, 40&#125;</span>
+<span class="token function">print</span><span class="token punctuation">(</span>table<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- 10, t 变为 &#123;15, 20, 30, 40&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="表连接"><a class="markdownIt-Anchor" href="#表连接"></a> 表连接</h3>
+<p><code>table.concat(list, [sep, [i, [j]]])</code>: 将数组中的元素连接成字符串。</p>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><code>sep</code>: 分隔符（默认为空字符串）。</p>
+</li>
+<li class="lvl-4">
+<p><code>i</code>, <code>j</code>: 起始和结束索引。</p>
+</li>
+</ul>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> t <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"Lua"</span><span class="token punctuation">,</span> <span class="token string">"is"</span><span class="token punctuation">,</span> <span class="token string">"great"</span><span class="token punctuation">&#125;</span>
+<span class="token function">print</span><span class="token punctuation">(</span>table<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- "Lua is great"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="表排序"><a class="markdownIt-Anchor" href="#表排序"></a> 表排序</h3>
+<p><code>table.sort(list, [comp])</code>: 对数组进行排序。<code>comp</code> 是可选的比较函数。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> t <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">&#125;</span>
+table<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span> <span class="token comment">-- &#123;1, 1, 3, 4, 5&#125;</span>
+
+<span class="token comment">-- 自定义降序排序</span>
+table<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token keyword">return</span> a <span class="token operator">></span> b <span class="token keyword">end</span><span class="token punctuation">)</span> <span class="token comment">-- &#123;5, 4, 3, 1, 1&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="52-元表-metatable"><a class="markdownIt-Anchor" href="#52-元表-metatable"></a> 5.2 元表 (Metatable)</h2>
+<p>元表是 Lua 中最强大的特性之一。它允许我们修改表的行为，例如定义两个表相加的操作、定义如何访问不存在的键等。</p>
+<h3 id="元表机制流程"><a class="markdownIt-Anchor" href="#元表机制流程"></a> 元表机制流程</h3>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+flowchart TD
+    A[访问表字段 t.k] --> B&#123;字段存在?&#125;
+    B -->|是| C[返回值]
+    B -->|否| D&#123;有元表?&#125;
+    D -->|否| E[返回 nil]
+    D -->|是| F&#123;有 __index?&#125;
+    F -->|否| E[返回 nil]
+    F -->|是| G&#123;__index 类型&#125;
+    G -->|表| H[在 __index 表中查找]
+    G -->|函数| I[调用 __index t k]
+    H --> J&#123;找到?&#125;
+    J -->|是| C[返回值]
+    J -->|否| E[返回 nil]
+    I --> C[返回值]
+</pre></div>
+<h3 id="设置和获取元表"><a class="markdownIt-Anchor" href="#设置和获取元表"></a> 设置和获取元表</h3>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><code>setmetatable(table, metatable)</code>: 设置表的元表。</p>
+</li>
+<li class="lvl-4">
+<p><code>getmetatable(table)</code>: 获取表的元表。</p>
+</li>
+</ul>
+<h3 id="元方法-metamethods"><a class="markdownIt-Anchor" href="#元方法-metamethods"></a> 元方法 (Metamethods)</h3>
+<p>元表中包含的特殊键称为元方法。常见的元方法有：</p>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><code>__add</code>: <code>+</code> 操作</p>
+</li>
+<li class="lvl-4">
+<p><code>__sub</code>: <code>-</code> 操作</p>
+</li>
+<li class="lvl-4">
+<p><code>__mul</code>: <code>*</code> 操作</p>
+</li>
+<li class="lvl-4">
+<p><code>__div</code>: <code>/</code> 操作</p>
+</li>
+<li class="lvl-4">
+<p><code>__tostring</code>: 用于 <code>print</code> 或 <code>tostring</code> 转换时的输出</p>
+</li>
+<li class="lvl-4">
+<p><code>__index</code>: 当访问不存在的索引时调用</p>
+</li>
+<li class="lvl-4">
+<p><code>__newindex</code>: 当给不存在的索引赋值时调用</p>
+</li>
+<li class="lvl-4">
+<p><code>__call</code>: 当把表当作函数调用时触发</p>
+</li>
+</ul>
+<h4 id="示例重载加法运算符"><a class="markdownIt-Anchor" href="#示例重载加法运算符"></a> 示例：重载加法运算符</h4>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> Set <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token keyword">local</span> mt <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">function</span> Set<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> set <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token function">setmetatable</span><span class="token punctuation">(</span>set<span class="token punctuation">,</span> mt<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> _<span class="token punctuation">,</span> v <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token keyword">do</span> set<span class="token punctuation">[</span>v<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">true</span> <span class="token keyword">end</span>
+    <span class="token keyword">return</span> set
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> Set<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> res <span class="token operator">=</span> Set<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token keyword">do</span> res<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">true</span> <span class="token keyword">end</span>
+    <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token keyword">do</span> res<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">true</span> <span class="token keyword">end</span>
+    <span class="token keyword">return</span> res
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> Set<span class="token punctuation">.</span><span class="token function">tostring</span><span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> l <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token keyword">for</span> e <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>set<span class="token punctuation">)</span> <span class="token keyword">do</span> l<span class="token punctuation">[</span><span class="token operator">#</span>l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">tostring</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token keyword">end</span>
+    <span class="token keyword">return</span> <span class="token string">"&#123;"</span> <span class="token operator">..</span> table<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>l<span class="token punctuation">,</span> <span class="token string">", "</span><span class="token punctuation">)</span> <span class="token operator">..</span> <span class="token string">"&#125;"</span>
+<span class="token keyword">end</span>
+
+mt<span class="token punctuation">.</span>__add <span class="token operator">=</span> Set<span class="token punctuation">.</span>union
+mt<span class="token punctuation">.</span>__tostring <span class="token operator">=</span> Set<span class="token punctuation">.</span>tostring
+
+<span class="token keyword">local</span> s1 <span class="token operator">=</span> Set<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">&#123;</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">&#125;</span>
+<span class="token keyword">local</span> s2 <span class="token operator">=</span> Set<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">&#123;</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">&#125;</span>
+<span class="token function">print</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span>       <span class="token comment">-- 调用 __tostring</span>
+<span class="token function">print</span><span class="token punctuation">(</span>s1 <span class="token operator">+</span> s2<span class="token punctuation">)</span>  <span class="token comment">-- 调用 __add, 输出 &#123;1, 10, 20, 30&#125; (顺序不一定)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="__index-元方法"><a class="markdownIt-Anchor" href="#__index-元方法"></a> <code>__index</code> 元方法</h4>
+<p>这是实现面向对象编程的关键。当访问表 <code>t</code> 中不存在的字段 <code>k</code> 时，如果 <code>t</code> 有元表且元表有 <code>__index</code> 字段：</p>
+<ol>
+<li class="lvl-4">
+<p>如果 <code>__index</code> 是一个表，则在这个表中查找 <code>k</code>。</p>
+</li>
+<li class="lvl-4">
+<p>如果 <code>__index</code> 是一个函数，则调用该函数 <code>__index(t, k)</code>。</p>
+</li>
+</ol>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> proto <span class="token operator">=</span> <span class="token punctuation">&#123;</span>x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">&#125;</span>
+<span class="token keyword">local</span> mt <span class="token operator">=</span> <span class="token punctuation">&#123;</span>__index <span class="token operator">=</span> proto<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">local</span> o <span class="token operator">=</span> <span class="token punctuation">&#123;</span>x <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">&#125;</span>
+<span class="token function">setmetatable</span><span class="token punctuation">(</span>o<span class="token punctuation">,</span> mt<span class="token punctuation">)</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>x<span class="token punctuation">)</span> <span class="token comment">-- 10 (存在)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>y<span class="token punctuation">)</span> <span class="token comment">-- 0  (不存在，去 proto 中找)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="53-面向对象编程-oop"><a class="markdownIt-Anchor" href="#53-面向对象编程-oop"></a> 5.3 面向对象编程 (OOP)</h2>
+<p>Lua 没有内置的类（Class）概念，但我们可以使用表和元表来模拟。</p>
+<h3 id="oop-实现流程"><a class="markdownIt-Anchor" href="#oop-实现流程"></a> OOP 实现流程</h3>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+flowchart TD
+    A[Account 类] --> B[定义方法]
+    B --> C[new 创建对象]
+    C --> D[设置元表]
+    D --> E[__index 指向类]
+    E --> F[对象创建成功]
+
+    G[调用对象方法 a:deposit] --> H[解析为 a.deposit a]
+    H --> I[查找 deposit]
+    I --> J&#123;找到?&#125;
+    J -->|否| K[通过 __index 查找]
+    K --> L[在 Account 类中找到]
+    J -->|是| L[在 Account 类中找到]
+    L --> M[执行方法]
+    M --> N[self 指向对象 a]
+    N --> O[修改对象属性]
+</pre></div>
+<h3 id="类的实现"><a class="markdownIt-Anchor" href="#类的实现"></a> 类的实现</h3>
+<p>通常，我们创建一个表作为&quot;类&quot;，并设置 <code>__index</code> 指向它自己。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">Account <span class="token operator">=</span> <span class="token punctuation">&#123;</span>balance <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">function</span> Account<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span>
+    o <span class="token operator">=</span> o <span class="token keyword">or</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token function">setmetatable</span><span class="token punctuation">(</span>o<span class="token punctuation">,</span> self<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>__index <span class="token operator">=</span> self
+    <span class="token keyword">return</span> o
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> Account<span class="token punctuation">:</span><span class="token function">deposit</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>balance <span class="token operator">=</span> self<span class="token punctuation">.</span>balance <span class="token operator">+</span> v
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> Account<span class="token punctuation">:</span><span class="token function">withdraw</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> v <span class="token operator">></span> self<span class="token punctuation">.</span>balance <span class="token keyword">then</span> error<span class="token string">"insufficient funds"</span> <span class="token keyword">end</span>
+    self<span class="token punctuation">.</span>balance <span class="token operator">=</span> self<span class="token punctuation">.</span>balance <span class="token operator">-</span> v
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 创建对象</span>
+a <span class="token operator">=</span> Account<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">&#123;</span>balance <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">&#125;</span>
+a<span class="token punctuation">:</span><span class="token function">deposit</span><span class="token punctuation">(</span><span class="token number">100.00</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>balance<span class="token punctuation">)</span> <span class="token comment">-- 100.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="冒号语法"><a class="markdownIt-Anchor" href="#冒号语法"></a> 冒号语法</h3>
+<p><code>a:deposit(100)</code> 是 <code>a.deposit(a, 100)</code> 的语法糖。定义函数时使用 <code>function Account:deposit(v)</code> 会自动添加一个隐藏参数 <code>self</code>。</p>
+<h3 id="继承"><a class="markdownIt-Anchor" href="#继承"></a> 继承</h3>
+<p>我们可以基于现有类创建新类。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">SpecialAccount <span class="token operator">=</span> Account<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">function</span> SpecialAccount<span class="token punctuation">:</span><span class="token function">withdraw</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> v <span class="token operator">-</span> self<span class="token punctuation">.</span>balance <span class="token operator">>=</span> self<span class="token punctuation">.</span>limit <span class="token keyword">then</span>
+        error<span class="token string">"insufficient funds"</span>
+    <span class="token keyword">end</span>
+    self<span class="token punctuation">.</span>balance <span class="token operator">=</span> self<span class="token punctuation">.</span>balance <span class="token operator">-</span> v
+<span class="token keyword">end</span>
+
+s <span class="token operator">=</span> SpecialAccount<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">&#123;</span>limit <span class="token operator">=</span> <span class="token number">1000.00</span><span class="token punctuation">&#125;</span>
+s<span class="token punctuation">:</span><span class="token function">deposit</span><span class="token punctuation">(</span><span class="token number">100.00</span><span class="token punctuation">)</span>
+s<span class="token punctuation">:</span><span class="token function">withdraw</span><span class="token punctuation">(</span><span class="token number">200.00</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>balance<span class="token punctuation">)</span> <span class="token comment">-- -100.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="54-模块与包"><a class="markdownIt-Anchor" href="#54-模块与包"></a> 5.4 模块与包</h2>
+<p>Lua 5.1 引入了模块系统。</p>
+<h3 id="编写模块"><a class="markdownIt-Anchor" href="#编写模块"></a> 编写模块</h3>
+<p>通常一个文件就是一个模块，模块最后返回一个包含导出函数的表。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">-- mymodule.lua</span>
+<span class="token keyword">local</span> M <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">function</span> M<span class="token punctuation">.</span><span class="token function">say_hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Hello from module!"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">return</span> M<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用模块"><a class="markdownIt-Anchor" href="#使用模块"></a> 使用模块</h3>
+<p>使用 <code>require</code> 函数加载模块。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> m <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"mymodule"</span><span class="token punctuation">)</span>
+m<span class="token punctuation">.</span><span class="token function">say_hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Lua 会在 <code>package.path</code> 指定的路径中搜索模块。</p>
+<h2 id="练习题"><a class="markdownIt-Anchor" href="#练习题"></a> 练习题</h2>
+<ol>
+<li class="lvl-4">
+<p>编写一个函数 <code>Set.intersection(a, b)</code> 计算两个集合的交集，并将其绑定到元方法 <code>__mul</code> (<code>*</code>) 上。</p>
+</li>
+<li class="lvl-4">
+<p>实现一个 <code>Stack</code>（栈）类，包含 <code>push</code>, <code>pop</code>, <code>peek</code> 方法。</p>
+</li>
+<li class="lvl-4">
+<p>尝试实现一个只读表：利用 <code>__index</code> 和 <code>__newindex</code> 元方法，使得访问存在的键正常，修改任何键都报错。</p>
+</li>
+<li class="lvl-4">
+<p>创建一个模块 <code>complex</code>，用于处理复数运算，并支持 <code>+</code>, <code>-</code> 运算符重载。</p>
+</li>
+</ol>
+<hr />
+<p><strong>下一章预告</strong>：我们将深入研究 Lua 强大的字符串模式匹配功能，它类似于正则表达式但更加轻量高效。</p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0%E8%A1%A8%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text"> 第五章：表的高级应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#51-%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.</span> <span class="toc-text"> 5.1 表操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E4%B8%8E%E5%88%A0%E9%99%A4"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 插入与删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 表连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 表排序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#52-%E5%85%83%E8%A1%A8-metatable"><span class="toc-number">1.2.</span> <span class="toc-text"> 5.2 元表 (Metatable)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E8%A1%A8%E6%9C%BA%E5%88%B6%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 元表机制流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%92%8C%E8%8E%B7%E5%8F%96%E5%85%83%E8%A1%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 设置和获取元表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E6%96%B9%E6%B3%95-metamethods"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 元方法 (Metamethods)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E9%87%8D%E8%BD%BD%E5%8A%A0%E6%B3%95%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 示例：重载加法运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#__index-%E5%85%83%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> __index 元方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#53-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-oop"><span class="toc-number">1.3.</span> <span class="toc-text"> 5.3 面向对象编程 (OOP)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#oop-%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text"> OOP 实现流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 类的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%92%E5%8F%B7%E8%AF%AD%E6%B3%95"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 冒号语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#54-%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85"><span class="toc-number">1.4.</span> <span class="toc-text"> 5.4 模块与包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%A8%A1%E5%9D%97"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 编写模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 使用模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="toc-number">1.5.</span> <span class="toc-text"> 练习题</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

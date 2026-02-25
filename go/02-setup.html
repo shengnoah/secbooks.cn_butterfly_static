@@ -1,0 +1,763 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>1.2 环境搭建</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '1.2 环境搭建',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><a href="/go/home.html"><h2>Go语言教程</h2></a><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>1. Go语言入门</h3><ul><li><a href="/go/01-intro.html">1.1 Go语言简介</a></li><li><a href="/go/02-setup.html">1.2 环境搭建</a></li><li><a href="/go/03-hello-world.html">1.3 第一个Go程序</a></li></ul><h3>2. 基本语法</h3><ul><li><a href="/go/04-variables.html">2.1 变量与常量</a></li><li><a href="/go/05-datatypes.html">2.2 数据类型</a></li><li><a href="/go/06-operators.html">2.3 运算符</a></li></ul><h3>3. 控制流程</h3><ul><li><a href="/go/XX.html">3.1 条件语句</a></li><li><a href="/go/XX.html">3.2 循环语句</a></li><li><a href="/go/XX.html">3.3 Switch语句</a></li></ul><h3>4. 函数</h3><ul><li><a href="/go/XX.html">4.1 函数定义与调用</a></li><li><a href="/go/XX.html">4.2 多返回值</a></li><li><a href="/go/XX.html">4.3 匿名函数与闭包</a></li></ul><h3>5. 复合数据类型</h3><ul><li><a href="/go/XX.html">5.1 数组</a></li><li><a href="/go/XX.html">5.2 切片</a></li><li><a href="/go/XX.html">5.3 映射</a></li></ul><h3>6. 结构体与方法</h3><ul><li><a href="/go/XX.html">6.1 结构体</a></li><li><a href="/go/XX.html">6.2 方法</a></li><li><a href="/go/XX.html">6.3 嵌入与组合</a></li></ul><h3>7. 接口</h3><ul><li><a href="/go/XX.html">7.1 接口定义</a></li><li><a href="/go/XX.html">7.2 接口实现</a></li><li><a href="/go/XX.html">7.3 空接口与类型断言</a></li></ul><h3>8. 并发编程</h3><ul><li><a href="/go/XX.html">8.1 Goroutine</a></li><li><a href="/go/XX.html">8.2 Channel</a></li><li><a href="/go/XX.html">8.3 Select语句</a></li><li><a href="/go/XX.html">8.4 并发模式</a></li></ul><h3>9. 错误处理</h3><ul><li><a href="/go/XX.html">9.1 错误处理基础</a></li><li><a href="/go/XX.html">9.2 自定义错误</a></li><li><a href="/go/XX.html">9.3 Panic与Recover</a></li></ul><h3>10. 包与模块</h3><ul><li><a href="/go/XX.html">10.1 包的概念</a></li><li><a href="/go/XX.html">10.2 Go Modules</a></li><li><a href="/go/XX.html">10.3 包管理最佳实践</a></li></ul><h3>11. 测试</h3><ul><li><a href="/go/XX.html">11.1 单元测试</a></li><li><a href="/go/XX.html">11.2 基准测试</a></li><li><a href="/go/XX.html">11.3 示例测试</a></li></ul><h3>12. 反射与泛型</h3><ul><li><a href="/go/XX.html">12.1 反射机制</a></li><li><a href="/go/XX.html">12.2 泛型编程</a></li></ul><h3>13. 常用标准库</h3><ul><li><a href="/go/XX.html">13.1 fmt包</a></li><li><a href="/go/XX.html">13.2 strings包</a></li><li><a href="/go/XX.html">13.3 time包</a></li><li><a href="/go/XX.html">13.4 io包</a></li><li><a href="/go/XX.html">13.5 os包</a></li></ul><h3>14. 网络编程</h3><ul><li><a href="/go/XX.html">14.1 HTTP客户端</a></li><li><a href="/go/XX.html">14.2 HTTP服务器</a></li><li><a href="/go/XX.html">14.3 JSON处理</a></li></ul><h3>15. Web开发</h3><ul><li><a href="/go/XX.html">15.1 Web框架选择</a></li><li><a href="/go/XX.html">15.2 RESTful API开发</a></li><li><a href="/go/XX.html">15.3 中间件</a></li></ul><h3>16. 数据库操作</h3><ul><li><a href="/go/XX.html">16.1 database/sql包</a></li><li><a href="/go/XX.html">16.2 MySQL操作</a></li><li><a href="/go/XX.html">16.3 ORM框架</a></li></ul><h3>17. 微服务</h3><ul><li><a href="/go/XX.html">17.1 微服务架构</a></li><li><a href="/go/XX.html">17.2 gRPC</a></li><li><a href="/go/XX.html">17.3 服务发现</a></li></ul><h3>18. 最佳实践</h3><ul><li><a href="/go/XX.html">18.1 代码规范</a></li><li><a href="/go/XX.html">18.2 性能优化</a></li><li><a href="/go/XX.html">18.3 项目结构</a></li></ul></div></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">1.2 环境搭建</h1><div class="book-body" id="article-container"><h1 id="12-环境搭建"><a class="markdownIt-Anchor" href="#12-环境搭建"></a> 1.2 环境搭建</h1>
+<p>在开始学习Go语言之前，我们需要先搭建好开发环境。本节将介绍如何在不同操作系统上安装和配置Go语言开发环境。</p>
+<h2 id="下载go"><a class="markdownIt-Anchor" href="#下载go"></a> 下载Go</h2>
+<h3 id="官方下载地址"><a class="markdownIt-Anchor" href="#官方下载地址"></a> 官方下载地址</h3>
+<p>访问Go语言官方网站下载页面：<a target="_blank" rel="noopener" href="https://go.dev/dl/">https://go.dev/dl/</a></p>
+<p>选择适合你操作系统的版本：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>Windows</strong>: <code>.msi</code> 安装包</p>
+</li>
+<li class="lvl-2">
+<p><strong>macOS</strong>: <code>.pkg</code> 安装包</p>
+</li>
+<li class="lvl-2">
+<p><strong>Linux</strong>: <code>.tar.gz</code> 压缩包</p>
+</li>
+</ul>
+<h3 id="版本选择"><a class="markdownIt-Anchor" href="#版本选择"></a> 版本选择</h3>
+<p>建议下载最新的稳定版本。截至本教程编写时，最新版本为Go 1.21+。</p>
+<h2 id="windows系统安装"><a class="markdownIt-Anchor" href="#windows系统安装"></a> Windows系统安装</h2>
+<h3 id="1-下载安装包"><a class="markdownIt-Anchor" href="#1-下载安装包"></a> 1. 下载安装包</h3>
+<p>下载 <code>go1.21.x.windows-amd64.msi</code> 文件。</p>
+<h3 id="2-运行安装程序"><a class="markdownIt-Anchor" href="#2-运行安装程序"></a> 2. 运行安装程序</h3>
+<p>双击下载的<code>.msi</code>文件，按照安装向导进行安装。</p>
+<p>默认安装路径：<code>C:\Program Files\Go</code></p>
+<h3 id="3-验证安装"><a class="markdownIt-Anchor" href="#3-验证安装"></a> 3. 验证安装</h3>
+<p>打开命令提示符（CMD）或PowerShell，输入：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果显示Go版本信息，说明安装成功：</p>
+<pre class="line-numbers language-none"><code class="language-none">go version go1.21.5 windows&#x2F;amd64<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="4-配置环境变量"><a class="markdownIt-Anchor" href="#4-配置环境变量"></a> 4. 配置环境变量</h3>
+<p>安装程序会自动配置环境变量，但你可以手动检查：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>GOROOT</code>: Go的安装目录（如 <code>C:\Program Files\Go</code>）</p>
+</li>
+<li class="lvl-2">
+<p><code>GOPATH</code>: Go的工作目录（默认为 <code>%USERPROFILE%\go</code>）</p>
+</li>
+<li class="lvl-2">
+<p><code>Path</code>: 应包含 <code>%GOROOT%\bin</code> 和 <code>%GOPATH%\bin</code></p>
+</li>
+</ul>
+<h2 id="macos系统安装"><a class="markdownIt-Anchor" href="#macos系统安装"></a> macOS系统安装</h2>
+<h3 id="方法一使用安装包"><a class="markdownIt-Anchor" href="#方法一使用安装包"></a> 方法一：使用安装包</h3>
+<ol>
+<li class="lvl-3">
+<p>下载 <code>go1.21.x.darwin-amd64.pkg</code> 或 <code>go1.21.x.darwin-arm64.pkg</code>（M1/M2芯片）</p>
+</li>
+<li class="lvl-3">
+<p>双击运行安装程序</p>
+</li>
+<li class="lvl-3">
+<p>按照向导完成安装</p>
+</li>
+</ol>
+<p>默认安装路径：<code>/usr/local/go</code></p>
+<h3 id="方法二使用homebrew"><a class="markdownIt-Anchor" href="#方法二使用homebrew"></a> 方法二：使用Homebrew</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装Homebrew（如果未安装）</span>
+/bin/bash <span class="token parameter variable">-c</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="token variable">)</span></span>"</span>
+
+<span class="token comment"># 安装Go</span>
+brew <span class="token function">install</span> go<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="验证安装"><a class="markdownIt-Anchor" href="#验证安装"></a> 验证安装</h3>
+<p>打开终端，输入：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="配置环境变量"><a class="markdownIt-Anchor" href="#配置环境变量"></a> 配置环境变量</h3>
+<p>编辑 <code>~/.zshrc</code> 或 <code>~/.bash_profile</code>：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">GOROOT</span><span class="token operator">=</span>/usr/local/go
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GOPATH</span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/go
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$GOROOT</span>/bin:<span class="token variable">$GOPATH</span>/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使配置生效：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> ~/.zshrc  <span class="token comment"># 或 source ~/.bash_profile</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="linux系统安装"><a class="markdownIt-Anchor" href="#linux系统安装"></a> Linux系统安装</h2>
+<h3 id="1-下载压缩包"><a class="markdownIt-Anchor" href="#1-下载压缩包"></a> 1. 下载压缩包</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://go.dev/dl/go1.21.5.linux-amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="2-解压到指定目录"><a class="markdownIt-Anchor" href="#2-解压到指定目录"></a> 2. 解压到指定目录</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">rm</span> <span class="token parameter variable">-rf</span> /usr/local/go
+<span class="token function">sudo</span> <span class="token function">tar</span> <span class="token parameter variable">-C</span> /usr/local <span class="token parameter variable">-xzf</span> go1.21.5.linux-amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="3-配置环境变量"><a class="markdownIt-Anchor" href="#3-配置环境变量"></a> 3. 配置环境变量</h3>
+<p>编辑 <code>~/.bashrc</code> 或 <code>~/.profile</code>：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">GOROOT</span><span class="token operator">=</span>/usr/local/go
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GOPATH</span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/go
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$GOROOT</span>/bin:<span class="token variable">$GOPATH</span>/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使配置生效：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="4-验证安装"><a class="markdownIt-Anchor" href="#4-验证安装"></a> 4. 验证安装</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="配置go环境"><a class="markdownIt-Anchor" href="#配置go环境"></a> 配置Go环境</h2>
+<h3 id="gopath目录结构"><a class="markdownIt-Anchor" href="#gopath目录结构"></a> GOPATH目录结构</h3>
+<p>GOPATH是Go的工作目录，通常包含三个子目录：</p>
+<pre class="line-numbers language-none"><code class="language-none">$GOPATH&#x2F;
+├── bin&#x2F;      # 存放编译后的可执行文件
+├── pkg&#x2F;      # 存放编译后的包文件
+└── src&#x2F;      # 存放源代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="go-modules推荐"><a class="markdownIt-Anchor" href="#go-modules推荐"></a> Go Modules（推荐）</h3>
+<p>从Go 1.11开始，Go引入了Go Modules作为官方的依赖管理工具。使用Go Modules后，项目可以放在任意目录。</p>
+<p>启用Go Modules：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GO111MODULE</span><span class="token operator">=</span>on<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="配置代理中国大陆用户"><a class="markdownIt-Anchor" href="#配置代理中国大陆用户"></a> 配置代理（中国大陆用户）</h3>
+<p>由于网络原因，建议配置Go模块代理：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用七牛云代理</span>
+go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GOPROXY</span><span class="token operator">=</span>https://goproxy.cn,direct
+
+<span class="token comment"># 或使用阿里云代理</span>
+go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GOPROXY</span><span class="token operator">=</span>https://mirrors.aliyun.com/goproxy/,direct<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="查看go环境配置"><a class="markdownIt-Anchor" href="#查看go环境配置"></a> 查看Go环境配置</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">env</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>常用环境变量：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>GOROOT</code>: Go安装目录</p>
+</li>
+<li class="lvl-2">
+<p><code>GOPATH</code>: Go工作目录</p>
+</li>
+<li class="lvl-2">
+<p><code>GOPROXY</code>: 模块代理</p>
+</li>
+<li class="lvl-2">
+<p><code>GO111MODULE</code>: 是否启用Go Modules</p>
+</li>
+<li class="lvl-2">
+<p><code>GOOS</code>: 目标操作系统</p>
+</li>
+<li class="lvl-2">
+<p><code>GOARCH</code>: 目标架构</p>
+</li>
+</ul>
+<h2 id="选择开发工具"><a class="markdownIt-Anchor" href="#选择开发工具"></a> 选择开发工具</h2>
+<h3 id="1-visual-studio-code推荐"><a class="markdownIt-Anchor" href="#1-visual-studio-code推荐"></a> 1. Visual Studio Code（推荐）</h3>
+<p><strong>优点</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>免费开源</p>
+</li>
+<li class="lvl-2">
+<p>插件丰富</p>
+</li>
+<li class="lvl-2">
+<p>跨平台</p>
+</li>
+<li class="lvl-2">
+<p>轻量级</p>
+</li>
+</ul>
+<p><strong>安装步骤</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p>下载安装VS Code：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
+</li>
+<li class="lvl-3">
+<p>安装Go扩展：在扩展市场搜索&quot;Go&quot;，安装官方Go扩展</p>
+</li>
+<li class="lvl-3">
+<p>安装Go工具：打开命令面板（Ctrl+Shift+P），输入&quot;Go: Install/Update Tools&quot;，全选安装</p>
+</li>
+</ol>
+<h3 id="2-goland"><a class="markdownIt-Anchor" href="#2-goland"></a> 2. GoLand</h3>
+<p><strong>优点</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>JetBrains出品</p>
+</li>
+<li class="lvl-2">
+<p>功能强大</p>
+</li>
+<li class="lvl-2">
+<p>智能提示完善</p>
+</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>收费（有免费试用期）</p>
+</li>
+<li class="lvl-2">
+<p>相对较重</p>
+</li>
+</ul>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/go/">https://www.jetbrains.com/go/</a></p>
+<h3 id="3-vimneovim"><a class="markdownIt-Anchor" href="#3-vimneovim"></a> 3. Vim/Neovim</h3>
+<p>适合喜欢命令行的开发者，需要配置vim-go插件。</p>
+<h3 id="4-sublime-text"><a class="markdownIt-Anchor" href="#4-sublime-text"></a> 4. Sublime Text</h3>
+<p>轻量级编辑器，需要安装GoSublime插件。</p>
+<h2 id="创建第一个工作空间"><a class="markdownIt-Anchor" href="#创建第一个工作空间"></a> 创建第一个工作空间</h2>
+<h3 id="使用go-modules"><a class="markdownIt-Anchor" href="#使用go-modules"></a> 使用Go Modules</h3>
+<ol>
+<li class="lvl-3">
+<p>创建项目目录：</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> hello-go
+<span class="token builtin class-name">cd</span> hello-go<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li class="lvl-3">
+<p>初始化Go模块：</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go mod init hello-go<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这会创建一个<code>go.mod</code>文件，用于管理依赖。</p>
+<ol start="3">
+<li class="lvl-3">
+<p>创建主文件：</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Windows</span>
+<span class="token builtin class-name">type</span> nul <span class="token operator">></span> main.go
+
+<span class="token comment"># macOS/Linux</span>
+<span class="token function">touch</span> main.go<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="常用go命令"><a class="markdownIt-Anchor" href="#常用go命令"></a> 常用Go命令</h2>
+<h3 id="go-version"><a class="markdownIt-Anchor" href="#go-version"></a> go version</h3>
+<p>查看Go版本：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="go-env"><a class="markdownIt-Anchor" href="#go-env"></a> go env</h3>
+<p>查看Go环境变量：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">env</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="go-mod"><a class="markdownIt-Anchor" href="#go-mod"></a> go mod</h3>
+<p>模块管理：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go mod init <span class="token operator">&lt;</span>module-name<span class="token operator">></span>  <span class="token comment"># 初始化模块</span>
+go mod tidy                <span class="token comment"># 整理依赖</span>
+go mod download            <span class="token comment"># 下载依赖</span>
+go mod vendor              <span class="token comment"># 将依赖复制到vendor目录</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="go-build"><a class="markdownIt-Anchor" href="#go-build"></a> go build</h3>
+<p>编译程序：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go build              <span class="token comment"># 编译当前目录</span>
+go build main.go      <span class="token comment"># 编译指定文件</span>
+go build <span class="token parameter variable">-o</span> app       <span class="token comment"># 指定输出文件名</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="go-run"><a class="markdownIt-Anchor" href="#go-run"></a> go run</h3>
+<p>编译并运行：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go run main.go<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="go-install"><a class="markdownIt-Anchor" href="#go-install"></a> go install</h3>
+<p>编译并安装到$GOPATH/bin：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="go-get"><a class="markdownIt-Anchor" href="#go-get"></a> go get</h3>
+<p>下载并安装包：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go get github.com/gin-gonic/gin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="go-test"><a class="markdownIt-Anchor" href="#go-test"></a> go test</h3>
+<p>运行测试：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token builtin class-name">test</span>
+go <span class="token builtin class-name">test</span> <span class="token parameter variable">-v</span>            <span class="token comment"># 详细输出</span>
+go <span class="token builtin class-name">test</span> <span class="token parameter variable">-cover</span>        <span class="token comment"># 显示覆盖率</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="go-fmt"><a class="markdownIt-Anchor" href="#go-fmt"></a> go fmt</h3>
+<p>格式化代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">fmt</span> ./<span class="token punctuation">..</span>.          <span class="token comment"># 格式化所有文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="验证环境配置"><a class="markdownIt-Anchor" href="#验证环境配置"></a> 验证环境配置</h2>
+<p>创建一个简单的测试程序验证环境：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// main.go</span>
+<span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Go环境配置成功！"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行程序：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go run main.go<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果输出&quot;Go环境配置成功！&quot;，说明环境配置完成。</p>
+<h2 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h2>
+<h3 id="1-go命令找不到"><a class="markdownIt-Anchor" href="#1-go命令找不到"></a> 1. go命令找不到</h3>
+<p><strong>解决方法</strong>：检查PATH环境变量是否包含Go的bin目录。</p>
+<h3 id="2-无法下载依赖包"><a class="markdownIt-Anchor" href="#2-无法下载依赖包"></a> 2. 无法下载依赖包</h3>
+<p><strong>解决方法</strong>：配置GOPROXY代理。</p>
+<h3 id="3-vs-code-go扩展工具安装失败"><a class="markdownIt-Anchor" href="#3-vs-code-go扩展工具安装失败"></a> 3. VS Code Go扩展工具安装失败</h3>
+<p><strong>解决方法</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p>配置GOPROXY</p>
+</li>
+<li class="lvl-3">
+<p>手动安装工具：</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">install</span> golang.org/x/tools/gopls@latest
+go <span class="token function">install</span> github.com/go-delve/delve/cmd/dlv@latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="4-权限问题linuxmacos"><a class="markdownIt-Anchor" href="#4-权限问题linuxmacos"></a> 4. 权限问题（Linux/macOS）</h3>
+<p><strong>解决方法</strong>：确保GOPATH目录有写权限。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<p>本节我们学习了：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>如何在不同操作系统上安装Go</p>
+</li>
+<li class="lvl-2">
+<p>如何配置Go环境变量</p>
+</li>
+<li class="lvl-2">
+<p>如何选择和配置开发工具</p>
+</li>
+<li class="lvl-2">
+<p>常用的Go命令</p>
+</li>
+</ul>
+<p>环境搭建完成后，我们就可以开始编写Go程序了。下一节，我们将编写第一个Go程序。</p>
+<hr />
+<p><strong>上一节</strong>: <a href="01-intro.html">1.1 Go语言简介</a> | <strong>下一节</strong>: <a href="03-hello-world.html">1.3 第一个Go程序</a></p>
+<p><a href="menu.html">返回目录</a> | <a href="home.html">返回首页</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#12-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text"> 1.2 环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDgo"><span class="toc-number">1.1.</span> <span class="toc-text"> 下载Go</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 官方下载地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 版本选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#windows%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.</span> <span class="toc-text"> Windows系统安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 1. 下载安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%90%E8%A1%8C%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 2. 运行安装程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 3. 验证安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 4. 配置环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#macos%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text"> macOS系统安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%E4%BD%BF%E7%94%A8%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 方法一：使用安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E4%BD%BF%E7%94%A8homebrew"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 方法二：使用Homebrew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 验证安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 配置环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#linux%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.</span> <span class="toc-text"> Linux系统安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BD%E5%8E%8B%E7%BC%A9%E5%8C%85"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 1. 下载压缩包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%A7%A3%E5%8E%8B%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 2. 解压到指定目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 3. 配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 4. 验证安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEgo%E7%8E%AF%E5%A2%83"><span class="toc-number">1.5.</span> <span class="toc-text"> 配置Go环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gopath%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.5.1.</span> <span class="toc-text"> GOPATH目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-modules%E6%8E%A8%E8%8D%90"><span class="toc-number">1.5.2.</span> <span class="toc-text"> Go Modules（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86%E4%B8%AD%E5%9B%BD%E5%A4%A7%E9%99%86%E7%94%A8%E6%88%B7"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 配置代理（中国大陆用户）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bgo%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.5.4.</span> <span class="toc-text"> 查看Go环境配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-number">1.6.</span> <span class="toc-text"> 选择开发工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-visual-studio-code%E6%8E%A8%E8%8D%90"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 1. Visual Studio Code（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-goland"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 2. GoLand</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-vimneovim"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 3. Vim&#x2F;Neovim</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-sublime-text"><span class="toc-number">1.6.4.</span> <span class="toc-text"> 4. Sublime Text</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.7.</span> <span class="toc-text"> 创建第一个工作空间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8go-modules"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 使用Go Modules</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8go%E5%91%BD%E4%BB%A4"><span class="toc-number">1.8.</span> <span class="toc-text"> 常用Go命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#go-version"><span class="toc-number">1.8.1.</span> <span class="toc-text"> go version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-env"><span class="toc-number">1.8.2.</span> <span class="toc-text"> go env</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-mod"><span class="toc-number">1.8.3.</span> <span class="toc-text"> go mod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-build"><span class="toc-number">1.8.4.</span> <span class="toc-text"> go build</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-run"><span class="toc-number">1.8.5.</span> <span class="toc-text"> go run</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-install"><span class="toc-number">1.8.6.</span> <span class="toc-text"> go install</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-get"><span class="toc-number">1.8.7.</span> <span class="toc-text"> go get</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-test"><span class="toc-number">1.8.8.</span> <span class="toc-text"> go test</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#go-fmt"><span class="toc-number">1.8.9.</span> <span class="toc-text"> go fmt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.9.</span> <span class="toc-text"> 验证环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.10.</span> <span class="toc-text"> 常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-go%E5%91%BD%E4%BB%A4%E6%89%BE%E4%B8%8D%E5%88%B0"><span class="toc-number">1.10.1.</span> <span class="toc-text"> 1. go命令找不到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="toc-number">1.10.2.</span> <span class="toc-text"> 2. 无法下载依赖包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-vs-code-go%E6%89%A9%E5%B1%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5"><span class="toc-number">1.10.3.</span> <span class="toc-text"> 3. VS Code Go扩展工具安装失败</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98linuxmacos"><span class="toc-number">1.10.4.</span> <span class="toc-text"> 4. 权限问题（Linux&#x2F;macOS）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.11.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

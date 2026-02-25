@@ -1,0 +1,1280 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique） | AI安全运营</title><meta name="author" content="AI安全运营"><meta name="copyright" content="AI安全运营"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="目标：把“看起来离散的网络告警（Suricata&#x2F;Zeek&#x2F;防火墙&#x2F;代理）”转成“可用于研判、狩猎、统计的 TTP 视角”，并用 MITRE ATT&amp;CK 作为统一语言。 说明：本文所有示例仅用于防御与检测工程（告警归因、检测覆盖评估、威胁狩猎），不包含漏洞利用或攻击操作步骤。    1. ATT&amp;CK 是什么？为什么适合做告警归因 MITRE ATT&amp;CK（Advers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）">
+<meta property="og:url" content="https://lua.ren/security-ops/2026-02-21-attack-nsm-mapping/index.html">
+<meta property="og:site_name" content="AI安全运营">
+<meta property="og:description" content="目标：把“看起来离散的网络告警（Suricata&#x2F;Zeek&#x2F;防火墙&#x2F;代理）”转成“可用于研判、狩猎、统计的 TTP 视角”，并用 MITRE ATT&amp;CK 作为统一语言。 说明：本文所有示例仅用于防御与检测工程（告警归因、检测覆盖评估、威胁狩猎），不包含漏洞利用或攻击操作步骤。    1. ATT&amp;CK 是什么？为什么适合做告警归因 MITRE ATT&amp;CK（Advers">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2026-02-21T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-24T11:29:15.774Z">
+<meta property="article:author" content="AI安全运营">
+<meta property="article:tag" content="安全运营">
+<meta property="article:tag" content="威胁分析">
+<meta property="article:tag" content="ATT&amp;CK">
+<meta property="article:tag" content="NSM">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/security-ops/2026-02-21-attack-nsm-mapping/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MITRE ATT&CK 教程：用 Python 调用 ATT&CK 数据，并把 NSM 网络告警关联到技术（Technique）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout    " id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-02-21T02:00:00.000Z" title="发表于 2026-02-21 10:00:00">2026-02-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-02-24T11:29:15.774Z" title="更新于 2026-02-24 19:29:15">2026-02-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><blockquote>
+<p>目标：把“看起来离散的网络告警（Suricata/Zeek/防火墙/代理）”转成“可用于研判、狩猎、统计的 TTP 视角”，并用 <strong>MITRE ATT&amp;CK</strong> 作为统一语言。</p>
+<p>说明：本文所有示例仅用于<strong>防御与检测工程</strong>（告警归因、检测覆盖评估、威胁狩猎），不包含漏洞利用或攻击操作步骤。</p>
+</blockquote>
+<hr />
+<h2 id="1-attck-是什么为什么适合做告警归因"><a class="markdownIt-Anchor" href="#1-attck-是什么为什么适合做告警归因"></a> 1. ATT&amp;CK 是什么？为什么适合做告警归因</h2>
+<p>MITRE ATT&amp;CK（Adversarial Tactics, Techniques, and Common Knowledge）是一套公开的对手行为知识库，核心对象是：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>Tactic（战术）</strong>：攻击者“为什么做”（阶段目标）</p>
+</li>
+<li class="lvl-2">
+<p><strong>Technique（技术）</strong>：攻击者“怎么做”（可观测到的行为）</p>
+</li>
+<li class="lvl-2">
+<p><strong>Sub-technique（子技术）</strong>：技术的更细粒度拆分</p>
+</li>
+</ul>
+<p>把 NSM（Network Security Monitoring，网络安全监测）告警映射到 ATT&amp;CK 的好处：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>跨产品统一口径</strong>：不同 IDS/NDR/SIEM 告警语义可收敛到同一套 TTP。</p>
+</li>
+<li class="lvl-3">
+<p><strong>研判更结构化</strong>：从“命中了一条规则”升级到“出现了某类战术链条的证据”。</p>
+</li>
+<li class="lvl-3">
+<p><strong>度量检测覆盖</strong>：能统计“我们对某些战术/技术的检测覆盖率如何”。</p>
+</li>
+<li class="lvl-3">
+<p><strong>推动联动响应</strong>：把“技术”作为 playbook 的触发条件，做自动化响应编排。</p>
+</li>
+</ol>
+<hr />
+<h2 id="2-attck-数据长什么样stix-2x"><a class="markdownIt-Anchor" href="#2-attck-数据长什么样stix-2x"></a> 2. ATT&amp;CK 数据长什么样：STIX 2.x</h2>
+<p>ATT&amp;CK 的官方发布数据以 <strong>STIX 2.x</strong>（结构化威胁情报格式）为主，常见获取方式：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>GitHub：MITRE CTI 仓库（JSON / STIX bundle）</p>
+</li>
+<li class="lvl-2">
+<p>TAXII Server：标准化接口拉取集合（collection）</p>
+</li>
+</ul>
+<p>工程实践里建议：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>线上</strong>：用 TAXII 定期同步并缓存到本地数据库</p>
+</li>
+<li class="lvl-2">
+<p><strong>离线/开发</strong>：直接下载 STIX bundle 文件读入</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-用-python-获取-attck两种常用方式"><a class="markdownIt-Anchor" href="#3-用-python-获取-attck两种常用方式"></a> 3. 用 Python 获取 ATT&amp;CK：两种常用方式</h2>
+<p>下面给你两条路线，任选其一即可：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>路线 A（推荐工程化）</strong>：TAXII 同步（自动、可定期更新）</p>
+</li>
+<li class="lvl-2">
+<p><strong>路线 B（更简单）</strong>：从 GitHub 下载 STIX 文件（本地读）</p>
+</li>
+</ul>
+<h3 id="31-路线-a从-taxii-拉取cti-taxiimitreorg"><a class="markdownIt-Anchor" href="#31-路线-a从-taxii-拉取cti-taxiimitreorg"></a> 3.1 路线 A：从 TAXII 拉取（<a target="_blank" rel="noopener" href="http://cti-taxii.mitre.org">cti-taxii.mitre.org</a>）</h3>
+<p>依赖：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> taxii2-client stix2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>示例代码（TAXII 2.x + STIX2 读取）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> taxii2client<span class="token punctuation">.</span>v21 <span class="token keyword">import</span> Server
+<span class="token keyword">from</span> stix2 <span class="token keyword">import</span> MemoryStore<span class="token punctuation">,</span> Filter
+
+TAXII_SERVER <span class="token operator">=</span> <span class="token string">"https://cti-taxii.mitre.org/taxii/"</span>
+
+<span class="token comment"># 1) 连接 TAXII Server</span>
+server <span class="token operator">=</span> Server<span class="token punctuation">(</span>TAXII_SERVER<span class="token punctuation">)</span>
+api_root <span class="token operator">=</span> server<span class="token punctuation">.</span>api_roots<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+<span class="token comment"># 2) 选择 Collection（Enterprise ATT&amp;CK 通常在 collections 里）</span>
+collections <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>api_root<span class="token punctuation">.</span>collections<span class="token punctuation">)</span>
+
+<span class="token comment"># 经验做法：根据标题挑选 Enterprise ATT&amp;CK Collection</span>
+enterprise <span class="token operator">=</span> <span class="token boolean">None</span>
+<span class="token keyword">for</span> c <span class="token keyword">in</span> collections<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token string">"Enterprise ATT&amp;CK"</span> <span class="token keyword">in</span> <span class="token punctuation">(</span>c<span class="token punctuation">.</span>title <span class="token keyword">or</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        enterprise <span class="token operator">=</span> c
+        <span class="token keyword">break</span>
+
+<span class="token keyword">if</span> enterprise <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+    <span class="token keyword">raise</span> RuntimeError<span class="token punctuation">(</span><span class="token string">"未找到 Enterprise ATT&amp;CK collection，请检查 TAXII 服务是否可用或标题是否变化"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 3) 拉取 STIX objects</span>
+objects <span class="token operator">=</span> enterprise<span class="token punctuation">.</span>get_objects<span class="token punctuation">(</span><span class="token punctuation">)</span>
+store <span class="token operator">=</span> MemoryStore<span class="token punctuation">(</span>stix_data<span class="token operator">=</span>objects<span class="token punctuation">[</span><span class="token string">"objects"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 4) 查询：按 technique id (attack-pattern)</span>
+techniques <span class="token operator">=</span> store<span class="token punctuation">.</span>query<span class="token punctuation">(</span><span class="token punctuation">[</span>Filter<span class="token punctuation">(</span><span class="token string">"type"</span><span class="token punctuation">,</span> <span class="token string">"="</span><span class="token punctuation">,</span> <span class="token string">"attack-pattern"</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"techniques:"</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>techniques<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>要点：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>attack-pattern</code> 对应 ATT&amp;CK 的 Technique/Sub-technique。</p>
+</li>
+<li class="lvl-2">
+<p>TAXII 拉取下来的对象很多（含关系、矩阵、标注等），建议<strong>缓存到本地</strong>（见后文）。</p>
+</li>
+</ul>
+<h3 id="32-路线-b读取本地-stix-bundle下载后离线用"><a class="markdownIt-Anchor" href="#32-路线-b读取本地-stix-bundle下载后离线用"></a> 3.2 路线 B：读取本地 STIX bundle（下载后离线用）</h3>
+<p>依赖：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> stix2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>示例代码：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> json
+<span class="token keyword">from</span> stix2 <span class="token keyword">import</span> MemoryStore<span class="token punctuation">,</span> Filter
+
+<span class="token comment"># 假设你把 ATT&amp;CK Enterprise STIX bundle 保存为了 enterprise-attack.json</span>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"enterprise-attack.json"</span><span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    bundle <span class="token operator">=</span> json<span class="token punctuation">.</span>load<span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+
+store <span class="token operator">=</span> MemoryStore<span class="token punctuation">(</span>stix_data<span class="token operator">=</span>bundle<span class="token punctuation">[</span><span class="token string">"objects"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+techniques <span class="token operator">=</span> store<span class="token punctuation">.</span>query<span class="token punctuation">(</span><span class="token punctuation">[</span>Filter<span class="token punctuation">(</span><span class="token string">"type"</span><span class="token punctuation">,</span> <span class="token string">"="</span><span class="token punctuation">,</span> <span class="token string">"attack-pattern"</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"techniques:"</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>techniques<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="4-python-查询把-technique-变成可用的字典服务"><a class="markdownIt-Anchor" href="#4-python-查询把-technique-变成可用的字典服务"></a> 4. Python 查询：把 Technique 变成可用的“字典服务”</h2>
+<p>NSM 侧做映射，最终通常要用到这些字段：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Technique 的 <strong>ATT&amp;CK ID</strong>（如 <code>T1046</code>）</p>
+</li>
+<li class="lvl-2">
+<p>Technique 名称、描述</p>
+</li>
+<li class="lvl-2">
+<p>所属 Tactic（一个 Technique 可能属于多个 Tactic）</p>
+</li>
+</ul>
+<p>STIX 里 ATT&amp;CK ID 一般在 <code>external_references</code>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> stix2 <span class="token keyword">import</span> Filter
+
+<span class="token keyword">def</span> <span class="token function">get_attack_id</span><span class="token punctuation">(</span>stix_obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> ref <span class="token keyword">in</span> stix_obj<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"external_references"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> ref<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"source_name"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"mitre-attack"</span> <span class="token keyword">and</span> ref<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"external_id"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> ref<span class="token punctuation">[</span><span class="token string">"external_id"</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> <span class="token boolean">None</span>
+
+<span class="token comment"># 查询：找到 T1046</span>
+<span class="token keyword">def</span> <span class="token function">find_technique_by_attack_id</span><span class="token punctuation">(</span>store<span class="token punctuation">,</span> attack_id<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    techniques <span class="token operator">=</span> store<span class="token punctuation">.</span>query<span class="token punctuation">(</span><span class="token punctuation">[</span>Filter<span class="token punctuation">(</span><span class="token string">"type"</span><span class="token punctuation">,</span> <span class="token string">"="</span><span class="token punctuation">,</span> <span class="token string">"attack-pattern"</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> t <span class="token keyword">in</span> techniques<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> get_attack_id<span class="token punctuation">(</span>t<span class="token punctuation">)</span> <span class="token operator">==</span> attack_id<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> t
+    <span class="token keyword">return</span> <span class="token boolean">None</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>把 tactic 也取出来，需要用到矩阵（matrix）与关系（relationship）对象。在工程上更常见的做法是：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>直接使用 MITRE 的 <code>mitreattack-python</code> 工具链（封装了常用查询）</p>
+</li>
+<li class="lvl-2">
+<p>或者做一次离线“Technique -&gt; Tactic 列表”的预计算缓存</p>
+</li>
+</ul>
+<p>这里给一个“够用且易理解”的预计算示例（基于 <code>kill_chain_phases</code> 字段）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> stix2 <span class="token keyword">import</span> Filter
+
+<span class="token keyword">def</span> <span class="token function">technique_to_tactics</span><span class="token punctuation">(</span>technique_obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># kill_chain_phases 示例：[&#123;"kill_chain_name": "mitre-attack", "phase_name": "discovery"&#125;, ...]</span>
+    phases <span class="token operator">=</span> technique_obj<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"kill_chain_phases"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    tactics <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> p <span class="token keyword">in</span> phases<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> p<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"kill_chain_name"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"mitre-attack"</span> <span class="token keyword">and</span> p<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"phase_name"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            tactics<span class="token punctuation">.</span>append<span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token string">"phase_name"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span><span class="token builtin">set</span><span class="token punctuation">(</span>tactics<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># demo</span>
+<span class="token comment"># t = find_technique_by_attack_id(store, "T1046")</span>
+<span class="token comment"># print(get_attack_id(t), t["name"], technique_to_tactics(t))</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="5-nsm-告警怎么和-attck-关联设计一个映射管道"><a class="markdownIt-Anchor" href="#5-nsm-告警怎么和-attck-关联设计一个映射管道"></a> 5. NSM 告警怎么和 ATT&amp;CK 关联：设计一个“映射管道”</h2>
+<p>把 NSM 告警关联到 ATT&amp;CK，本质是一个“把事件语义归一化”的问题。推荐拆成 4 层：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">NSM 原始事件(Zeek/Suricata/Firewall/Proxy)
+  -> 事件标准化(字段统一、提取五元组/域名/JA3/SNI/URL)
+    -> 语义分类(扫描/暴力破解/C2/下载/横向/数据外传...)
+      -> ATT&amp;CK 映射(Technique ID + 置信度 + 证据)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="51-事件标准化为不同数据源定义统一-schema"><a class="markdownIt-Anchor" href="#51-事件标准化为不同数据源定义统一-schema"></a> 5.1 事件标准化：为不同数据源定义统一 schema</h3>
+<p>以常见 NSM 数据源举例：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>Suricata EVE JSON</strong>：<code>alert.signature</code>, <code>flow</code>, <code>http</code>, <code>dns</code>, <code>tls</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>Zeek logs</strong>：<code>conn.log</code>, <code>dns.log</code>, <code>http.log</code>, <code>ssl.log</code>, <code>notice.log</code></p>
+</li>
+</ul>
+<p>建议落地一个统一结构（简化示例）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> dataclasses <span class="token keyword">import</span> dataclass
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Optional<span class="token punctuation">,</span> Dict<span class="token punctuation">,</span> Any
+
+<span class="token decorator annotation punctuation">@dataclass</span>
+<span class="token keyword">class</span> <span class="token class-name">NsmEvent</span><span class="token punctuation">:</span>
+    vendor<span class="token punctuation">:</span> <span class="token builtin">str</span>                 <span class="token comment"># suricata/zeek/firewall/proxy</span>
+    event_type<span class="token punctuation">:</span> <span class="token builtin">str</span>             <span class="token comment"># alert/conn/dns/http/tls/notice</span>
+    ts<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    src_ip<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    src_port<span class="token punctuation">:</span> <span class="token builtin">int</span>
+    dst_ip<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    dst_port<span class="token punctuation">:</span> <span class="token builtin">int</span>
+    proto<span class="token punctuation">:</span> <span class="token builtin">str</span>                  <span class="token comment"># tcp/udp/icmp</span>
+
+    <span class="token comment"># 可选：应用层语义</span>
+    url<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    http_host<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    http_method<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    dns_query<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    tls_sni<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    ja3<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+
+    <span class="token comment"># 原始载荷</span>
+    raw<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span>Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这一步的目标不是“全量字段”，而是为了后续做<strong>规则映射/特征抽取</strong>。</p>
+<h3 id="52-映射输出要能解释为什么映射到这个-technique"><a class="markdownIt-Anchor" href="#52-映射输出要能解释为什么映射到这个-technique"></a> 5.2 映射输出：要能解释“为什么映射到这个 Technique”</h3>
+<p>推荐输出结构：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> dataclasses <span class="token keyword">import</span> dataclass
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> List
+
+<span class="token decorator annotation punctuation">@dataclass</span>
+<span class="token keyword">class</span> <span class="token class-name">AttackMapping</span><span class="token punctuation">:</span>
+    technique_id<span class="token punctuation">:</span> <span class="token builtin">str</span>           <span class="token comment"># e.g. T1046</span>
+    technique_name<span class="token punctuation">:</span> <span class="token builtin">str</span>         <span class="token comment"># e.g. Network Service Scanning</span>
+    tactics<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span>          <span class="token comment"># e.g. ["discovery"]</span>
+    confidence<span class="token punctuation">:</span> <span class="token builtin">float</span>           <span class="token comment"># 0~1</span>
+    evidence<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span>         <span class="token comment"># 可解释证据：字段、规则命中、上下文</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="6-案例用-python-把-nsm-网络威胁告警映射到-attck"><a class="markdownIt-Anchor" href="#6-案例用-python-把-nsm-网络威胁告警映射到-attck"></a> 6. 案例：用 Python 把 NSM 网络威胁告警映射到 ATT&amp;CK</h2>
+<p>下面用一个“现实里很常见”的链条做例子：</p>
+<ol>
+<li class="lvl-3">
+<p>出现<strong>扫描类告警</strong>（可能是资产探测/内网横向前置）</p>
+</li>
+<li class="lvl-3">
+<p>随后出现<strong>可疑 DNS / HTTP / TLS 外联</strong>（可能是 C2 通信）</p>
+</li>
+<li class="lvl-3">
+<p>又出现<strong>下载行为</strong>（可能是载荷拉取）</p>
+</li>
+</ol>
+<p>对应的 ATT&amp;CK 技术（示例映射）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>扫描：<code>T1046</code>（Network Service Scanning）</p>
+</li>
+<li class="lvl-2">
+<p>C2 over HTTP：<code>T1071.001</code>（Application Layer Protocol: Web Protocols）</p>
+</li>
+<li class="lvl-2">
+<p>C2 over DNS：<code>T1071.004</code>（Application Layer Protocol: DNS）</p>
+</li>
+<li class="lvl-2">
+<p>下载/载荷传输：<code>T1105</code>（Ingress Tool Transfer）</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：这类映射是“检测语义层的归类”，不是“百分百归因”。输出时请保留 <code>confidence</code> 与 <code>evidence</code>，并允许多 Technique 并存。</p>
+</blockquote>
+<h3 id="61-准备attck-本地缓存-technique-字典"><a class="markdownIt-Anchor" href="#61-准备attck-本地缓存-technique-字典"></a> 6.1 准备：ATT&amp;CK 本地缓存 + Technique 字典</h3>
+<p>下面示例假设你已经用第 3 节把 ATT&amp;CK STIX objects 放到了 <code>store</code>。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> stix2 <span class="token keyword">import</span> Filter
+
+<span class="token keyword">def</span> <span class="token function">build_technique_dictionary</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""构建 attack_id -> &#123;name, tactics&#125; 的快速字典。"""</span>
+    techniques <span class="token operator">=</span> store<span class="token punctuation">.</span>query<span class="token punctuation">(</span><span class="token punctuation">[</span>Filter<span class="token punctuation">(</span><span class="token string">"type"</span><span class="token punctuation">,</span> <span class="token string">"="</span><span class="token punctuation">,</span> <span class="token string">"attack-pattern"</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    d <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token keyword">for</span> t <span class="token keyword">in</span> techniques<span class="token punctuation">:</span>
+        attack_id <span class="token operator">=</span> <span class="token boolean">None</span>
+        <span class="token keyword">for</span> ref <span class="token keyword">in</span> t<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"external_references"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> ref<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"source_name"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"mitre-attack"</span> <span class="token keyword">and</span> ref<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"external_id"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                attack_id <span class="token operator">=</span> ref<span class="token punctuation">[</span><span class="token string">"external_id"</span><span class="token punctuation">]</span>
+                <span class="token keyword">break</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> attack_id<span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+
+        d<span class="token punctuation">[</span>attack_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"name"</span><span class="token punctuation">:</span> t<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"tactics"</span><span class="token punctuation">:</span> technique_to_tactics<span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">return</span> d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="62-示例输入三类-nsm-告警简化-json"><a class="markdownIt-Anchor" href="#62-示例输入三类-nsm-告警简化-json"></a> 6.2 示例输入：三类 NSM 告警（简化 JSON）</h3>
+<p>你可以把它理解为从 NSM 平台（如 Security Onion、Elastic、Splunk、OpenSearch、Kafka）消费到的事件。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">sample_events <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"vendor"</span><span class="token punctuation">:</span> <span class="token string">"suricata"</span><span class="token punctuation">,</span>
+        <span class="token string">"event_type"</span><span class="token punctuation">:</span> <span class="token string">"alert"</span><span class="token punctuation">,</span>
+        <span class="token string">"ts"</span><span class="token punctuation">:</span> <span class="token string">"2026-02-21T09:10:00+08:00"</span><span class="token punctuation">,</span>
+        <span class="token string">"src_ip"</span><span class="token punctuation">:</span> <span class="token string">"10.0.1.23"</span><span class="token punctuation">,</span>
+        <span class="token string">"src_port"</span><span class="token punctuation">:</span> <span class="token number">49812</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_ip"</span><span class="token punctuation">:</span> <span class="token string">"10.0.2.10"</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_port"</span><span class="token punctuation">:</span> <span class="token number">445</span><span class="token punctuation">,</span>
+        <span class="token string">"proto"</span><span class="token punctuation">:</span> <span class="token string">"tcp"</span><span class="token punctuation">,</span>
+        <span class="token string">"alert"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"signature"</span><span class="token punctuation">:</span> <span class="token string">"SCAN suspicious SMB sweep"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"vendor"</span><span class="token punctuation">:</span> <span class="token string">"zeek"</span><span class="token punctuation">,</span>
+        <span class="token string">"event_type"</span><span class="token punctuation">:</span> <span class="token string">"dns"</span><span class="token punctuation">,</span>
+        <span class="token string">"ts"</span><span class="token punctuation">:</span> <span class="token string">"2026-02-21T09:12:10+08:00"</span><span class="token punctuation">,</span>
+        <span class="token string">"src_ip"</span><span class="token punctuation">:</span> <span class="token string">"10.0.1.23"</span><span class="token punctuation">,</span>
+        <span class="token string">"src_port"</span><span class="token punctuation">:</span> <span class="token number">5353</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_ip"</span><span class="token punctuation">:</span> <span class="token string">"8.8.8.8"</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_port"</span><span class="token punctuation">:</span> <span class="token number">53</span><span class="token punctuation">,</span>
+        <span class="token string">"proto"</span><span class="token punctuation">:</span> <span class="token string">"udp"</span><span class="token punctuation">,</span>
+        <span class="token string">"dns"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"query"</span><span class="token punctuation">:</span> <span class="token string">"example-c2.bad"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"vendor"</span><span class="token punctuation">:</span> <span class="token string">"suricata"</span><span class="token punctuation">,</span>
+        <span class="token string">"event_type"</span><span class="token punctuation">:</span> <span class="token string">"http"</span><span class="token punctuation">,</span>
+        <span class="token string">"ts"</span><span class="token punctuation">:</span> <span class="token string">"2026-02-21T09:13:40+08:00"</span><span class="token punctuation">,</span>
+        <span class="token string">"src_ip"</span><span class="token punctuation">:</span> <span class="token string">"10.0.1.23"</span><span class="token punctuation">,</span>
+        <span class="token string">"src_port"</span><span class="token punctuation">:</span> <span class="token number">49888</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_ip"</span><span class="token punctuation">:</span> <span class="token string">"203.0.113.10"</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_port"</span><span class="token punctuation">:</span> <span class="token number">80</span><span class="token punctuation">,</span>
+        <span class="token string">"proto"</span><span class="token punctuation">:</span> <span class="token string">"tcp"</span><span class="token punctuation">,</span>
+        <span class="token string">"http"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"host"</span><span class="token punctuation">:</span> <span class="token string">"example-c2.bad"</span><span class="token punctuation">,</span> <span class="token string">"url"</span><span class="token punctuation">:</span> <span class="token string">"/payload.bin"</span><span class="token punctuation">,</span> <span class="token string">"method"</span><span class="token punctuation">:</span> <span class="token string">"GET"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="63-规则映射从事件语义到technique-候选集合"><a class="markdownIt-Anchor" href="#63-规则映射从事件语义到technique-候选集合"></a> 6.3 规则映射：从“事件语义”到“Technique 候选集合”</h3>
+<p>工程上常见的做法是“三层组合”：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>规则层</strong>：基于告警名/分类/端口/协议的快速映射（低成本、易解释）</p>
+</li>
+<li class="lvl-2">
+<p><strong>特征层</strong>：基于 DNS/HTTP/TLS 的字段特征映射（更细粒度）</p>
+</li>
+<li class="lvl-2">
+<p><strong>上下文层</strong>：同一实体（host/user）在时间窗内的事件链（提升置信度）</p>
+</li>
+</ul>
+<p>本文先给一个可直接复用的“规则 + 特征”版本。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> re
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Dict<span class="token punctuation">,</span> Any<span class="token punctuation">,</span> List
+
+<span class="token comment"># 1) 简单规则：通过签名关键字映射（可扩展为你自己的规则库）</span>
+SIGNATURE_RULES <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token comment"># 扫描</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"pattern"</span><span class="token punctuation">:</span> re<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span><span class="token string">r"scan|sweep|port\s*scan|nmap"</span><span class="token punctuation">,</span> re<span class="token punctuation">.</span>I<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"technique_id"</span><span class="token punctuation">:</span> <span class="token string">"T1046"</span><span class="token punctuation">,</span>
+        <span class="token string">"confidence"</span><span class="token punctuation">:</span> <span class="token number">0.7</span><span class="token punctuation">,</span>
+        <span class="token string">"evidence"</span><span class="token punctuation">:</span> <span class="token string">"alert.signature indicates scanning"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+
+<span class="token comment"># 2) 特征规则：通过字段存在与特征映射</span>
+<span class="token keyword">def</span> <span class="token function">infer_techniques_from_event</span><span class="token punctuation">(</span>evt<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    hits <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    vendor <span class="token operator">=</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"vendor"</span><span class="token punctuation">)</span>
+    event_type <span class="token operator">=</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"event_type"</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># A. 告警签名关键字</span>
+    signature <span class="token operator">=</span> <span class="token boolean">None</span>
+    <span class="token keyword">if</span> vendor <span class="token operator">==</span> <span class="token string">"suricata"</span><span class="token punctuation">:</span>
+        signature <span class="token operator">=</span> <span class="token punctuation">(</span>evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"alert"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"signature"</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> signature<span class="token punctuation">:</span>
+        <span class="token keyword">for</span> rule <span class="token keyword">in</span> SIGNATURE_RULES<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> rule<span class="token punctuation">[</span><span class="token string">"pattern"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>search<span class="token punctuation">(</span>signature<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                hits<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                    <span class="token string">"technique_id"</span><span class="token punctuation">:</span> rule<span class="token punctuation">[</span><span class="token string">"technique_id"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token string">"confidence"</span><span class="token punctuation">:</span> rule<span class="token punctuation">[</span><span class="token string">"confidence"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token string">"evidence"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string-interpolation"><span class="token string">f"signature=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>signature<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">,</span> rule<span class="token punctuation">[</span><span class="token string">"evidence"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># B. DNS 外联</span>
+    <span class="token keyword">if</span> event_type <span class="token operator">==</span> <span class="token string">"dns"</span><span class="token punctuation">:</span>
+        q <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"dns"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"query"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> q<span class="token punctuation">:</span>
+            hits<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                <span class="token string">"technique_id"</span><span class="token punctuation">:</span> <span class="token string">"T1071.004"</span><span class="token punctuation">,</span>
+                <span class="token string">"confidence"</span><span class="token punctuation">:</span> <span class="token number">0.55</span><span class="token punctuation">,</span>
+                <span class="token string">"evidence"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string-interpolation"><span class="token string">f"dns.query=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>q<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">,</span> <span class="token string">"DNS traffic may indicate application-layer C2"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># C. HTTP 外联与下载</span>
+    <span class="token keyword">if</span> event_type <span class="token operator">==</span> <span class="token string">"http"</span><span class="token punctuation">:</span>
+        host <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"host"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        url <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"url"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token string">""</span><span class="token punctuation">)</span>
+        method <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"method"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> host<span class="token punctuation">:</span>
+            hits<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                <span class="token string">"technique_id"</span><span class="token punctuation">:</span> <span class="token string">"T1071.001"</span><span class="token punctuation">,</span>
+                <span class="token string">"confidence"</span><span class="token punctuation">:</span> <span class="token number">0.6</span><span class="token punctuation">,</span>
+                <span class="token string">"evidence"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string-interpolation"><span class="token string">f"http.host=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>host<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">,</span> <span class="token string-interpolation"><span class="token string">f"http.method=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>method<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">,</span> <span class="token string">"Web protocol traffic may indicate C2"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 简化：以“可疑二进制路径/扩展名”作为下载线索</span>
+        <span class="token keyword">if</span> method <span class="token operator">==</span> <span class="token string">"GET"</span> <span class="token keyword">and</span> re<span class="token punctuation">.</span>search<span class="token punctuation">(</span><span class="token string">r"\.(bin|exe|dll|dat)$"</span><span class="token punctuation">,</span> url<span class="token punctuation">,</span> re<span class="token punctuation">.</span>I<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            hits<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                <span class="token string">"technique_id"</span><span class="token punctuation">:</span> <span class="token string">"T1105"</span><span class="token punctuation">,</span>
+                <span class="token string">"confidence"</span><span class="token punctuation">:</span> <span class="token number">0.65</span><span class="token punctuation">,</span>
+                <span class="token string">"evidence"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string-interpolation"><span class="token string">f"http.url=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>url<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">,</span> <span class="token string">"Possible ingress of tool/payload over network"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> hits<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="64-把候选-technique-变成带名称战术证据的映射结果"><a class="markdownIt-Anchor" href="#64-把候选-technique-变成带名称战术证据的映射结果"></a> 6.4 把候选 Technique 变成“带名称/战术/证据”的映射结果</h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> typing <span class="token keyword">import</span> Tuple
+
+<span class="token keyword">def</span> <span class="token function">map_event_to_attack</span><span class="token punctuation">(</span>evt<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">,</span> technique_dict<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    candidates <span class="token operator">=</span> infer_techniques_from_event<span class="token punctuation">(</span>evt<span class="token punctuation">)</span>
+
+    mappings <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> c <span class="token keyword">in</span> candidates<span class="token punctuation">:</span>
+        tid <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token string">"technique_id"</span><span class="token punctuation">]</span>
+        meta <span class="token operator">=</span> technique_dict<span class="token punctuation">.</span>get<span class="token punctuation">(</span>tid<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"(unknown)"</span><span class="token punctuation">,</span> <span class="token string">"tactics"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+        mappings<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token string">"technique_id"</span><span class="token punctuation">:</span> tid<span class="token punctuation">,</span>
+            <span class="token string">"technique_name"</span><span class="token punctuation">:</span> meta<span class="token punctuation">[</span><span class="token string">"name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">"tactics"</span><span class="token punctuation">:</span> meta<span class="token punctuation">[</span><span class="token string">"tactics"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">"confidence"</span><span class="token punctuation">:</span> <span class="token builtin">float</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span><span class="token string">"confidence"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"evidence"</span><span class="token punctuation">:</span> c<span class="token punctuation">[</span><span class="token string">"evidence"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># 可选：按置信度降序</span>
+    mappings<span class="token punctuation">.</span>sort<span class="token punctuation">(</span>key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">[</span><span class="token string">"confidence"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> mappings<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="65-运行示例得到可解释的-attck-关联"><a class="markdownIt-Anchor" href="#65-运行示例得到可解释的-attck-关联"></a> 6.5 运行示例：得到可解释的 ATT&amp;CK 关联</h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 假设你已构建 store 和 technique_dict</span>
+<span class="token comment"># technique_dict = build_technique_dictionary(store)</span>
+
+<span class="token keyword">for</span> evt <span class="token keyword">in</span> sample_events<span class="token punctuation">:</span>
+    mappings <span class="token operator">=</span> map_event_to_attack<span class="token punctuation">(</span>evt<span class="token punctuation">,</span> technique_dict<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"="</span> <span class="token operator">*</span> <span class="token number">60</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>evt<span class="token punctuation">[</span><span class="token string">"vendor"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> evt<span class="token punctuation">[</span><span class="token string">"event_type"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> evt<span class="token punctuation">[</span><span class="token string">"src_ip"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"->"</span><span class="token punctuation">,</span> evt<span class="token punctuation">[</span><span class="token string">"dst_ip"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"dst_port"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> m <span class="token keyword">in</span> mappings<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"- </span><span class="token interpolation"><span class="token punctuation">&#123;</span>m<span class="token punctuation">[</span><span class="token string">'technique_id'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token punctuation">&#123;</span>m<span class="token punctuation">[</span><span class="token string">'technique_name'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string"> tactics=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>m<span class="token punctuation">[</span><span class="token string">'tactics'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string"> conf=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>m<span class="token punctuation">[</span><span class="token string">'confidence'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> e <span class="token keyword">in</span> m<span class="token punctuation">[</span><span class="token string">"evidence"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"  *"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出（示意）：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">suricata alert 10.0.1.23 -> 10.0.2.10 445
+- T1046 Network Service Scanning tactics=['discovery'] conf=0.7
+  * signature=SCAN suspicious SMB sweep
+  * alert.signature indicates scanning
+
+zeek dns 10.0.1.23 -> 8.8.8.8 53
+- T1071.004 Application Layer Protocol: DNS tactics=['command-and-control'] conf=0.55
+  * dns.query=example-c2.bad
+  * DNS traffic may indicate application-layer C2
+
+suricata http 10.0.1.23 -> 203.0.113.10 80
+- T1105 Ingress Tool Transfer tactics=['command-and-control'] conf=0.65
+  * http.url=/payload.bin
+  * Possible ingress of tool/payload over network
+- T1071.001 Application Layer Protocol: Web Protocols tactics=['command-and-control'] conf=0.6
+  * http.host=example-c2.bad
+  * http.method=GET
+  * Web protocol traffic may indicate C2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>提示：<code>T1105</code> 的 tactic 在 ATT&amp;CK 里可能出现在多个阶段（取决于版本与矩阵）；以你同步的 ATT&amp;CK 版本为准。</p>
+</blockquote>
+<hr />
+<h2 id="7-让映射更像工程时间窗聚合与置信度提升"><a class="markdownIt-Anchor" href="#7-让映射更像工程时间窗聚合与置信度提升"></a> 7. 让映射更“像工程”：时间窗聚合与置信度提升</h2>
+<p>单条告警映射通常置信度有限，真正有价值的是：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>同一 src_ip / asset_id / user</strong> 在时间窗内的多事件串联</p>
+</li>
+<li class="lvl-2">
+<p>从“单点命中”升级为“链条证据”</p>
+</li>
+</ul>
+<p>简单的时间窗聚合思路：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+
+<span class="token keyword">def</span> <span class="token function">group_by_entity</span><span class="token punctuation">(</span>events<span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token string">"src_ip"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    g <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> e <span class="token keyword">in</span> events<span class="token punctuation">:</span>
+        g<span class="token punctuation">[</span>e<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> g
+
+<span class="token keyword">def</span> <span class="token function">boost_confidence_if_chain</span><span class="token punctuation">(</span>mappings<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""示例：如果同一实体同时出现扫描 + C2 + 下载，则提升整体置信度。"""</span>
+    tids <span class="token operator">=</span> <span class="token punctuation">&#123;</span>m<span class="token punctuation">[</span><span class="token string">"technique_id"</span><span class="token punctuation">]</span> <span class="token keyword">for</span> m <span class="token keyword">in</span> mappings<span class="token punctuation">&#125;</span>
+    bonus <span class="token operator">=</span> <span class="token number">0.0</span>
+    <span class="token keyword">if</span> <span class="token string">"T1046"</span> <span class="token keyword">in</span> tids <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token string">"T1071.001"</span> <span class="token keyword">in</span> tids <span class="token keyword">or</span> <span class="token string">"T1071.004"</span> <span class="token keyword">in</span> tids<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        bonus <span class="token operator">+=</span> <span class="token number">0.1</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"T1071.001"</span> <span class="token keyword">in</span> tids <span class="token keyword">or</span> <span class="token string">"T1071.004"</span> <span class="token keyword">in</span> tids<span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token string">"T1105"</span> <span class="token keyword">in</span> tids<span class="token punctuation">:</span>
+        bonus <span class="token operator">+=</span> <span class="token number">0.1</span>
+
+    out <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> m <span class="token keyword">in</span> mappings<span class="token punctuation">:</span>
+        m2 <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span>
+        m2<span class="token punctuation">[</span><span class="token string">"confidence"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> m2<span class="token punctuation">[</span><span class="token string">"confidence"</span><span class="token punctuation">]</span> <span class="token operator">+</span> bonus<span class="token punctuation">)</span>
+        out<span class="token punctuation">.</span>append<span class="token punctuation">(</span>m2<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> out<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>实践建议：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>以 <strong>资产 ID</strong> 为主键（src_ip 会变化、NAT/代理会扰动）</p>
+</li>
+<li class="lvl-2">
+<p>引入 CMDB / DHCP / 终端管理系统做实体解析</p>
+</li>
+<li class="lvl-2">
+<p>维护“证据列表”，而不是只保留 Technique ID</p>
+</li>
+</ul>
+<hr />
+<h2 id="8-用大语言模型llm完成告警与-attck-关联可落地方案"><a class="markdownIt-Anchor" href="#8-用大语言模型llm完成告警与-attck-关联可落地方案"></a> 8. 用大语言模型（LLM）完成告警与 ATT&amp;CK 关联（可落地方案）</h2>
+<p>规则映射的优点是稳定、可解释，但在这些场景会比较吃力：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>告警文本差异大：不同厂商/不同规则集的 <code>signature</code> 语义不一致</p>
+</li>
+<li class="lvl-2">
+<p>事件上下文复杂：单条告警信息不足，需要综合 DNS/HTTP/TLS/资产信息</p>
+</li>
+<li class="lvl-2">
+<p>需要“研判式表达”：输出不仅是 Technique ID，还要给出归因理由与证据摘要</p>
+</li>
+</ul>
+<p>LLM 适合补齐“语义理解与归纳”的那一段，但要以工程方式使用：<strong>LLM 只做“候选选择 + 解释”，不能直接在全量 ATT&amp;CK 上盲猜</strong>。</p>
+<h3 id="81-推荐架构rag检索增强-结构化输出-规则兜底"><a class="markdownIt-Anchor" href="#81-推荐架构rag检索增强-结构化输出-规则兜底"></a> 8.1 推荐架构：RAG（检索增强）+ 结构化输出 + 规则兜底</h3>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">NSM Event
+  -> 标准化(结构化字段)
+    -> 候选检索(Top-K Technique)
+      -> LLM 选择/排序(Top-N + 解释)
+        -> 校验(Technique ID 存在性/置信度阈值)
+          -> 写回事件(attack.* 字段)
+
+同时：规则引擎作为兜底与强信号来源（例如明确的扫描规则命中）。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>关键点：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>候选检索</strong>：用关键词/向量相似度从 ATT&amp;CK 技术库中先找 Top-K（如 20）</p>
+</li>
+<li class="lvl-2">
+<p><strong>结构化输出</strong>：强制 LLM 输出 JSON（便于落库与自动化消费）</p>
+</li>
+<li class="lvl-2">
+<p><strong>校验</strong>：对 LLM 输出的 <code>technique_id</code> 做白名单校验（必须在本地 technique_dict 里）</p>
+</li>
+</ul>
+<h3 id="82-候选检索怎么做两种简单实现"><a class="markdownIt-Anchor" href="#82-候选检索怎么做两种简单实现"></a> 8.2 候选检索怎么做（两种简单实现）</h3>
+<p><strong>实现 A：关键词检索（轻量、可解释）</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>把每个 Technique 的 <code>name/description/keywords</code> 拼成一段文本</p>
+</li>
+<li class="lvl-2">
+<p>对事件侧提取关键词（如 signature、端口、协议、DNS/HTTP 字段）</p>
+</li>
+<li class="lvl-2">
+<p>用 BM25/TF-IDF 做 Top-K 检索</p>
+</li>
+</ul>
+<p><strong>实现 B：向量检索（更鲁棒）</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对每个 Technique 文本做 embedding（本地或云端）</p>
+</li>
+<li class="lvl-2">
+<p>对事件摘要做 embedding</p>
+</li>
+<li class="lvl-2">
+<p>用余弦相似度取 Top-K</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：向量检索的收益通常来自“告警文本很碎/口径不统一”的环境。</p>
+</blockquote>
+<h4 id="821-实际实现本地sentence-transformers-生成-embedding-faiss-检索"><a class="markdownIt-Anchor" href="#821-实际实现本地sentence-transformers-生成-embedding-faiss-检索"></a> 8.2.1 实际实现（本地）：Sentence-Transformers 生成 embedding + FAISS 检索</h4>
+<p>适用：内网/离线场景、希望 embedding 不出网。</p>
+<p>安装依赖（CPU 版也可用；有 GPU 可自行换 CUDA 版本 PyTorch）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> <span class="token parameter variable">-U</span> sentence-transformers faiss-cpu numpy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>步骤 1：把每个 Technique 变成一条“可检索文本”</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> typing <span class="token keyword">import</span> Dict<span class="token punctuation">,</span> Any<span class="token punctuation">,</span> List
+
+<span class="token keyword">def</span> <span class="token function">technique_doc</span><span class="token punctuation">(</span>technique_id<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> technique_obj<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+    <span class="token comment"># technique_obj 可来自 STIX 的 attack-pattern</span>
+    name <span class="token operator">=</span> technique_obj<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
+    desc <span class="token operator">=</span> <span class="token punctuation">(</span>technique_obj<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"description"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">,</span> <span class="token string">" "</span><span class="token punctuation">)</span>
+    tactics <span class="token operator">=</span> <span class="token string">","</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>technique_to_tactics<span class="token punctuation">(</span>technique_obj<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># 经验：把 technique_id / name / tactics 放在前面，有助于召回</span>
+    text <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>technique_id<span class="token punctuation">&#125;</span></span><span class="token string"> | </span><span class="token interpolation"><span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span></span><span class="token string"> | tactics=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>tactics<span class="token punctuation">&#125;</span></span><span class="token string"> | </span><span class="token interpolation"><span class="token punctuation">&#123;</span>desc<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+
+    <span class="token comment"># 控制长度：避免极长 description 影响 embedding 与成本</span>
+    <span class="token keyword">return</span> text<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">2000</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>步骤 2：批量生成 Technique embedding 并建立向量索引</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> faiss
+<span class="token keyword">from</span> sentence_transformers <span class="token keyword">import</span> SentenceTransformer
+
+
+<span class="token keyword">def</span> <span class="token function">build_faiss_index</span><span class="token punctuation">(</span>
+    technique_corpus<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    model_name<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> <span class="token string">"sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    model <span class="token operator">=</span> SentenceTransformer<span class="token punctuation">(</span>model_name<span class="token punctuation">)</span>
+
+    <span class="token comment"># normalize_embeddings=True 让向量单位化，后续可直接用 inner product 近似 cosine</span>
+    vecs <span class="token operator">=</span> model<span class="token punctuation">.</span>encode<span class="token punctuation">(</span>
+        technique_corpus<span class="token punctuation">,</span>
+        batch_size<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">,</span>
+        show_progress_bar<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+        normalize_embeddings<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span><span class="token string">"float32"</span><span class="token punctuation">)</span>
+
+    dim <span class="token operator">=</span> vecs<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+    index <span class="token operator">=</span> faiss<span class="token punctuation">.</span>IndexFlatIP<span class="token punctuation">(</span>dim<span class="token punctuation">)</span>  <span class="token comment"># 内积相似度（配合 normalize -> cosine）</span>
+    index<span class="token punctuation">.</span>add<span class="token punctuation">(</span>vecs<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> model<span class="token punctuation">,</span> index<span class="token punctuation">,</span> vecs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>步骤 3：对 NSM 事件摘要做 embedding，检索 Top-K 候选 Technique</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> typing <span class="token keyword">import</span> Tuple
+
+
+<span class="token keyword">def</span> <span class="token function">embed_event_summary</span><span class="token punctuation">(</span>evt_summary<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+    <span class="token comment"># 把关键字段串起来即可；不要塞 raw 全量日志</span>
+    parts <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token punctuation">[</span>
+        <span class="token string">"vendor"</span><span class="token punctuation">,</span>
+        <span class="token string">"event_type"</span><span class="token punctuation">,</span>
+        <span class="token string">"alert.signature"</span><span class="token punctuation">,</span>
+        <span class="token string">"dns.query"</span><span class="token punctuation">,</span>
+        <span class="token string">"http.host"</span><span class="token punctuation">,</span>
+        <span class="token string">"http.url"</span><span class="token punctuation">,</span>
+        <span class="token string">"http.method"</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_port"</span><span class="token punctuation">,</span>
+        <span class="token string">"proto"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> evt_summary<span class="token punctuation">.</span>get<span class="token punctuation">(</span>k<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> v <span class="token keyword">is</span> <span class="token boolean">None</span> <span class="token keyword">or</span> v <span class="token operator">==</span> <span class="token string">""</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+        parts<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>k<span class="token punctuation">&#125;</span></span><span class="token string">=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>v<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">" | "</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>parts<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">search_topk</span><span class="token punctuation">(</span>
+    model<span class="token punctuation">:</span> SentenceTransformer<span class="token punctuation">,</span>
+    index<span class="token punctuation">:</span> faiss<span class="token punctuation">.</span>Index<span class="token punctuation">,</span>
+    query_text<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span>
+    top_k<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Tuple<span class="token punctuation">[</span>np<span class="token punctuation">.</span>ndarray<span class="token punctuation">,</span> np<span class="token punctuation">.</span>ndarray<span class="token punctuation">]</span><span class="token punctuation">:</span>
+    q <span class="token operator">=</span> model<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">[</span>query_text<span class="token punctuation">]</span><span class="token punctuation">,</span> normalize_embeddings<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span><span class="token string">"float32"</span><span class="token punctuation">)</span>
+    scores<span class="token punctuation">,</span> idx <span class="token operator">=</span> index<span class="token punctuation">.</span>search<span class="token punctuation">(</span>q<span class="token punctuation">,</span> top_k<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> scores<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> idx<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>把索引与映射保存到磁盘（便于上线服务化）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> json
+<span class="token keyword">import</span> faiss
+
+<span class="token comment"># 保存索引</span>
+faiss<span class="token punctuation">.</span>write_index<span class="token punctuation">(</span>index<span class="token punctuation">,</span> <span class="token string">"attack_techniques.faiss"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 保存 technique_id 列表（与向量顺序一一对应）</span>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"attack_technique_ids.json"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    json<span class="token punctuation">.</span>dump<span class="token punctuation">(</span>technique_ids<span class="token punctuation">,</span> f<span class="token punctuation">,</span> ensure_ascii<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> indent<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>模型选择建议：中文/多语言环境优先选择 multilingual embedding 模型；如果你的告警文本主要是英文签名，英文模型通常更强。</p>
+</blockquote>
+<h4 id="822-实际实现云端调用-embedding-api-生成向量-向量库检索"><a class="markdownIt-Anchor" href="#822-实际实现云端调用-embedding-api-生成向量-向量库检索"></a> 8.2.2 实际实现（云端）：调用 Embedding API 生成向量 + 向量库检索</h4>
+<p>适用：你已有云端模型调用能力（如 OpenAI-compatible），希望更强 embedding 质量/更低本地运维。</p>
+<p>通用流程：</p>
+<ol>
+<li class="lvl-3">
+<p>为每个 Technique doc 调用 embedding 接口得到向量</p>
+</li>
+<li class="lvl-3">
+<p>将向量写入向量库（FAISS / Milvus / Qdrant / pgvector 等）</p>
+</li>
+<li class="lvl-3">
+<p>对事件摘要向量化后做 Top-K 检索</p>
+</li>
+</ol>
+<p>以 OpenAI-compatible 接口为例（伪代码级别，字段以你的 provider 文档为准）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+
+
+<span class="token keyword">def</span> <span class="token function">embed_cloud</span><span class="token punctuation">(</span>texts<span class="token punctuation">,</span> base_url<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> api_key<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> model<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    r <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>
+        <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>base_url<span class="token punctuation">&#125;</span></span><span class="token string">/v1/embeddings"</span></span><span class="token punctuation">,</span>
+        headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">"Authorization"</span><span class="token punctuation">:</span> <span class="token string-interpolation"><span class="token string">f"Bearer </span><span class="token interpolation"><span class="token punctuation">&#123;</span>api_key<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        json<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">"model"</span><span class="token punctuation">:</span> model<span class="token punctuation">,</span> <span class="token string">"input"</span><span class="token punctuation">:</span> texts<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        timeout<span class="token operator">=</span><span class="token number">60</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    r<span class="token punctuation">.</span>raise_for_status<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    data <span class="token operator">=</span> r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># 典型返回：data=[&#123;"embedding": [...], "index": 0&#125;, ...]</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>item<span class="token punctuation">[</span><span class="token string">"embedding"</span><span class="token punctuation">]</span> <span class="token keyword">for</span> item <span class="token keyword">in</span> data<span class="token punctuation">[</span><span class="token string">"data"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上线建议：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>先做一遍全量 Technique embedding 的离线构建（每天/每周更新一次）</p>
+</li>
+<li class="lvl-2">
+<p>线上只对事件摘要做 embedding + 检索（低延迟）</p>
+</li>
+<li class="lvl-2">
+<p>严格记录 embedding 模型版本（更换模型会导致向量空间不一致，需要重建索引）</p>
+</li>
+</ul>
+<h3 id="83-给-llm-的输入要短-结构化-可追溯"><a class="markdownIt-Anchor" href="#83-给-llm-的输入要短-结构化-可追溯"></a> 8.3 给 LLM 的输入要“短、结构化、可追溯”</h3>
+<p>建议把 LLM 输入分成两部分：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>事件摘要（Event Summary）</strong>：只保留与映射相关的字段（五元组 + DNS/HTTP/TLS + 告警名）</p>
+</li>
+<li class="lvl-3">
+<p><strong>候选 Technique 列表（Candidates）</strong>：Top-K，每个候选只给：</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>technique_id</code></p>
+</li>
+<li class="lvl-2">
+<p><code>name</code></p>
+</li>
+<li class="lvl-2">
+<p><code>tactics</code></p>
+</li>
+<li class="lvl-2">
+<p><code>short_description</code>（可截断到 200~400 字）</p>
+</li>
+</ul>
+<p>这样 LLM 的任务会变成：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>在“有限候选”里做分类/排序</p>
+</li>
+<li class="lvl-2">
+<p>输出 <code>technique_id + confidence + evidence</code></p>
+</li>
+</ul>
+<h3 id="84-prompt-模板强制-json-输出"><a class="markdownIt-Anchor" href="#84-prompt-模板强制-json-输出"></a> 8.4 Prompt 模板（强制 JSON 输出）</h3>
+<p>核心原则：<strong>让模型做“从候选集中挑选/排序”，不要让模型在全量 ATT&amp;CK 上自由发挥</strong>。</p>
+<p>你可以把 system prompt 固化为“安全分析助手 + 严格输出 JSON”，例如：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">你是 SOC 的威胁分析助手。
+你的任务是：根据输入的 NSM 事件摘要，在给定的 ATT&amp;CK technique 候选列表中，选择最匹配的 0~3 个 technique。
+
+严格要求：
+- 只能从 candidates 里选择 technique_id，不得输出 candidates 之外的 ID。
+- 必须输出合法 JSON，且仅输出 JSON（不要解释性文字）。
+- evidence 必须引用 event_summary 中的字段，使用 "field=value" 形式（例如 "dns.query=example.com"）。
+- 如果无法判断，请返回空数组，并在 reason 里说明缺失信息。
+
+输出 JSON schema：
+&#123;
+  "mappings": [
+    &#123;
+      "technique_id": "Txxxx"|"Txxxx.xxx",
+      "confidence": 0.0~1.0,
+      "evidence": ["..."],
+      "why": "一句话原因"
+    &#125;
+  ],
+  "reason": "可选，无法判断时填写"
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>user prompt 建议只包含两块：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>event_summary</code>：结构化、短文本/JSON</p>
+</li>
+<li class="lvl-2">
+<p><code>candidates</code>：Top-K techniques（每条含 id/name/tactics/short_description）</p>
+</li>
+</ul>
+<h3 id="85-python-落地示例rag-llm-校验以-ollama-为例"><a class="markdownIt-Anchor" href="#85-python-落地示例rag-llm-校验以-ollama-为例"></a> 8.5 Python 落地示例：RAG + LLM + 校验（以 Ollama 为例）</h3>
+<p>下面给出一个“可直接粘贴改造”的最小可用实现：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>输入：标准化 NSM 事件 <code>evt</code> + 候选 techniques <code>candidates</code></p>
+</li>
+<li class="lvl-2">
+<p>输出：经过白名单校验后的 <code>attack mappings</code></p>
+</li>
+</ul>
+<p>依赖：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> requests<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>代码示例：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> json
+<span class="token keyword">import</span> requests
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Any<span class="token punctuation">,</span> Dict<span class="token punctuation">,</span> List
+
+SYSTEM_PROMPT <span class="token operator">=</span> <span class="token triple-quoted-string string">"""
+你是 SOC 的威胁分析助手。
+你的任务是：根据输入的 NSM 事件摘要，在给定的 ATT&amp;CK technique 候选列表中，选择最匹配的 0~3 个 technique。
+
+严格要求：
+- 只能从 candidates 里选择 technique_id，不得输出 candidates 之外的 ID。
+- 必须输出合法 JSON，且仅输出 JSON（不要解释性文字）。
+- evidence 必须引用 event_summary 中的字段，使用 \"field=value\" 形式。
+- 如果无法判断，请返回空数组，并在 reason 里说明缺失信息。
+
+输出 JSON schema：
+&#123;\n  \"mappings\": [&#123;\"technique_id\": \"Txxxx\", \"confidence\": 0.0, \"evidence\": [], \"why\": \"...\"&#125;],\n  \"reason\": \"...\"\n&#125;
+"""</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">build_event_summary</span><span class="token punctuation">(</span>evt<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""只保留映射需要的字段，避免把整条 raw 事件塞给模型。"""</span>
+    out <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"vendor"</span><span class="token punctuation">:</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"vendor"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"event_type"</span><span class="token punctuation">:</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"event_type"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"src_ip"</span><span class="token punctuation">:</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"src_ip"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"src_port"</span><span class="token punctuation">:</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"src_port"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_ip"</span><span class="token punctuation">:</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"dst_ip"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"dst_port"</span><span class="token punctuation">:</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"dst_port"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"proto"</span><span class="token punctuation">:</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"proto"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment"># 可选字段：根据你的数据源填充</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"alert"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"signature"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        out<span class="token punctuation">[</span><span class="token string">"alert.signature"</span><span class="token punctuation">]</span> <span class="token operator">=</span> evt<span class="token punctuation">[</span><span class="token string">"alert"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"signature"</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"dns"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"query"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        out<span class="token punctuation">[</span><span class="token string">"dns.query"</span><span class="token punctuation">]</span> <span class="token operator">=</span> evt<span class="token punctuation">[</span><span class="token string">"dns"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"query"</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">if</span> evt<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        http <span class="token operator">=</span> evt<span class="token punctuation">[</span><span class="token string">"http"</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> http<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"host"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            out<span class="token punctuation">[</span><span class="token string">"http.host"</span><span class="token punctuation">]</span> <span class="token operator">=</span> http<span class="token punctuation">[</span><span class="token string">"host"</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> http<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"url"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            out<span class="token punctuation">[</span><span class="token string">"http.url"</span><span class="token punctuation">]</span> <span class="token operator">=</span> http<span class="token punctuation">[</span><span class="token string">"url"</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> http<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"method"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            out<span class="token punctuation">[</span><span class="token string">"http.method"</span><span class="token punctuation">]</span> <span class="token operator">=</span> http<span class="token punctuation">[</span><span class="token string">"method"</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">return</span> out
+
+
+<span class="token keyword">def</span> <span class="token function">call_ollama_json</span><span class="token punctuation">(</span>model<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> system_prompt<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> user_payload<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""调用本地 Ollama /api/chat 并解析返回 JSON。"""</span>
+    url <span class="token operator">=</span> <span class="token string">"http://127.0.0.1:11434/api/chat"</span>
+    r <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>
+        url<span class="token punctuation">,</span>
+        json<span class="token operator">=</span><span class="token punctuation">&#123;</span>
+            <span class="token string">"model"</span><span class="token punctuation">:</span> model<span class="token punctuation">,</span>
+            <span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">&#123;</span><span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"system"</span><span class="token punctuation">,</span> <span class="token string">"content"</span><span class="token punctuation">:</span> system_prompt<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                <span class="token punctuation">&#123;</span><span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"content"</span><span class="token punctuation">:</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>user_payload<span class="token punctuation">,</span> ensure_ascii<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">"stream"</span><span class="token punctuation">:</span> <span class="token boolean">False</span><span class="token punctuation">,</span>
+            <span class="token comment"># 可选：降低随机性，稳定输出</span>
+            <span class="token string">"options"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.1</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        timeout<span class="token operator">=</span><span class="token number">120</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    r<span class="token punctuation">.</span>raise_for_status<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    content <span class="token operator">=</span> r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">"message"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"content"</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">validate_llm_result</span><span class="token punctuation">(</span>
+    llm_result<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">,</span>
+    technique_dict<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    max_items<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    min_confidence<span class="token punctuation">:</span> <span class="token builtin">float</span> <span class="token operator">=</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""把 LLM 输出变成可写回事件的 mappings，并做最基本的安全校验。"""</span>
+    mappings <span class="token operator">=</span> llm_result<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"mappings"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>mappings<span class="token punctuation">,</span> <span class="token builtin">list</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    out <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> m <span class="token keyword">in</span> mappings<span class="token punctuation">[</span><span class="token punctuation">:</span>max_items<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token builtin">dict</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+
+        tid <span class="token operator">=</span> m<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"technique_id"</span><span class="token punctuation">)</span>
+        conf <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"confidence"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token number">0.0</span><span class="token punctuation">)</span>
+        evidence <span class="token operator">=</span> m<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"evidence"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        why <span class="token operator">=</span> m<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"why"</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token string">""</span>
+
+        <span class="token comment"># 1) 白名单：必须是 ATT&amp;CK 字典中存在的 Technique</span>
+        <span class="token keyword">if</span> tid <span class="token keyword">not</span> <span class="token keyword">in</span> technique_dict<span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+
+        <span class="token comment"># 2) 置信度阈值</span>
+        <span class="token keyword">if</span> conf <span class="token operator">&lt;</span> min_confidence<span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+
+        <span class="token comment"># 3) 证据必须是列表</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>evidence<span class="token punctuation">,</span> <span class="token builtin">list</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            evidence <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">(</span>evidence<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+        meta <span class="token operator">=</span> technique_dict<span class="token punctuation">[</span>tid<span class="token punctuation">]</span>
+        out<span class="token punctuation">.</span>append<span class="token punctuation">(</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token string">"technique_id"</span><span class="token punctuation">:</span> tid<span class="token punctuation">,</span>
+                <span class="token string">"technique_name"</span><span class="token punctuation">:</span> meta<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">"tactics"</span><span class="token punctuation">:</span> meta<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"tactics"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">"confidence"</span><span class="token punctuation">:</span> conf<span class="token punctuation">,</span>
+                <span class="token string">"evidence"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> evidence<span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string">"why"</span><span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">(</span>why<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">"source"</span><span class="token punctuation">:</span> <span class="token string">"llm"</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token comment"># 按置信度排序</span>
+    out<span class="token punctuation">.</span>sort<span class="token punctuation">(</span>key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">[</span><span class="token string">"confidence"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> out
+
+
+<span class="token keyword">def</span> <span class="token function">llm_map_event_to_attack</span><span class="token punctuation">(</span>
+    evt<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">,</span>
+    candidates<span class="token punctuation">:</span> List<span class="token punctuation">[</span>Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    technique_dict<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    model<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> <span class="token string">"qwen2.5"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    payload <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"event_summary"</span><span class="token punctuation">:</span> build_event_summary<span class="token punctuation">(</span>evt<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"candidates"</span><span class="token punctuation">:</span> candidates<span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+
+    llm_result <span class="token operator">=</span> call_ollama_json<span class="token punctuation">(</span>model<span class="token operator">=</span>model<span class="token punctuation">,</span> system_prompt<span class="token operator">=</span>SYSTEM_PROMPT<span class="token punctuation">,</span> user_payload<span class="token operator">=</span>payload<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> validate_llm_result<span class="token punctuation">(</span>llm_result<span class="token punctuation">,</span> technique_dict<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>你需要补齐的两块：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>candidates</code>：来自你的检索层（BM25/向量库），建议 Top-20</p>
+</li>
+<li class="lvl-2">
+<p><code>technique_dict</code>：来自第 6.1 节的本地 ATT&amp;CK 字典（用于白名单校验与补全名称/战术）</p>
+</li>
+</ul>
+<blockquote>
+<p>如果你不使用 Ollama，也可以把 <code>call_ollama_json()</code> 替换为任何 OpenAI-compatible Chat API 调用；关键不在供应商，而在“候选检索 + JSON 输出 + 校验”。</p>
+</blockquote>
+<p>落地时建议加 4 个防护：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>Technique 白名单校验</strong>：必须存在于 <code>technique_dict</code></p>
+</li>
+<li class="lvl-3">
+<p><strong>置信度阈值</strong>：低于阈值不写回（或标注为 <code>low_confidence</code>）</p>
+</li>
+<li class="lvl-3">
+<p><strong>证据必须可追溯</strong>：<code>evidence</code> 必须引用事件字段（如 <code>dns.query=...</code>）</p>
+</li>
+<li class="lvl-3">
+<p><strong>与规则融合</strong>：规则命中时提升置信度或直接锁定 Technique</p>
+</li>
+</ol>
+<h3 id="86-规则-llm融合的推荐策略"><a class="markdownIt-Anchor" href="#86-规则-llm融合的推荐策略"></a> 8.6 “规则 + LLM”融合的推荐策略</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>规则引擎产出一组 <code>hard_hits</code>（强信号，conf 可设为 0.8~0.95）</p>
+</li>
+<li class="lvl-2">
+<p>检索产出 <code>candidates</code></p>
+</li>
+<li class="lvl-2">
+<p>LLM 在 <code>candidates + hard_hits</code> 上做排序与解释</p>
+</li>
+<li class="lvl-2">
+<p>如果 LLM 输出和 <code>hard_hits</code> 冲突，以 <code>hard_hits</code> 为准并要求 LLM 给出“冲突说明”（用于规则优化）</p>
+</li>
+</ul>
+<hr />
+<h2 id="9-常见坑与最佳实践"><a class="markdownIt-Anchor" href="#9-常见坑与最佳实践"></a> 9. 常见坑与最佳实践</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>不要把 ATT&amp;CK 当成 IOC 库</strong>：ATT&amp;CK 侧重行为知识（TTP），不是“某域名/某 IP 是否恶意”。</p>
+</li>
+<li class="lvl-3">
+<p><strong>映射是概率而非真相</strong>：同一网络行为可能对应多个 Technique，建议支持“多标签 + 置信度”。</p>
+</li>
+<li class="lvl-3">
+<p><strong>版本管理</strong>：ATT&amp;CK 会更新（Technique 名称、归类、子技术拆分都会变化），建议缓存时记录 <code>attack_version</code> 与同步时间。</p>
+</li>
+<li class="lvl-3">
+<p><strong>映射规则要可审计</strong>：让分析师能回溯“为什么映射成这个 Technique”。</p>
+</li>
+<li class="lvl-3">
+<p><strong>把映射结果写回你的数据平台</strong>：例如在事件里追加字段：</p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>attack.technique_id</code> / <code>attack.technique_name</code> / <code>attack.tactics</code> / <code>attack.confidence</code></li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>LLM 一定要“先检索后判断”</strong>：避免模型在全量技术上凭印象输出错误 ID。</p>
+</li>
+<li class="lvl-3">
+<p><strong>LLM 输出必须可验证</strong>：JSON schema + 白名单 + 证据引用，是上线的底线。</p>
+</li>
+</ol>
+<hr />
+<h2 id="10-小结"><a class="markdownIt-Anchor" href="#10-小结"></a> 10. 小结</h2>
+<p>你现在有了一条可落地的路径：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>用 Python 从 TAXII 或 STIX 文件读取 ATT&amp;CK</p>
+</li>
+<li class="lvl-2">
+<p>预计算 <code>Technique ID -&gt; 名称/战术</code> 字典</p>
+</li>
+<li class="lvl-2">
+<p>把 NSM 告警标准化为统一事件结构</p>
+</li>
+<li class="lvl-2">
+<p>用“规则 + 特征 + 上下文”的方式输出可解释的 ATT&amp;CK 映射结果</p>
+</li>
+<li class="lvl-2">
+<p>在规则覆盖不足时，引入 <strong>RAG + LLM</strong> 做“候选选择/排序 + 可解释摘要”，并通过校验机制保证可控性</p>
+</li>
+</ul>
+<p>这套方法的关键不是“映射是否完美”，而是：<strong>结果可解释、可迭代、可度量</strong>。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">AI安全运营</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/security-ops/2026-02-21-attack-nsm-mapping/">https://lua.ren/security-ops/2026-02-21-attack-nsm-mapping/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">AI安全运营</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/">安全运营</a><a class="post-meta__tags" href="/tags/%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90/">威胁分析</a><a class="post-meta__tags" href="/tags/ATT-CK/">ATT&amp;CK</a><a class="post-meta__tags" href="/tags/NSM/">NSM</a><a class="post-meta__tags" href="/tags/Python/">Python</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/security-ops/2026-02-21-attack-technique-embedding-faiss/" title="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）</div></div></a></div><div class="next-post pull-right"><a href="/security-ops/2026-02-21-shannon-automation-security-testing-guide/" title="Shannon 自动化安全测试系统（Web 控制台）通用使用指南"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Shannon 自动化安全测试系统（Web 控制台）通用使用指南</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/security-ops/2026-02-21-attack-technique-embedding-faiss/" title="ATT&amp;CK Technique 向量化实战：本地&#x2F;云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS &#x2F; Embedding API）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-21</div><div class="title">ATT&amp;CK Technique 向量化实战：本地&#x2F;云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS &#x2F; Embedding API）</div></div></a></div><div><a href="/security-ops/2025-01-01-security-ops-intro/" title="网络安全运营管理入门"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-01</div><div class="title">网络安全运营管理入门</div></div></a></div><div><a href="/security-ops/2025-01-08-best-practices/" title="网络安全运营管理最佳实践"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-08</div><div class="title">网络安全运营管理最佳实践</div></div></a></div><div><a href="/security-ops/2025-01-04-threat-intel/" title="威胁情报与分析"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-04</div><div class="title">威胁情报与分析</div></div></a></div></div></div></div><div class="aside-content aside-left" id="aside-content-left"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">AI安全运营</div><div class="author-info__description">AI安全运营</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：AI安全运营 <img src="https://gitee.com/shengnoah/picture/raw/master/20231027182204.png"></img></div></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Claude/"><span class="card-category-list-name">Claude</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Ollama/"><span class="card-category-list-name">Ollama</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/OpenClaw/"><span class="card-category-list-name">OpenClaw</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/"><span class="card-category-list-name">Lua</span><span class="card-category-list-count">12</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/%E6%95%99%E7%A8%8B/"><span class="card-category-list-name">教程</span><span class="card-category-list-count">12</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Security-Ops/"><span class="card-category-list-name">Security Ops</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/claude/"><span class="card-category-list-name">claude</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div></div></div><div class="aside-content aside-right" id="aside-content-right"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/claude/2026-02-24-claude-vscode-pixel-agents/" title="Pixel Agents：把 Claude Code 变成像素办公模拟器"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pixel Agents：把 Claude Code 变成像素办公模拟器"/></a><div class="content"><a class="title" href="/claude/2026-02-24-claude-vscode-pixel-agents/" title="Pixel Agents：把 Claude Code 变成像素办公模拟器">Pixel Agents：把 Claude Code 变成像素办公模拟器</a><time datetime="2026-02-23T16:00:00.000Z" title="发表于 2026-02-24 00:00:00">2026-02-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/openclaw/2026-02-21-openclaw-tavily-skills-web-search/" title="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）"/></a><div class="content"><a class="title" href="/openclaw/2026-02-21-openclaw-tavily-skills-web-search/" title="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）">OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）</a><time datetime="2026-02-21T02:30:00.000Z" title="发表于 2026-02-21 10:30:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-attack-technique-embedding-faiss/" title="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-attack-technique-embedding-faiss/" title="ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）">ATT&amp;CK Technique 向量化实战：本地/云端生成 Embedding、构建向量索引、Top-K 检索候选（FAISS / Embedding API）</a><time datetime="2026-02-21T02:30:00.000Z" title="发表于 2026-02-21 10:30:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-attack-nsm-mapping/" title="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-attack-nsm-mapping/" title="MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）">MITRE ATT&amp;CK 教程：用 Python 调用 ATT&amp;CK 数据，并把 NSM 网络告警关联到技术（Technique）</a><time datetime="2026-02-21T02:00:00.000Z" title="发表于 2026-02-21 10:00:00">2026-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/security-ops/2026-02-21-shannon-automation-security-testing-guide/" title="Shannon 自动化安全测试系统（Web 控制台）通用使用指南"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shannon 自动化安全测试系统（Web 控制台）通用使用指南"/></a><div class="content"><a class="title" href="/security-ops/2026-02-21-shannon-automation-security-testing-guide/" title="Shannon 自动化安全测试系统（Web 控制台）通用使用指南">Shannon 自动化安全测试系统（Web 控制台）通用使用指南</a><time datetime="2026-02-20T16:00:00.000Z" title="发表于 2026-02-21 00:00:00">2026-02-21</time></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-attck-%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%82%E5%90%88%E5%81%9A%E5%91%8A%E8%AD%A6%E5%BD%92%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text"> 1. ATT&amp;CK 是什么？为什么适合做告警归因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-attck-%E6%95%B0%E6%8D%AE%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7stix-2x"><span class="toc-number">2.</span> <span class="toc-text"> 2. ATT&amp;CK 数据长什么样：STIX 2.x</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%94%A8-python-%E8%8E%B7%E5%8F%96-attck%E4%B8%A4%E7%A7%8D%E5%B8%B8%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text"> 3. 用 Python 获取 ATT&amp;CK：两种常用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-%E8%B7%AF%E7%BA%BF-a%E4%BB%8E-taxii-%E6%8B%89%E5%8F%96cti-taxiimitreorg"><span class="toc-number">3.1.</span> <span class="toc-text"> 3.1 路线 A：从 TAXII 拉取（cti-taxii.mitre.org）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-%E8%B7%AF%E7%BA%BF-b%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0-stix-bundle%E4%B8%8B%E8%BD%BD%E5%90%8E%E7%A6%BB%E7%BA%BF%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text"> 3.2 路线 B：读取本地 STIX bundle（下载后离线用）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-python-%E6%9F%A5%E8%AF%A2%E6%8A%8A-technique-%E5%8F%98%E6%88%90%E5%8F%AF%E7%94%A8%E7%9A%84%E5%AD%97%E5%85%B8%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.</span> <span class="toc-text"> 4. Python 查询：把 Technique 变成可用的“字典服务”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-nsm-%E5%91%8A%E8%AD%A6%E6%80%8E%E4%B9%88%E5%92%8C-attck-%E5%85%B3%E8%81%94%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%98%A0%E5%B0%84%E7%AE%A1%E9%81%93"><span class="toc-number">5.</span> <span class="toc-text"> 5. NSM 告警怎么和 ATT&amp;CK 关联：设计一个“映射管道”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#51-%E4%BA%8B%E4%BB%B6%E6%A0%87%E5%87%86%E5%8C%96%E4%B8%BA%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E6%BA%90%E5%AE%9A%E4%B9%89%E7%BB%9F%E4%B8%80-schema"><span class="toc-number">5.1.</span> <span class="toc-text"> 5.1 事件标准化：为不同数据源定义统一 schema</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#52-%E6%98%A0%E5%B0%84%E8%BE%93%E5%87%BA%E8%A6%81%E8%83%BD%E8%A7%A3%E9%87%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%A0%E5%B0%84%E5%88%B0%E8%BF%99%E4%B8%AA-technique"><span class="toc-number">5.2.</span> <span class="toc-text"> 5.2 映射输出：要能解释“为什么映射到这个 Technique”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%A1%88%E4%BE%8B%E7%94%A8-python-%E6%8A%8A-nsm-%E7%BD%91%E7%BB%9C%E5%A8%81%E8%83%81%E5%91%8A%E8%AD%A6%E6%98%A0%E5%B0%84%E5%88%B0-attck"><span class="toc-number">6.</span> <span class="toc-text"> 6. 案例：用 Python 把 NSM 网络威胁告警映射到 ATT&amp;CK</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#61-%E5%87%86%E5%A4%87attck-%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98-technique-%E5%AD%97%E5%85%B8"><span class="toc-number">6.1.</span> <span class="toc-text"> 6.1 准备：ATT&amp;CK 本地缓存 + Technique 字典</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#62-%E7%A4%BA%E4%BE%8B%E8%BE%93%E5%85%A5%E4%B8%89%E7%B1%BB-nsm-%E5%91%8A%E8%AD%A6%E7%AE%80%E5%8C%96-json"><span class="toc-number">6.2.</span> <span class="toc-text"> 6.2 示例输入：三类 NSM 告警（简化 JSON）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#63-%E8%A7%84%E5%88%99%E6%98%A0%E5%B0%84%E4%BB%8E%E4%BA%8B%E4%BB%B6%E8%AF%AD%E4%B9%89%E5%88%B0technique-%E5%80%99%E9%80%89%E9%9B%86%E5%90%88"><span class="toc-number">6.3.</span> <span class="toc-text"> 6.3 规则映射：从“事件语义”到“Technique 候选集合”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#64-%E6%8A%8A%E5%80%99%E9%80%89-technique-%E5%8F%98%E6%88%90%E5%B8%A6%E5%90%8D%E7%A7%B0%E6%88%98%E6%9C%AF%E8%AF%81%E6%8D%AE%E7%9A%84%E6%98%A0%E5%B0%84%E7%BB%93%E6%9E%9C"><span class="toc-number">6.4.</span> <span class="toc-text"> 6.4 把候选 Technique 变成“带名称&#x2F;战术&#x2F;证据”的映射结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#65-%E8%BF%90%E8%A1%8C%E7%A4%BA%E4%BE%8B%E5%BE%97%E5%88%B0%E5%8F%AF%E8%A7%A3%E9%87%8A%E7%9A%84-attck-%E5%85%B3%E8%81%94"><span class="toc-number">6.5.</span> <span class="toc-text"> 6.5 运行示例：得到可解释的 ATT&amp;CK 关联</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E8%AE%A9%E6%98%A0%E5%B0%84%E6%9B%B4%E5%83%8F%E5%B7%A5%E7%A8%8B%E6%97%B6%E9%97%B4%E7%AA%97%E8%81%9A%E5%90%88%E4%B8%8E%E7%BD%AE%E4%BF%A1%E5%BA%A6%E6%8F%90%E5%8D%87"><span class="toc-number">7.</span> <span class="toc-text"> 7. 让映射更“像工程”：时间窗聚合与置信度提升</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E7%94%A8%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8Bllm%E5%AE%8C%E6%88%90%E5%91%8A%E8%AD%A6%E4%B8%8E-attck-%E5%85%B3%E8%81%94%E5%8F%AF%E8%90%BD%E5%9C%B0%E6%96%B9%E6%A1%88"><span class="toc-number">8.</span> <span class="toc-text"> 8. 用大语言模型（LLM）完成告警与 ATT&amp;CK 关联（可落地方案）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#81-%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84rag%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA-%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA-%E8%A7%84%E5%88%99%E5%85%9C%E5%BA%95"><span class="toc-number">8.1.</span> <span class="toc-text"> 8.1 推荐架构：RAG（检索增强）+ 结构化输出 + 规则兜底</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#82-%E5%80%99%E9%80%89%E6%A3%80%E7%B4%A2%E6%80%8E%E4%B9%88%E5%81%9A%E4%B8%A4%E7%A7%8D%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">8.2.</span> <span class="toc-text"> 8.2 候选检索怎么做（两种简单实现）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#821-%E5%AE%9E%E9%99%85%E5%AE%9E%E7%8E%B0%E6%9C%AC%E5%9C%B0sentence-transformers-%E7%94%9F%E6%88%90-embedding-faiss-%E6%A3%80%E7%B4%A2"><span class="toc-number">8.2.1.</span> <span class="toc-text"> 8.2.1 实际实现（本地）：Sentence-Transformers 生成 embedding + FAISS 检索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#822-%E5%AE%9E%E9%99%85%E5%AE%9E%E7%8E%B0%E4%BA%91%E7%AB%AF%E8%B0%83%E7%94%A8-embedding-api-%E7%94%9F%E6%88%90%E5%90%91%E9%87%8F-%E5%90%91%E9%87%8F%E5%BA%93%E6%A3%80%E7%B4%A2"><span class="toc-number">8.2.2.</span> <span class="toc-text"> 8.2.2 实际实现（云端）：调用 Embedding API 生成向量 + 向量库检索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#83-%E7%BB%99-llm-%E7%9A%84%E8%BE%93%E5%85%A5%E8%A6%81%E7%9F%AD-%E7%BB%93%E6%9E%84%E5%8C%96-%E5%8F%AF%E8%BF%BD%E6%BA%AF"><span class="toc-number">8.3.</span> <span class="toc-text"> 8.3 给 LLM 的输入要“短、结构化、可追溯”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#84-prompt-%E6%A8%A1%E6%9D%BF%E5%BC%BA%E5%88%B6-json-%E8%BE%93%E5%87%BA"><span class="toc-number">8.4.</span> <span class="toc-text"> 8.4 Prompt 模板（强制 JSON 输出）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#85-python-%E8%90%BD%E5%9C%B0%E7%A4%BA%E4%BE%8Brag-llm-%E6%A0%A1%E9%AA%8C%E4%BB%A5-ollama-%E4%B8%BA%E4%BE%8B"><span class="toc-number">8.5.</span> <span class="toc-text"> 8.5 Python 落地示例：RAG + LLM + 校验（以 Ollama 为例）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#86-%E8%A7%84%E5%88%99-llm%E8%9E%8D%E5%90%88%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AD%96%E7%95%A5"><span class="toc-number">8.6.</span> <span class="toc-text"> 8.6 “规则 + LLM”融合的推荐策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E5%B8%B8%E8%A7%81%E5%9D%91%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">9.</span> <span class="toc-text"> 9. 常见坑与最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%B0%8F%E7%BB%93"><span class="toc-number">10.</span> <span class="toc-text"> 10. 小结</span></a></li></ol></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><span class="card-archive-list-count">136</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">35</span></a></li></ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/TypeScript/" style="font-size: 1.18em; color: #999ca1">TypeScript</a> <a href="/tags/%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90/" style="font-size: 1.18em; color: #999ca1">威胁分析</a> <a href="/tags/LLM/" style="font-size: 1.18em; color: #999ca1">LLM</a> <a href="/tags/NSM/" style="font-size: 1.18em; color: #999ca1">NSM</a> <a href="/tags/Claude-Code/" style="font-size: 1.1em; color: #999">Claude Code</a> <a href="/tags/%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" style="font-size: 1.1em; color: #999">条件语句</a> <a href="/tags/IO/" style="font-size: 1.1em; color: #999">IO</a> <a href="/tags/%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94/" style="font-size: 1.1em; color: #999">事件响应</a> <a href="/tags/AppSec/" style="font-size: 1.1em; color: #999">AppSec</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 1.1em; color: #999">性能优化</a> <a href="/tags/%E5%AE%89%E5%85%A8%E7%9B%91%E6%8E%A7/" style="font-size: 1.1em; color: #999">安全监控</a> <a href="/tags/%E7%A7%91%E7%9B%AE%E4%B8%80/" style="font-size: 1.1em; color: #999">科目一</a> <a href="/tags/Skills/" style="font-size: 1.18em; color: #999ca1">Skills</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 1.1em; color: #999">面向对象</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 1.1em; color: #999">向量检索</a> <a href="/tags/os/" style="font-size: 1.1em; color: #999">os</a> <a href="/tags/%E6%89%80%E6%9C%89%E6%9D%83/" style="font-size: 1.1em; color: #999">所有权</a> <a href="/tags/C-API/" style="font-size: 1.1em; color: #999">C API</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">线程</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 1.18em; color: #999ca1">模块</a> <a href="/tags/%E7%B1%BB/" style="font-size: 1.1em; color: #999">类</a> <a href="/tags/Trait/" style="font-size: 1.1em; color: #999">Trait</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 1.1em; color: #999">自动化</a> <a href="/tags/SAST/" style="font-size: 1.1em; color: #999">SAST</a> <a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 1.1em; color: #999">枚举</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 1.26em; color: #999fa8">数据类型</a> <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">并发编程</a> <a href="/tags/Tavily/" style="font-size: 1.1em; color: #999">Tavily</a> <a href="/tags/Graylog/" style="font-size: 1.5em; color: #99a9bf">Graylog</a> <a href="/tags/Lua/" style="font-size: 1.34em; color: #99a3b0">Lua</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/ATT-CK/" style="font-size: 1.18em; color: #999ca1">ATT&CK</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">系统编程</a> <a href="/tags/Claude/" style="font-size: 1.1em; color: #999">Claude</a> <a href="/tags/Agent/" style="font-size: 1.18em; color: #999ca1">Agent</a> <a href="/tags/Ollama/" style="font-size: 1.18em; color: #999ca1">Ollama</a> <a href="/tags/WAF/" style="font-size: 1.42em; color: #99a6b7">WAF</a> <a href="/tags/%E5%A4%87%E8%80%83/" style="font-size: 1.1em; color: #999">备考</a> <a href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" style="font-size: 1.1em; color: #999">应急响应</a> <a href="/tags/%E5%80%9F%E7%94%A8/" style="font-size: 1.1em; color: #999">借用</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By AI安全运营</div><div class="framework-info"><span>( </span><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">备案:辽ICP备16003836号-5</a><span class="footer-separator"> </span><span>) </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"></a></div><div class="footer_webinfo"><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">171</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-25T02:45:56.234Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="/js/lua-swiper-directory.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

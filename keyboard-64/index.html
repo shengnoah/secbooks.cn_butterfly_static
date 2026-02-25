@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>64键键盘布局</title>
+  <link rel="stylesheet" href="/css/keyboard.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+    #keyboard-page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    #keyboard-page > p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    
+    /* 复位按钮样式 */
+    #reset-btn {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    #reset-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div id="keyboard-page">
+    <h1>64键键盘布局</h1>
+    <p>按下键盘上的按键，可以看到对应按键的响应效果</p>
+    
+    <div class="keyboard">
+      <!-- 第一行：数字键 -->
+      <div class="key-row">
+        <div class="key function-key" data-key="Escape">Esc</div>
+        <div class="key" data-key="Digit1">1</div>
+        <div class="key" data-key="Digit2">2</div>
+        <div class="key" data-key="Digit3">3</div>
+        <div class="key" data-key="Digit4">4</div>
+        <div class="key" data-key="Digit5">5</div>
+        <div class="key" data-key="Digit6">6</div>
+        <div class="key" data-key="Digit7">7</div>
+        <div class="key" data-key="Digit8">8</div>
+        <div class="key" data-key="Digit9">9</div>
+        <div class="key" data-key="Digit0">0</div>
+        <div class="key" data-key="Minus">-</div>
+        <div class="key" data-key="Equal">=</div>
+        <div class="key backspace-key" data-key="Backspace">Backspace</div>
+      </div>
+      
+      <!-- 第二行：QWERTY -->
+      <div class="key-row">
+        <div class="key tab-key" data-key="Tab">Tab</div>
+        <div class="key" data-key="KeyQ">Q</div>
+        <div class="key" data-key="KeyW">W</div>
+        <div class="key" data-key="KeyE">E</div>
+        <div class="key" data-key="KeyR">R</div>
+        <div class="key" data-key="KeyT">T</div>
+        <div class="key" data-key="KeyY">Y</div>
+        <div class="key" data-key="KeyU">U</div>
+        <div class="key" data-key="KeyI">I</div>
+        <div class="key" data-key="KeyO">O</div>
+        <div class="key" data-key="KeyP">P</div>
+        <div class="key" data-key="BracketLeft">[</div>
+        <div class="key" data-key="BracketRight">]</div>
+        <div class="key" data-key="Backslash">\</div>
+      </div>
+      
+      <!-- 第三行：ASDFGH -->
+      <div class="key-row">
+        <div class="key caps-key" data-key="CapsLock">Caps</div>
+        <div class="key" data-key="KeyA">A</div>
+        <div class="key" data-key="KeyS">S</div>
+        <div class="key" data-key="KeyD">D</div>
+        <div class="key" data-key="KeyF">F</div>
+        <div class="key" data-key="KeyG">G</div>
+        <div class="key" data-key="KeyH">H</div>
+        <div class="key" data-key="KeyJ">J</div>
+        <div class="key" data-key="KeyK">K</div>
+        <div class="key" data-key="KeyL">L</div>
+        <div class="key" data-key="Semicolon">;</div>
+        <div class="key" data-key="Quote">'</div>
+        <div class="key enter-key" data-key="Enter">Enter</div>
+      </div>
+      
+      <!-- 第四行：ZXCVBN -->
+      <div class="key-row">
+        <div class="key shift-key" data-key="ShiftLeft">Shift</div>
+        <div class="key" data-key="KeyZ">Z</div>
+        <div class="key" data-key="KeyX">X</div>
+        <div class="key" data-key="KeyC">C</div>
+        <div class="key" data-key="KeyV">V</div>
+        <div class="key" data-key="KeyB">B</div>
+        <div class="key" data-key="KeyN">N</div>
+        <div class="key" data-key="KeyM">M</div>
+        <div class="key" data-key="Comma">,</div>
+        <div class="key" data-key="Period">.</div>
+        <div class="key" data-key="Slash">/</div>
+        <div class="key shift-key" data-key="ShiftRight">Shift</div>
+        <div class="key function-key" data-key="ArrowUp">↑</div>
+      </div>
+      
+      <!-- 第五行：控制键 -->
+      <div class="key-row">
+        <div class="key control-key" data-key="ControlLeft">Ctrl</div>
+        <div class="key" data-key="MetaLeft">Win</div>
+        <div class="key control-key" data-key="AltLeft">Alt</div>
+        <div class="key space-key" data-key="Space">Space</div>
+        <div class="key control-key" data-key="AltRight">Alt</div>
+        <div class="key" data-key="ContextMenu">Menu</div>
+        <div class="key control-key" data-key="ControlRight">Ctrl</div>
+        <div class="key function-key" data-key="ArrowLeft">←</div>
+        <div class="key function-key" data-key="ArrowDown">↓</div>
+        <div class="key function-key" data-key="ArrowRight">→</div>
+      </div>
+    </div>
+
+    <div class="key-info">
+      <p>当前按下：<span id="current-key">无</span></p>
+      <p>按键代码：<span id="key-code">-</span></p>
+    </div>
+    
+    <button id="reset-btn">复位键盘</button>
+  </div>
+
+  <script src="/js/keyboard.js"></script>
+</body>
+</html>

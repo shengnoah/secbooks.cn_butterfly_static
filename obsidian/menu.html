@@ -1,0 +1,787 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>目录</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '目录',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-24 19:29:15'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> Lua教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/lua/2025-01-01-lua-intro/"><i class="fa-fw fas fa-play-circle"></i><span> 第一章 Lua入门基础</span></a></li><li><a class="site-page child" href="/lua/2025-01-02-lua-datatypes/"><i class="fa-fw fas fa-database"></i><span> 第二章 数据类型与值</span></a></li><li><a class="site-page child" href="/lua/2025-01-03-lua-control-flow/"><i class="fa-fw fas fa-code-branch"></i><span> 第三章 流程控制</span></a></li><li><a class="site-page child" href="/lua/2025-01-04-lua-functions/"><i class="fa-fw fas fa-code"></i><span> 第四章 函数深入</span></a></li><li><a class="site-page child" href="/lua/2025-01-05-lua-tables/"><i class="fa-fw fas fa-table"></i><span> 第五章 表的高级应用</span></a></li><li><a class="site-page child" href="/lua/2025-01-06-lua-strings/"><i class="fa-fw fas fa-font"></i><span> 第六章 字符串进阶</span></a></li><li><a class="site-page child" href="/lua/2025-01-07-lua-io/"><i class="fa-fw fas fa-file-alt"></i><span> 第七章 I/O操作</span></a></li><li><a class="site-page child" href="/lua/2025-01-08-lua-debug/"><i class="fa-fw fas fa-bug"></i><span> 第八章 错误处理与调试</span></a></li><li><a class="site-page child" href="/lua/2025-01-09-lua-stdlib/"><i class="fa-fw fas fa-book-open"></i><span> 第九章 标准库</span></a></li><li><a class="site-page child" href="/lua/2025-01-10-lua-c-api/"><i class="fa-fw fas fa-link"></i><span> 第十章 Lua与C交互</span></a></li><li><a class="site-page child" href="/lua/2025-01-11-lua-projects/"><i class="fa-fw fas fa-project-diagram"></i><span> 第十一章 Lua实战项目</span></a></li><li><a class="site-page child" href="/lua/2025-01-12-lua-best-practices/"><i class="fa-fw fas fa-star"></i><span> 第十二章 最佳实践与优化</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li><li><a class="site-page child" href="/keyboard-98/"><i class="fa-fw fas fa-keyboard"></i><span> 98键</span></a></li><li><a class="site-page child" href="/keyboard-87/"><i class="fa-fw fas fa-keyboard"></i><span> 87键</span></a></li><li><a class="site-page child" href="/keyboard-82/"><i class="fa-fw fas fa-keyboard"></i><span> 82键</span></a></li><li><a class="site-page child" href="/keyboard-64/"><i class="fa-fw fas fa-keyboard"></i><span> 64键</span></a></li><li><a class="site-page child" href="/keyboard-61/"><i class="fa-fw fas fa-keyboard"></i><span> 61键</span></a></li><li><a class="site-page child" href="/keyboard-40/"><i class="fa-fw fas fa-keyboard"></i><span> 40键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 其他教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><a href="/obsidian/home.html"><h2>Obsidian教程</h2></a><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>1. Obsidian入门</h3><ul><li><a href="/obsidian/01-intro.html">1.1 Obsidian简介</a></li><li><a href="/obsidian/02-installation.html">1.2 安装与配置</a></li><li><a href="/obsidian/03-interface.html">1.3 界面介绍</a></li></ul><h3>2. Markdown基础</h3><ul><li><a href="/obsidian/04-markdown-basics.html">2.1 Markdown语法</a></li><li><a href="/obsidian/05-obsidian-markdown.html">2.2 Obsidian扩展语法</a></li><li><a href="/obsidian/06-code-math.html">2.3 代码块与公式</a></li></ul><h3>3. 笔记管理</h3><ul><li><a href="/obsidian/07-note-creation.html">3.1 创建与编辑笔记</a></li><li><a href="/obsidian/08-folder-organization.html">3.2 文件夹组织</a></li><li><a href="/obsidian/09-naming-conventions.html">3.3 笔记命名规范</a></li></ul><h3>4. 链接系统</h3><ul><li><a href="/obsidian/10-internal-links.html">4.1 内部链接</a></li><li><a href="/obsidian/11-backlinks.html">4.2 双向链接</a></li><li><a href="/obsidian/12-graph-view.html">4.3 关系图谱</a></li></ul><h3>5. 标签与元数据</h3><ul><li><a href="/obsidian/13-tags.html">5.1 标签系统</a></li><li><a href="/obsidian/14-front-matter.html">5.2 Front Matter</a></li><li><a href="/obsidian/15-properties.html">5.3 属性管理</a></li></ul><h3>6. 搜索与查询</h3><ul><li><a href="/obsidian/16-basic-search.html">6.1 基础搜索</a></li><li><a href="/obsidian/17-advanced-search.html">6.2 高级搜索</a></li><li><a href="/obsidian/18-search-tips.html">6.3 搜索技巧</a></li><li><a href="/obsidian/19-rag-ollama.html">6.4 Obsidian + Ollama 实现 RAG</a></li></ul><h3>7. 模板功能</h3><ul><li><a href="/obsidian/19-template-basics.html">7.1 模板基础</a></li><li><a href="/obsidian/20-template-variables.html">7.2 模板变量</a></li><li><a href="/obsidian/21-template-examples.html">7.3 模板实战</a></li></ul><h3>8. Dataview插件</h3><ul><li><a href="/obsidian/22-dataview-intro.html">8.1 Dataview简介</a></li><li><a href="/obsidian/23-dataview-query.html">8.2 查询语法</a></li><li><a href="/obsidian/24-dataview-examples.html">8.3 实用案例</a></li></ul><h3>9. 自定义与美化</h3><ul><li><a href="/obsidian/25-themes.html">9.1 主题系统</a></li><li><a href="/obsidian/26-custom-css.html">9.2 自定义CSS</a></li><li><a href="/obsidian/27-css-snippets.html">9.3 CSS代码片段</a></li></ul><h3>10. 工作流优化</h3><ul><li><a href="/obsidian/28-hotkeys.html">10.1 快捷键设置</a></li><li><a href="/obsidian/29-workspaces.html">10.2 工作区管理</a></li><li><a href="/obsidian/30-productivity-tips.html">10.3 效率技巧</a></li></ul><h3>11. Text Generator插件</h3><ul><li><a href="/obsidian/31-text-generator-setup.html">11.1 Text Generator安装配置</a></li><li><a href="/obsidian/32-text-generator-basics.html">11.2 基础使用</a></li><li><a href="/obsidian/33-text-generator-prompts.html">11.3 自定义提示词</a></li><li><a href="/obsidian/34-text-generator-advanced.html">11.4 高级功能</a></li></ul><h3>12. Smart Connections插件</h3><ul><li><a href="/obsidian/35-smart-connections-intro.html">12.1 Smart Connections简介</a></li><li><a href="/obsidian/36-semantic-search.html">12.2 语义搜索</a></li><li><a href="/obsidian/37-smart-recommendations.html">12.3 智能推荐</a></li></ul><h3>13. Copilot插件</h3><ul><li><a href="/obsidian/38-copilot-setup.html">13.1 Copilot安装使用</a></li><li><a href="/obsidian/39-copilot-chat.html">13.2 对话功能</a></li><li><a href="/obsidian/40-copilot-tips.html">13.3 实用技巧</a></li></ul><h3>14. ChatGPT MD插件</h3><ul><li><a href="/obsidian/41-chatgpt-md-setup.html">14.1 ChatGPT MD配置</a></li><li><a href="/obsidian/42-chatgpt-md-conversations.html">14.2 对话管理</a></li><li><a href="/obsidian/43-chatgpt-md-advanced.html">14.3 高级应用</a></li></ul><h3>15. AI辅助写作</h3><ul><li><a href="/obsidian/44-ai-writing-workflow.html">15.1 AI写作工作流</a></li><li><a href="/obsidian/45-prompt-engineering.html">15.2 提示词工程</a></li><li><a href="/obsidian/46-ai-best-practices.html">15.3 AI最佳实践</a></li></ul><h3>16. 知识管理系统</h3><ul><li><a href="/obsidian/47-personal-knowledge-base.html">16.1 个人知识库搭建</a></li><li><a href="/obsidian/48-zettelkasten.html">16.2 卡片笔记法</a></li><li><a href="/obsidian/49-knowledge-network.html">16.3 知识网络构建</a></li></ul><h3>17. 学术研究</h3><ul><li><a href="/obsidian/50-literature-management.html">17.1 文献管理</a></li><li><a href="/obsidian/51-reading-notes.html">17.2 读书笔记</a></li><li><a href="/obsidian/52-academic-writing.html">17.3 论文写作</a></li></ul><h3>18. 项目管理</h3><ul><li><a href="/obsidian/53-task-management.html">18.1 任务管理</a></li><li><a href="/obsidian/54-gtd-system.html">18.2 GTD系统</a></li><li><a href="/obsidian/55-project-tracking.html">18.3 项目追踪</a></li></ul><h3>19. 写作工作流</h3><ul><li><a href="/obsidian/56-idea-collection.html">19.1 创意收集</a></li><li><a href="/obsidian/57-content-creation.html">19.2 内容创作</a></li><li><a href="/obsidian/58-publishing-workflow.html">19.3 发布流程</a></li></ul><h3>20. 最佳实践</h3><ul><li><a href="/obsidian/59-backup-strategies.html">20.1 数据备份</a></li><li><a href="/obsidian/60-sync-solutions.html">20.2 同步方案</a></li><li><a href="/obsidian/61-performance-optimization.html">20.3 性能优化</a></li><li><a href="/obsidian/62-faq.html">20.4 常见问题</a></li></ul></div></div><div class="book-meta"><h3>🏷️ 标签（1）</h3><ul><li><a href="/tags/Obsidian/">Obsidian</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（2）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/Obsidian/">Obsidian</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">目录</h1><div class="book-body" id="article-container"><h1 id="obsidian完全教程-目录"><a class="markdownIt-Anchor" href="#obsidian完全教程-目录"></a> Obsidian完全教程 - 目录</h1>
+<h2 id="第一部分obsidian基础"><a class="markdownIt-Anchor" href="#第一部分obsidian基础"></a> 第一部分：Obsidian基础</h2>
+<h3 id="1-obsidian入门"><a class="markdownIt-Anchor" href="#1-obsidian入门"></a> 1. Obsidian入门</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="01-intro.html">1.1 Obsidian简介</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="02-installation.html">1.2 安装与配置</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="03-interface.html">1.3 界面介绍</a> ✅</p>
+</li>
+</ul>
+<h3 id="2-markdown基础"><a class="markdownIt-Anchor" href="#2-markdown基础"></a> 2. Markdown基础</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="04-markdown-basics.html">2.1 Markdown语法</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="05-obsidian-markdown.html">2.2 Obsidian扩展语法</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="06-code-math.html">2.3 代码块与公式</a> ✅</p>
+</li>
+</ul>
+<h3 id="3-笔记管理"><a class="markdownIt-Anchor" href="#3-笔记管理"></a> 3. 笔记管理</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="07-note-creation.html">3.1 创建与编辑笔记</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="08-folder-organization.html">3.2 文件夹组织</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="09-naming-conventions.html">3.3 笔记命名规范</a> ✅</p>
+</li>
+</ul>
+<h2 id="第二部分核心功能"><a class="markdownIt-Anchor" href="#第二部分核心功能"></a> 第二部分：核心功能</h2>
+<h3 id="4-链接系统"><a class="markdownIt-Anchor" href="#4-链接系统"></a> 4. 链接系统</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="10-internal-links.html">4.1 内部链接</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="11-backlinks.html">4.2 双向链接</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="12-graph-view.html">4.3 关系图谱</a> ✅</p>
+</li>
+</ul>
+<h3 id="5-标签与元数据"><a class="markdownIt-Anchor" href="#5-标签与元数据"></a> 5. 标签与元数据</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="13-tags.html">5.1 标签系统</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="14-front-matter.html">5.2 Front Matter</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="15-properties.html">5.3 属性管理</a> ✅</p>
+</li>
+</ul>
+<h3 id="6-搜索与查询"><a class="markdownIt-Anchor" href="#6-搜索与查询"></a> 6. 搜索与查询</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="16-basic-search.html">6.1 基础搜索</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="17-advanced-search.html">6.2 高级搜索</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="18-search-tips.html">6.3 搜索技巧</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="19-rag-ollama.html">6.4 Obsidian + Ollama 实现 RAG</a> ✅</p>
+</li>
+</ul>
+<h3 id="7-模板功能"><a class="markdownIt-Anchor" href="#7-模板功能"></a> 7. 模板功能</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="19-template-basics.html">7.1 模板基础</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="20-template-variables.html">7.2 模板变量</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="21-template-examples.html">7.3 模板实战</a> ✅</p>
+</li>
+</ul>
+<h2 id="第三部分高级功能"><a class="markdownIt-Anchor" href="#第三部分高级功能"></a> 第三部分：高级功能</h2>
+<h3 id="8-dataview插件"><a class="markdownIt-Anchor" href="#8-dataview插件"></a> 8. Dataview插件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="22-dataview-intro.html">8.1 Dataview简介</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="23-dataview-query.html">8.2 查询语法</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="24-dataview-examples.html">8.3 实用案例</a> ✅</p>
+</li>
+</ul>
+<h3 id="9-自定义与美化"><a class="markdownIt-Anchor" href="#9-自定义与美化"></a> 9. 自定义与美化</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="25-themes.html">9.1 主题系统</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="26-custom-css.html">9.2 自定义CSS</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="27-css-snippets.html">9.3 CSS代码片段</a> ✅</p>
+</li>
+</ul>
+<h3 id="10-工作流优化"><a class="markdownIt-Anchor" href="#10-工作流优化"></a> 10. 工作流优化</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="28-hotkeys.html">10.1 快捷键设置</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="29-workspaces.html">10.2 工作区管理</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="30-productivity-tips.html">10.3 效率技巧</a> ✅</p>
+</li>
+</ul>
+<h2 id="第四部分ai插件详解"><a class="markdownIt-Anchor" href="#第四部分ai插件详解"></a> 第四部分：AI插件详解</h2>
+<h3 id="11-text-generator插件"><a class="markdownIt-Anchor" href="#11-text-generator插件"></a> 11. Text Generator插件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="31-text-generator-setup.html">11.1 Text Generator安装配置</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="32-text-generator-basics.html">11.2 基础使用</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="33-text-generator-prompts.html">11.3 自定义提示词</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="34-text-generator-advanced.html">11.4 高级功能</a> ✅</p>
+</li>
+</ul>
+<h3 id="12-smart-connections插件"><a class="markdownIt-Anchor" href="#12-smart-connections插件"></a> 12. Smart Connections插件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="35-smart-connections-intro.html">12.1 Smart Connections简介</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="36-semantic-search.html">12.2 语义搜索</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="37-smart-recommendations.html">12.3 智能推荐</a> ✅</p>
+</li>
+</ul>
+<h3 id="13-copilot插件"><a class="markdownIt-Anchor" href="#13-copilot插件"></a> 13. Copilot插件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="38-copilot-setup.html">13.1 Copilot安装使用</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="39-copilot-chat.html">13.2 对话功能</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="40-copilot-tips.html">13.3 实用技巧</a> ✅</p>
+</li>
+</ul>
+<h3 id="14-chatgpt-md插件"><a class="markdownIt-Anchor" href="#14-chatgpt-md插件"></a> 14. ChatGPT MD插件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="41-chatgpt-md-setup.html">14.1 ChatGPT MD配置</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="42-chatgpt-md-conversations.html">14.2 对话管理</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="43-chatgpt-md-advanced.html">14.3 高级应用</a> ✅</p>
+</li>
+</ul>
+<h3 id="15-ai辅助写作"><a class="markdownIt-Anchor" href="#15-ai辅助写作"></a> 15. AI辅助写作</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="44-ai-writing-workflow.html">15.1 AI写作工作流</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="45-prompt-engineering.html">15.2 提示词工程</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="46-ai-best-practices.html">15.3 AI最佳实践</a> ✅</p>
+</li>
+</ul>
+<h2 id="第五部分实战应用"><a class="markdownIt-Anchor" href="#第五部分实战应用"></a> 第五部分：实战应用</h2>
+<h3 id="16-知识管理系统"><a class="markdownIt-Anchor" href="#16-知识管理系统"></a> 16. 知识管理系统</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="47-personal-knowledge-base.html">16.1 个人知识库搭建</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="48-zettelkasten.html">16.2 卡片笔记法</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="49-knowledge-network.html">16.3 知识网络构建</a> ✅</p>
+</li>
+</ul>
+<h3 id="17-学术研究"><a class="markdownIt-Anchor" href="#17-学术研究"></a> 17. 学术研究</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="50-literature-management.html">17.1 文献管理</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="51-reading-notes.html">17.2 读书笔记</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="52-academic-writing.html">17.3 论文写作</a> ✅</p>
+</li>
+</ul>
+<h3 id="18-项目管理"><a class="markdownIt-Anchor" href="#18-项目管理"></a> 18. 项目管理</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="53-task-management.html">18.1 任务管理</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="54-gtd-system.html">18.2 GTD系统</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="55-project-tracking.html">18.3 项目追踪</a> ✅</p>
+</li>
+</ul>
+<h3 id="19-写作工作流"><a class="markdownIt-Anchor" href="#19-写作工作流"></a> 19. 写作工作流</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="56-idea-collection.html">19.1 创意收集</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="57-content-creation.html">19.2 内容创作</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="58-publishing-workflow.html">19.3 发布流程</a> ✅</p>
+</li>
+</ul>
+<h3 id="20-最佳实践"><a class="markdownIt-Anchor" href="#20-最佳实践"></a> 20. 最佳实践</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="59-backup-strategies.html">20.1 数据备份</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="60-sync-solutions.html">20.2 同步方案</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="61-performance-optimization.html">20.3 性能优化</a> ✅</p>
+</li>
+<li class="lvl-2">
+<p><a href="62-faq.html">20.4 常见问题</a> ✅</p>
+</li>
+</ul>
+<hr />
+<h2 id="学习建议"><a class="markdownIt-Anchor" href="#学习建议"></a> 学习建议</h2>
+<p>目前已完成全部62章的内容，建议按顺序学习：</p>
+<p>从基础到高级，系统学习Obsidian：</p>
+<p><strong>第一部分：Obsidian基础</strong> (1-3章)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Obsidian简介、安装配置、界面介绍</p>
+</li>
+<li class="lvl-2">
+<p>Markdown语法、扩展语法</p>
+</li>
+<li class="lvl-2">
+<p>笔记创建与管理</p>
+</li>
+</ul>
+<p><strong>第二部分：核心功能</strong> (4-7章)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>链接系统、双向链接、关系图谱</p>
+</li>
+<li class="lvl-2">
+<p>标签与元数据</p>
+</li>
+<li class="lvl-2">
+<p>搜索与模板</p>
+</li>
+</ul>
+<p><strong>第三部分：高级功能</strong> (8-10章)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Dataview查询</p>
+</li>
+<li class="lvl-2">
+<p>自定义与美化</p>
+</li>
+<li class="lvl-2">
+<p>工作流优化</p>
+</li>
+</ul>
+<p><strong>第四部分：AI插件详解</strong> (11-15章)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Text Generator、Smart Connections</p>
+</li>
+<li class="lvl-2">
+<p>Copilot、ChatGPT MD</p>
+</li>
+<li class="lvl-2">
+<p>AI辅助写作最佳实践</p>
+</li>
+</ul>
+<p><strong>第五部分：实战应用</strong> (16-20章)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>知识管理系统、学术研究</p>
+</li>
+<li class="lvl-2">
+<p>项目管理、写作工作流</p>
+</li>
+<li class="lvl-2">
+<p>最佳实践与优化</p>
+</li>
+</ul>
+<p>所有章节已完成，开始你的Obsidian学习之旅吧！</p>
+<hr />
+<p><a href="home.html">返回首页</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#obsidian%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8B-%E7%9B%AE%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text"> Obsidian完全教程 - 目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86obsidian%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text"> 第一部分：Obsidian基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-obsidian%E5%85%A5%E9%97%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 1. Obsidian入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-markdown%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 2. Markdown基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%AC%94%E8%AE%B0%E7%AE%A1%E7%90%86"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 3. 笔记管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="toc-number">1.2.</span> <span class="toc-text"> 第二部分：核心功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%93%BE%E6%8E%A5%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 4. 链接系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%A0%87%E7%AD%BE%E4%B8%8E%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 5. 标签与元数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%90%9C%E7%B4%A2%E4%B8%8E%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 6. 搜索与查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%A8%A1%E6%9D%BF%E5%8A%9F%E8%83%BD"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 7. 模板功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD"><span class="toc-number">1.3.</span> <span class="toc-text"> 第三部分：高级功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-dataview%E6%8F%92%E4%BB%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 8. Dataview插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%BE%8E%E5%8C%96"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 9. 自定义与美化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%B7%A5%E4%BD%9C%E6%B5%81%E4%BC%98%E5%8C%96"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 10. 工作流优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86ai%E6%8F%92%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.4.</span> <span class="toc-text"> 第四部分：AI插件详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-text-generator%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 11. Text Generator插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-smart-connections%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 12. Smart Connections插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-copilot%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 13. Copilot插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-chatgpt-md%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 14. ChatGPT MD插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-ai%E8%BE%85%E5%8A%A9%E5%86%99%E4%BD%9C"><span class="toc-number">1.4.5.</span> <span class="toc-text"> 15. AI辅助写作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8"><span class="toc-number">1.5.</span> <span class="toc-text"> 第五部分：实战应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#16-%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 16. 知识管理系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-%E5%AD%A6%E6%9C%AF%E7%A0%94%E7%A9%B6"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 17. 学术研究</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 18. 项目管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-%E5%86%99%E4%BD%9C%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-number">1.5.4.</span> <span class="toc-text"> 19. 写作工作流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#20-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.5.5.</span> <span class="toc-text"> 20. 最佳实践</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.6.</span> <span class="toc-text"> 学习建议</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
