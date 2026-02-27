@@ -1,0 +1,697 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>OpenClaw 使用场景：交易/内容/研发/情报自动化的落地蓝图</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>// 兼容性：使用 var + 避免尾逗号，减少旧 WebView/内置浏览器“脚本不执行”导致的功能失效
+var GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  mpLock: {"keysHash":["743392a6cfca212568fbd1ca6b693f91f583f67672f2698b000dc20e062ddf6e"],"storageKey":"mp_lock_code","qrcode":"/img/20231027182204.png","title":"阅读全文需关注公众号","subtitle":"扫描下方二维码关注公众号，回复关键词获取解锁口令","keywordHint":"关键词：获取口令","inputPlaceholder":"请输入解锁口令","submitText":"解锁","errorMessage":"口令错误，请重新输入","successMessage":"解锁成功"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OpenClaw 使用场景：交易/内容/研发/情报自动化的落地蓝图',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-02-27 16:51:32'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">176</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">98</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><a href="/openclaw/home.html"><h2>OpenClaw教程</h2></a><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>01. 部署与初始化</h3><ul><li><a href="/openclaw/01-mac-setup.html">1. mac 部署</a></li><li><a href="/openclaw/02-windows-setup.html">2. windows 部署（WSL2）</a></li><li><a href="/openclaw/03-skills-practical.html">3. 实用 skills（选型/安装/覆盖/最佳实践）</a></li><li><a href="/openclaw/04-common-commands.html">4. 最常用命令（速查表）</a></li><li><a href="/openclaw/05-feishu-bot.html">5. 接入飞书机器人（Webhook / 事件回调 / 安全）</a></li><li><a href="/openclaw/06-soul.html">6. 角色设定：soul.md</a></li><li><a href="/openclaw/07-memory.html">7. 记忆设定：memory.md</a></li><li><a href="/openclaw/08-agent.html">8. Agent 设定：Agent.md</a></li><li><a href="/openclaw/09-use-cases.html">9. OpenClaw 使用场景</a></li></ul></div></div><div class="book-meta"><h3>🏷️ 标签（3）</h3><ul><li><a href="/tags/OpenClaw/">OpenClaw</a></li><li><a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a></li><li><a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">工作流</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（2）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/OpenClaw/">OpenClaw</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">OpenClaw 使用场景：交易/内容/研发/情报自动化的落地蓝图</h1><div class="book-body" id="article-container"><h1 id="openclaw-使用场景交易内容研发情报自动化的落地蓝图"><a class="markdownIt-Anchor" href="#openclaw-使用场景交易内容研发情报自动化的落地蓝图"></a> OpenClaw 使用场景：交易/内容/研发/情报自动化的落地蓝图</h1>
+<p>本章目标：把“我想用 Agent 赚钱/省时间”拆成可执行的工程闭环：<strong>数据 → 决策 → 执行 → 复盘</strong>，并明确安全边界与审计机制。</p>
+<blockquote>
+<p>交易相关仅作为自动化与工程流程示例，不构成投资建议。</p>
+</blockquote>
+<h2 id="0-通用落地框架强烈建议复用"><a class="markdownIt-Anchor" href="#0-通用落地框架强烈建议复用"></a> 0) 通用落地框架（强烈建议复用）</h2>
+<p>每个场景建议都按同一套目录组织，方便审计与迭代：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>inputs/</code>：原始输入（网页抓取、CSV、手工记录）</p>
+</li>
+<li class="lvl-2">
+<p><code>research/</code>：检索与摘要、来源链接</p>
+</li>
+<li class="lvl-2">
+<p><code>strategies/</code>：策略描述、参数、约束</p>
+</li>
+<li class="lvl-2">
+<p><code>runs/</code>：每次执行的计划、结果、日志</p>
+</li>
+<li class="lvl-2">
+<p><code>outputs/</code>：最终产出（文章、PR、报告）</p>
+</li>
+</ul>
+<p>通用安全策略：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>所有“有副作用动作”采用两段式：plan → confirm → execute</p>
+</li>
+<li class="lvl-2">
+<p>访问域名 allowlist</p>
+</li>
+<li class="lvl-2">
+<p>命令执行限制在 workspace</p>
+</li>
+<li class="lvl-2">
+<p>每次 run 生成 <code>runs/&lt;date&gt;/&lt;id&gt;/run.json</code>（含输入、输出、工具调用摘要）</p>
+</li>
+</ul>
+<h2 id="1-polymarket-市场赚-usd工程闭环示例"><a class="markdownIt-Anchor" href="#1-polymarket-市场赚-usd工程闭环示例"></a> 1) Polymarket 市场赚 USD（工程闭环示例）</h2>
+<h3 id="11-目标"><a class="markdownIt-Anchor" href="#11-目标"></a> 1.1 目标</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>自动发现可研究的 market</p>
+</li>
+<li class="lvl-2">
+<p>拉取规则与关键数据</p>
+</li>
+<li class="lvl-2">
+<p>生成研究简报 + 风险点</p>
+</li>
+<li class="lvl-2">
+<p>需要人工确认后才执行任何交易动作</p>
+</li>
+</ul>
+<h3 id="12-流程"><a class="markdownIt-Anchor" href="#12-流程"></a> 1.2 流程</h3>
+<ol>
+<li class="lvl-3">
+<p><code>web_search</code>：搜索 market 信息、官方规则、相关新闻</p>
+</li>
+<li class="lvl-3">
+<p><code>web_fetch</code>：抓取原文，结构化提取（市场描述、结算条件、时间点）</p>
+</li>
+<li class="lvl-3">
+<p>生成 <code>research/polymarket/&lt;date&gt;/brief.md</code></p>
+</li>
+<li class="lvl-3">
+<p>生成 <code>strategies/polymarket/&lt;market-id&gt;.md</code>（只写规则与观察，不写买卖建议）</p>
+</li>
+<li class="lvl-3">
+<p>若要执行：单独的“执行器”必须：</p>
+<ul class="lvl-2">
+<li class="lvl-5">明确金额上限</li>
+<li class="lvl-5">明确止损/退出条件</li>
+<li class="lvl-5">全程日志</li>
+<li class="lvl-5">人工确认</li>
+</ul>
+</li>
+</ol>
+<h3 id="13-风控与合规提醒"><a class="markdownIt-Anchor" href="#13-风控与合规提醒"></a> 1.3 风控与合规提醒</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>严格限制自动下单：默认禁用</p>
+</li>
+<li class="lvl-2">
+<p>任何“绕过风控/自动登录”行为不做</p>
+</li>
+</ul>
+<h2 id="2-a-股中低频赚取人民币工程闭环示例"><a class="markdownIt-Anchor" href="#2-a-股中低频赚取人民币工程闭环示例"></a> 2) A 股中低频赚取人民币（工程闭环示例）</h2>
+<h3 id="21-目标"><a class="markdownIt-Anchor" href="#21-目标"></a> 2.1 目标</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>自动整理数据与研究素材</p>
+</li>
+<li class="lvl-2">
+<p>产出可复盘的策略说明</p>
+</li>
+<li class="lvl-2">
+<p>执行层必须可控：人工确认、严格风控</p>
+</li>
+</ul>
+<h3 id="22-流程"><a class="markdownIt-Anchor" href="#22-流程"></a> 2.2 流程</h3>
+<ol>
+<li class="lvl-3">
+<p>数据收集：</p>
+<ul class="lvl-2">
+<li class="lvl-5">财报、公告、行业数据（web_fetch）</li>
+<li class="lvl-5">交易数据（由你提供 CSV 或合法 API）</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p>清洗与特征生成：在 <code>exec</code> 中做（限制目录）</p>
+</li>
+<li class="lvl-3">
+<p>产出：</p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>research/ashare/&lt;date&gt;/watchlist.md</code></li>
+<li class="lvl-5"><code>strategies/ashare/&lt;strategy&gt;.md</code>（信号定义、参数、过滤条件、风险）</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p>执行：仅生成“交易计划”，由人确认</p>
+</li>
+<li class="lvl-3">
+<p>复盘：自动汇总盈亏、偏差、异常原因</p>
+</li>
+</ol>
+<h2 id="3-操作-github-自动生成网站内容"><a class="markdownIt-Anchor" href="#3-操作-github-自动生成网站内容"></a> 3) 操作 GitHub 自动生成网站内容</h2>
+<h3 id="31-目标"><a class="markdownIt-Anchor" href="#31-目标"></a> 3.1 目标</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>从输入主题/素材 → 生成 Markdown 文章</p>
+</li>
+<li class="lvl-2">
+<p>自动创建分支、提交、发 PR</p>
+</li>
+</ul>
+<h3 id="32-流程"><a class="markdownIt-Anchor" href="#32-流程"></a> 3.2 流程</h3>
+<ol>
+<li class="lvl-3">
+<p>需求输入写入：<code>inputs/content/&lt;topic&gt;.md</code></p>
+</li>
+<li class="lvl-3">
+<p>Agent 生成：<code>source/_posts/.../*.md</code> 或 <code>source/&lt;book&gt;/.../*.md</code></p>
+</li>
+<li class="lvl-3">
+<p>校验（lint/构建）</p>
+</li>
+<li class="lvl-3">
+<p>git 提交与 PR：</p>
+<ul class="lvl-2">
+<li class="lvl-5">分支命名：<code>content/&lt;date&gt;-&lt;topic&gt;</code></li>
+<li class="lvl-5">PR 模板包含：来源、摘要、风险点</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-发布小红书内容生产与发布流程"><a class="markdownIt-Anchor" href="#4-发布小红书内容生产与发布流程"></a> 4) 发布小红书（内容生产与发布流程）</h2>
+<h3 id="41-目标"><a class="markdownIt-Anchor" href="#41-目标"></a> 4.1 目标</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>文章 → 小红书风格改写（标题/封面要点/标签）</p>
+</li>
+<li class="lvl-2">
+<p>发布步骤半自动（避免账号风险）</p>
+</li>
+</ul>
+<h3 id="42-流程"><a class="markdownIt-Anchor" href="#42-流程"></a> 4.2 流程</h3>
+<ol>
+<li class="lvl-3">
+<p>生成内容包：</p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>outputs/xhs/&lt;date&gt;/post.md</code>（正文）</li>
+<li class="lvl-5"><code>outputs/xhs/&lt;date&gt;/title_candidates.md</code></li>
+<li class="lvl-5"><code>outputs/xhs/&lt;date&gt;/tags.md</code></li>
+</ul>
+</li>
+<li class="lvl-3">
+<p>若需要配图：生成“配图提示词”（不直接生成也可）</p>
+</li>
+<li class="lvl-3">
+<p>发布：建议人工完成或用浏览器半自动（需要明确 allowlist 与确认步骤）</p>
+</li>
+</ol>
+<h2 id="5-自动收集新闻并产出文章安全漏洞-股票财经-产品跟踪"><a class="markdownIt-Anchor" href="#5-自动收集新闻并产出文章安全漏洞-股票财经-产品跟踪"></a> 5) 自动收集新闻并产出文章（安全漏洞 / 股票财经 / 产品跟踪）</h2>
+<h3 id="51-目标"><a class="markdownIt-Anchor" href="#51-目标"></a> 5.1 目标</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>每日定时收集 → 去重 → 结构化归档 → 生成文章</p>
+</li>
+</ul>
+<h3 id="52-数据源建议"><a class="markdownIt-Anchor" href="#52-数据源建议"></a> 5.2 数据源建议</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>安全漏洞：官方公告、CVE、厂商安全通告</p>
+</li>
+<li class="lvl-2">
+<p>财经：公告、财报、宏观数据</p>
+</li>
+<li class="lvl-2">
+<p>产品跟踪：release notes、博客、issue/PR</p>
+</li>
+</ul>
+<h3 id="53-流程"><a class="markdownIt-Anchor" href="#53-流程"></a> 5.3 流程</h3>
+<ol>
+<li class="lvl-3">
+<p><code>web_search</code>：按关键字拉取候选</p>
+</li>
+<li class="lvl-3">
+<p><code>web_fetch</code>：抓原文 + 解析</p>
+</li>
+<li class="lvl-3">
+<p>去重：URL + 标题 + 内容 hash</p>
+</li>
+<li class="lvl-3">
+<p>归档：</p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>inputs/news/&lt;date&gt;/items.json</code></li>
+<li class="lvl-5"><code>research/news/&lt;date&gt;/digest.md</code></li>
+</ul>
+</li>
+<li class="lvl-3">
+<p>生成文章：</p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>outputs/news/&lt;date&gt;/article.md</code></li>
+<li class="lvl-5">包含来源链接列表</li>
+</ul>
+</li>
+</ol>
+<hr />
+<p><a href="menu.html">返回目录</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#openclaw-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%BA%A4%E6%98%93%E5%86%85%E5%AE%B9%E7%A0%94%E5%8F%91%E6%83%85%E6%8A%A5%E8%87%AA%E5%8A%A8%E5%8C%96%E7%9A%84%E8%90%BD%E5%9C%B0%E8%93%9D%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text"> OpenClaw 使用场景：交易&#x2F;内容&#x2F;研发&#x2F;情报自动化的落地蓝图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E9%80%9A%E7%94%A8%E8%90%BD%E5%9C%B0%E6%A1%86%E6%9E%B6%E5%BC%BA%E7%83%88%E5%BB%BA%E8%AE%AE%E5%A4%8D%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text"> 0) 通用落地框架（强烈建议复用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-polymarket-%E5%B8%82%E5%9C%BA%E8%B5%9A-usd%E5%B7%A5%E7%A8%8B%E9%97%AD%E7%8E%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 1) Polymarket 市场赚 USD（工程闭环示例）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E7%9B%AE%E6%A0%87"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 1.1 目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 1.2 流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E9%A3%8E%E6%8E%A7%E4%B8%8E%E5%90%88%E8%A7%84%E6%8F%90%E9%86%92"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 1.3 风控与合规提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-a-%E8%82%A1%E4%B8%AD%E4%BD%8E%E9%A2%91%E8%B5%9A%E5%8F%96%E4%BA%BA%E6%B0%91%E5%B8%81%E5%B7%A5%E7%A8%8B%E9%97%AD%E7%8E%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> 2) A 股中低频赚取人民币（工程闭环示例）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E7%9B%AE%E6%A0%87"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 2.1 目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 2.2 流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%93%8D%E4%BD%9C-github-%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%BD%91%E7%AB%99%E5%86%85%E5%AE%B9"><span class="toc-number">1.4.</span> <span class="toc-text"> 3) 操作 GitHub 自动生成网站内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-%E7%9B%AE%E6%A0%87"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 3.1 目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 3.2 流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8F%91%E5%B8%83%E5%B0%8F%E7%BA%A2%E4%B9%A6%E5%86%85%E5%AE%B9%E7%94%9F%E4%BA%A7%E4%B8%8E%E5%8F%91%E5%B8%83%E6%B5%81%E7%A8%8B"><span class="toc-number">1.5.</span> <span class="toc-text"> 4) 发布小红书（内容生产与发布流程）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#41-%E7%9B%AE%E6%A0%87"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 4.1 目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#42-%E6%B5%81%E7%A8%8B"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 4.2 流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%87%AA%E5%8A%A8%E6%94%B6%E9%9B%86%E6%96%B0%E9%97%BB%E5%B9%B6%E4%BA%A7%E5%87%BA%E6%96%87%E7%AB%A0%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E-%E8%82%A1%E7%A5%A8%E8%B4%A2%E7%BB%8F-%E4%BA%A7%E5%93%81%E8%B7%9F%E8%B8%AA"><span class="toc-number">1.6.</span> <span class="toc-text"> 5) 自动收集新闻并产出文章（安全漏洞 &#x2F; 股票财经 &#x2F; 产品跟踪）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#51-%E7%9B%AE%E6%A0%87"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 5.1 目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#52-%E6%95%B0%E6%8D%AE%E6%BA%90%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 5.2 数据源建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#53-%E6%B5%81%E7%A8%8B"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 5.3 流程</span></a></li></ol></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
