@@ -27,6 +27,14 @@
     <!-- 返回主页按钮 -->
     <div class="page-actions">
       <a class="back-home" href="/" aria-label="返回主页">← 返回主页</a>
+      <div class="exam-menu">
+        <button class="exam-menu-btn">📝 考试系统 ▼</button>
+        <div class="exam-menu-dropdown">
+          <a href="/gaoxiang-exam/" class="exam-menu-item active">🎯 软考高项</a>
+          <a href="/kemuyi-exam/" class="exam-menu-item">🚗 驾驶科目一</a>
+          <a href="/ket-exam/" class="exam-menu-item">📖 KET单词</a>
+        </div>
+      </div>
       <a class="back-exam" href="/gaoxiang-exam/" aria-label="重新选择">🔄 重新选择</a>
     </div>
 
@@ -132,6 +140,28 @@
     </div>
   </div>
 
+  <script>
+    // 考试系统下拉菜单交互
+    document.addEventListener('DOMContentLoaded', () => {
+      const examMenu = document.querySelector('.exam-menu');
+      const examMenuBtn = document.querySelector('.exam-menu-btn');
+      
+      if (examMenuBtn) {
+        examMenuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          examMenu.classList.toggle('active');
+        });
+        
+        document.addEventListener('click', () => {
+          examMenu.classList.remove('active');
+        });
+        
+        examMenu.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+      }
+    });
+  </script>
   <script src="/js/exam.js"></script>
 </body>
 </html>

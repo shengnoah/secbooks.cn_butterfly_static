@@ -654,3 +654,75 @@ body {
   display: flex;
   align-items: center;
 }
+
+/* 考试系统下拉菜单 */
+.exam-menu {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.exam-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--exam-border);
+  background: var(--exam-card-bg);
+  color: var(--exam-text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exam-menu-btn:hover {
+  background: var(--exam-option-hover);
+  border-color: var(--exam-primary);
+}
+
+.exam-menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  background: var(--exam-card-bg);
+  border: 1px solid var(--exam-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 160px;
+  z-index: 1000;
+}
+
+.exam-menu.active .exam-menu-dropdown {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+.exam-menu-item {
+  display: block;
+  padding: 10px 16px;
+  color: var(--exam-text-primary);
+  text-decoration: none;
+  transition: background-color 0.2s;
+  font-size: 14px;
+}
+
+.exam-menu-item:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.exam-menu-item:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.exam-menu-item:hover {
+  background: var(--exam-option-hover);
+}
+
+.exam-menu-item.active {
+  background: var(--exam-option-selected);
+  color: var(--exam-primary);
+  font-weight: 600;
+}
