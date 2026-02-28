@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>小轿车驾驶科目一模拟考试 - C1驾照理论考试</title>
+  <meta name="description" content="小轿车驾驶科目一在线模拟考试，随机抽取100道单选题，包含交通信号、安全行车、违法行为等6大类别，提供答案解析和错误原因说明。">
+  <meta name="keywords" content="科目一,驾照考试,C1驾照,理论考试,模拟考试,交通规则,驾驶知识">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="/kemuyi-exam/">
+
+  <!-- Social Preview -->
+  <meta property="og:title" content="小轿车驾驶科目一模拟考试 - C1驾照理论考试">
+  <meta property="og:description" content="在线模拟考试，随机抽取100道单选题，包含答案解析和错误原因说明。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="小轿车驾驶科目一模拟考试">
+  <meta name="twitter:description" content="在线模拟考试，随机抽取100道单选题。">
+
+  <link rel="stylesheet" href="/css/exam.css">
+</head>
+<body>
+  <div id="exam-page">
+    <!-- 返回主页按钮 -->
+    <div class="page-actions">
+      <a class="back-home" href="/" aria-label="返回主页">← 返回主页</a>
+      <a class="back-exam" href="/kemuyi-exam/" aria-label="重新选择">🔄 重新选择</a>
+    </div>
+
+    <!-- 页面标题 -->
+    <div class="exam-header">
+      <h1>小轿车驾驶科目一模拟考试</h1>
+      <p>C1驾照理论考试 · 选择类别开始考试</p>
+    </div>
+
+    <!-- 类别选择界面 -->
+    <div id="category-selection" class="category-selection">
+      <h2 class="selection-title">选择考试类别</h2>
+      <p class="selection-subtitle">从300道题库中随机抽取100道题进行考试（及格标准：90分）</p>
+      
+      <div id="category-grid" class="category-grid">
+        <!-- 类别卡片将通过JS动态生成 -->
+      </div>
+    </div>
+
+    <!-- 加载状态 -->
+    <div id="loading-container" class="loading-container" style="display: none;">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">正在加载题库...</p>
+    </div>
+
+    <!-- 错误状态 -->
+    <div id="error-container" class="error-container" style="display: none;">
+      <div class="error-icon">⚠️</div>
+      <p class="error-message">加载失败</p>
+      <button class="retry-btn" onclick="window.location.reload()">重试</button>
+    </div>
+
+    <!-- 考试区域 -->
+    <div id="exam-container" class="exam-container">
+      <!-- 进度条 -->
+      <div class="progress-section">
+        <div class="progress-bar">
+          <div id="progress-bar" class="progress-fill"></div>
+        </div>
+        <p id="progress-text" class="progress-text">题目 1 / 100</p>
+      </div>
+
+      <!-- 题目区域 -->
+      <div class="question-section">
+        <div class="question-meta">
+          <span id="question-category" class="question-category">交通信号</span>
+          <span id="question-difficulty" class="question-difficulty difficulty-medium">中等</span>
+        </div>
+        <p id="question-content" class="question-content">
+          题目内容将在这里显示...
+        </p>
+      </div>
+
+      <!-- 选项区域 -->
+      <div id="options-container" class="options-section">
+        <!-- 选项将通过JS动态生成 -->
+      </div>
+
+      <!-- 解析区域 -->
+      <div id="explanation-section" class="explanation-section">
+        <p id="explanation-title" class="explanation-title"></p>
+        <div id="explanation-content" class="explanation-content"></div>
+      </div>
+
+      <!-- 导航按钮 -->
+      <div class="navigation-section">
+        <button id="prev-btn" class="nav-btn nav-btn-secondary" disabled>← 上一题</button>
+        <button id="next-btn" class="nav-btn nav-btn-primary">下一题 →</button>
+        <button id="submit-btn" class="nav-btn nav-btn-primary" style="display: none;">提交考试</button>
+      </div>
+    </div>
+
+    <!-- 结果区域 -->
+    <div id="result-container" class="result-container">
+      <div id="result-icon" class="result-icon">🎉</div>
+      <h2 id="result-title" class="result-title">考试完成！</h2>
+      <p id="result-subtitle" class="result-subtitle">查看你的考试结果</p>
+
+      <div class="result-stats">
+        <div class="stat-card">
+          <div id="score-value" class="stat-value">0</div>
+          <div class="stat-label">总分</div>
+        </div>
+        <div class="stat-card">
+          <div id="correct-value" class="stat-value correct">0</div>
+          <div class="stat-label">正确</div>
+        </div>
+        <div class="stat-card">
+          <div id="wrong-value" class="stat-value wrong">0</div>
+          <div class="stat-label">错误</div>
+        </div>
+      </div>
+
+      <div class="stat-card" style="margin-bottom: 30px;">
+        <div id="accuracy-value" class="stat-value">0%</div>
+        <div class="stat-label">正确率</div>
+      </div>
+
+      <div class="result-actions">
+        <button id="restart-btn" class="nav-btn nav-btn-primary">重新开始</button>
+        <button id="retry-btn" class="nav-btn nav-btn-secondary">重新加载题库</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/kemuyi-exam.js"></script>
+</body>
+</html>
