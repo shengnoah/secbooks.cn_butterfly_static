@@ -1,0 +1,1129 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第1章 欢迎与项目定位 - OpenClaw 到底是什么？</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>// 兼容性：使用 var + 避免尾逗号，减少旧 WebView/内置浏览器“脚本不执行”导致的功能失效
+var GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  mpLock: {"keysHash":["743392a6cfca212568fbd1ca6b693f91f583f67672f2698b000dc20e062ddf6e"],"storageKey":"mp_lock_code","qrcode":"/img/20231027182204.png","title":"阅读全文需关注公众号","subtitle":"扫描下方二维码关注公众号，回复关键词获取解锁口令","keywordHint":"关键词：获取口令","inputPlaceholder":"请输入解锁口令","submitText":"解锁","errorMessage":"口令错误，请重新输入","successMessage":"解锁成功"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '第1章 欢迎与项目定位 - OpenClaw 到底是什么？',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-03-03 12:38:59'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">181</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">101</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><a href="/openclaw/home.html"><h2>OpenClaw教程</h2></a><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>第一部分：快速入门</h3><ul><li><a href="/openclaw/01-welcome.html">1. 欢迎与项目定位</a></li><li><a href="/openclaw/02-quick-start.html">2. 三步快速上手</a></li><li><a href="/openclaw/03-faq-60s.html">3. 常见问题 60 秒自救</a></li><li><a href="/openclaw/04-learning-path.html">4. 选择你的学习路径</a></li><li><a href="/openclaw/05-core-concepts.html">5. 核心概念速览</a></li><li><a href="/openclaw/06-installation.html">6. 完整安装指南</a></li><li><a href="/openclaw/07-config-guide.html">7. 配置详解</a></li><li><a href="/openclaw/08-channels.html">8. 常用聊天渠道接入</a></li><li><a href="/openclaw/09-persona.html">9. 第一次自己调教人设</a></li><li><a href="/openclaw/10-skill-system.html">10. 技能系统全解</a></li><li><a href="/openclaw/11-memory.html">11. 记忆与长期记忆</a></li><li><a href="/openclaw/12-multi-agent.html">12. 多 Agent 协作架构入门</a></li><li><a href="/openclaw/13-sandbox.html">13. 沙箱隔离与安全执行</a></li><li><a href="/openclaw/14-deployment.html">14. VPS/服务器部署实战</a></li><li><a href="/openclaw/15-security.html">15. 安全加固检查清单</a></li><li><a href="/openclaw/16-risk-assessment.html">16. 企业风险评估问卷</a></li><li><a href="/openclaw/17-use-cases.html">17. 典型场景实战案例</a></li><li><a href="/openclaw/18-model-customization.html">18. 深入模型层定制</a></li><li><a href="/openclaw/19-community-cases.html">19. 社区精选用例精读</a></li><li><a href="/openclaw/20-contribution.html">20. 贡献与生态</a></li><li><a href="/openclaw/appendix-a-config.html">附录 A. 全部配置参数</a></li><li><a href="/openclaw/appendix-b-errors.html">附录 B. 错误码与解决方案</a></li><li><a href="/openclaw/appendix-c-models.html">附录 C. 推荐模型列表</a></li><li><a href="/openclaw/appendix-d-videos.html">附录 D. 视频教程索引</a></li><li><a href="/openclaw/appendix-e-tips.html">附录 E. 快捷键与实用技巧</a></li><li><a href="/openclaw/appendix-f-changelog.html">附录 F. 更新日志与 Roadmap</a></li></ul></div></div><div class="book-meta"><h3>🏷️ 标签（3）</h3><ul><li><a href="/tags/OpenClaw/">OpenClaw</a></li><li><a href="/tags/%E5%85%A5%E9%97%A8/">入门</a></li><li><a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D/">项目定位</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（2）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/OpenClaw/">OpenClaw</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">第1章 欢迎与项目定位 - OpenClaw 到底是什么？</h1><div class="book-body" id="article-container"><h1 id="第1章-欢迎与项目定位"><a class="markdownIt-Anchor" href="#第1章-欢迎与项目定位"></a> 第1章 欢迎与项目定位</h1>
+<p>欢迎来到 OpenClaw 的世界！在开始动手之前，让我们先搞清楚 OpenClaw 到底是什么，能做什么，以及为什么值得你花时间学习。</p>
+<h2 id="本章目标"><a class="markdownIt-Anchor" href="#本章目标"></a> 🎯 本章目标</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>理解 OpenClaw 的核心定位和价值</p>
+</li>
+<li class="lvl-2">
+<p>了解系统要求和环境准备</p>
+</li>
+<li class="lvl-2">
+<p>明确 OpenClaw 与其他 AI 工具的区别</p>
+</li>
+<li class="lvl-2">
+<p>确认你是否适合使用 OpenClaw</p>
+</li>
+</ul>
+<hr />
+<h2 id="一-openclaw-到底是什么"><a class="markdownIt-Anchor" href="#一-openclaw-到底是什么"></a> 一、OpenClaw 到底是什么？</h2>
+<h3 id="一句话版本"><a class="markdownIt-Anchor" href="#一句话版本"></a> 📌 一句话版本</h3>
+<p><strong>OpenClaw 是一个开源的 AI Agent 框架，让你能够快速构建、部署和管理智能助手。</strong></p>
+<h3 id="三句话版本"><a class="markdownIt-Anchor" href="#三句话版本"></a> 📌 三句话版本</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>OpenClaw 是一个 AI Agent 框架</strong>：它提供了构建智能助手所需的完整基础设施，包括模型接入、技能系统、记忆管理、多渠道通信等核心能力。</p>
+</li>
+<li class="lvl-3">
+<p><strong>OpenClaw 是开源的</strong>：完全开源，代码透明，社区驱动，你可以自由定制、扩展和部署，不受任何厂商锁定。</p>
+</li>
+<li class="lvl-3">
+<p><strong>OpenClaw 注重工程落地</strong>：不是玩具或 Demo，而是面向生产环境设计，支持企业级部署、安全隔离、高可用架构。</p>
+</li>
+</ol>
+<h3 id="十句话版本完整介绍"><a class="markdownIt-Anchor" href="#十句话版本完整介绍"></a> 📌 十句话版本（完整介绍）</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>定位</strong>：OpenClaw 是一个面向开发者和企业的开源 AI Agent 框架，专注于让 AI 助手的构建、部署和管理变得简单高效。</p>
+</li>
+<li class="lvl-3">
+<p><strong>核心能力</strong>：提供模型抽象层（支持 OpenAI、Claude、通义千问等主流大模型）、技能系统（Skill）、记忆管理（Memory）、多渠道通信（Channel）等核心组件。</p>
+</li>
+<li class="lvl-3">
+<p><strong>技能系统</strong>：内置丰富的 Skill（如网页搜索、代码执行、文件操作等），同时支持开发者用 TypeScript 编写自定义 Skill，实现任意功能扩展。</p>
+</li>
+<li class="lvl-3">
+<p><strong>多渠道支持</strong>：可以将同一个 Agent 同时接入 QQ、飞书、钉钉、企业微信、Telegram、Discord 等多个平台，实现统一管理。</p>
+</li>
+<li class="lvl-3">
+<p><strong>记忆系统</strong>：支持短期记忆和长期记忆（向量数据库），让 Agent 能够记住历史对话，实现上下文连贯和知识积累。</p>
+</li>
+<li class="lvl-3">
+<p><strong>多 Agent 协作</strong>：支持构建多个 Agent 协同工作的复杂系统，如 Router-Worker-Critic 模式，实现任务分解和质量把控。</p>
+</li>
+<li class="lvl-3">
+<p><strong>安全隔离</strong>：提供沙箱执行环境（Docker、gVisor、wasmtime 等），确保代码执行的安全性，适合企业生产环境。</p>
+</li>
+<li class="lvl-3">
+<p><strong>工程化设计</strong>：支持 Docker 部署、systemd 守护进程、Nginx 反向代理、日志管理、监控告警等生产级特性。</p>
+</li>
+<li class="lvl-3">
+<p><strong>社区生态</strong>：拥有活跃的开源社区，提供丰富的案例库（awesome-openclaw-usecases）、插件市场（规划中）、中文文档和技术支持。</p>
+</li>
+<li class="lvl-4">
+<p><strong>持续演进</strong>：项目处于快速迭代中，定期发布新版本，引入新特性，跟随 AI 技术发展不断优化。</p>
+</li>
+</ol>
+<hr />
+<h2 id="二-openclaw-能做什么"><a class="markdownIt-Anchor" href="#二-openclaw-能做什么"></a> 二、OpenClaw 能做什么？</h2>
+<h3 id="个人场景"><a class="markdownIt-Anchor" href="#个人场景"></a> 🔹 个人场景</h3>
+<h4 id="1-智能助手"><a class="markdownIt-Anchor" href="#1-智能助手"></a> 1. 智能助手</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>日程管理、提醒、备忘录</p>
+</li>
+<li class="lvl-2">
+<p>信息检索、知识问答</p>
+</li>
+<li class="lvl-2">
+<p>文档整理、笔记归档</p>
+</li>
+</ul>
+<h4 id="2-学习伴侣"><a class="markdownIt-Anchor" href="#2-学习伴侣"></a> 2. 学习伴侣</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>论文阅读助手（自动摘要、关键点提取）</p>
+</li>
+<li class="lvl-2">
+<p>代码学习助手（解释代码、生成示例）</p>
+</li>
+<li class="lvl-2">
+<p>外语学习助手（翻译、语法纠错）</p>
+</li>
+</ul>
+<h4 id="3-创作工具"><a class="markdownIt-Anchor" href="#3-创作工具"></a> 3. 创作工具</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>文案生成（营销文案、社交媒体内容）</p>
+</li>
+<li class="lvl-2">
+<p>代码生成（脚手架、工具脚本）</p>
+</li>
+<li class="lvl-2">
+<p>图文排版（多 Agent 协作）</p>
+</li>
+</ul>
+<h3 id="团队场景"><a class="markdownIt-Anchor" href="#团队场景"></a> 🔹 团队场景</h3>
+<h4 id="1-群聊管理"><a class="markdownIt-Anchor" href="#1-群聊管理"></a> 1. 群聊管理</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>自动回答常见问题</p>
+</li>
+<li class="lvl-2">
+<p>会议纪要整理</p>
+</li>
+<li class="lvl-2">
+<p>任务分配和跟踪</p>
+</li>
+</ul>
+<h4 id="2-客服机器人"><a class="markdownIt-Anchor" href="#2-客服机器人"></a> 2. 客服机器人</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>7x24 小时在线</p>
+</li>
+<li class="lvl-2">
+<p>多渠道统一管理</p>
+</li>
+<li class="lvl-2">
+<p>知识库检索（RAG）</p>
+</li>
+</ul>
+<h4 id="3-开发辅助"><a class="markdownIt-Anchor" href="#3-开发辅助"></a> 3. 开发辅助</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>代码审查助手</p>
+</li>
+<li class="lvl-2">
+<p>文档自动生成</p>
+</li>
+<li class="lvl-2">
+<p>Bug 分析和修复建议</p>
+</li>
+</ul>
+<h3 id="企业场景"><a class="markdownIt-Anchor" href="#企业场景"></a> 🔹 企业场景</h3>
+<h4 id="1-业务自动化"><a class="markdownIt-Anchor" href="#1-业务自动化"></a> 1. 业务自动化</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>数据采集和分析</p>
+</li>
+<li class="lvl-2">
+<p>报表自动生成</p>
+</li>
+<li class="lvl-2">
+<p>流程审批辅助</p>
+</li>
+</ul>
+<h4 id="2-知识管理"><a class="markdownIt-Anchor" href="#2-知识管理"></a> 2. 知识管理</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>企业知识库构建</p>
+</li>
+<li class="lvl-2">
+<p>文档智能检索</p>
+</li>
+<li class="lvl-2">
+<p>经验沉淀和传承</p>
+</li>
+</ul>
+<h4 id="3-运营支持"><a class="markdownIt-Anchor" href="#3-运营支持"></a> 3. 运营支持</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>内容审核</p>
+</li>
+<li class="lvl-2">
+<p>舆情监控</p>
+</li>
+<li class="lvl-2">
+<p>用户反馈分析</p>
+</li>
+</ul>
+<hr />
+<h2 id="三-系统要求与环境准备"><a class="markdownIt-Anchor" href="#三-系统要求与环境准备"></a> 三、系统要求与环境准备</h2>
+<h3 id="硬件要求"><a class="markdownIt-Anchor" href="#硬件要求"></a> 📋 硬件要求</h3>
+<h4 id="最低配置"><a class="markdownIt-Anchor" href="#最低配置"></a> 最低配置</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>CPU</strong>：2 核心</p>
+</li>
+<li class="lvl-2">
+<p><strong>内存</strong>：4GB RAM</p>
+</li>
+<li class="lvl-2">
+<p><strong>存储</strong>：10GB 可用空间</p>
+</li>
+<li class="lvl-2">
+<p><strong>网络</strong>：稳定的互联网连接（访问大模型 API）</p>
+</li>
+</ul>
+<h4 id="推荐配置"><a class="markdownIt-Anchor" href="#推荐配置"></a> 推荐配置</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>CPU</strong>：4 核心或更多</p>
+</li>
+<li class="lvl-2">
+<p><strong>内存</strong>：8GB RAM 或更多</p>
+</li>
+<li class="lvl-2">
+<p><strong>存储</strong>：20GB+ SSD</p>
+</li>
+<li class="lvl-2">
+<p><strong>网络</strong>：低延迟网络（&lt; 100ms 到模型 API）</p>
+</li>
+</ul>
+<h4 id="生产环境配置"><a class="markdownIt-Anchor" href="#生产环境配置"></a> 生产环境配置</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>CPU</strong>：8 核心或更多</p>
+</li>
+<li class="lvl-2">
+<p><strong>内存</strong>：16GB RAM 或更多</p>
+</li>
+<li class="lvl-2">
+<p><strong>存储</strong>：50GB+ SSD（用于日志和向量数据库）</p>
+</li>
+<li class="lvl-2">
+<p><strong>网络</strong>：高带宽、低延迟、高可用</p>
+</li>
+</ul>
+<h3 id="软件要求"><a class="markdownIt-Anchor" href="#软件要求"></a> 💻 软件要求</h3>
+<h4 id="必需软件"><a class="markdownIt-Anchor" href="#必需软件"></a> 必需软件</h4>
+<p><strong>Node.js 22+</strong>（核心要求）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查 Node.js 版本</span>
+<span class="token function">node</span> <span class="token parameter variable">-v</span>
+<span class="token comment"># 应该输出 v22.x.x 或更高版本</span>
+
+<span class="token comment"># 如果版本过低，需要升级</span>
+<span class="token comment"># macOS (使用 nvm)</span>
+nvm <span class="token function">install</span> <span class="token number">22</span>
+nvm use <span class="token number">22</span>
+
+<span class="token comment"># Ubuntu/Debian</span>
+<span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://deb.nodesource.com/setup_22.x <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-E</span> <span class="token function">bash</span> -
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> nodejs
+
+<span class="token comment"># Windows (使用 nvm-windows)</span>
+<span class="token comment"># 下载安装 nvm-windows，然后：</span>
+nvm <span class="token function">install</span> <span class="token number">22</span>
+nvm use <span class="token number">22</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>npm 或 pnpm</strong>（包管理器）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># npm 通常随 Node.js 一起安装</span>
+<span class="token function">npm</span> <span class="token parameter variable">-v</span>
+
+<span class="token comment"># 或者使用 pnpm（推荐，更快）</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> <span class="token function">pnpm</span>
+<span class="token function">pnpm</span> <span class="token parameter variable">-v</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="可选软件"><a class="markdownIt-Anchor" href="#可选软件"></a> 可选软件</h4>
+<p><strong>Docker</strong>（用于沙箱隔离和容器化部署）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查 Docker 是否安装</span>
+<span class="token function">docker</span> <span class="token parameter variable">--version</span>
+
+<span class="token comment"># macOS</span>
+<span class="token comment"># 下载安装 Docker Desktop for Mac</span>
+
+<span class="token comment"># Ubuntu/Debian</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> update
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> docker.io
+<span class="token function">sudo</span> systemctl start <span class="token function">docker</span>
+<span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> <span class="token function">docker</span>
+
+<span class="token comment"># 验证安装</span>
+<span class="token function">docker</span> run hello-world<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>Git</strong>（用于版本控制和克隆仓库）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查 Git 是否安装</span>
+<span class="token function">git</span> <span class="token parameter variable">--version</span>
+
+<span class="token comment"># macOS</span>
+brew <span class="token function">install</span> <span class="token function">git</span>
+
+<span class="token comment"># Ubuntu/Debian</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">git</span>
+
+<span class="token comment"># Windows</span>
+<span class="token comment"># 下载安装 Git for Windows</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="网络要求"><a class="markdownIt-Anchor" href="#网络要求"></a> 🌐 网络要求</h3>
+<h4 id="api-访问"><a class="markdownIt-Anchor" href="#api-访问"></a> API 访问</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>能够访问大模型 API（OpenAI、Anthropic、阿里云等）</p>
+</li>
+<li class="lvl-2">
+<p>如果在国内，可能需要配置代理或使用国内模型</p>
+</li>
+</ul>
+<h4 id="代理配置可选"><a class="markdownIt-Anchor" href="#代理配置可选"></a> 代理配置（可选）</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置 HTTP 代理</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HTTP_PROXY</span><span class="token operator">=</span>http://127.0.0.1:7890
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HTTPS_PROXY</span><span class="token operator">=</span>http://127.0.0.1:7890
+
+<span class="token comment"># 或者在 npm 中配置代理</span>
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> proxy http://127.0.0.1:7890
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> https-proxy http://127.0.0.1:7890
+
+<span class="token comment"># pnpm 代理配置</span>
+<span class="token function">pnpm</span> config <span class="token builtin class-name">set</span> proxy http://127.0.0.1:7890
+<span class="token function">pnpm</span> config <span class="token builtin class-name">set</span> https-proxy http://127.0.0.1:7890<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="api-key-准备"><a class="markdownIt-Anchor" href="#api-key-准备"></a> 🔑 API Key 准备</h3>
+<p>在开始使用 OpenClaw 之前，你需要至少准备一个大模型的 API Key：</p>
+<h4 id="选项-1openai推荐功能最完整"><a class="markdownIt-Anchor" href="#选项-1openai推荐功能最完整"></a> 选项 1：OpenAI（推荐，功能最完整）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>注册地址：<a target="_blank" rel="noopener" href="https://platform.openai.com/">https://platform.openai.com/</a></p>
+</li>
+<li class="lvl-2">
+<p>费用：按使用量计费（GPT-4: ~$0.03/1K tokens）</p>
+</li>
+<li class="lvl-2">
+<p>优点：功能强大，生态完善</p>
+</li>
+<li class="lvl-2">
+<p>缺点：需要国际信用卡，国内访问需要代理</p>
+</li>
+</ul>
+<h4 id="选项-2anthropic-claude推荐性价比高"><a class="markdownIt-Anchor" href="#选项-2anthropic-claude推荐性价比高"></a> 选项 2：Anthropic Claude（推荐，性价比高）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>注册地址：<a target="_blank" rel="noopener" href="https://console.anthropic.com/">https://console.anthropic.com/</a></p>
+</li>
+<li class="lvl-2">
+<p>费用：按使用量计费（Claude 3.5 Sonnet: ~$0.003/1K tokens）</p>
+</li>
+<li class="lvl-2">
+<p>优点：性价比高，上下文窗口大</p>
+</li>
+<li class="lvl-2">
+<p>缺点：需要国际信用卡</p>
+</li>
+</ul>
+<h4 id="选项-3国内大模型无需代理"><a class="markdownIt-Anchor" href="#选项-3国内大模型无需代理"></a> 选项 3：国内大模型（无需代理）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>阿里通义千问</strong>：<a target="_blank" rel="noopener" href="https://dashscope.aliyun.com/">https://dashscope.aliyun.com/</a></p>
+</li>
+<li class="lvl-2">
+<p><strong>百度文心一言</strong>：<a target="_blank" rel="noopener" href="https://cloud.baidu.com/product/wenxinworkshop">https://cloud.baidu.com/product/wenxinworkshop</a></p>
+</li>
+<li class="lvl-2">
+<p><strong>智谱 ChatGLM</strong>：<a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">https://open.bigmodel.cn/</a></p>
+</li>
+<li class="lvl-2">
+<p>优点：国内访问快，支持支付宝/微信支付</p>
+</li>
+<li class="lvl-2">
+<p>缺点：功能可能不如国际模型完整</p>
+</li>
+</ul>
+<h4 id="选项-4本地模型完全免费"><a class="markdownIt-Anchor" href="#选项-4本地模型完全免费"></a> 选项 4：本地模型（完全免费）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>Ollama</strong>：<a target="_blank" rel="noopener" href="https://ollama.ai/">https://ollama.ai/</a></p>
+</li>
+<li class="lvl-2">
+<p>优点：完全免费，数据隐私</p>
+</li>
+<li class="lvl-2">
+<p>缺点：需要较高硬件配置，功能有限</p>
+</li>
+</ul>
+<hr />
+<h2 id="四-openclaw-与其他工具的区别"><a class="markdownIt-Anchor" href="#四-openclaw-与其他工具的区别"></a> 四、OpenClaw 与其他工具的区别</h2>
+<h3 id="vs-chatgpt-claude-网页版"><a class="markdownIt-Anchor" href="#vs-chatgpt-claude-网页版"></a> 🆚 vs. ChatGPT / Claude 网页版</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>OpenClaw</th>
+<th>ChatGPT 网页版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>定制性</strong></td>
+<td>✅ 完全可定制</td>
+<td>❌ 固定功能</td>
+</tr>
+<tr>
+<td><strong>技能扩展</strong></td>
+<td>✅ 自定义 Skill</td>
+<td>❌ 仅内置功能</td>
+</tr>
+<tr>
+<td><strong>多渠道</strong></td>
+<td>✅ 支持多平台</td>
+<td>❌ 仅网页/App</td>
+</tr>
+<tr>
+<td><strong>数据隐私</strong></td>
+<td>✅ 自主部署</td>
+<td>⚠️ 数据上传云端</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>💰 按 API 计费</td>
+<td>💰 订阅制</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>企业/开发者</td>
+<td>个人用户</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vs-langchain-llamaindex"><a class="markdownIt-Anchor" href="#vs-langchain-llamaindex"></a> 🆚 vs. LangChain / LlamaIndex</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>OpenClaw</th>
+<th>LangChain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>定位</strong></td>
+<td>完整框架</td>
+<td>工具库</td>
+</tr>
+<tr>
+<td><strong>开箱即用</strong></td>
+<td>✅ 开箱即用</td>
+<td>⚠️ 需要组装</td>
+</tr>
+<tr>
+<td><strong>渠道接入</strong></td>
+<td>✅ 内置多渠道</td>
+<td>❌ 需自己实现</td>
+</tr>
+<tr>
+<td><strong>部署</strong></td>
+<td>✅ 一键部署</td>
+<td>⚠️ 需自己配置</td>
+</tr>
+<tr>
+<td><strong>学习曲线</strong></td>
+<td>📈 中等</td>
+<td>📈 较陡</td>
+</tr>
+<tr>
+<td><strong>灵活性</strong></td>
+<td>⚖️ 平衡</td>
+<td>✅ 极高</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vs-autogpt-babyagi"><a class="markdownIt-Anchor" href="#vs-autogpt-babyagi"></a> 🆚 vs. AutoGPT / BabyAGI</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>OpenClaw</th>
+<th>AutoGPT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>稳定性</strong></td>
+<td>✅ 生产级</td>
+<td>⚠️ 实验性</td>
+</tr>
+<tr>
+<td><strong>可控性</strong></td>
+<td>✅ 高度可控</td>
+<td>⚠️ 自主性强</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>💰 可控</td>
+<td>💰💰 可能很高</td>
+</tr>
+<tr>
+<td><strong>企业适用</strong></td>
+<td>✅ 适合</td>
+<td>❌ 不适合</td>
+</tr>
+<tr>
+<td><strong>学习曲线</strong></td>
+<td>📈 中等</td>
+<td>📈 较低</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="五-为什么选择-openclaw"><a class="markdownIt-Anchor" href="#五-为什么选择-openclaw"></a> 五、为什么选择 OpenClaw？</h2>
+<h3 id="优势"><a class="markdownIt-Anchor" href="#优势"></a> ✅ 优势</h3>
+<h4 id="1-开箱即用"><a class="markdownIt-Anchor" href="#1-开箱即用"></a> 1. 开箱即用</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>无需从零搭建，安装即可使用</p>
+</li>
+<li class="lvl-2">
+<p>内置常用功能，快速上手</p>
+</li>
+<li class="lvl-2">
+<p>丰富的文档和案例</p>
+</li>
+</ul>
+<h4 id="2-高度可定制"><a class="markdownIt-Anchor" href="#2-高度可定制"></a> 2. 高度可定制</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>自定义 Skill 扩展任意功能</p>
+</li>
+<li class="lvl-2">
+<p>灵活的配置系统</p>
+</li>
+<li class="lvl-2">
+<p>支持多种部署方式</p>
+</li>
+</ul>
+<h4 id="3-生产级设计"><a class="markdownIt-Anchor" href="#3-生产级设计"></a> 3. 生产级设计</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>安全隔离机制</p>
+</li>
+<li class="lvl-2">
+<p>高可用架构</p>
+</li>
+<li class="lvl-2">
+<p>完善的日志和监控</p>
+</li>
+</ul>
+<h4 id="4-活跃的社区"><a class="markdownIt-Anchor" href="#4-活跃的社区"></a> 4. 活跃的社区</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>持续更新迭代</p>
+</li>
+<li class="lvl-2">
+<p>丰富的案例库</p>
+</li>
+<li class="lvl-2">
+<p>中文社区支持</p>
+</li>
+</ul>
+<h4 id="5-成本可控"><a class="markdownIt-Anchor" href="#5-成本可控"></a> 5. 成本可控</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>按需使用 API</p>
+</li>
+<li class="lvl-2">
+<p>支持本地模型</p>
+</li>
+<li class="lvl-2">
+<p>无订阅费用</p>
+</li>
+</ul>
+<h3 id="️-局限性"><a class="markdownIt-Anchor" href="#️-局限性"></a> ⚠️ 局限性</h3>
+<h4 id="1-需要技术基础"><a class="markdownIt-Anchor" href="#1-需要技术基础"></a> 1. 需要技术基础</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>需要了解命令行操作</p>
+</li>
+<li class="lvl-2">
+<p>配置需要一定学习</p>
+</li>
+<li class="lvl-2">
+<p>自定义开发需要编程能力</p>
+</li>
+</ul>
+<h4 id="2-依赖外部服务"><a class="markdownIt-Anchor" href="#2-依赖外部服务"></a> 2. 依赖外部服务</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>需要大模型 API（或本地模型）</p>
+</li>
+<li class="lvl-2">
+<p>需要稳定的网络连接</p>
+</li>
+<li class="lvl-2">
+<p>可能产生 API 费用</p>
+</li>
+</ul>
+<h4 id="3-仍在快速迭代"><a class="markdownIt-Anchor" href="#3-仍在快速迭代"></a> 3. 仍在快速迭代</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>API 可能有变化</p>
+</li>
+<li class="lvl-2">
+<p>部分功能还在完善</p>
+</li>
+<li class="lvl-2">
+<p>需要关注版本更新</p>
+</li>
+</ul>
+<hr />
+<h2 id="六-你适合使用-openclaw-吗"><a class="markdownIt-Anchor" href="#六-你适合使用-openclaw-吗"></a> 六、你适合使用 OpenClaw 吗？</h2>
+<h3 id="适合你如果你是"><a class="markdownIt-Anchor" href="#适合你如果你是"></a> ✅ 适合你，如果你是：</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>开发者</strong>：想要构建自己的 AI 助手</p>
+</li>
+<li class="lvl-2">
+<p><strong>技术团队</strong>：需要部署企业级 AI 应用</p>
+</li>
+<li class="lvl-2">
+<p><strong>创业者</strong>：想要快速验证 AI 产品想法</p>
+</li>
+<li class="lvl-2">
+<p><strong>研究者</strong>：探索 AI Agent 和多 Agent 系统</p>
+</li>
+<li class="lvl-2">
+<p><strong>极客</strong>：喜欢折腾新技术，追求定制化</p>
+</li>
+</ul>
+<h3 id="️-可能不适合你如果你"><a class="markdownIt-Anchor" href="#️-可能不适合你如果你"></a> ⚠️ 可能不适合你，如果你：</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>完全没有技术背景，只想用现成产品</p>
+</li>
+<li class="lvl-2">
+<p>不想花时间学习和配置</p>
+</li>
+<li class="lvl-2">
+<p>预算有限，无法承担 API 费用</p>
+</li>
+<li class="lvl-2">
+<p>只需要简单的聊天功能</p>
+</li>
+</ul>
+<hr />
+<h2 id="七-下一步"><a class="markdownIt-Anchor" href="#七-下一步"></a> 七、下一步</h2>
+<p>现在你已经了解了 OpenClaw 的基本情况，准备好开始了吗？</p>
+<h3 id="推荐路径"><a class="markdownIt-Anchor" href="#推荐路径"></a> 🎯 推荐路径</h3>
+<h4 id="如果你想快速体验"><a class="markdownIt-Anchor" href="#如果你想快速体验"></a> 如果你想快速体验</h4>
+<p>👉 <a href="02-quick-start.html">第2章：三步快速上手</a></p>
+<h4 id="如果你想先了解核心概念"><a class="markdownIt-Anchor" href="#如果你想先了解核心概念"></a> 如果你想先了解核心概念</h4>
+<p>👉 <a href="05-core-concepts.html">第5章：核心概念速览</a></p>
+<h4 id="如果你想看实际案例"><a class="markdownIt-Anchor" href="#如果你想看实际案例"></a> 如果你想看实际案例</h4>
+<p>👉 <a href="17-use-cases.html">第17章：典型场景实战案例</a></p>
+<h4 id="如果你遇到问题"><a class="markdownIt-Anchor" href="#如果你遇到问题"></a> 如果你遇到问题</h4>
+<p>👉 <a href="03-faq-60s.html">第3章：常见问题 60 秒自救</a></p>
+<hr />
+<h2 id="本章小结"><a class="markdownIt-Anchor" href="#本章小结"></a> 📚 本章小结</h2>
+<p>在本章中，我们了解了：</p>
+<p>✅ OpenClaw 是一个开源的 AI Agent 框架<br />
+✅ 它提供完整的基础设施，支持快速构建智能助手<br />
+✅ 系统要求：Node.js 22+，至少一个大模型 API Key<br />
+✅ 适合开发者、技术团队和追求定制化的用户<br />
+✅ 相比其他工具，OpenClaw 更注重工程落地和生产可用性</p>
+<hr />
+<h2 id="相关链接"><a class="markdownIt-Anchor" href="#相关链接"></a> 🔗 相关链接</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="menu.html">返回目录</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="02-quick-start.html">下一章：三步快速上手</a></p>
+</li>
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://openclaw.ai">官方网站</a></p>
+</li>
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw">GitHub 仓库</a></p>
+</li>
+</ul>
+<hr />
+<p><strong>准备好了吗？让我们开始动手吧！</strong> 🚀</p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC1%E7%AB%A0-%E6%AC%A2%E8%BF%8E%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.</span> <span class="toc-text"> 第1章 欢迎与项目定位</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="toc-number">1.1.</span> <span class="toc-text"> 🎯 本章目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-openclaw-%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.</span> <span class="toc-text"> 一、OpenClaw 到底是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%89%88%E6%9C%AC"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 📌 一句话版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%8F%A5%E8%AF%9D%E7%89%88%E6%9C%AC"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 📌 三句话版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%81%E5%8F%A5%E8%AF%9D%E7%89%88%E6%9C%AC%E5%AE%8C%E6%95%B4%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 📌 十句话版本（完整介绍）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-openclaw-%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88"><span class="toc-number">1.3.</span> <span class="toc-text"> 二、OpenClaw 能做什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E5%9C%BA%E6%99%AF"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 🔹 个人场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%99%BA%E8%83%BD%E5%8A%A9%E6%89%8B"><span class="toc-number">1.3.1.1.</span> <span class="toc-text"> 1. 智能助手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AD%A6%E4%B9%A0%E4%BC%B4%E4%BE%A3"><span class="toc-number">1.3.1.2.</span> <span class="toc-text"> 2. 学习伴侣</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%88%9B%E4%BD%9C%E5%B7%A5%E5%85%B7"><span class="toc-number">1.3.1.3.</span> <span class="toc-text"> 3. 创作工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%A2%E9%98%9F%E5%9C%BA%E6%99%AF"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 🔹 团队场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%BE%A4%E8%81%8A%E7%AE%A1%E7%90%86"><span class="toc-number">1.3.2.1.</span> <span class="toc-text"> 1. 群聊管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AE%A2%E6%9C%8D%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-number">1.3.2.2.</span> <span class="toc-text"> 2. 客服机器人</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%BC%80%E5%8F%91%E8%BE%85%E5%8A%A9"><span class="toc-number">1.3.2.3.</span> <span class="toc-text"> 3. 开发辅助</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%81%E4%B8%9A%E5%9C%BA%E6%99%AF"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 🔹 企业场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%9A%E5%8A%A1%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="toc-number">1.3.3.1.</span> <span class="toc-text"> 1. 业务自动化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86"><span class="toc-number">1.3.3.2.</span> <span class="toc-text"> 2. 知识管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%BF%90%E8%90%A5%E6%94%AF%E6%8C%81"><span class="toc-number">1.3.3.3.</span> <span class="toc-text"> 3. 运营支持</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E7%B3%BB%E7%BB%9F%E8%A6%81%E6%B1%82%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.4.</span> <span class="toc-text"> 三、系统要求与环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E8%A6%81%E6%B1%82"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 📋 硬件要求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E4%BD%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.1.1.</span> <span class="toc-text"> 最低配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.1.2.</span> <span class="toc-text"> 推荐配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.1.3.</span> <span class="toc-text"> 生产环境配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E8%A6%81%E6%B1%82"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 💻 软件要求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%85%E9%9C%80%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.4.2.1.</span> <span class="toc-text"> 必需软件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.4.2.2.</span> <span class="toc-text"> 可选软件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E8%A6%81%E6%B1%82"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 🌐 网络要求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#api-%E8%AE%BF%E9%97%AE"><span class="toc-number">1.4.3.1.</span> <span class="toc-text"> API 访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE%E5%8F%AF%E9%80%89"><span class="toc-number">1.4.3.2.</span> <span class="toc-text"> 代理配置（可选）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#api-key-%E5%87%86%E5%A4%87"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 🔑 API Key 准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E9%A1%B9-1openai%E6%8E%A8%E8%8D%90%E5%8A%9F%E8%83%BD%E6%9C%80%E5%AE%8C%E6%95%B4"><span class="toc-number">1.4.4.1.</span> <span class="toc-text"> 选项 1：OpenAI（推荐，功能最完整）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E9%A1%B9-2anthropic-claude%E6%8E%A8%E8%8D%90%E6%80%A7%E4%BB%B7%E6%AF%94%E9%AB%98"><span class="toc-number">1.4.4.2.</span> <span class="toc-text"> 选项 2：Anthropic Claude（推荐，性价比高）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E9%A1%B9-3%E5%9B%BD%E5%86%85%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%97%A0%E9%9C%80%E4%BB%A3%E7%90%86"><span class="toc-number">1.4.4.3.</span> <span class="toc-text"> 选项 3：国内大模型（无需代理）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E9%A1%B9-4%E6%9C%AC%E5%9C%B0%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E5%85%8D%E8%B4%B9"><span class="toc-number">1.4.4.4.</span> <span class="toc-text"> 选项 4：本地模型（完全免费）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-openclaw-%E4%B8%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.5.</span> <span class="toc-text"> 四、OpenClaw 与其他工具的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vs-chatgpt-claude-%E7%BD%91%E9%A1%B5%E7%89%88"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 🆚 vs. ChatGPT &#x2F; Claude 网页版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vs-langchain-llamaindex"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 🆚 vs. LangChain &#x2F; LlamaIndex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vs-autogpt-babyagi"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 🆚 vs. AutoGPT &#x2F; BabyAGI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-openclaw"><span class="toc-number">1.6.</span> <span class="toc-text"> 五、为什么选择 OpenClaw？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-number">1.6.1.</span> <span class="toc-text"> ✅ 优势</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8"><span class="toc-number">1.6.1.1.</span> <span class="toc-text"> 1. 开箱即用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%AB%98%E5%BA%A6%E5%8F%AF%E5%AE%9A%E5%88%B6"><span class="toc-number">1.6.1.2.</span> <span class="toc-text"> 2. 高度可定制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%94%9F%E4%BA%A7%E7%BA%A7%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.6.1.3.</span> <span class="toc-text"> 3. 生产级设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%B4%BB%E8%B7%83%E7%9A%84%E7%A4%BE%E5%8C%BA"><span class="toc-number">1.6.1.4.</span> <span class="toc-text"> 4. 活跃的社区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%88%90%E6%9C%AC%E5%8F%AF%E6%8E%A7"><span class="toc-number">1.6.1.5.</span> <span class="toc-text"> 5. 成本可控</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%B8%8F-%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">1.6.2.</span> <span class="toc-text"> ⚠️ 局限性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%9C%80%E8%A6%81%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80"><span class="toc-number">1.6.2.1.</span> <span class="toc-text"> 1. 需要技术基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BE%9D%E8%B5%96%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.6.2.2.</span> <span class="toc-text"> 2. 依赖外部服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%BB%8D%E5%9C%A8%E5%BF%AB%E9%80%9F%E8%BF%AD%E4%BB%A3"><span class="toc-number">1.6.2.3.</span> <span class="toc-text"> 3. 仍在快速迭代</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E4%BD%A0%E9%80%82%E5%90%88%E4%BD%BF%E7%94%A8-openclaw-%E5%90%97"><span class="toc-number">1.7.</span> <span class="toc-text"> 六、你适合使用 OpenClaw 吗？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E5%90%88%E4%BD%A0%E5%A6%82%E6%9E%9C%E4%BD%A0%E6%98%AF"><span class="toc-number">1.7.1.</span> <span class="toc-text"> ✅ 适合你，如果你是：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%B8%8F-%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%80%82%E5%90%88%E4%BD%A0%E5%A6%82%E6%9E%9C%E4%BD%A0"><span class="toc-number">1.7.2.</span> <span class="toc-text"> ⚠️ 可能不适合你，如果你：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">1.8.</span> <span class="toc-text"> 七、下一步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E8%B7%AF%E5%BE%84"><span class="toc-number">1.8.1.</span> <span class="toc-text"> 🎯 推荐路径</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E6%83%B3%E5%BF%AB%E9%80%9F%E4%BD%93%E9%AA%8C"><span class="toc-number">1.8.1.1.</span> <span class="toc-text"> 如果你想快速体验</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E6%83%B3%E5%85%88%E4%BA%86%E8%A7%A3%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">1.8.1.2.</span> <span class="toc-text"> 如果你想先了解核心概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E6%83%B3%E7%9C%8B%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B"><span class="toc-number">1.8.1.3.</span> <span class="toc-text"> 如果你想看实际案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98"><span class="toc-number">1.8.1.4.</span> <span class="toc-text"> 如果你遇到问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="toc-number">1.9.</span> <span class="toc-text"> 📚 本章小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="toc-number">1.10.</span> <span class="toc-text"> 🔗 相关链接</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

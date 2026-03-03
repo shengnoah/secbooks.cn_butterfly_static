@@ -1,0 +1,809 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第3章 常见问题 60 秒自救 - 新手最容易踩的 8 个坑</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>// 兼容性：使用 var + 避免尾逗号，减少旧 WebView/内置浏览器“脚本不执行”导致的功能失效
+var GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  mpLock: {"keysHash":["743392a6cfca212568fbd1ca6b693f91f583f67672f2698b000dc20e062ddf6e"],"storageKey":"mp_lock_code","qrcode":"/img/20231027182204.png","title":"阅读全文需关注公众号","subtitle":"扫描下方二维码关注公众号，回复关键词获取解锁口令","keywordHint":"关键词：获取口令","inputPlaceholder":"请输入解锁口令","submitText":"解锁","errorMessage":"口令错误，请重新输入","successMessage":"解锁成功"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '第3章 常见问题 60 秒自救 - 新手最容易踩的 8 个坑',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-03-03 12:38:59'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">181</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">101</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><a href="/openclaw/home.html"><h2>OpenClaw教程</h2></a><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>第一部分：快速入门</h3><ul><li><a href="/openclaw/01-welcome.html">1. 欢迎与项目定位</a></li><li><a href="/openclaw/02-quick-start.html">2. 三步快速上手</a></li><li><a href="/openclaw/03-faq-60s.html">3. 常见问题 60 秒自救</a></li><li><a href="/openclaw/04-learning-path.html">4. 选择你的学习路径</a></li><li><a href="/openclaw/05-core-concepts.html">5. 核心概念速览</a></li><li><a href="/openclaw/06-installation.html">6. 完整安装指南</a></li><li><a href="/openclaw/07-config-guide.html">7. 配置详解</a></li><li><a href="/openclaw/08-channels.html">8. 常用聊天渠道接入</a></li><li><a href="/openclaw/09-persona.html">9. 第一次自己调教人设</a></li><li><a href="/openclaw/10-skill-system.html">10. 技能系统全解</a></li><li><a href="/openclaw/11-memory.html">11. 记忆与长期记忆</a></li><li><a href="/openclaw/12-multi-agent.html">12. 多 Agent 协作架构入门</a></li><li><a href="/openclaw/13-sandbox.html">13. 沙箱隔离与安全执行</a></li><li><a href="/openclaw/14-deployment.html">14. VPS/服务器部署实战</a></li><li><a href="/openclaw/15-security.html">15. 安全加固检查清单</a></li><li><a href="/openclaw/16-risk-assessment.html">16. 企业风险评估问卷</a></li><li><a href="/openclaw/17-use-cases.html">17. 典型场景实战案例</a></li><li><a href="/openclaw/18-model-customization.html">18. 深入模型层定制</a></li><li><a href="/openclaw/19-community-cases.html">19. 社区精选用例精读</a></li><li><a href="/openclaw/20-contribution.html">20. 贡献与生态</a></li><li><a href="/openclaw/appendix-a-config.html">附录 A. 全部配置参数</a></li><li><a href="/openclaw/appendix-b-errors.html">附录 B. 错误码与解决方案</a></li><li><a href="/openclaw/appendix-c-models.html">附录 C. 推荐模型列表</a></li><li><a href="/openclaw/appendix-d-videos.html">附录 D. 视频教程索引</a></li><li><a href="/openclaw/appendix-e-tips.html">附录 E. 快捷键与实用技巧</a></li><li><a href="/openclaw/appendix-f-changelog.html">附录 F. 更新日志与 Roadmap</a></li></ul></div></div><div class="book-meta"><h3>🏷️ 标签（3）</h3><ul><li><a href="/tags/OpenClaw/">OpenClaw</a></li><li><a href="/tags/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">常见问题</a></li><li><a href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/">故障排查</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（2）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/OpenClaw/">OpenClaw</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">第3章 常见问题 60 秒自救 - 新手最容易踩的 8 个坑</h1><div class="book-body" id="article-container"><h1 id="第3章-常见问题-60-秒自救"><a class="markdownIt-Anchor" href="#第3章-常见问题-60-秒自救"></a> 第3章 常见问题 60 秒自救</h1>
+<p>新手在使用 OpenClaw 时最容易遇到的 8 个问题及快速解决方案。</p>
+<h2 id="本章目标"><a class="markdownIt-Anchor" href="#本章目标"></a> 🎯 本章目标</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>快速诊断和解决常见问题</p>
+</li>
+<li class="lvl-2">
+<p>了解问题的根本原因</p>
+</li>
+<li class="lvl-2">
+<p>掌握自助排查的方法</p>
+</li>
+<li class="lvl-2">
+<p>知道何时寻求帮助</p>
+</li>
+</ul>
+<hr />
+<h2 id="坑位-1nodejs-版本不对"><a class="markdownIt-Anchor" href="#坑位-1nodejs-版本不对"></a> 坑位 1：Node.js 版本不对</h2>
+<h3 id="症状"><a class="markdownIt-Anchor" href="#症状"></a> 症状</h3>
+<pre class="line-numbers language-none"><code class="language-none">Error: The engine &quot;node&quot; is incompatible with this module<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="原因"><a class="markdownIt-Anchor" href="#原因"></a> 原因</h3>
+<p>OpenClaw 要求 Node.js &gt;= 22，但你的版本过低。</p>
+<h3 id="60-秒解决方案"><a class="markdownIt-Anchor" href="#60-秒解决方案"></a> 60 秒解决方案</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查当前版本</span>
+<span class="token function">node</span> <span class="token parameter variable">-v</span>
+
+<span class="token comment"># 使用 nvm 升级</span>
+nvm <span class="token function">install</span> <span class="token number">22</span>
+nvm use <span class="token number">22</span>
+nvm <span class="token builtin class-name">alias</span> default <span class="token number">22</span>
+
+<span class="token comment"># 验证</span>
+<span class="token function">node</span> <span class="token parameter variable">-v</span>  <span class="token comment"># 应该显示 v22.x.x</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="根本原因"><a class="markdownIt-Anchor" href="#根本原因"></a> 根本原因</h3>
+<p>OpenClaw 使用了 Node.js 22+ 的新特性（如原生 TypeScript 支持）。</p>
+<hr />
+<h2 id="坑位-2网络代理问题"><a class="markdownIt-Anchor" href="#坑位-2网络代理问题"></a> 坑位 2：网络代理问题</h2>
+<h3 id="症状-2"><a class="markdownIt-Anchor" href="#症状-2"></a> 症状</h3>
+<pre class="line-numbers language-none"><code class="language-none">Error: connect ETIMEDOUT
+Error: getaddrinfo ENOTFOUND api.openai.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="原因-2"><a class="markdownIt-Anchor" href="#原因-2"></a> 原因</h3>
+<p>无法访问大模型 API（通常是 OpenAI、Claude 等国外服务）。</p>
+<h3 id="60-秒解决方案-2"><a class="markdownIt-Anchor" href="#60-秒解决方案-2"></a> 60 秒解决方案</h3>
+<p><strong>方案 A：配置系统代理</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">HTTP_PROXY</span><span class="token operator">=</span>http://127.0.0.1:7890
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HTTPS_PROXY</span><span class="token operator">=</span>http://127.0.0.1:7890
+openclaw agent <span class="token parameter variable">--message</span> <span class="token string">"测试"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>方案 B：使用国内模型</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw config <span class="token builtin class-name">set</span> model.provider alibaba
+openclaw config <span class="token builtin class-name">set</span> model.apiKey YOUR_QWEN_KEY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>方案 C：配置 OpenClaw 代理</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw config <span class="token builtin class-name">set</span> network.proxy http://127.0.0.1:7890<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<hr />
+<h2 id="坑位-3api-key-配置错误"><a class="markdownIt-Anchor" href="#坑位-3api-key-配置错误"></a> 坑位 3：API Key 配置错误</h2>
+<h3 id="症状-3"><a class="markdownIt-Anchor" href="#症状-3"></a> 症状</h3>
+<pre class="line-numbers language-none"><code class="language-none">Error: Invalid API key provided
+Error: Incorrect API key provided<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="原因-3"><a class="markdownIt-Anchor" href="#原因-3"></a> 原因</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>API Key 输入错误</p>
+</li>
+<li class="lvl-2">
+<p>API Key 已过期</p>
+</li>
+<li class="lvl-2">
+<p>API Key 没有权限</p>
+</li>
+</ul>
+<h3 id="60-秒解决方案-3"><a class="markdownIt-Anchor" href="#60-秒解决方案-3"></a> 60 秒解决方案</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 重新设置 API Key</span>
+openclaw config <span class="token builtin class-name">set</span> model.apiKey sk-proj-YOUR_ACTUAL_KEY
+
+<span class="token comment"># 验证配置</span>
+openclaw config get model.apiKey
+
+<span class="token comment"># 测试连接</span>
+openclaw doctor<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="检查清单"><a class="markdownIt-Anchor" href="#检查清单"></a> 检查清单</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>✅ API Key 是否完整复制（没有多余空格）</p>
+</li>
+<li class="lvl-2">
+<p>✅ API Key 是否在有效期内</p>
+</li>
+<li class="lvl-2">
+<p>✅ API Key 是否有足够的配额</p>
+</li>
+<li class="lvl-2">
+<p>✅ API Key 是否有正确的权限</p>
+</li>
+</ul>
+<hr />
+<h2 id="坑位-4权限问题"><a class="markdownIt-Anchor" href="#坑位-4权限问题"></a> 坑位 4：权限问题</h2>
+<h3 id="症状-4"><a class="markdownIt-Anchor" href="#症状-4"></a> 症状</h3>
+<pre class="line-numbers language-none"><code class="language-none">Error: EACCES: permission denied
+Error: Cannot write to &#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="原因-4"><a class="markdownIt-Anchor" href="#原因-4"></a> 原因</h3>
+<p>没有权限写入全局 npm 目录。</p>
+<h3 id="60-秒解决方案-4"><a class="markdownIt-Anchor" href="#60-秒解决方案-4"></a> 60 秒解决方案</h3>
+<p><strong>推荐方案：修改 npm 全局目录</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> ~/.npm-global
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> prefix <span class="token string">'~/.npm-global'</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'export PATH=~/.npm-global/bin:$PATH'</span> <span class="token operator">>></span> ~/.bashrc
+<span class="token builtin class-name">source</span> ~/.bashrc
+
+<span class="token comment"># 重新安装</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> openclaw@latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>临时方案：使用 sudo（不推荐）</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> openclaw@latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<hr />
+<h2 id="坑位-5端口冲突"><a class="markdownIt-Anchor" href="#坑位-5端口冲突"></a> 坑位 5：端口冲突</h2>
+<h3 id="症状-5"><a class="markdownIt-Anchor" href="#症状-5"></a> 症状</h3>
+<pre class="line-numbers language-none"><code class="language-none">Error: listen EADDRINUSE: address already in use :::3000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="原因-5"><a class="markdownIt-Anchor" href="#原因-5"></a> 原因</h3>
+<p>默认端口被其他程序占用。</p>
+<h3 id="60-秒解决方案-5"><a class="markdownIt-Anchor" href="#60-秒解决方案-5"></a> 60 秒解决方案</h3>
+<p><strong>方案 A：更改端口</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw config <span class="token builtin class-name">set</span> server.port <span class="token number">3001</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>方案 B：找到并关闭占用端口的程序</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># macOS/Linux</span>
+<span class="token function">lsof</span> <span class="token parameter variable">-i</span> :3000
+<span class="token function">kill</span> <span class="token parameter variable">-9</span> <span class="token operator">&lt;</span>PID<span class="token operator">></span>
+
+<span class="token comment"># Windows</span>
+<span class="token function">netstat</span> <span class="token parameter variable">-ano</span> <span class="token operator">|</span> findstr :3000
+taskkill /PID <span class="token operator">&lt;</span>PID<span class="token operator">></span> /F<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="坑位-6配置文件损坏"><a class="markdownIt-Anchor" href="#坑位-6配置文件损坏"></a> 坑位 6：配置文件损坏</h2>
+<h3 id="症状-6"><a class="markdownIt-Anchor" href="#症状-6"></a> 症状</h3>
+<pre class="line-numbers language-none"><code class="language-none">Error: Invalid configuration file
+SyntaxError: Unexpected token<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="原因-6"><a class="markdownIt-Anchor" href="#原因-6"></a> 原因</h3>
+<p>配置文件格式错误或损坏。</p>
+<h3 id="60-秒解决方案-6"><a class="markdownIt-Anchor" href="#60-秒解决方案-6"></a> 60 秒解决方案</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 备份当前配置</span>
+<span class="token function">cp</span> ~/.openclaw/config.json ~/.openclaw/config.json.bak
+
+<span class="token comment"># 重置配置</span>
+openclaw config reset
+
+<span class="token comment"># 重新初始化</span>
+openclaw onboard<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="坑位-7模型不可用"><a class="markdownIt-Anchor" href="#坑位-7模型不可用"></a> 坑位 7：模型不可用</h2>
+<h3 id="症状-7"><a class="markdownIt-Anchor" href="#症状-7"></a> 症状</h3>
+<pre class="line-numbers language-none"><code class="language-none">Error: Model &#39;gpt-4&#39; not found
+Error: You don&#39;t have access to this model<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="原因-7"><a class="markdownIt-Anchor" href="#原因-7"></a> 原因</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>模型名称错误</p>
+</li>
+<li class="lvl-2">
+<p>API Key 没有该模型的访问权限</p>
+</li>
+<li class="lvl-2">
+<p>模型已被弃用</p>
+</li>
+</ul>
+<h3 id="60-秒解决方案-7"><a class="markdownIt-Anchor" href="#60-秒解决方案-7"></a> 60 秒解决方案</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看可用模型</span>
+openclaw models list
+
+<span class="token comment"># 切换到可用模型</span>
+openclaw config <span class="token builtin class-name">set</span> model.name gpt-4o-mini
+
+<span class="token comment"># 或使用其他提供商</span>
+openclaw config <span class="token builtin class-name">set</span> model.provider anthropic
+openclaw config <span class="token builtin class-name">set</span> model.name claude-3-5-sonnet-20241022<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="坑位-8skill-安装失败"><a class="markdownIt-Anchor" href="#坑位-8skill-安装失败"></a> 坑位 8：Skill 安装失败</h2>
+<h3 id="症状-8"><a class="markdownIt-Anchor" href="#症状-8"></a> 症状</h3>
+<pre class="line-numbers language-none"><code class="language-none">Error: Failed to install skill &#39;web_search&#39;
+Error: Skill not found<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="原因-8"><a class="markdownIt-Anchor" href="#原因-8"></a> 原因</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>网络问题</p>
+</li>
+<li class="lvl-2">
+<p>Skill 名称错误</p>
+</li>
+<li class="lvl-2">
+<p>依赖冲突</p>
+</li>
+</ul>
+<h3 id="60-秒解决方案-8"><a class="markdownIt-Anchor" href="#60-秒解决方案-8"></a> 60 秒解决方案</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 清理缓存</span>
+openclaw skills cache <span class="token function">clear</span>
+
+<span class="token comment"># 重新安装</span>
+openclaw skills <span class="token function">install</span> web_search
+
+<span class="token comment"># 查看详细错误</span>
+openclaw skills <span class="token function">install</span> web_search <span class="token parameter variable">--verbose</span>
+
+<span class="token comment"># 手动安装依赖</span>
+<span class="token builtin class-name">cd</span> ~/.openclaw/workspace/skills
+<span class="token function">npm</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="快速诊断工具"><a class="markdownIt-Anchor" href="#快速诊断工具"></a> 快速诊断工具</h2>
+<h3 id="使用-doctor-命令"><a class="markdownIt-Anchor" href="#使用-doctor-命令"></a> 使用 doctor 命令</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw doctor<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个命令会自动检查：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>✅ Node.js 版本</p>
+</li>
+<li class="lvl-2">
+<p>✅ OpenClaw 版本</p>
+</li>
+<li class="lvl-2">
+<p>✅ 配置文件</p>
+</li>
+<li class="lvl-2">
+<p>✅ 模型连接</p>
+</li>
+<li class="lvl-2">
+<p>✅ Skills 状态</p>
+</li>
+<li class="lvl-2">
+<p>✅ 沙箱环境</p>
+</li>
+</ul>
+<h3 id="查看详细日志"><a class="markdownIt-Anchor" href="#查看详细日志"></a> 查看详细日志</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 启用调试模式</span>
+openclaw config <span class="token builtin class-name">set</span> log.level debug
+
+<span class="token comment"># 查看日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> ~/.openclaw/logs/openclaw.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="获取帮助的正确姿势"><a class="markdownIt-Anchor" href="#获取帮助的正确姿势"></a> 获取帮助的正确姿势</h2>
+<h3 id="1-查看官方文档"><a class="markdownIt-Anchor" href="#1-查看官方文档"></a> 1. 查看官方文档</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>官方文档：<a target="_blank" rel="noopener" href="https://openclaw.ai/docs">https://openclaw.ai/docs</a></p>
+</li>
+<li class="lvl-2">
+<p>本教程：<a href="menu.html">返回目录</a></p>
+</li>
+</ul>
+<h3 id="2-搜索已知问题"><a class="markdownIt-Anchor" href="#2-搜索已知问题"></a> 2. 搜索已知问题</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>GitHub Issues：<a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw/issues">https://github.com/openclaw/openclaw/issues</a></p>
+</li>
+<li class="lvl-2">
+<p>社区论坛：<a target="_blank" rel="noopener" href="https://community.openclaw.ai">https://community.openclaw.ai</a></p>
+</li>
+</ul>
+<h3 id="3-提问前的准备"><a class="markdownIt-Anchor" href="#3-提问前的准备"></a> 3. 提问前的准备</h3>
+<p>收集以下信息：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 系统信息</span>
+<span class="token function">uname</span> <span class="token parameter variable">-a</span>
+<span class="token function">node</span> <span class="token parameter variable">-v</span>
+<span class="token function">npm</span> <span class="token parameter variable">-v</span>
+
+<span class="token comment"># OpenClaw 信息</span>
+openclaw <span class="token parameter variable">--version</span>
+openclaw doctor
+
+<span class="token comment"># 错误日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-n</span> <span class="token number">50</span> ~/.openclaw/logs/openclaw.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-提交-issue"><a class="markdownIt-Anchor" href="#4-提交-issue"></a> 4. 提交 Issue</h3>
+<p>在 GitHub 上提交 Issue 时，请包含：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>问题描述</p>
+</li>
+<li class="lvl-2">
+<p>复现步骤</p>
+</li>
+<li class="lvl-2">
+<p>预期行为</p>
+</li>
+<li class="lvl-2">
+<p>实际行为</p>
+</li>
+<li class="lvl-2">
+<p>系统信息</p>
+</li>
+<li class="lvl-2">
+<p>错误日志</p>
+</li>
+</ul>
+<hr />
+<h2 id="预防性检查清单"><a class="markdownIt-Anchor" href="#预防性检查清单"></a> 预防性检查清单</h2>
+<h3 id="每周检查"><a class="markdownIt-Anchor" href="#每周检查"></a> 每周检查</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>[ ] 检查 OpenClaw 更新：<code>npm update -g openclaw</code></p>
+</li>
+<li class="lvl-2">
+<p>[ ] 检查 API 配额使用情况</p>
+</li>
+<li class="lvl-2">
+<p>[ ] 清理日志文件：<code>openclaw logs clean</code></p>
+</li>
+<li class="lvl-2">
+<p>[ ] 备份配置：<code>cp ~/.openclaw/config.json ~/backup/</code></p>
+</li>
+</ul>
+<h3 id="每月检查"><a class="markdownIt-Anchor" href="#每月检查"></a> 每月检查</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>[ ] 更新 Skills：<code>openclaw skills update --all</code></p>
+</li>
+<li class="lvl-2">
+<p>[ ] 检查安全更新</p>
+</li>
+<li class="lvl-2">
+<p>[ ] 审查 API Key 权限</p>
+</li>
+<li class="lvl-2">
+<p>[ ] 清理向量数据库</p>
+</li>
+</ul>
+<hr />
+<h2 id="下一步"><a class="markdownIt-Anchor" href="#下一步"></a> 下一步</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong><a href="04-learning-path.html">第4章：选择你的学习路径</a></strong></p>
+</li>
+<li class="lvl-2">
+<p><strong><a href="05-core-concepts.html">第5章：核心概念速览</a></strong></p>
+</li>
+<li class="lvl-2">
+<p><strong><a href="appendix-b-errors.html">附录 B：错误码与解决方案对照表</a></strong></p>
+</li>
+</ul>
+<hr />
+<h2 id="本章小结"><a class="markdownIt-Anchor" href="#本章小结"></a> 📚 本章小结</h2>
+<p>✅ 了解了 8 个最常见的问题<br />
+✅ 掌握了 60 秒快速解决方案<br />
+✅ 学会了使用 <code>openclaw doctor</code> 诊断<br />
+✅ 知道了如何获取帮助</p>
+<p><strong>记住：遇到问题不要慌，先运行 <code>openclaw doctor</code>！</strong></p>
+<hr />
+<p><a href="menu.html">返回目录</a> | <a href="02-quick-start.html">上一章</a> | <a href="04-learning-path.html">下一章</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-60-%E7%A7%92%E8%87%AA%E6%95%91"><span class="toc-number">1.</span> <span class="toc-text"> 第3章 常见问题 60 秒自救</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="toc-number">1.1.</span> <span class="toc-text"> 🎯 本章目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%BD%8D-1nodejs-%E7%89%88%E6%9C%AC%E4%B8%8D%E5%AF%B9"><span class="toc-number">1.2.</span> <span class="toc-text"> 坑位 1：Node.js 版本不对</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%87%E7%8A%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 症状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#60-%E7%A7%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 60 秒解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%9C%AC%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 根本原因</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%BD%8D-2%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text"> 坑位 2：网络代理问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%87%E7%8A%B6-2"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 症状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-2"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#60-%E7%A7%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-2"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 60 秒解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%BD%8D-3api-key-%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF"><span class="toc-number">1.4.</span> <span class="toc-text"> 坑位 3：API Key 配置错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%87%E7%8A%B6-3"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 症状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-3"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#60-%E7%A7%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-3"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 60 秒解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 检查清单</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%BD%8D-4%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98"><span class="toc-number">1.5.</span> <span class="toc-text"> 坑位 4：权限问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%87%E7%8A%B6-4"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 症状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-4"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#60-%E7%A7%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-4"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 60 秒解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%BD%8D-5%E7%AB%AF%E5%8F%A3%E5%86%B2%E7%AA%81"><span class="toc-number">1.6.</span> <span class="toc-text"> 坑位 5：端口冲突</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%87%E7%8A%B6-5"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 症状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-5"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#60-%E7%A7%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-5"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 60 秒解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%BD%8D-6%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%8D%9F%E5%9D%8F"><span class="toc-number">1.7.</span> <span class="toc-text"> 坑位 6：配置文件损坏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%87%E7%8A%B6-6"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 症状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-6"><span class="toc-number">1.7.2.</span> <span class="toc-text"> 原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#60-%E7%A7%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-6"><span class="toc-number">1.7.3.</span> <span class="toc-text"> 60 秒解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%BD%8D-7%E6%A8%A1%E5%9E%8B%E4%B8%8D%E5%8F%AF%E7%94%A8"><span class="toc-number">1.8.</span> <span class="toc-text"> 坑位 7：模型不可用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%87%E7%8A%B6-7"><span class="toc-number">1.8.1.</span> <span class="toc-text"> 症状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-7"><span class="toc-number">1.8.2.</span> <span class="toc-text"> 原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#60-%E7%A7%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-7"><span class="toc-number">1.8.3.</span> <span class="toc-text"> 60 秒解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%BD%8D-8skill-%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5"><span class="toc-number">1.9.</span> <span class="toc-text"> 坑位 8：Skill 安装失败</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%87%E7%8A%B6-8"><span class="toc-number">1.9.1.</span> <span class="toc-text"> 症状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-8"><span class="toc-number">1.9.2.</span> <span class="toc-text"> 原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#60-%E7%A7%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-8"><span class="toc-number">1.9.3.</span> <span class="toc-text"> 60 秒解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7"><span class="toc-number">1.10.</span> <span class="toc-text"> 快速诊断工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-doctor-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.10.1.</span> <span class="toc-text"> 使用 doctor 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%AF%A6%E7%BB%86%E6%97%A5%E5%BF%97"><span class="toc-number">1.10.2.</span> <span class="toc-text"> 查看详细日志</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF"><span class="toc-number">1.11.</span> <span class="toc-text"> 获取帮助的正确姿势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="toc-number">1.11.1.</span> <span class="toc-text"> 1. 查看官方文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%90%9C%E7%B4%A2%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98"><span class="toc-number">1.11.2.</span> <span class="toc-text"> 2. 搜索已知问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8F%90%E9%97%AE%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">1.11.3.</span> <span class="toc-text"> 3. 提问前的准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%8F%90%E4%BA%A4-issue"><span class="toc-number">1.11.4.</span> <span class="toc-text"> 4. 提交 Issue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E9%98%B2%E6%80%A7%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="toc-number">1.12.</span> <span class="toc-text"> 预防性检查清单</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%8F%E5%91%A8%E6%A3%80%E6%9F%A5"><span class="toc-number">1.12.1.</span> <span class="toc-text"> 每周检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%8F%E6%9C%88%E6%A3%80%E6%9F%A5"><span class="toc-number">1.12.2.</span> <span class="toc-text"> 每月检查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">1.13.</span> <span class="toc-text"> 下一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="toc-number">1.14.</span> <span class="toc-text"> 📚 本章小结</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第6章 完整安装指南 - 各种操作系统</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/book-layout.css"><script>// 兼容性：使用 var + 避免尾逗号，减少旧 WebView/内置浏览器“脚本不执行”导致的功能失效
+var GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  mpLock: {"keysHash":["743392a6cfca212568fbd1ca6b693f91f583f67672f2698b000dc20e062ddf6e"],"storageKey":"mp_lock_code","qrcode":"/img/20231027182204.png","title":"阅读全文需关注公众号","subtitle":"扫描下方二维码关注公众号，回复关键词获取解锁口令","keywordHint":"关键词：获取口令","inputPlaceholder":"请输入解锁口令","submitText":"解锁","errorMessage":"口令错误，请重新输入","successMessage":"解锁成功"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '第6章 完整安装指南 - 各种操作系统',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-03-03 12:38:59'
+}</script><style>nav#nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background-color: #f8f9fa !important;
+  background: #f8f9fa !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 0.6rem 4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 64px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+nav#nav #blog-info {
+  display: flex !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+nav#nav #blog-info a {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  opacity: 1 !important;
+}
+
+nav#nav #blog-info .site-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 0.5rem !important;
+}
+
+nav#nav #blog-info .site-name {
+  color: #2c3e50 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #menus {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-end !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+}
+
+nav#nav .menus_items {
+  display: flex !important;
+  gap: 0.8rem !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+nav#nav .menus_item a {
+  text-decoration: none !important;
+  color: #2c3e50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a i {
+  font-size: 14px !important;
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  line-height: 1 !important;
+}
+
+nav#nav .menus_item a:hover span {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a {
+  color: #2c3e50 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+nav#nav #search-button a:hover {
+  color: #007bff !important;
+}
+
+nav#nav #search-button a i {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav #search-button a span {
+  color: #2c3e50 !important;
+  font-size: 13px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+nav#nav #search-button a:hover i {
+  color: #007bff !important;
+}
+
+/* 下拉菜单样式 */
+nav#nav .menus_item {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child {
+  display: none !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  min-width: 200px !important;
+  margin-top: 0.5rem !important;
+  list-style: none !important;
+  z-index: 100000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item:hover .menus_item_child {
+  display: block !important;
+}
+
+nav#nav .menus_item_child li {
+  padding: 0 !important;
+}
+
+nav#nav .menus_item_child a {
+  padding: 0.6rem 1.2rem !important;
+  display: block !important;
+  border-radius: 0 !important;
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover {
+  background: #e9ecef !important;
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a i {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover i {
+  color: #007bff !important;
+}
+
+nav#nav .menus_item_child a span {
+  color: #2c3e50 !important;
+  font-size: 14px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+nav#nav .menus_item_child a:hover span {
+  color: #007bff !important;
+}
+
+/* 移动端菜单按钮 */
+#toggle-menu {
+  display: none;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  /* 移动端：顶部菜单改为“可横向滑动”的单行菜单，避免重叠且能看到全部 */
+  #toggle-menu {
+    display: block;
+  }
+
+  /* 覆盖 nav#nav 的 !important padding，避免小屏内容挤压/重叠 */
+  nav#nav {
+    padding: 0.6rem 1rem !important;
+  }
+
+  /* 站点标题过长时省略，避免与右侧按钮重叠 */
+  nav#nav #blog-info {
+    margin-right: 0.5rem !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    max-width: 40vw;
+  }
+
+  nav#nav #blog-info .site-name {
+    font-size: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 搜索按钮只保留图标，避免“搜索”文字挤占空间 */
+  nav#nav #search-button a span {
+    display: none !important;
+  }
+
+  /* 顶部菜单可横向滚动（可左右滑动查看更多菜单项） */
+  nav#nav #menus {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav#nav #menus::-webkit-scrollbar {
+    display: none;
+  }
+
+  #menus .menus_items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  nav#nav .menus_item a {
+    padding: 0.3rem 0.5rem !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* 极窄屏：只显示 logo，不显示站点名 */
+  nav#nav #blog-info .site-name {
+    display: none !important;
+  }
+}
+
+/* 调整book容器顶部间距：避免被固定顶部导航遮挡（含移动端） */
+.book-container {
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* book 顶部导航：手机端隐藏原 nav，改用右侧悬浮按钮（样式由 book-layout.js 注入） */
+@media (max-width: 768px) {
+  nav#nav {
+    display: none !important;
+  }
+
+  .book-container {
+    margin-top: 20px;
+  }
+}
+
+.book-sidebar {
+  z-index: 10 !important;
+}
+
+.book-main {
+  z-index: 1 !important;
+}
+
+/* 确保导航栏内容可见 */
+#nav * {
+  z-index: inherit;
+}
+
+/* book layout：将 Butterfly 侧边栏从右侧滑出改为左侧滑出（与 book-top-links 右侧布局形成对称） */
+#sidebar #sidebar-menus {
+  left: -300px;
+  right: auto;
+}
+
+#sidebar #sidebar-menus.open {
+  transform: translate3d(100%, 0, 0);
+}
+</style><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="book-layout"><button class="book-topnav-toggle" type="button" aria-label="打开菜单" style="position: fixed; top: 20px; right: 20px; z-index: 100000; background: #3498db; color: #fff; border: none; padding: 12px 16px; border-radius: 6px; cursor: pointer; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"><i class="fas fa-bars"></i></button><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">181</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">101</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/go/home.html"><i class="fa-fw fab fa-golang"></i><span> Go语言教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/graylog/home.html"><i class="fa-fw fas fa-stream"></i><span> Graylog教程</span></a></li><li><a class="site-page child" href="/openresty-waf/home.html"><i class="fa-fw fas fa-shield-halved"></i><span> OpenResty WAF教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/ruankao-gaoxiang/home.html"><i class="fa-fw fas fa-graduation-cap"></i><span> 软考教程</span></a></li><li><a class="site-page child" href="/lua/home.html"><i class="fa-fw fas fa-code"></i><span> Lua 教程（Book）</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程（Book）</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 108键</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="book-container" id="book-container"><div class="book-sidebar" id="book-sidebar"><a class="book-back-home" href="/" title="返回首页">返回首页</a><div class="book-brand"><div class="book-brand-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><a href="/openclaw/home.html"><h2>OpenClaw教程</h2></a><a class="book-brand-home" href="/" title="返回首页" style="font-size:12px;color:#bdc3c7;text-decoration:none;white-space:nowrap;">返回首页</a></div></div><div class="book-menu"><div class="menu-nav"><h3>第一部分：快速入门</h3><ul><li><a href="/openclaw/01-welcome.html">1. 欢迎与项目定位</a></li><li><a href="/openclaw/02-quick-start.html">2. 三步快速上手</a></li><li><a href="/openclaw/03-faq-60s.html">3. 常见问题 60 秒自救</a></li><li><a href="/openclaw/04-learning-path.html">4. 选择你的学习路径</a></li><li><a href="/openclaw/05-core-concepts.html">5. 核心概念速览</a></li><li><a href="/openclaw/06-installation.html">6. 完整安装指南</a></li><li><a href="/openclaw/07-config-guide.html">7. 配置详解</a></li><li><a href="/openclaw/08-channels.html">8. 常用聊天渠道接入</a></li><li><a href="/openclaw/09-persona.html">9. 第一次自己调教人设</a></li><li><a href="/openclaw/10-skill-system.html">10. 技能系统全解</a></li><li><a href="/openclaw/11-memory.html">11. 记忆与长期记忆</a></li><li><a href="/openclaw/12-multi-agent.html">12. 多 Agent 协作架构入门</a></li><li><a href="/openclaw/13-sandbox.html">13. 沙箱隔离与安全执行</a></li><li><a href="/openclaw/14-deployment.html">14. VPS/服务器部署实战</a></li><li><a href="/openclaw/15-security.html">15. 安全加固检查清单</a></li><li><a href="/openclaw/16-risk-assessment.html">16. 企业风险评估问卷</a></li><li><a href="/openclaw/17-use-cases.html">17. 典型场景实战案例</a></li><li><a href="/openclaw/18-model-customization.html">18. 深入模型层定制</a></li><li><a href="/openclaw/19-community-cases.html">19. 社区精选用例精读</a></li><li><a href="/openclaw/20-contribution.html">20. 贡献与生态</a></li><li><a href="/openclaw/appendix-a-config.html">附录 A. 全部配置参数</a></li><li><a href="/openclaw/appendix-b-errors.html">附录 B. 错误码与解决方案</a></li><li><a href="/openclaw/appendix-c-models.html">附录 C. 推荐模型列表</a></li><li><a href="/openclaw/appendix-d-videos.html">附录 D. 视频教程索引</a></li><li><a href="/openclaw/appendix-e-tips.html">附录 E. 快捷键与实用技巧</a></li><li><a href="/openclaw/appendix-f-changelog.html">附录 F. 更新日志与 Roadmap</a></li></ul></div></div><div class="book-meta"><h3>🏷️ 标签（3）</h3><ul><li><a href="/tags/OpenClaw/">OpenClaw</a></li><li><a href="/tags/%E5%AE%89%E8%A3%85/">安装</a></li><li><a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a></li></ul></div><div class="book-meta"><h3>🗂️ 分类（2）</h3><ul><li><a href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li><a href="/categories/OpenClaw/">OpenClaw</a></li></ul></div></div><div class="book-main"><div class="book-content"><article id="book-article"><h1 class="book-title">第6章 完整安装指南 - 各种操作系统</h1><div class="book-body" id="article-container"><h1 id="第6章-完整安装指南-各种操作系统"><a class="markdownIt-Anchor" href="#第6章-完整安装指南-各种操作系统"></a> 第6章 完整安装指南 - 各种操作系统</h1>
+<p>详细的跨平台安装指南，包括 macOS、Windows、Linux 和 Docker 部署方式。</p>
+<h2 id="本章目标"><a class="markdownIt-Anchor" href="#本章目标"></a> 🎯 本章目标</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>目标 1</p>
+</li>
+<li class="lvl-2">
+<p>目标 2</p>
+</li>
+<li class="lvl-2">
+<p>目标 3</p>
+</li>
+<li class="lvl-2">
+<p>目标 4</p>
+</li>
+</ul>
+<hr />
+<h2 id="主要内容"><a class="markdownIt-Anchor" href="#主要内容"></a> 主要内容</h2>
+<h3 id="macos-安装详解"><a class="markdownIt-Anchor" href="#macos-安装详解"></a> macOS 安装详解</h3>
+<h3 id="homebrew-方式推荐"><a class="markdownIt-Anchor" href="#homebrew-方式推荐"></a> Homebrew 方式（推荐）</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 安装 Homebrew（如果还没有）</span>
+/bin/bash <span class="token parameter variable">-c</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="token variable">)</span></span>"</span>
+
+<span class="token comment"># 2. 安装 Node.js 22</span>
+brew <span class="token function">install</span> node@22
+brew <span class="token function">link</span> node@22
+
+<span class="token comment"># 3. 验证安装</span>
+<span class="token function">node</span> <span class="token parameter variable">-v</span>  <span class="token comment"># 应该显示 v22.x.x</span>
+<span class="token function">npm</span> <span class="token parameter variable">-v</span>
+
+<span class="token comment"># 4. 安装 OpenClaw</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> openclaw@latest
+
+<span class="token comment"># 5. 验证</span>
+openclaw <span class="token parameter variable">--version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="nvm-方式灵活"><a class="markdownIt-Anchor" href="#nvm-方式灵活"></a> nvm 方式（灵活）</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 安装 nvm</span>
+<span class="token function">curl</span> -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh <span class="token operator">|</span> <span class="token function">bash</span>
+
+<span class="token comment"># 2. 重新加载 shell 配置</span>
+<span class="token builtin class-name">source</span> ~/.zshrc  <span class="token comment"># 或 source ~/.bashrc</span>
+
+<span class="token comment"># 3. 安装 Node.js 22</span>
+nvm <span class="token function">install</span> <span class="token number">22</span>
+nvm use <span class="token number">22</span>
+nvm <span class="token builtin class-name">alias</span> default <span class="token number">22</span>
+
+<span class="token comment"># 4. 安装 OpenClaw</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> openclaw@latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
+<h4 id="问题权限错误"><a class="markdownIt-Anchor" href="#问题权限错误"></a> 问题：权限错误</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解决方案：修改 npm 全局目录</span>
+<span class="token function">mkdir</span> ~/.npm-global
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> prefix <span class="token string">'~/.npm-global'</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'export PATH=~/.npm-global/bin:$PATH'</span> <span class="token operator">>></span> ~/.zshrc
+<span class="token builtin class-name">source</span> ~/.zshrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="问题xcode-command-line-tools-缺失"><a class="markdownIt-Anchor" href="#问题xcode-command-line-tools-缺失"></a> 问题：Xcode Command Line Tools 缺失</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xcode-select <span class="token parameter variable">--install</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="windows-安装wsl2"><a class="markdownIt-Anchor" href="#windows-安装wsl2"></a> Windows 安装（WSL2）</h3>
+<h3 id="启用-wsl2"><a class="markdownIt-Anchor" href="#启用-wsl2"></a> 启用 WSL2</h3>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 1. 以管理员身份运行 PowerShell</span>
+wsl <span class="token operator">--</span>install
+
+<span class="token comment"># 2. 重启电脑</span>
+
+<span class="token comment"># 3. 安装 Ubuntu</span>
+wsl <span class="token operator">--</span>install <span class="token operator">-</span>d Ubuntu-22<span class="token punctuation">.</span>04
+
+<span class="token comment"># 4. 设置用户名和密码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="在-wsl2-中安装"><a class="markdownIt-Anchor" href="#在-wsl2-中安装"></a> 在 WSL2 中安装</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 更新包管理器</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token function">apt</span> upgrade <span class="token parameter variable">-y</span>
+
+<span class="token comment"># 2. 安装 Node.js 22</span>
+<span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://deb.nodesource.com/setup_22.x <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-E</span> <span class="token function">bash</span> -
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> nodejs
+
+<span class="token comment"># 3. 验证</span>
+<span class="token function">node</span> <span class="token parameter variable">-v</span>
+<span class="token function">npm</span> <span class="token parameter variable">-v</span>
+
+<span class="token comment"># 4. 安装 OpenClaw</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> openclaw@latest
+
+<span class="token comment"># 5. 验证</span>
+openclaw <span class="token parameter variable">--version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="windows-原生安装不推荐"><a class="markdownIt-Anchor" href="#windows-原生安装不推荐"></a> Windows 原生安装（不推荐）</h3>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 1. 下载 Node.js 安装包</span>
+<span class="token comment"># 访问 https://nodejs.org/</span>
+
+<span class="token comment"># 2. 安装 Node.js 22</span>
+
+<span class="token comment"># 3. 打开 PowerShell</span>
+npm install <span class="token operator">-</span>g openclaw@latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="linux-安装"><a class="markdownIt-Anchor" href="#linux-安装"></a> Linux 安装</h3>
+<h3 id="ubuntudebian"><a class="markdownIt-Anchor" href="#ubuntudebian"></a> Ubuntu/Debian</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 更新系统</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token function">apt</span> upgrade <span class="token parameter variable">-y</span>
+
+<span class="token comment"># 2. 安装 Node.js 22</span>
+<span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://deb.nodesource.com/setup_22.x <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-E</span> <span class="token function">bash</span> -
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> nodejs
+
+<span class="token comment"># 3. 安装构建工具</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> build-essential
+
+<span class="token comment"># 4. 安装 OpenClaw</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> openclaw@latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="centosrhel"><a class="markdownIt-Anchor" href="#centosrhel"></a> CentOS/RHEL</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 安装 Node.js 22</span>
+<span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://rpm.nodesource.com/setup_22.x <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span> -
+<span class="token function">sudo</span> yum <span class="token function">install</span> <span class="token parameter variable">-y</span> nodejs
+
+<span class="token comment"># 2. 安装开发工具</span>
+<span class="token function">sudo</span> yum groupinstall <span class="token parameter variable">-y</span> <span class="token string">"Development Tools"</span>
+
+<span class="token comment"># 3. 安装 OpenClaw</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> openclaw@latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="arch-linux"><a class="markdownIt-Anchor" href="#arch-linux"></a> Arch Linux</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 安装 Node.js</span>
+<span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> nodejs <span class="token function">npm</span>
+
+<span class="token comment"># 2. 安装 OpenClaw</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> openclaw@latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="docker-容器化部署"><a class="markdownIt-Anchor" href="#docker-容器化部署"></a> Docker 容器化部署</h3>
+<h3 id="使用官方镜像"><a class="markdownIt-Anchor" href="#使用官方镜像"></a> 使用官方镜像</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 拉取镜像</span>
+<span class="token function">docker</span> pull openclaw/openclaw:latest
+
+<span class="token comment"># 2. 运行容器</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--name</span> openclaw <span class="token punctuation">\</span>
+  <span class="token parameter variable">-p</span> <span class="token number">3000</span>:3000 <span class="token punctuation">\</span>
+  <span class="token parameter variable">-v</span> ~/.openclaw:/root/.openclaw <span class="token punctuation">\</span>
+  <span class="token parameter variable">-e</span> <span class="token assign-left variable">OPENAI_API_KEY</span><span class="token operator">=</span>your_key <span class="token punctuation">\</span>
+  openclaw/openclaw:latest
+
+<span class="token comment"># 3. 查看日志</span>
+<span class="token function">docker</span> logs <span class="token parameter variable">-f</span> openclaw<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="自定义-dockerfile"><a class="markdownIt-Anchor" href="#自定义-dockerfile"></a> 自定义 Dockerfile</h3>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">FROM</span> node:22-alpine</span>
+
+<span class="token instruction"><span class="token keyword">WORKDIR</span> /app</span>
+
+<span class="token comment"># 安装 OpenClaw</span>
+<span class="token instruction"><span class="token keyword">RUN</span> npm install -g openclaw@latest</span>
+
+<span class="token comment"># 复制配置文件</span>
+<span class="token instruction"><span class="token keyword">COPY</span> config.json /root/.openclaw/config.json</span>
+
+<span class="token comment"># 暴露端口</span>
+<span class="token instruction"><span class="token keyword">EXPOSE</span> 3000</span>
+
+<span class="token comment"># 启动命令</span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"openclaw"</span>, <span class="token string">"server"</span>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="docker-compose"><a class="markdownIt-Anchor" href="#docker-compose"></a> Docker Compose</h3>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.8'</span>
+
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">openclaw</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> openclaw/openclaw<span class="token punctuation">:</span>latest
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> openclaw
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"3000:3000"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./config<span class="token punctuation">:</span>/root/.openclaw
+      <span class="token punctuation">-</span> ./data<span class="token punctuation">:</span>/app/data
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> OPENAI_API_KEY=$<span class="token punctuation">&#123;</span>OPENAI_API_KEY<span class="token punctuation">&#125;</span>
+      <span class="token punctuation">-</span> NODE_ENV=production
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> unless<span class="token punctuation">-</span>stopped<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="最佳实践"><a class="markdownIt-Anchor" href="#最佳实践"></a> 最佳实践</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>实践 1</strong> - 说明</p>
+</li>
+<li class="lvl-3">
+<p><strong>实践 2</strong> - 说明</p>
+</li>
+<li class="lvl-3">
+<p><strong>实践 3</strong> - 说明</p>
+</li>
+</ol>
+<h2 id="常见问题-2"><a class="markdownIt-Anchor" href="#常见问题-2"></a> 常见问题</h2>
+<h3 id="问题-1"><a class="markdownIt-Anchor" href="#问题-1"></a> 问题 1</h3>
+<p><strong>症状</strong>：错误描述</p>
+<p><strong>解决方案</strong>：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解决命令</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="下一步"><a class="markdownIt-Anchor" href="#下一步"></a> 下一步</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong><a href="077.html">第7章</a></strong></p>
+</li>
+<li class="lvl-2">
+<p><strong><a href="menu.html">返回目录</a></strong></p>
+</li>
+</ul>
+<hr />
+<h2 id="本章小结"><a class="markdownIt-Anchor" href="#本章小结"></a> 📚 本章小结</h2>
+<p>✅ 完成了主要学习目标<br />
+✅ 掌握了核心概念<br />
+✅ 实践了示例代码<br />
+✅ 了解了最佳实践</p>
+<hr />
+<p><a href="menu.html">返回目录</a> | <a href="05-*.html">上一章</a> | <a href="07-*.html">下一章</a></p>
+</div></article></div></div></div><div class="book-right" id="book-right"><div class="book-top-links"><h3>目录</h3><div class="book-article-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC6%E7%AB%A0-%E5%AE%8C%E6%95%B4%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97-%E5%90%84%E7%A7%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text"> 第6章 完整安装指南 - 各种操作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="toc-number">1.1.</span> <span class="toc-text"> 🎯 本章目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.</span> <span class="toc-text"> 主要内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#macos-%E5%AE%89%E8%A3%85%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.1.</span> <span class="toc-text"> macOS 安装详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew-%E6%96%B9%E5%BC%8F%E6%8E%A8%E8%8D%90"><span class="toc-number">1.2.2.</span> <span class="toc-text"> Homebrew 方式（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nvm-%E6%96%B9%E5%BC%8F%E7%81%B5%E6%B4%BB"><span class="toc-number">1.2.3.</span> <span class="toc-text"> nvm 方式（灵活）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF"><span class="toc-number">1.2.4.1.</span> <span class="toc-text"> 问题：权限错误</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98xcode-command-line-tools-%E7%BC%BA%E5%A4%B1"><span class="toc-number">1.2.4.2.</span> <span class="toc-text"> 问题：Xcode Command Line Tools 缺失</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#windows-%E5%AE%89%E8%A3%85wsl2"><span class="toc-number">1.2.5.</span> <span class="toc-text"> Windows 安装（WSL2）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E7%94%A8-wsl2"><span class="toc-number">1.2.6.</span> <span class="toc-text"> 启用 WSL2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-wsl2-%E4%B8%AD%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.7.</span> <span class="toc-text"> 在 WSL2 中安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#windows-%E5%8E%9F%E7%94%9F%E5%AE%89%E8%A3%85%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="toc-number">1.2.8.</span> <span class="toc-text"> Windows 原生安装（不推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux-%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.9.</span> <span class="toc-text"> Linux 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ubuntudebian"><span class="toc-number">1.2.10.</span> <span class="toc-text"> Ubuntu&#x2F;Debian</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#centosrhel"><span class="toc-number">1.2.11.</span> <span class="toc-text"> CentOS&#x2F;RHEL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#arch-linux"><span class="toc-number">1.2.12.</span> <span class="toc-text"> Arch Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2"><span class="toc-number">1.2.13.</span> <span class="toc-text"> Docker 容器化部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F"><span class="toc-number">1.2.14.</span> <span class="toc-text"> 使用官方镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-dockerfile"><span class="toc-number">1.2.15.</span> <span class="toc-text"> 自定义 Dockerfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-compose"><span class="toc-number">1.2.16.</span> <span class="toc-text"> Docker Compose</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.3.</span> <span class="toc-text"> 最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-2"><span class="toc-number">1.4.</span> <span class="toc-text"> 常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98-1"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 问题 1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">1.5.</span> <span class="toc-text"> 下一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="toc-number">1.6.</span> <span class="toc-text"> 📚 本章小结</span></a></li></ol></li></ol></div></div></div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><script src="/js/book-layout.js"></script><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
