@@ -1,0 +1,1110 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能 | AI安全运营</title><meta name="author" content="AI安全运营"><meta name="copyright" content="AI安全运营"><meta name="keywords" content="教程,OpenClaw,Agent,Skills,AI安全运营,openclaw,claude,lua"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="OpenClaw Skills 基础教程 本教程将带你从零开始，一步步学会如何创建、配置和使用 OpenClaw Skills。无论你是完全的新手还是有一定编程基础，都能跟着这个教程完成你的第一个 Skill。  📚 目录   什么是 OpenClaw Skills   环境准备   创建第一个 Skill   Skill 文件结构详解   SKILL.md 编写指南   添加执行代码   测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能">
+<meta property="og:url" content="https://lua.ren/openclaw/2026-03-26-openclaw-skills-tutorial/index.html">
+<meta property="og:site_name" content="AI安全运营">
+<meta property="og:description" content="OpenClaw Skills 基础教程 本教程将带你从零开始，一步步学会如何创建、配置和使用 OpenClaw Skills。无论你是完全的新手还是有一定编程基础，都能跟着这个教程完成你的第一个 Skill。  📚 目录   什么是 OpenClaw Skills   环境准备   创建第一个 Skill   Skill 文件结构详解   SKILL.md 编写指南   添加执行代码   测">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg">
+<meta property="article:published_time" content="2026-03-26T03:30:00.000Z">
+<meta property="article:modified_time" content="2026-03-26T06:43:18.332Z">
+<meta property="article:author" content="AI安全运营">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="Skills">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/openclaw/2026-03-26-openclaw-skills-tutorial/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>// 兼容性：使用 var + 避免尾逗号，减少旧 WebView/内置浏览器“脚本不执行”导致的功能失效
+var GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  mpLock: {"keysHash":["743392a6cfca212568fbd1ca6b693f91f583f67672f2698b000dc20e062ddf6e"],"storageKey":"mp_lock_code","qrcode":"/img/20231027182204.png","title":"阅读全文需关注公众号","subtitle":"扫描下方二维码关注公众号，回复关键词获取解锁口令","keywordHint":"公众号私信留言：获取口令","inputPlaceholder":"请输入解锁口令","submitText":"解锁","errorMessage":"口令错误，请重新输入","successMessage":"解锁成功"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-26 14:43:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">201</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">30</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-file-lines"></i><span> Markdown在线编辑</span></a></div><div class="menus_item"><a class="site-page" href="/json-parser/"><i class="fa-fw fas fa-code"></i><span> JSON解析器</span></a></div><div class="menus_item"><a class="site-page" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘按键测试</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/seo-checker/"><i class="fa-fw fas fa-search"></i><span> SEO 检测工具</span></a></li><li><a class="site-page child" href="/basic-runner/"><i class="fa-fw fas fa-play"></i><span> BASIC 运行器</span></a></li><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/markdown-tutorial/home.html"><i class="fa-fw fab fa-markdown"></i><span> Markdown教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-file-lines"></i><span> Markdown在线编辑</span></a></div><div class="menus_item"><a class="site-page" href="/json-parser/"><i class="fa-fw fas fa-code"></i><span> JSON解析器</span></a></div><div class="menus_item"><a class="site-page" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘按键测试</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/seo-checker/"><i class="fa-fw fas fa-search"></i><span> SEO 检测工具</span></a></li><li><a class="site-page child" href="/basic-runner/"><i class="fa-fw fas fa-play"></i><span> BASIC 运行器</span></a></li><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/markdown-tutorial/home.html"><i class="fa-fw fab fa-markdown"></i><span> Markdown教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout    " id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-26T03:30:00.000Z" title="发表于 2026-03-26 11:30:00">2026-03-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-26T06:43:18.332Z" title="更新于 2026-03-26 14:43:18">2026-03-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AIGC/">AIGC</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AIGC/OpenClaw/">OpenClaw</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/openclaw/2026-03-26-openclaw-skills-tutorial/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><div class="cloud-ad-wrapper cloud-ad-top"><div class="cloud-ad-banner west-cloud-ad">
+  <a href="https://www.west.cn/active/rebate/?ReferenceID=833653" target="_blank" rel="nofollow">
+    <div class="ad-content">
+      <span class="ad-icon">🎁</span>
+      <span class="ad-text">西部数码云推荐有礼 | 免费领取 <strong>2160元</strong> 云主机新购优惠</span>
+      <span class="ad-btn">立即领取</span>
+    </div>
+  </a>
+</div>
+</div><article class="post-content" id="article-container"><h1 id="openclaw-skills-基础教程"><a class="markdownIt-Anchor" href="#openclaw-skills-基础教程"></a> OpenClaw Skills 基础教程</h1>
+<p>本教程将带你从零开始，一步步学会如何创建、配置和使用 OpenClaw Skills。无论你是完全的新手还是有一定编程基础，都能跟着这个教程完成你的第一个 Skill。</p>
+<h2 id="目录"><a class="markdownIt-Anchor" href="#目录"></a> 📚 目录</h2>
+<ol>
+<li class="lvl-3">
+<p><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-openclaw-skills">什么是 OpenClaw Skills</a></p>
+</li>
+<li class="lvl-3">
+<p><a href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">环境准备</a></p>
+</li>
+<li class="lvl-3">
+<p><a href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA-skill">创建第一个 Skill</a></p>
+</li>
+<li class="lvl-3">
+<p><a href="#skill-%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3">Skill 文件结构详解</a></p>
+</li>
+<li class="lvl-3">
+<p><a href="#skillmd-%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97">SKILL.md 编写指南</a></p>
+</li>
+<li class="lvl-3">
+<p><a href="#%E6%B7%BB%E5%8A%A0%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81">添加执行代码</a></p>
+</li>
+<li class="lvl-3">
+<p><a href="#%E6%B5%8B%E8%AF%95%E5%92%8C%E8%B0%83%E8%AF%95">测试和调试</a></p>
+</li>
+<li class="lvl-3">
+<p><a href="#%E5%8F%91%E5%B8%83%E5%92%8C%E5%88%86%E4%BA%AB">发布和分享</a></p>
+</li>
+<li class="lvl-3">
+<p><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94">常见问题解答</a></p>
+</li>
+</ol>
+<hr />
+<h2 id="什么是-openclaw-skills"><a class="markdownIt-Anchor" href="#什么是-openclaw-skills"></a> 什么是 OpenClaw Skills</h2>
+<h3 id="概念介绍"><a class="markdownIt-Anchor" href="#概念介绍"></a> 概念介绍</h3>
+<p>OpenClaw Skills 是 OpenClaw Agent 系统的扩展能力模块。通过 Skills，你可以让 AI Agent 具备各种实际操作能力，比如：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>🌐 访问网页并提取信息</p>
+</li>
+<li class="lvl-2">
+<p>📁 读写本地文件</p>
+</li>
+<li class="lvl-2">
+<p>🔧 执行系统命令</p>
+</li>
+<li class="lvl-2">
+<p>📧 发送邮件和消息</p>
+</li>
+<li class="lvl-2">
+<p>🔍 搜索和查询数据</p>
+</li>
+<li class="lvl-2">
+<p>🎨 生成图片和文档</p>
+</li>
+</ul>
+<h3 id="skills-的工作原理"><a class="markdownIt-Anchor" href="#skills-的工作原理"></a> Skills 的工作原理</h3>
+<pre class="line-numbers language-none"><code class="language-none">用户请求 → OpenClaw Agent → 分析意图 → 选择合适的 Skill → 执行 Skill → 返回结果<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>简单来说，Skill 就是给 AI 的一个&quot;工具箱&quot;，告诉它：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>什么时候用</strong>（使用场景）</p>
+</li>
+<li class="lvl-3">
+<p><strong>怎么用</strong>（参数说明）</p>
+</li>
+<li class="lvl-3">
+<p><strong>用了会怎样</strong>（返回结果）</p>
+</li>
+</ol>
+<hr />
+<h2 id="环境准备"><a class="markdownIt-Anchor" href="#环境准备"></a> 环境准备</h2>
+<h3 id="1-安装-openclaw"><a class="markdownIt-Anchor" href="#1-安装-openclaw"></a> 1. 安装 OpenClaw</h3>
+<p>如果你还没有安装 OpenClaw，请先完成安装：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用 pip 安装</span>
+pip <span class="token function">install</span> openclaw
+
+<span class="token comment"># 或使用 pipx（推荐）</span>
+pipx <span class="token function">install</span> openclaw
+
+<span class="token comment"># 验证安装</span>
+openclaw <span class="token parameter variable">--version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-初始化配置"><a class="markdownIt-Anchor" href="#2-初始化配置"></a> 2. 初始化配置</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 初始化 OpenClaw 配置</span>
+openclaw init
+
+<span class="token comment"># 这会在 ~/.openclaw/ 目录下创建配置文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-确认-skills-目录"><a class="markdownIt-Anchor" href="#3-确认-skills-目录"></a> 3. 确认 Skills 目录</h3>
+<p>Skills 默认存放在 <code>~/.openclaw/skills/</code> 目录下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看 skills 目录</span>
+<span class="token function">ls</span> ~/.openclaw/skills/
+
+<span class="token comment"># 如果目录不存在，创建它</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> ~/.openclaw/skills/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-查看已安装的-skills"><a class="markdownIt-Anchor" href="#4-查看已安装的-skills"></a> 4. 查看已安装的 Skills</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 列出所有已安装的 Skills</span>
+openclaw skills list
+
+<span class="token comment"># 输出示例：</span>
+<span class="token comment"># ┌──────────────────┬─────────┬────────────────────────────┐</span>
+<span class="token comment"># │ Name             │ Version │ Description                │</span>
+<span class="token comment"># ├──────────────────┼─────────┼────────────────────────────┤</span>
+<span class="token comment"># │ web_search       │ 1.2.0   │ 网页搜索                   │</span>
+<span class="token comment"># │ web_fetch        │ 1.1.0   │ 网页内容抓取               │</span>
+<span class="token comment"># │ file_operations  │ 1.0.0   │ 文件读写操作               │</span>
+<span class="token comment"># └──────────────────┴─────────┴────────────────────────────┘</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="创建第一个-skill"><a class="markdownIt-Anchor" href="#创建第一个-skill"></a> 创建第一个 Skill</h2>
+<p>让我们创建一个简单的&quot;问候语生成器&quot; Skill，它可以根据时间和场景生成合适的问候语。</p>
+<h3 id="步骤-1创建-skill-目录"><a class="markdownIt-Anchor" href="#步骤-1创建-skill-目录"></a> 步骤 1：创建 Skill 目录</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建 Skill 文件夹</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> ~/.openclaw/skills/greeting-generator
+<span class="token builtin class-name">cd</span> ~/.openclaw/skills/greeting-generator<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="步骤-2创建-skillmd-文件"><a class="markdownIt-Anchor" href="#步骤-2创建-skillmd-文件"></a> 步骤 2：创建 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 文件</h3>
+<p>这是最重要的文件，它告诉 AI 这个 Skill 是做什么的。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建 SKILL.md</span>
+<span class="token function">touch</span> SKILL.md<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>用你喜欢的编辑器打开 <code>SKILL.md</code>，写入以下内容：</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> 技能名称：问候语生成器</span>
+
+<span class="token title important"><span class="token punctuation">##</span> 描述（Description）</span>
+根据当前时间、场景和对象，生成合适的中文问候语。支持正式场合、日常对话、节日祝福等多种场景。
+
+<span class="token title important"><span class="token punctuation">##</span> 使用场景（When to use）</span>
+<span class="token list punctuation">-</span> 用户需要生成问候语或祝福语
+<span class="token list punctuation">-</span> 用户要写邮件开头的问候
+<span class="token list punctuation">-</span> 用户需要节日祝福文案
+<span class="token list punctuation">-</span> 用户想要个性化的打招呼方式
+
+<span class="token title important"><span class="token punctuation">##</span> 参数（Parameters）</span>
+
+```json
+&#123;
+  "type": "object",
+  "properties": &#123;
+    "scene": &#123;
+      "type": "string",
+      "description": "场景类型：formal（正式）、casual（日常）、festival（节日）",
+      "enum": ["formal", "casual", "festival"],
+      "default": "casual"
+    &#125;,
+    "target": &#123;
+      "type": "string",
+      "description": "问候对象，如：老师、朋友、客户、领导",
+      "default": "朋友"
+    &#125;,
+    "festival": &#123;
+      "type": "string",
+      "description": "如果是节日场景，指定节日名称",
+      "default": ""
+    &#125;,
+    "time_of_day": &#123;
+      "type": "string",
+      "description": "时间段：morning、afternoon、evening、night",
+      "enum": ["morning", "afternoon", "evening", "night"],
+      "default": "morning"
+    &#125;
+  &#125;,
+  "required": ["scene"]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="调用示例examples"><a class="markdownIt-Anchor" href="#调用示例examples"></a> 调用示例（Examples）</h2>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">用户：帮我写一个给客户的正式问候语
+→ 调用 &#123; "scene": "formal", "target": "客户", "time_of_day": "morning" &#125;
+
+用户：春节给朋友的祝福语
+→ 调用 &#123; "scene": "festival", "target": "朋友", "festival": "春节" &#125;
+
+用户：早上好怎么说比较有创意
+→ 调用 &#123; "scene": "casual", "time_of_day": "morning" &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="返回格式expected-output"><a class="markdownIt-Anchor" href="#返回格式expected-output"></a> 返回格式（Expected Output）</h2>
+<p>返回 JSON 格式：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span>
+  <span class="token property">"greeting"</span><span class="token operator">:</span> <span class="token string">"生成的问候语"</span><span class="token punctuation">,</span>
+  <span class="token property">"alternatives"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"备选问候语1"</span><span class="token punctuation">,</span> <span class="token string">"备选问候语2"</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="注意事项constraints"><a class="markdownIt-Anchor" href="#注意事项constraints"></a> 注意事项（Constraints）</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>问候语应该符合中国文化习惯</p>
+</li>
+<li class="lvl-2">
+<p>正式场合避免使用网络用语</p>
+</li>
+<li class="lvl-2">
+<p>节日祝福要应景</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">
+### 步骤 3：刷新 Skills 列表
+
+&#96;&#96;&#96;bash
+# 刷新 Skills
+openclaw skills refresh
+
+# 验证 Skill 是否被识别
+openclaw skills list | grep greeting<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="步骤-4测试-skill"><a class="markdownIt-Anchor" href="#步骤-4测试-skill"></a> 步骤 4：测试 Skill</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用 Agent 测试</span>
+openclaw agent <span class="token parameter variable">--message</span> <span class="token string">"帮我生成一个给老师的正式问候语"</span> <span class="token parameter variable">--skills</span> greeting-generator<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>🎉 恭喜！你已经创建了第一个 Skill！</p>
+<hr />
+<h2 id="skill-文件结构详解"><a class="markdownIt-Anchor" href="#skill-文件结构详解"></a> Skill 文件结构详解</h2>
+<p>一个完整的 Skill 目录结构如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">~&#x2F;.openclaw&#x2F;skills&#x2F;my-skill&#x2F;
+├── SKILL.md          # 必需：Skill 说明文档
+├── manifest.json     # 推荐：元数据配置
+├── run.py            # 可选：Python 执行脚本
+├── run.sh            # 可选：Shell 执行脚本
+├── index.js          # 可选：Node.js 执行脚本
+├── requirements.txt  # 可选：Python 依赖
+├── package.json      # 可选：Node.js 依赖
+└── README.md         # 可选：详细文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="各文件说明"><a class="markdownIt-Anchor" href="#各文件说明"></a> 各文件说明</h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>必需</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SKILL.md</code></td>
+<td>✅ 是</td>
+<td>给 AI 看的说明书，最重要的文件</td>
+</tr>
+<tr>
+<td><code>manifest.json</code></td>
+<td>推荐</td>
+<td>元数据配置，包含版本、作者等信息</td>
+</tr>
+<tr>
+<td><code>run.py</code></td>
+<td>可选</td>
+<td>Python 执行脚本</td>
+</tr>
+<tr>
+<td><code>run.sh</code></td>
+<td>可选</td>
+<td>Shell 执行脚本</td>
+</tr>
+<tr>
+<td><code>index.js</code></td>
+<td>可选</td>
+<td>Node.js 执行脚本</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manifestjson-示例"><a class="markdownIt-Anchor" href="#manifestjson-示例"></a> manifest.json 示例</h3>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"greeting-generator"</span><span class="token punctuation">,</span>
+  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
+  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"问候语生成器"</span><span class="token punctuation">,</span>
+  <span class="token property">"author"</span><span class="token operator">:</span> <span class="token string">"Your Name"</span><span class="token punctuation">,</span>
+  <span class="token property">"license"</span><span class="token operator">:</span> <span class="token string">"MIT"</span><span class="token punctuation">,</span>
+  <span class="token property">"tags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"greeting"</span><span class="token punctuation">,</span> <span class="token string">"text"</span><span class="token punctuation">,</span> <span class="token string">"chinese"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"runtime"</span><span class="token operator">:</span> <span class="token string">"python"</span><span class="token punctuation">,</span>
+  <span class="token property">"entry"</span><span class="token operator">:</span> <span class="token string">"run.py"</span><span class="token punctuation">,</span>
+  <span class="token property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"python"</span><span class="token operator">:</span> <span class="token string">">=3.8"</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="skillmd"><a class="markdownIt-Anchor" href="#skillmd"></a> <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 编写指南</h2>
+<p><a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 是 Skill 的核心文件，写好它是成功的关键。</p>
+<h3 id="必需部分"><a class="markdownIt-Anchor" href="#必需部分"></a> 必需部分</h3>
+<h4 id="1-技能名称和描述"><a class="markdownIt-Anchor" href="#1-技能名称和描述"></a> 1. 技能名称和描述</h4>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> 技能名称：XXX</span>
+
+<span class="token title important"><span class="token punctuation">##</span> 描述（Description）</span>
+清晰、简洁地说明这个 Skill 能做什么。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>写作技巧</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>用一句话概括核心功能</p>
+</li>
+<li class="lvl-2">
+<p>说明能解决什么问题</p>
+</li>
+<li class="lvl-2">
+<p>提及支持的主要特性</p>
+</li>
+</ul>
+<h4 id="2-使用场景"><a class="markdownIt-Anchor" href="#2-使用场景"></a> 2. 使用场景</h4>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">##</span> 使用场景（When to use）</span>
+<span class="token list punctuation">-</span> 场景1
+<span class="token list punctuation">-</span> 场景2
+<span class="token list punctuation">-</span> 场景3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>写作技巧</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>列出 3-5 个典型场景</p>
+</li>
+<li class="lvl-2">
+<p>用用户视角描述</p>
+</li>
+<li class="lvl-2">
+<p>包含关键词便于 AI 匹配</p>
+</li>
+</ul>
+<h4 id="3-参数定义"><a class="markdownIt-Anchor" href="#3-参数定义"></a> 3. 参数定义</h4>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">##</span> 参数（Parameters）</span>
+
+```json
+&#123;
+  "type": "object",
+  "properties": &#123;
+    "param1": &#123;
+      "type": "string",
+      "description": "参数说明",
+      "required": true
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">
+**参数类型**：
+- &#96;string&#96; - 字符串
+- &#96;number&#96; &#x2F; &#96;integer&#96; - 数字
+- &#96;boolean&#96; - 布尔值
+- &#96;array&#96; - 数组
+- &#96;object&#96; - 对象
+
+#### 4. 调用示例
+
+&#96;&#96;&#96;markdown
+## 调用示例（Examples）
+
+&#96;&#96;&#96;text
+用户：具体的用户请求
+→ 调用 &#123; &quot;param1&quot;: &quot;value1&quot; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">
+**写作技巧**：
+- 提供 2-3 个真实场景的例子
+- 覆盖不同的参数组合
+- 使用自然语言描述用户请求
+
+### 可选部分
+
+#### 5. 返回格式
+
+&#96;&#96;&#96;markdown
+## 返回格式（Expected Output）
+
+成功时返回：
+&#96;&#96;&#96;json
+&#123;
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;data&quot;: &quot;...&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>失败时返回：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"错误原因"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">
+#### 6. 注意事项
+
+&#96;&#96;&#96;markdown
+## 注意事项（Constraints）
+
+- 限制1
+- 限制2
+- 安全注意事项<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="7-执行方式"><a class="markdownIt-Anchor" href="#7-执行方式"></a> 7. 执行方式</h4>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">##</span> 执行方式</span>
+
+用 Python 3.10+ 执行 run.py，输入为 JSON（从 stdin），输出为 JSON（到 stdout）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="添加执行代码"><a class="markdownIt-Anchor" href="#添加执行代码"></a> 添加执行代码</h2>
+<p>纯描述型 Skill 只能做 prompt 层面的处理。如果需要真正执行操作，需要添加执行代码。</p>
+<h3 id="python-执行脚本"><a class="markdownIt-Anchor" href="#python-执行脚本"></a> Python 执行脚本</h3>
+<p>创建 <code>run.py</code>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python3</span>
+<span class="token comment"># -*- coding: utf-8 -*-</span>
+<span class="token triple-quoted-string string">"""
+问候语生成器 - 执行脚本
+"""</span>
+
+<span class="token keyword">import</span> sys
+<span class="token keyword">import</span> json
+<span class="token keyword">from</span> datetime <span class="token keyword">import</span> datetime
+
+<span class="token comment"># 问候语模板</span>
+GREETINGS <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"formal"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"morning"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"早上好，&#123;target&#125;！祝您今天工作顺利！"</span><span class="token punctuation">,</span>
+            <span class="token string">"尊敬的&#123;target&#125;，早安！愿您今日万事如意！"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"afternoon"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"下午好，&#123;target&#125;！感谢您百忙之中的关注！"</span><span class="token punctuation">,</span>
+            <span class="token string">"尊敬的&#123;target&#125;，午安！祝您下午工作愉快！"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"evening"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"晚上好，&#123;target&#125;！感谢您的辛勤付出！"</span><span class="token punctuation">,</span>
+            <span class="token string">"尊敬的&#123;target&#125;，晚安！祝您今晚休息愉快！"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token string">"casual"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"morning"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"早啊&#123;target&#125;！新的一天开始啦～"</span><span class="token punctuation">,</span>
+            <span class="token string">"早上好&#123;target&#125;！今天也要元气满满哦！"</span><span class="token punctuation">,</span>
+            <span class="token string">"&#123;target&#125;早！起床第一件事就是想到你～"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"afternoon"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"下午好&#123;target&#125;！记得喝杯下午茶～"</span><span class="token punctuation">,</span>
+            <span class="token string">"&#123;target&#125;下午好！今天过得怎么样？"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"evening"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"晚上好&#123;target&#125;！今天辛苦啦！"</span><span class="token punctuation">,</span>
+            <span class="token string">"&#123;target&#125;晚安！做个好梦～"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token string">"festival"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"春节"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"新春快乐，&#123;target&#125;！祝您龙年大吉，万事如意！"</span><span class="token punctuation">,</span>
+            <span class="token string">"&#123;target&#125;，恭喜发财！红包拿来～"</span><span class="token punctuation">,</span>
+            <span class="token string">"给&#123;target&#125;拜年啦！祝新的一年心想事成！"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"中秋"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"中秋快乐，&#123;target&#125;！月圆人团圆！"</span><span class="token punctuation">,</span>
+            <span class="token string">"&#123;target&#125;，中秋节快乐！记得吃月饼哦～"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"元旦"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"新年快乐，&#123;target&#125;！愿新的一年一切顺利！"</span><span class="token punctuation">,</span>
+            <span class="token string">"&#123;target&#125;，元旦快乐！新年新气象！"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">def</span> <span class="token function">generate_greeting</span><span class="token punctuation">(</span>params<span class="token punctuation">:</span> <span class="token builtin">dict</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">dict</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""生成问候语"""</span>
+    scene <span class="token operator">=</span> params<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"scene"</span><span class="token punctuation">,</span> <span class="token string">"casual"</span><span class="token punctuation">)</span>
+    target <span class="token operator">=</span> params<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"target"</span><span class="token punctuation">,</span> <span class="token string">"朋友"</span><span class="token punctuation">)</span>
+    festival <span class="token operator">=</span> params<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"festival"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
+    time_of_day <span class="token operator">=</span> params<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"time_of_day"</span><span class="token punctuation">,</span> <span class="token string">"morning"</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> scene <span class="token operator">==</span> <span class="token string">"festival"</span> <span class="token keyword">and</span> festival<span class="token punctuation">:</span>
+            <span class="token comment"># 节日问候</span>
+            templates <span class="token operator">=</span> GREETINGS<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"festival"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span>festival<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token keyword">not</span> templates<span class="token punctuation">:</span>
+                templates <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>festival<span class="token punctuation">&#125;</span></span><span class="token string">快乐，</span><span class="token interpolation"><span class="token punctuation">&#123;</span>target<span class="token punctuation">&#125;</span></span><span class="token string">！"</span></span><span class="token punctuation">]</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token comment"># 普通问候</span>
+            templates <span class="token operator">=</span> GREETINGS<span class="token punctuation">.</span>get<span class="token punctuation">(</span>scene<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span>time_of_day<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token keyword">not</span> templates<span class="token punctuation">:</span>
+                templates <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string-interpolation"><span class="token string">f"你好，</span><span class="token interpolation"><span class="token punctuation">&#123;</span>target<span class="token punctuation">&#125;</span></span><span class="token string">！"</span></span><span class="token punctuation">]</span>
+        
+        <span class="token keyword">import</span> random
+        greeting <span class="token operator">=</span> random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>templates<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>target<span class="token operator">=</span>target<span class="token punctuation">)</span>
+        alternatives <span class="token operator">=</span> <span class="token punctuation">[</span>t<span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>target<span class="token operator">=</span>target<span class="token punctuation">)</span> <span class="token keyword">for</span> t <span class="token keyword">in</span> templates <span class="token keyword">if</span> t <span class="token operator">!=</span> greeting<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span>
+        
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span>
+            <span class="token string">"greeting"</span><span class="token punctuation">:</span> greeting<span class="token punctuation">,</span>
+            <span class="token string">"alternatives"</span><span class="token punctuation">:</span> alternatives<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+            <span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""主函数"""</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token comment"># 从 stdin 读取输入</span>
+        input_data <span class="token operator">=</span> json<span class="token punctuation">.</span>load<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>stdin<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 生成问候语</span>
+        result <span class="token operator">=</span> generate_greeting<span class="token punctuation">(</span>input_data<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 输出结果到 stdout</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>result<span class="token punctuation">,</span> ensure_ascii<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> indent<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        
+    <span class="token keyword">except</span> json<span class="token punctuation">.</span>JSONDecodeError<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+            <span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token string">"Invalid JSON input"</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+            <span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="shell-执行脚本"><a class="markdownIt-Anchor" href="#shell-执行脚本"></a> Shell 执行脚本</h3>
+<p>创建 <code>run.sh</code>（适合简单操作）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment"># 问候语生成器 - Shell 版本</span>
+
+<span class="token comment"># 读取输入</span>
+<span class="token assign-left variable">INPUT</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span><span class="token variable">)</span></span>
+
+<span class="token comment"># 解析参数</span>
+<span class="token assign-left variable">SCENE</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$INPUT</span>"</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">'.scene // "casual"'</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">TARGET</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$INPUT</span>"</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">'.target // "朋友"'</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">TIME</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$INPUT</span>"</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">'.time_of_day // "morning"'</span><span class="token variable">)</span></span>
+
+<span class="token comment"># 生成问候语</span>
+<span class="token keyword">case</span> <span class="token string">"<span class="token variable">$SCENE</span>"</span> <span class="token keyword">in</span>
+    <span class="token string">"formal"</span><span class="token punctuation">)</span>
+        <span class="token keyword">case</span> <span class="token string">"<span class="token variable">$TIME</span>"</span> <span class="token keyword">in</span>
+            <span class="token string">"morning"</span><span class="token punctuation">)</span> <span class="token assign-left variable">GREETING</span><span class="token operator">=</span><span class="token string">"早上好，<span class="token variable">$&#123;TARGET&#125;</span>！祝您今天工作顺利！"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+            <span class="token string">"afternoon"</span><span class="token punctuation">)</span> <span class="token assign-left variable">GREETING</span><span class="token operator">=</span><span class="token string">"下午好，<span class="token variable">$&#123;TARGET&#125;</span>！感谢您的关注！"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+            *<span class="token punctuation">)</span> <span class="token assign-left variable">GREETING</span><span class="token operator">=</span><span class="token string">"您好，<span class="token variable">$&#123;TARGET&#125;</span>！"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+        <span class="token keyword">esac</span>
+        <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    *<span class="token punctuation">)</span>
+        <span class="token keyword">case</span> <span class="token string">"<span class="token variable">$TIME</span>"</span> <span class="token keyword">in</span>
+            <span class="token string">"morning"</span><span class="token punctuation">)</span> <span class="token assign-left variable">GREETING</span><span class="token operator">=</span><span class="token string">"早啊<span class="token variable">$&#123;TARGET&#125;</span>！新的一天开始啦～"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+            <span class="token string">"afternoon"</span><span class="token punctuation">)</span> <span class="token assign-left variable">GREETING</span><span class="token operator">=</span><span class="token string">"下午好<span class="token variable">$&#123;TARGET&#125;</span>！记得喝杯下午茶～"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+            *<span class="token punctuation">)</span> <span class="token assign-left variable">GREETING</span><span class="token operator">=</span><span class="token string">"你好<span class="token variable">$&#123;TARGET&#125;</span>！"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+        <span class="token keyword">esac</span>
+        <span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">esac</span>
+
+<span class="token comment"># 输出结果</span>
+<span class="token builtin class-name">echo</span> <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>status<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span>success<span class="token entity" title="\&quot;">\"</span>, <span class="token entity" title="\&quot;">\"</span>greeting<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span><span class="token variable">$GREETING</span><span class="token entity" title="\&quot;">\"</span>&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="nodejs-执行脚本"><a class="markdownIt-Anchor" href="#nodejs-执行脚本"></a> Node.js 执行脚本</h3>
+<p>创建 <code>index.js</code>：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token hashbang comment">#!/usr/bin/env node</span>
+<span class="token comment">/**
+ * 问候语生成器 - Node.js 版本
+ */</span>
+
+<span class="token keyword">const</span> readline <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'readline'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token constant">GREETINGS</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">formal</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">morning</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'早上好，&#123;target&#125;！祝您今天工作顺利！'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">afternoon</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'下午好，&#123;target&#125;！感谢您的关注！'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">evening</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'晚上好，&#123;target&#125;！祝您休息愉快！'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">casual</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">morning</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'早啊&#123;target&#125;！新的一天开始啦～'</span><span class="token punctuation">,</span> <span class="token string">'早上好&#123;target&#125;！今天也要元气满满哦！'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">afternoon</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'下午好&#123;target&#125;！记得喝杯下午茶～'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">evening</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'晚上好&#123;target&#125;！今天辛苦啦！'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">generateGreeting</span><span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> scene <span class="token operator">=</span> <span class="token string">'casual'</span><span class="token punctuation">,</span> target <span class="token operator">=</span> <span class="token string">'朋友'</span><span class="token punctuation">,</span> time_of_day <span class="token operator">=</span> <span class="token string">'morning'</span> <span class="token punctuation">&#125;</span> <span class="token operator">=</span> params<span class="token punctuation">;</span>
+  
+  <span class="token keyword">const</span> templates <span class="token operator">=</span> <span class="token constant">GREETINGS</span><span class="token punctuation">[</span>scene<span class="token punctuation">]</span><span class="token operator">?.</span><span class="token punctuation">[</span>time_of_day<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token string">'你好，&#123;target&#125;！'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> greeting <span class="token operator">=</span> templates<span class="token punctuation">[</span>Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> templates<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'&#123;target&#125;'</span><span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token string">'success'</span><span class="token punctuation">,</span>
+    greeting<span class="token punctuation">,</span>
+    <span class="token literal-property property">alternatives</span><span class="token operator">:</span> templates<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">t</span> <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'&#123;target&#125;'</span><span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 读取 stdin</span>
+<span class="token keyword">let</span> input <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+process<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span><span class="token function">setEncoding</span><span class="token punctuation">(</span><span class="token string">'utf8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+process<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token parameter">chunk</span> <span class="token operator">=></span> input <span class="token operator">+=</span> chunk<span class="token punctuation">)</span><span class="token punctuation">;</span>
+process<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'end'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> params <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token function">generateGreeting</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token literal-property property">message</span><span class="token operator">:</span> e<span class="token punctuation">.</span>message <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="测试和调试"><a class="markdownIt-Anchor" href="#测试和调试"></a> 测试和调试</h2>
+<h3 id="本地测试"><a class="markdownIt-Anchor" href="#本地测试"></a> 本地测试</h3>
+<h4 id="1-直接测试执行脚本"><a class="markdownIt-Anchor" href="#1-直接测试执行脚本"></a> 1. 直接测试执行脚本</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 测试 Python 脚本</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'&#123;"scene": "casual", "target": "小明", "time_of_day": "morning"&#125;'</span> <span class="token operator">|</span> python run.py
+
+<span class="token comment"># 测试 Shell 脚本</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'&#123;"scene": "formal", "target": "客户"&#125;'</span> <span class="token operator">|</span> <span class="token function">bash</span> run.sh
+
+<span class="token comment"># 测试 Node.js 脚本</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'&#123;"scene": "casual", "target": "朋友"&#125;'</span> <span class="token operator">|</span> <span class="token function">node</span> index.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-使用-openclaw-测试"><a class="markdownIt-Anchor" href="#2-使用-openclaw-测试"></a> 2. 使用 OpenClaw 测试</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 测试 Skill 是否被正确识别</span>
+openclaw skills info greeting-generator
+
+<span class="token comment"># 使用 Agent 测试</span>
+openclaw agent <span class="token parameter variable">--message</span> <span class="token string">"生成一个早上好的问候语"</span> <span class="token parameter variable">--skills</span> greeting-generator <span class="token parameter variable">--debug</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="调试技巧"><a class="markdownIt-Anchor" href="#调试技巧"></a> 调试技巧</h3>
+<h4 id="1-启用调试模式"><a class="markdownIt-Anchor" href="#1-启用调试模式"></a> 1. 启用调试模式</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置环境变量</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">OPENCLAW_DEBUG</span><span class="token operator">=</span><span class="token number">1</span>
+
+<span class="token comment"># 或在命令中添加 --debug</span>
+openclaw agent <span class="token parameter variable">--message</span> <span class="token string">"测试"</span> <span class="token parameter variable">--skills</span> my-skill <span class="token parameter variable">--debug</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-查看日志"><a class="markdownIt-Anchor" href="#2-查看日志"></a> 2. 查看日志</h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看 OpenClaw 日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> ~/.openclaw/logs/openclaw.log
+
+<span class="token comment"># 查看 Skill 执行日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> ~/.openclaw/logs/skills.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="3-常见问题排查"><a class="markdownIt-Anchor" href="#3-常见问题排查"></a> 3. 常见问题排查</h4>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>可能原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Skill 未被识别</td>
+<td><a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 格式错误</td>
+<td>检查 Markdown 语法</td>
+</tr>
+<tr>
+<td>参数解析失败</td>
+<td>JSON Schema 格式错误</td>
+<td>验证 JSON 格式</td>
+</tr>
+<tr>
+<td>执行脚本报错</td>
+<td>依赖未安装</td>
+<td>安装所需依赖</td>
+</tr>
+<tr>
+<td>权限不足</td>
+<td>脚本无执行权限</td>
+<td><code>chmod +x run.py</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="发布和分享"><a class="markdownIt-Anchor" href="#发布和分享"></a> 发布和分享</h2>
+<h3 id="发布到-npmnodejs-skill"><a class="markdownIt-Anchor" href="#发布到-npmnodejs-skill"></a> 发布到 npm（Node.js Skill）</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 初始化 package.json</span>
+<span class="token function">npm</span> init
+
+<span class="token comment"># 发布</span>
+<span class="token function">npm</span> publish<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="发布到-pypipython-skill"><a class="markdownIt-Anchor" href="#发布到-pypipython-skill"></a> 发布到 PyPI（Python Skill）</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建 setup.py</span>
+<span class="token comment"># 构建</span>
+python setup.py sdist bdist_wheel
+
+<span class="token comment"># 发布</span>
+twine upload dist/*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="分享到-github"><a class="markdownIt-Anchor" href="#分享到-github"></a> 分享到 GitHub</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 初始化 Git 仓库</span>
+<span class="token function">git</span> init
+<span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"Initial commit: greeting-generator skill"</span>
+
+<span class="token comment"># 推送到 GitHub</span>
+<span class="token function">git</span> remote <span class="token function">add</span> origin https://github.com/username/openclaw-skill-greeting.git
+<span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装他人的-skill"><a class="markdownIt-Anchor" href="#安装他人的-skill"></a> 安装他人的 Skill</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 从 npm 安装</span>
+openclaw skills <span class="token function">install</span> greeting-generator
+
+<span class="token comment"># 从 GitHub 安装</span>
+openclaw skills <span class="token function">install</span> https://github.com/username/openclaw-skill-greeting.git
+
+<span class="token comment"># 从本地安装</span>
+openclaw skills <span class="token function">install</span> ./path/to/skill<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="常见问题解答"><a class="markdownIt-Anchor" href="#常见问题解答"></a> 常见问题解答</h2>
+<h3 id="q1-skillmd-和-manifestjson-有什么区别"><a class="markdownIt-Anchor" href="#q1-skillmd-和-manifestjson-有什么区别"></a> Q1: <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 和 manifest.json 有什么区别？</h3>
+<p><strong>A</strong>:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>SKILL.md</code> 是给 AI 看的说明书，用自然语言描述 Skill 的功能</p>
+</li>
+<li class="lvl-2">
+<p><code>manifest.json</code> 是给程序看的配置文件，包含版本、依赖等元数据</p>
+</li>
+</ul>
+<p>两者都很重要，但 <code>SKILL.md</code> 是必需的。</p>
+<h3 id="q2-我的-skill-需要调用外部-api怎么处理密钥"><a class="markdownIt-Anchor" href="#q2-我的-skill-需要调用外部-api怎么处理密钥"></a> Q2: 我的 Skill 需要调用外部 API，怎么处理密钥？</h3>
+<p><strong>A</strong>: 使用环境变量或 OpenClaw 的配置系统：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+
+<span class="token comment"># 方式1：环境变量</span>
+api_key <span class="token operator">=</span> os<span class="token punctuation">.</span>environ<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'MY_API_KEY'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 方式2：OpenClaw 配置</span>
+<span class="token comment"># 在 ~/.openclaw/config.yaml 中配置</span>
+<span class="token comment"># skills:</span>
+<span class="token comment">#   my-skill:</span>
+<span class="token comment">#     api_key: "your-key"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="q3-如何让-skill-支持多语言"><a class="markdownIt-Anchor" href="#q3-如何让-skill-支持多语言"></a> Q3: 如何让 Skill 支持多语言？</h3>
+<p><strong>A</strong>: 在 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 中添加多语言描述：</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">##</span> 描述（Description）</span>
+[中文] 这是一个问候语生成器
+[English] This is a greeting generator<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="q4-skill-执行超时怎么办"><a class="markdownIt-Anchor" href="#q4-skill-执行超时怎么办"></a> Q4: Skill 执行超时怎么办？</h3>
+<p><strong>A</strong>: 在 manifest.json 中配置超时时间：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"timeout"</span><span class="token operator">:</span> <span class="token number">60000</span><span class="token punctuation">,</span>
+  <span class="token property">"retry"</span><span class="token operator">:</span> <span class="token number">3</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="q5-如何调试复杂的-skill"><a class="markdownIt-Anchor" href="#q5-如何调试复杂的-skill"></a> Q5: 如何调试复杂的 Skill？</h3>
+<p><strong>A</strong>:</p>
+<ol>
+<li class="lvl-3">
+<p>使用 <code>--debug</code> 参数</p>
+</li>
+<li class="lvl-3">
+<p>在代码中添加日志</p>
+</li>
+<li class="lvl-3">
+<p>使用单元测试</p>
+</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> logging
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>level<span class="token operator">=</span>logging<span class="token punctuation">.</span>DEBUG<span class="token punctuation">)</span>
+logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">execute</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    logger<span class="token punctuation">.</span>debug<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Received params: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>params<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token comment"># ...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<h2 id="下一步"><a class="markdownIt-Anchor" href="#下一步"></a> 🎯 下一步</h2>
+<p>恭喜你完成了 OpenClaw Skills 基础教程！接下来你可以：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>尝试更多内置 Skill</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw skills <span class="token function">install</span> web_search
+openclaw skills <span class="token function">install</span> code_interpreter<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li class="lvl-3">
+<p><strong>学习进阶内容</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5"><a href="/openclaw/10-skill-system.html">技能系统全解</a></li>
+<li class="lvl-5"><a href="/openclaw/12-multi-agent.html">多 Agent 协作</a></li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>加入社区</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">GitHub: <a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw">OpenClaw</a></li>
+<li class="lvl-5">Discord: OpenClaw Community</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="参考资源"><a class="markdownIt-Anchor" href="#参考资源"></a> 📚 参考资源</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://docs.openclaw.dev">OpenClaw 官方文档</a></p>
+</li>
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://github.com/openclaw/skill-sdk">Skill 开发 SDK</a></p>
+</li>
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://github.com/openclaw/awesome-skills">社区 Skill 仓库</a></p>
+</li>
+</ul>
+<hr />
+<blockquote>
+<p>💡 <strong>提示</strong>：如果你在学习过程中遇到任何问题，欢迎在 GitHub Issues 中提问，或加入我们的 Discord 社区寻求帮助！</p>
+</blockquote>
+</article><div class="cloud-ad-wrapper cloud-ad-bottom"><div class="cloud-ad-banner west-cloud-ad west-cloud-bottom">
+  <a href="https://www.west.cn/active/rebate/?ReferenceID=833653" target="_blank" rel="nofollow">
+    <div class="ad-content">
+      <span class="ad-icon">☁️</span>
+      <span class="ad-text">西部数码云主机 | 安全稳定高速 | 新用户专享 <strong>2160元</strong> 优惠券</span>
+      <span class="ad-btn">免费领取</span>
+    </div>
+  </a>
+</div>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">AI安全运营</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/openclaw/2026-03-26-openclaw-skills-tutorial/">https://lua.ren/openclaw/2026-03-26-openclaw-skills-tutorial/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">AI安全运营</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/OpenClaw/">OpenClaw</a><a class="post-meta__tags" href="/tags/Agent/">Agent</a><a class="post-meta__tags" href="/tags/Skills/">Skills</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/news/2026-03-26-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-26-Freebuf每日新闻"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">2026-03-26-Freebuf每日新闻</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/openclaw/2026-02-15-openclaw-tutorial/" title="OpenClaw 使用教程：跨平台安装部署、配置大模型 Provider、接入 Ollama、本地 Skills&#x2F;插件、浏览器控制、搜索 API、Obsidian Skills"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-15</div><div class="title">OpenClaw 使用教程：跨平台安装部署、配置大模型 Provider、接入 Ollama、本地 Skills&#x2F;插件、浏览器控制、搜索 API、Obsidian Skills</div></div></a></div><div><a href="/openclaw/2026-02-25-openclaw-persona-memory-growth/" title="OpenClaw 聊天机器人角色人格设定"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-15</div><div class="title">OpenClaw 聊天机器人角色人格设定</div></div></a></div><div><a href="/openclaw/2026-02-20-openclaw-classic-skills/" title="OpenClaw 经典 Skills 清单与用法（默认布局）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-20</div><div class="title">OpenClaw 经典 Skills 清单与用法（默认布局）</div></div></a></div><div><a href="/openclaw/2026-02-25-openclaw-create-skill/" title="创建一个OpenClaw Skill"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-15</div><div class="title">创建一个OpenClaw Skill</div></div></a></div><div><a href="/openclaw/2026-02-21-openclaw-tavily-skills-web-search/" title="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-21</div><div class="title">OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）</div></div></a></div><div><a href="/openclaw/2026-02-28-kali-mcp-server-openclaw-integration/" title="Kali MCP Server 与 OpenClaw 配合使用完整指南：打造智能化渗透测试助手"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_security.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-28</div><div class="title">Kali MCP Server 与 OpenClaw 配合使用完整指南：打造智能化渗透测试助手</div></div></a></div></div></div><div class="cloud-ad-wrapper cloud-ad-middle"><div class="cloud-ad-banner west-cloud-ad west-cloud-middle">
+  <script language="javascript" src="https://www.west.cn/vcp/getJScode/getJScode.asp?ReferenceID=833653&No=580x90"></script>
+  <noscript>
+    <a href="https://www.west.cn/active/rebate/?ReferenceID=833653" target="_blank" rel="nofollow">
+      <div class="ad-content">
+        <div class="ad-title">💡 站长推荐</div>
+        <p class="ad-desc">我正在使用西部数码云主机，安全稳定高速！通过推荐链接购买，可免费领取 <strong>2160元</strong> 云主机新购优惠，赶紧行动吧！</p>
+        <span class="ad-btn">查看优惠 →</span>
+      </div>
+    </a>
+  </noscript>
+</div>
+</div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content aside-left" id="aside-content-left"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">AI安全运营</div><div class="author-info__description">AI安全运营 openclaw claude lua</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">201</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">30</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：AI安全运营 <img src="/img/20231027182204.png"></img></div></div><div class="card-widget card-tutorials"><div class="item-headline"><i class="fas fa-book-open"></i><span>教程</span></div><div id="aside-tutorial-list"><ul class="card-tutorial-list"><li class="card-tutorial-list-item"><a href="/markdown-tutorial/home.html"><i class="fab fa-markdown"></i><span class="card-tutorial-list-name">Markdown教程</span></a></li><li class="card-tutorial-list-item"><a href="/obsidian/home.html"><i class="fas fa-book"></i><span class="card-tutorial-list-name">Obsidian教程</span></a></li><li class="card-tutorial-list-item"><a href="/openclaw/home.html"><i class="fas fa-book"></i><span class="card-tutorial-list-name">OpenClaw教程</span></a></li><li class="card-tutorial-list-item"><a href="/prompt/home.html"><i class="fas fa-terminal"></i><span class="card-tutorial-list-name">prompt教程</span></a></li><li class="card-tutorial-list-item"><a href="/claude/home.html"><i class="fas fa-robot"></i><span class="card-tutorial-list-name">Claude 教程</span></a></li></ul></div></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">15</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Claude/"><span class="card-category-list-name">Claude</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Ollama/"><span class="card-category-list-name">Ollama</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/OpenClaw/"><span class="card-category-list-name">OpenClaw</span><span class="card-category-list-count">13</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/OpenClaw/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">安全工具</span><span class="card-category-list-count">1</span></a></li></ul></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">AI工具</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E5%B7%A5%E5%85%B7/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/"><span class="card-category-list-name">技术架构</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E5%B7%A5%E5%85%B7/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">开发工具</span><span class="card-category-list-count">1</span></a></li></ul></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/"><span class="card-category-list-name">Lua</span><span class="card-category-list-count">12</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/%E6%95%99%E7%A8%8B/"><span class="card-category-list-name">教程</span><span class="card-category-list-count">12</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/OpenClaw/"><span class="card-category-list-name">OpenClaw</span><span class="card-category-list-count">3</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/OpenClaw/%E6%8A%80%E8%83%BD%E6%8E%A8%E8%8D%90/"><span class="card-category-list-name">技能推荐</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Security-Ops/"><span class="card-category-list-name">Security Ops</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/claude/"><span class="card-category-list-name">claude</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/"><span class="card-category-list-name">安全运营</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/"><span class="card-category-list-name">技术文档</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/"><span class="card-category-list-name">教程</span><span class="card-category-list-count">124</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/Graylog/"><span class="card-category-list-name">Graylog</span><span class="card-category-list-count">30</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/Obsidian/"><span class="card-category-list-name">Obsidian</span><span class="card-category-list-count">65</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/OpenResty/"><span class="card-category-list-name">OpenResty</span><span class="card-category-list-count">29</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/OpenResty/WAF/"><span class="card-category-list-name">WAF</span><span class="card-category-list-count">29</span></a></li></ul></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%96%B0%E9%97%BB/"><span class="card-category-list-name">新闻</span><span class="card-category-list-count">14</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%96%B0%E9%97%BB/Freebuf/"><span class="card-category-list-name">Freebuf</span><span class="card-category-list-count">14</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="card-category-list-name">编程语言</span><span class="card-category-list-count">16</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/"><span class="card-category-list-name">JavaScript</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/"><span class="card-category-list-name">Rust</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/TypeScript/"><span class="card-category-list-name">TypeScript</span><span class="card-category-list-count">4</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">网络安全</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%A9%BE%E8%80%83/"><span class="card-category-list-name">驾考</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%A9%BE%E8%80%83/%E7%A7%91%E7%9B%AE%E4%B8%80/"><span class="card-category-list-name">科目一</span><span class="card-category-list-count">1</span></a></li></ul></li>
+            </ul></div></div></div><div class="aside-content aside-right" id="aside-content-right"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/openclaw/2026-03-26-openclaw-skills-tutorial/" title="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能"/></a><div class="content"><a class="title" href="/openclaw/2026-03-26-openclaw-skills-tutorial/" title="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能">OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能</a><time datetime="2026-03-26T03:30:00.000Z" title="发表于 2026-03-26 11:30:00">2026-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/news/2026-03-26-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-26-Freebuf每日新闻"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2026-03-26-Freebuf每日新闻"/></a><div class="content"><a class="title" href="/news/2026-03-26-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-26-Freebuf每日新闻">2026-03-26-Freebuf每日新闻</a><time datetime="2026-03-26T02:05:00.000Z" title="发表于 2026-03-26 10:05:00">2026-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/news/2026-03-25-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-25-Freebuf每日新闻"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2026-03-25-Freebuf每日新闻"/></a><div class="content"><a class="title" href="/news/2026-03-25-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-25-Freebuf每日新闻">2026-03-25-Freebuf每日新闻</a><time datetime="2026-03-25T02:05:00.000Z" title="发表于 2026-03-25 10:05:00">2026-03-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/news/2026-03-24-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-24-Freebuf每日新闻"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2026-03-24-Freebuf每日新闻"/></a><div class="content"><a class="title" href="/news/2026-03-24-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-24-Freebuf每日新闻">2026-03-24-Freebuf每日新闻</a><time datetime="2026-03-24T02:55:00.000Z" title="发表于 2026-03-24 10:55:00">2026-03-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/news/2026-03-23-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-23-Freebuf每日新闻"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2026-03-23-Freebuf每日新闻"/></a><div class="content"><a class="title" href="/news/2026-03-23-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-23-Freebuf每日新闻">2026-03-23-Freebuf每日新闻</a><time datetime="2026-03-23T02:03:00.000Z" title="发表于 2026-03-23 10:03:00">2026-03-23</time></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#openclaw-skills-%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text"> OpenClaw Skills 基础教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text"> 📚 目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-openclaw-skills"><span class="toc-number">1.2.</span> <span class="toc-text"> 什么是 OpenClaw Skills</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 概念介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#skills-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.2.</span> <span class="toc-text"> Skills 的工作原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.3.</span> <span class="toc-text"> 环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85-openclaw"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 1. 安装 OpenClaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 2. 初始化配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A1%AE%E8%AE%A4-skills-%E7%9B%AE%E5%BD%95"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 3. 确认 Skills 目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85%E7%9A%84-skills"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 4. 查看已安装的 Skills</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA-skill"><span class="toc-number">1.4.</span> <span class="toc-text"> 创建第一个 Skill</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1%E5%88%9B%E5%BB%BA-skill-%E7%9B%AE%E5%BD%95"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 步骤 1：创建 Skill 目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2%E5%88%9B%E5%BB%BA-skillmd-%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 步骤 2：创建 SKILL.md 文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E7%A4%BA%E4%BE%8Bexamples"><span class="toc-number">1.5.</span> <span class="toc-text"> 调用示例（Examples）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E6%A0%BC%E5%BC%8Fexpected-output"><span class="toc-number">1.6.</span> <span class="toc-text"> 返回格式（Expected Output）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9constraints"><span class="toc-number">1.7.</span> <span class="toc-text"> 注意事项（Constraints）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4%E6%B5%8B%E8%AF%95-skill"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 步骤 4：测试 Skill</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skill-%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.8.</span> <span class="toc-text"> Skill 文件结构详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">1.8.1.</span> <span class="toc-text"> 各文件说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#manifestjson-%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.8.2.</span> <span class="toc-text"> manifest.json 示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skillmd"><span class="toc-number">1.9.</span> <span class="toc-text"> SKILL.md 编写指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%85%E9%9C%80%E9%83%A8%E5%88%86"><span class="toc-number">1.9.1.</span> <span class="toc-text"> 必需部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%8A%80%E8%83%BD%E5%90%8D%E7%A7%B0%E5%92%8C%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.9.1.1.</span> <span class="toc-text"> 1. 技能名称和描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.9.1.2.</span> <span class="toc-text"> 2. 使用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%8F%82%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="toc-number">1.9.1.3.</span> <span class="toc-text"> 3. 参数定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">1.9.1.4.</span> <span class="toc-text"> 7. 执行方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="toc-number">1.10.</span> <span class="toc-text"> 添加执行代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#python-%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">1.10.1.</span> <span class="toc-text"> Python 执行脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell-%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">1.10.2.</span> <span class="toc-text"> Shell 执行脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nodejs-%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">1.10.3.</span> <span class="toc-text"> Node.js 执行脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%92%8C%E8%B0%83%E8%AF%95"><span class="toc-number">1.11.</span> <span class="toc-text"> 测试和调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95"><span class="toc-number">1.11.1.</span> <span class="toc-text"> 本地测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%9B%B4%E6%8E%A5%E6%B5%8B%E8%AF%95%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">1.11.1.1.</span> <span class="toc-text"> 1. 直接测试执行脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8-openclaw-%E6%B5%8B%E8%AF%95"><span class="toc-number">1.11.1.2.</span> <span class="toc-text"> 2. 使用 OpenClaw 测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-number">1.11.2.</span> <span class="toc-text"> 调试技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%90%AF%E7%94%A8%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.11.2.1.</span> <span class="toc-text"> 1. 启用调试模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="toc-number">1.11.2.2.</span> <span class="toc-text"> 2. 查看日志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="toc-number">1.11.2.3.</span> <span class="toc-text"> 3. 常见问题排查</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%92%8C%E5%88%86%E4%BA%AB"><span class="toc-number">1.12.</span> <span class="toc-text"> 发布和分享</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0-npmnodejs-skill"><span class="toc-number">1.12.1.</span> <span class="toc-text"> 发布到 npm（Node.js Skill）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0-pypipython-skill"><span class="toc-number">1.12.2.</span> <span class="toc-text"> 发布到 PyPI（Python Skill）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E4%BA%AB%E5%88%B0-github"><span class="toc-number">1.12.3.</span> <span class="toc-text"> 分享到 GitHub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BB%96%E4%BA%BA%E7%9A%84-skill"><span class="toc-number">1.12.4.</span> <span class="toc-text"> 安装他人的 Skill</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94"><span class="toc-number">1.13.</span> <span class="toc-text"> 常见问题解答</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#q1-skillmd-%E5%92%8C-manifestjson-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="toc-number">1.13.1.</span> <span class="toc-text"> Q1: SKILL.md 和 manifest.json 有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#q2-%E6%88%91%E7%9A%84-skill-%E9%9C%80%E8%A6%81%E8%B0%83%E7%94%A8%E5%A4%96%E9%83%A8-api%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E5%AF%86%E9%92%A5"><span class="toc-number">1.13.2.</span> <span class="toc-text"> Q2: 我的 Skill 需要调用外部 API，怎么处理密钥？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#q3-%E5%A6%82%E4%BD%95%E8%AE%A9-skill-%E6%94%AF%E6%8C%81%E5%A4%9A%E8%AF%AD%E8%A8%80"><span class="toc-number">1.13.3.</span> <span class="toc-text"> Q3: 如何让 Skill 支持多语言？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#q4-skill-%E6%89%A7%E8%A1%8C%E8%B6%85%E6%97%B6%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="toc-number">1.13.4.</span> <span class="toc-text"> Q4: Skill 执行超时怎么办？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#q5-%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E5%A4%8D%E6%9D%82%E7%9A%84-skill"><span class="toc-number">1.13.5.</span> <span class="toc-text"> Q5: 如何调试复杂的 Skill？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">1.14.</span> <span class="toc-text"> 🎯 下一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%BA%90"><span class="toc-number">1.15.</span> <span class="toc-text"> 📚 参考资源</span></a></li></ol></li></ol></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><span class="card-archive-list-count">21</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><span class="card-archive-list-count">144</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">36</span></a></li></ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.43em; color: #99a6b9">教程</a> <a href="/tags/%E6%96%87%E6%A1%A3/" style="font-size: 1.1em; color: #999">文档</a> <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">渗透测试</a> <a href="/tags/%E5%A4%87%E8%80%83/" style="font-size: 1.1em; color: #999">备考</a> <a href="/tags/%E7%BC%96%E7%A0%81%E4%BB%A3%E7%90%86/" style="font-size: 1.1em; color: #999">编码代理</a> <a href="/tags/%E5%B5%8C%E5%85%A5/" style="font-size: 1.1em; color: #999">嵌入</a> <a href="/tags/Feishu/" style="font-size: 1.1em; color: #999">Feishu</a> <a href="/tags/%E7%B1%BB/" style="font-size: 1.1em; color: #999">类</a> <a href="/tags/Freebuf%E6%96%B0%E9%97%BB/" style="font-size: 1.3em; color: #99a1ac">Freebuf新闻</a> <a href="/tags/OpenResty/" style="font-size: 1.5em; color: #99a9bf">OpenResty</a> <a href="/tags/ACPX/" style="font-size: 1.1em; color: #999">ACPX</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 1.17em; color: #999c9f">字符串</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5%E4%B8%AD%E5%BF%83/" style="font-size: 1.1em; color: #999">安全运营中心</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 1.1em; color: #999">面向对象</a> <a href="/tags/WAF/" style="font-size: 1.5em; color: #99a9bf">WAF</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 1.1em; color: #999">递归</a> <a href="/tags/ATT-CK/" style="font-size: 1.17em; color: #999c9f">ATT&CK</a> <a href="/tags/%E6%8E%A7%E5%88%B6%E6%B5%81/" style="font-size: 1.1em; color: #999">控制流</a> <a href="/tags/RAG/" style="font-size: 1.17em; color: #999c9f">RAG</a> <a href="/tags/Lua/" style="font-size: 1.23em; color: #999ea6">Lua</a> <a href="/tags/Kali-Linux/" style="font-size: 1.1em; color: #999">Kali Linux</a> <a href="/tags/C-API/" style="font-size: 1.1em; color: #999">C API</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 1.17em; color: #999c9f">函数</a> <a href="/tags/OpenClaw/" style="font-size: 1.37em; color: #99a4b2">OpenClaw</a> <a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 1.1em; color: #999">枚举</a> <a href="/tags/%E5%AE%89%E5%85%A8%E7%9B%91%E6%8E%A7/" style="font-size: 1.1em; color: #999">安全监控</a> <a href="/tags/%E6%A0%87%E5%87%86%E5%BA%93/" style="font-size: 1.1em; color: #999">标准库</a> <a href="/tags/%E6%89%80%E6%9C%89%E6%9D%83/" style="font-size: 1.1em; color: #999">所有权</a> <a href="/tags/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" style="font-size: 1.1em; color: #999">模式匹配</a> <a href="/tags/Web-Search/" style="font-size: 1.1em; color: #999">Web Search</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 1.1em; color: #999">闭包</a> <a href="/tags/%E5%80%9F%E7%94%A8/" style="font-size: 1.1em; color: #999">借用</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%99%A8/" style="font-size: 1.1em; color: #999">计算器</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/os/" style="font-size: 1.1em; color: #999">os</a> <a href="/tags/Claude/" style="font-size: 1.1em; color: #999">Claude</a> <a href="/tags/%E7%BB%93%E6%9E%84%E4%BD%93/" style="font-size: 1.1em; color: #999">结构体</a> <a href="/tags/%E5%85%83%E8%A1%A8/" style="font-size: 1.1em; color: #999">元表</a> <a href="/tags/%E7%89%B9%E8%B4%A8/" style="font-size: 1.1em; color: #999">特质</a> <a href="/tags/AKShare/" style="font-size: 1.1em; color: #999">AKShare</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By AI安全运营</div><div class="footer_webinfo"><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">201</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-03-26T06:44:05.026Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/mp-lock.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '2795b4c1f65d53754571',
+      clientSecret: 'bcf3d1764bd7fe38e1606b25374ecbf2b5db3871',
+      repo: 'lua.ren',
+      owner: 'shengnoah',
+      admin: ['shengnoah'],
+      id: '0635d919cc3c15b6079b21210cc31182',
+      updateCountCallback: commentCount
+    },{"language":"zh-CN","perPage":10,"distractionFreeMode":false,"pagerDirection":"last","createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"}))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script defer data-pjax src="/js/lua-swiper-directory.js"></script><script defer data-pjax src="/js/ai-explosion.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
