@@ -1,0 +1,924 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>AI超级个体与一人公司利器(Agency Agents | AI安全运营</title><meta name="author" content="AI安全运营"><meta name="copyright" content="AI安全运营"><meta name="keywords" content="教程,OpenClaw,Skills,Agent,AI安全运营,openclaw,claude,lua"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="超级个体 AI 指南(OPC) agency-agents-zh 是一个包含 187 个即插即用 AI 专家角色的中文社区版项目，支持 14 种主流 AI 编程工具（OpenClaw、Claude Code、Cursor、GitHub Copilot 等），覆盖工程、设计、营销、产品等 18 个部门领域。该项目包含 46 个中国市场原创智能体，深度适配小红书、抖音、微信、飞书、钉钉等国内平台生态。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI超级个体与一人公司利器(Agency Agents">
+<meta property="og:url" content="https://lua.ren/openclaw/2026-03-27-ai-superman/index.html">
+<meta property="og:site_name" content="AI安全运营">
+<meta property="og:description" content="超级个体 AI 指南(OPC) agency-agents-zh 是一个包含 187 个即插即用 AI 专家角色的中文社区版项目，支持 14 种主流 AI 编程工具（OpenClaw、Claude Code、Cursor、GitHub Copilot 等），覆盖工程、设计、营销、产品等 18 个部门领域。该项目包含 46 个中国市场原创智能体，深度适配小红书、抖音、微信、飞书、钉钉等国内平台生态。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg">
+<meta property="article:published_time" content="2026-03-26T03:30:00.000Z">
+<meta property="article:modified_time" content="2026-03-27T06:42:18.618Z">
+<meta property="article:author" content="AI安全运营">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="Skills">
+<meta property="article:tag" content="Agent">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/openclaw/2026-03-27-ai-superman/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?14cc93bf3f08d31c458639d309dde522";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>// 兼容性：使用 var + 避免尾逗号，减少旧 WebView/内置浏览器“脚本不执行”导致的功能失效
+var GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  mpLock: {"keysHash":["743392a6cfca212568fbd1ca6b693f91f583f67672f2698b000dc20e062ddf6e"],"storageKey":"mp_lock_code","qrcode":"/img/20231027182204.png","title":"阅读全文需关注公众号","subtitle":"扫描下方二维码关注公众号，回复关键词获取解锁口令","keywordHint":"公众号私信留言：获取口令","inputPlaceholder":"请输入解锁口令","submitText":"解锁","errorMessage":"口令错误，请重新输入","successMessage":"解锁成功"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'AI超级个体与一人公司利器(Agency Agents',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-27 14:42:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">202</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">30</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-file-lines"></i><span> Markdown在线编辑</span></a></div><div class="menus_item"><a class="site-page" href="/json-parser/"><i class="fa-fw fas fa-code"></i><span> JSON解析器</span></a></div><div class="menus_item"><a class="site-page" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘按键测试</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/seo-checker/"><i class="fa-fw fas fa-search"></i><span> SEO 检测工具</span></a></li><li><a class="site-page child" href="/basic-runner/"><i class="fa-fw fas fa-play"></i><span> BASIC 运行器</span></a></li><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/markdown-tutorial/home.html"><i class="fa-fw fab fa-markdown"></i><span> Markdown教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-file-lines"></i><span> Markdown在线编辑</span></a></div><div class="menus_item"><a class="site-page" href="/json-parser/"><i class="fa-fw fas fa-code"></i><span> JSON解析器</span></a></div><div class="menus_item"><a class="site-page" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘按键测试</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/seo-checker/"><i class="fa-fw fas fa-search"></i><span> SEO 检测工具</span></a></li><li><a class="site-page child" href="/basic-runner/"><i class="fa-fw fas fa-play"></i><span> BASIC 运行器</span></a></li><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/markdown-tutorial/home.html"><i class="fa-fw fab fa-markdown"></i><span> Markdown教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout    " id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">AI超级个体与一人公司利器(Agency Agents</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-26T03:30:00.000Z" title="发表于 2026-03-26 11:30:00">2026-03-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-27T06:42:18.618Z" title="更新于 2026-03-27 14:42:18">2026-03-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AIGC/">AIGC</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AIGC/OpenClaw/">OpenClaw</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="AI超级个体与一人公司利器(Agency Agents"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/openclaw/2026-03-27-ai-superman/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><div class="cloud-ad-wrapper cloud-ad-top"><div class="cloud-ad-banner west-cloud-ad">
+  <a href="https://www.west.cn/active/rebate/?ReferenceID=833653" target="_blank" rel="nofollow">
+    <div class="ad-content">
+      <span class="ad-icon">🎁</span>
+      <span class="ad-text">西部数码云推荐有礼 | 免费领取 <strong>2160元</strong> 云主机新购优惠</span>
+      <span class="ad-btn">立即领取</span>
+    </div>
+  </a>
+</div>
+</div><article class="post-content" id="article-container"><p>超级个体 AI 指南(OPC)</p>
+<p><strong>agency-agents-zh</strong> 是一个包含 <strong>187 个即插即用 AI 专家角色</strong>的中文社区版项目，支持 14 种主流 AI 编程工具（OpenClaw、Claude Code、Cursor、GitHub Copilot 等），覆盖工程、设计、营销、产品等 18 个部门领域。该项目包含 <strong>46 个中国市场原创智能体</strong>，深度适配小红书、抖音、微信、飞书、钉钉等国内平台生态。</p>
+<hr />
+<h2 id="核心实用价值"><a class="markdownIt-Anchor" href="#核心实用价值"></a> 核心实用价值</h2>
+<h3 id="1-即插即用的专家团队"><a class="markdownIt-Anchor" href="#1-即插即用的专家团队"></a> 1. <strong>即插即用的专家团队</strong></h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>每个智能体都是完整的专家角色，拥有独特的专业技能、沟通风格和可落地的工作流</p>
+</li>
+<li class="lvl-2">
+<p>零配置成本，复制即可使用</p>
+</li>
+<li class="lvl-2">
+<p>支持多智能体协作编排（通过配套的 Agency Orchestrator）</p>
+</li>
+</ul>
+<h3 id="2-全栈业务覆盖"><a class="markdownIt-Anchor" href="#2-全栈业务覆盖"></a> 2. <strong>全栈业务覆盖</strong></h3>
+<p>从技术到业务，从前端到后端，从国内到出海，覆盖企业运营全链路：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>工程</strong>：25+ 角色（前端/后端/DevOps/安全/嵌入式等）</p>
+</li>
+<li class="lvl-2">
+<p><strong>设计</strong>：8 个角色（UI/UX/品牌/视觉等）</p>
+</li>
+<li class="lvl-2">
+<p><strong>营销</strong>：28+ 角色（含 15+ 国内平台专家）</p>
+</li>
+<li class="lvl-2">
+<p><strong>销售/财务/HR/法务/供应链/产品/测试/运营</strong>：全部门覆盖</p>
+</li>
+<li class="lvl-2">
+<p><strong>游戏开发/空间计算/学术研究</strong>：垂直领域专家</p>
+</li>
+</ul>
+<h3 id="3-深度本土化"><a class="markdownIt-Anchor" href="#3-深度本土化"></a> 3. <strong>深度本土化</strong></h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>46 个原创智能体专为中国市场设计</p>
+</li>
+<li class="lvl-2">
+<p>覆盖小红书、抖音、微信、B站、快手、飞书、百度等平台</p>
+</li>
+<li class="lvl-2">
+<p>支持跨境电商、政务 ToG、医疗合规、高考志愿填报等本土场景</p>
+</li>
+</ul>
+<h3 id="4-多工具生态支持"><a class="markdownIt-Anchor" href="#4-多工具生态支持"></a> 4. <strong>多工具生态支持</strong></h3>
+<p>一条命令安装到 14 种 AI 编程工具，无需重复配置：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Claude Code / GitHub Copilot（直接复制）</p>
+</li>
+<li class="lvl-2">
+<p>OpenClaw / Cursor / Trae / Windsurf 等（自动转换格式）</p>
+</li>
+</ul>
+<hr />
+<h2 id="应用场景与收益分析"><a class="markdownIt-Anchor" href="#应用场景与收益分析"></a> 应用场景与收益分析</h2>
+<h3 id="场景一创业团队快速搭建-mvp"><a class="markdownIt-Anchor" href="#场景一创业团队快速搭建-mvp"></a> 场景一：创业团队快速搭建 MVP</h3>
+<p><strong>使用角色组合：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>快速原型师 + 前端开发者 + 后端架构师 + 增长黑客</p>
+</li>
+</ul>
+<p><strong>价值：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>⚡ <strong>时间节省 70%+</strong>：从需求到原型上线，传统团队需要 1-2 个月，AI 团队可在 2-3 周完成</p>
+</li>
+<li class="lvl-2">
+<p>💰 <strong>成本降低 80%</strong>：无需招募 4 人团队，仅支付 AI 工具费用</p>
+</li>
+<li class="lvl-2">
+<p>🚀 <strong>快速验证</strong>：快速迭代，用最小成本验证产品市场匹配度</p>
+</li>
+</ul>
+<p><strong>具体收益：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>一名技术创始人 + AI 专家团队 = 5 人团队效能</p>
+</li>
+<li class="lvl-2">
+<p>避免早期招募风险（人岗不匹配、磨合成本）</p>
+</li>
+<li class="lvl-2">
+<p>专注核心业务，AI 处理常规工程任务</p>
+</li>
+</ul>
+<hr />
+<h3 id="场景二品牌全渠道营销矩阵"><a class="markdownIt-Anchor" href="#场景二品牌全渠道营销矩阵"></a> 场景二：品牌全渠道营销矩阵</h3>
+<p><strong>使用角色组合：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>小红书运营 + 抖音策略师 + 微信公众号运营 + B站内容策略师 + 品牌守护者 + 数据分析师</p>
+</li>
+</ul>
+<p><strong>价值：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>📈 <strong>多平台同步增长</strong>：一套品牌策略适配 5+ 平台</p>
+</li>
+<li class="lvl-2">
+<p>🎯 <strong>内容批量生产</strong>：每日产出多篇高质量种草内容、短视频脚本、公众号推文</p>
+</li>
+<li class="lvl-2">
+<p>💡 <strong>数据驱动优化</strong>：实时追踪各平台数据，自动调整策略</p>
+</li>
+</ul>
+<p><strong>具体收益：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>营销团队效率提升 3-5 倍</p>
+</li>
+<li class="lvl-2">
+<p>内容一致性 100%（品牌守护者把关）</p>
+</li>
+<li class="lvl-2">
+<p>广告投放 ROI 提升 20-30%（精准投放 + 数据分析）</p>
+</li>
+</ul>
+<p><strong>量化案例：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>假设传统营销团队 5 人，月成本 8 万</p>
+</li>
+<li class="lvl-2">
+<p>AI 辅助后，2 人即可运营 5 平台，月成本 3.5 万</p>
+</li>
+<li class="lvl-2">
+<p>节省成本 4.5 万/月，年省 54 万</p>
+</li>
+</ul>
+<hr />
+<h3 id="场景三电商企业大促作战"><a class="markdownIt-Anchor" href="#场景三电商企业大促作战"></a> 场景三：电商企业大促作战</h3>
+<p><strong>使用角色组合：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>中国电商运营师 + 直播电商主播教练 + 库存预测专家 + 供应链采购策略师 + 私域流量运营师 + 动态定价策略师</p>
+</li>
+</ul>
+<p><strong>价值：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>📦 <strong>库存精准备货</strong>：618/双11 避免缺货或积压</p>
+</li>
+<li class="lvl-2">
+<p>💰 <strong>定价策略优化</strong>：大促期间动态调整价格，利润最大化</p>
+</li>
+<li class="lvl-2">
+<p>🎙️ <strong>直播效率提升</strong>：主播话术、选品排品、千川投放一体化</p>
+</li>
+<li class="lvl-2">
+<p>🔄 <strong>私域复购增长</strong>：大促后持续运营，提升 LTV</p>
+</li>
+</ul>
+<p><strong>具体收益：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>库存周转率提升 30%</p>
+</li>
+<li class="lvl-2">
+<p>直播转化率提升 15-25%</p>
+</li>
+<li class="lvl-2">
+<p>大促 GMV 增长 20-40%</p>
+</li>
+<li class="lvl-2">
+<p>私域复购率提升 10-15%</p>
+</li>
+</ul>
+<p><strong>量化案例：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>某电商企业年 GMV 5000 万，通过 AI 辅助：</p>
+<ul class="lvl-2">
+<li class="lvl-4">大促 GMV 从 1000 万提升至 1300 万（+30%）</li>
+<li class="lvl-4">库存成本降低 15%（节省 150 万）</li>
+<li class="lvl-4">净利润提升 200 万+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="场景四跨境出海企业"><a class="markdownIt-Anchor" href="#场景四跨境出海企业"></a> 场景四：跨境出海企业</h3>
+<p><strong>使用角色组合：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>跨境电商运营专家 + TikTok 策略师 + Amazon/Shopee 运营 + 应用商店优化师 + 文化智能策略师 + 贸易合规师</p>
+</li>
+</ul>
+<p><strong>价值：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>🌍 <strong>本地化运营</strong>：文化适应 + 内容本地化</p>
+</li>
+<li class="lvl-2">
+<p>📱 <strong>多渠道增长</strong>：TikTok + Amazon + 应用商店</p>
+</li>
+<li class="lvl-2">
+<p>📊 <strong>数据归因追踪</strong>：跨平台 ROI 分析</p>
+</li>
+</ul>
+<p><strong>具体收益：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>海外市场拓展周期缩短 40%</p>
+</li>
+<li class="lvl-2">
+<p>本地化内容 acceptance 提升 30%</p>
+</li>
+<li class="lvl-2">
+<p>跨境广告浪费减少 25%</p>
+</li>
+</ul>
+<p><strong>量化案例：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>某跨境电商企业年营收 2000 万，AI 辅助后：</p>
+<ul class="lvl-2">
+<li class="lvl-4">海外市场从 2 个拓展至 5 个</li>
+<li class="lvl-4">年营收增长至 3500 万（+75%）</li>
+<li class="lvl-4">广告投放 ROI 从 1:3 提升至 1:4.5</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="场景五游戏开发团队"><a class="markdownIt-Anchor" href="#场景五游戏开发团队"></a> 场景五：游戏开发团队</h3>
+<p><strong>使用角色组合：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>游戏设计师 + Unity 架构师 + Unreal 技术美术 + 叙事设计师 + 关卡设计师 + 游戏音频工程师</p>
+</li>
+</ul>
+<p><strong>价值：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>🎮 <strong>全栈开发支持</strong>：Unity/Unreal/Godot/Roblox 全引擎覆盖</p>
+</li>
+<li class="lvl-2">
+<p>📖 <strong>剧情快速产出</strong>：世界观构建 + 角色弧线 + 对话系统</p>
+</li>
+<li class="lvl-2">
+<p>🎨 <strong>画质与性能平衡</strong>：技术美术 + Shader 优化</p>
+</li>
+</ul>
+<p><strong>具体收益：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>游戏开发周期缩短 30-50%</p>
+</li>
+<li class="lvl-2">
+<p>代码质量提升 40%（架构师把关）</p>
+</li>
+<li class="lvl-2">
+<p>玩家留存率提升 10-15%（关卡 + 叙事优化）</p>
+</li>
+</ul>
+<hr />
+<h2 id="个人如何用-agency-agents-zh-获得收益"><a class="markdownIt-Anchor" href="#个人如何用-agency-agents-zh-获得收益"></a> 个人如何用 agency-agents-zh 获得收益</h2>
+<h3 id="路径一自由职业者-副业接单"><a class="markdownIt-Anchor" href="#路径一自由职业者-副业接单"></a> 路径一：自由职业者 / 副业接单</h3>
+<p><strong>适用人群：</strong> 程序员、设计师、营销人员、文案写手</p>
+<p><strong>变现方式：</strong></p>
+<ol>
+<li class="lvl-3">
+<p><strong>全栈开发接单</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：快速原型师 + 前端开发者 + 后端架构师</li>
+<li class="lvl-5">服务：小程序、网站、工具类应用开发</li>
+<li class="lvl-5">收益：单人接单 5000-30000 元/单（传统需要 2-3 人团队）</li>
+<li class="lvl-5">优势：1 人完成 3 人工作，利润率 80%+</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>营销内容代运营</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：小红书运营 + 抖音策略师 + 内容创作者 + 品牌守护者</li>
+<li class="lvl-5">服务：品牌全平台内容运营，月费制</li>
+<li class="lvl-5">收益：5000-20000 元/客户/月</li>
+<li class="lvl-5">产能：同时服务 5-10 个客户（传统 2-3 个）</li>
+<li class="lvl-5">月收入：2.5 万 - 20 万</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>电商代运营</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：电商运营师 + 直播电商主播教练 + 库存预测专家</li>
+<li class="lvl-5">服务：淘宝/抖音/京东店铺托管</li>
+<li class="lvl-5">收益：基础服务费 5000-20000 元/月 + 销售提成 3-10%</li>
+<li class="lvl-5">案例：服务年 GMV 500 万店铺，提成 15-50 万/年</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>短视频制作</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：短视频剪辑指导师 + 抖音策略师 + 内容创作者</li>
+<li class="lvl-5">服务：短视频策划+剪辑，按条收费</li>
+<li class="lvl-5">收益：200-1000 元/条（高质量）</li>
+<li class="lvl-5">产能：AI 辅助每日 5-10 条</li>
+<li class="lvl-5">月收入：3 万 - 15 万</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>技术文档/方案撰写</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：技术文档工程师 + 政务数字化售前顾问 + 合同审查专家</li>
+<li class="lvl-5">服务：标书、技术方案、合规文档</li>
+<li class="lvl-5">收益：5000-50000 元/单</li>
+<li class="lvl-5">优势：专业度 + 快速交付</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="路径二知识付费-课程销售"><a class="markdownIt-Anchor" href="#路径二知识付费-课程销售"></a> 路径二：知识付费 / 课程销售</h3>
+<p><strong>适用人群：</strong> 有专业领域经验者</p>
+<p><strong>变现方式：</strong></p>
+<ol>
+<li class="lvl-3">
+<p><strong>技能培训课程</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：企业培训课程设计师 + 学习规划师 + 内容创作者</li>
+<li class="lvl-5">产品：AI 辅助开发/营销/运营课程</li>
+<li class="lvl-5">收益：课程单价 199-2999 元</li>
+<li class="lvl-5">销量：100-1000 人/期</li>
+<li class="lvl-5">单期收入：2 万 - 300 万</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>社群会员订阅</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：增长黑客 + 内容创作者 + 数据分析师</li>
+<li class="lvl-5">产品：AI 工具使用技巧 + 实战案例分享</li>
+<li class="lvl-5">收益：99-999 元/年</li>
+<li class="lvl-5">会员数：100-1000 人</li>
+<li class="lvl-5">年收入：1 万 - 100 万</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>咨询顾问服务</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：企业风险评估师 + 软件架构师 + 产品经理</li>
+<li class="lvl-5">服务：企业数字化转型/技术架构咨询</li>
+<li class="lvl-5">收益：500-5000 元/小时</li>
+<li class="lvl-5">客户：中小企业、创业团队</li>
+<li class="lvl-5">月收入：2 万 - 20 万</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="路径三自媒体-流量变现"><a class="markdownIt-Anchor" href="#路径三自媒体-流量变现"></a> 路径三：自媒体 / 流量变现</h3>
+<p><strong>适用人群：</strong> 内容创作者、KOL</p>
+<p><strong>变现方式：</strong></p>
+<ol>
+<li class="lvl-3">
+<p><strong>多平台矩阵运营</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：小红书运营 + 抖音策略师 + B站内容策略师 + 微信公众号运营 + 微博运营策略师</li>
+<li class="lvl-5">策略：一套内容适配 5 平台</li>
+<li class="lvl-5">收益来源：
+<ul class="lvl-4">
+<li class="lvl-7">广告合作：5000-50000 元/单</li>
+<li class="lvl-7">平台分成：播放量收益</li>
+<li class="lvl-7">带货佣金：5-30%</li>
+</ul>
+</li>
+<li class="lvl-5">AI 辅助：每日 10+ 条高质量内容</li>
+<li class="lvl-5">月收入：1 万 - 50 万+</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>知识星球/小鹅通</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：知识付费产品策划师 + 内容创作者 + 私域流量运营师</li>
+<li class="lvl-5">产品：垂直领域深度内容 + 会员交流</li>
+<li class="lvl-5">收益：99-999 元/人</li>
+<li class="lvl-5">会员数：100-5000 人</li>
+<li class="lvl-5">年收入：1 万 - 500 万</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>直播带货</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：直播电商主播教练 + 电商运营师 + 动态定价策略师</li>
+<li class="lvl-5">平台：抖音/快手/视频号</li>
+<li class="lvl-5">收益：佣金 5-30% + 坑位费</li>
+<li class="lvl-5">AI 辅助：话术优化 + 选品建议 + 数据复盘</li>
+<li class="lvl-5">月收入：1 万 - 100 万+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="路径四创业项目"><a class="markdownIt-Anchor" href="#路径四创业项目"></a> 路径四：创业项目</h3>
+<p><strong>适用人群：</strong> 创业者、有项目想法者</p>
+<p><strong>变现方式：</strong></p>
+<ol>
+<li class="lvl-3">
+<p><strong>SaaS 产品开发</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：快速原型师 + 前端开发者 + 后端架构师 + 产品经理 + 趋势研究员</li>
+<li class="lvl-5">产品：解决某个垂直问题的工具</li>
+<li class="lvl-5">收益：订阅制 99-999 元/月</li>
+<li class="lvl-5">用户数：100-10000 人</li>
+<li class="lvl-5">月收入：1 万 - 1000 万</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>跨境电商</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：跨境电商运营专家 + TikTok 策略师 + 应用商店优化师 + 供应链采购策略师</li>
+<li class="lvl-5">产品：选品 + 本地化运营</li>
+<li class="lvl-5">收益：商品利润 20-50%</li>
+<li class="lvl-5">AI 辅助：选品分析 + 本地化内容</li>
+<li class="lvl-5">月收入：1 万 - 100 万+</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>游戏/应用开发</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：游戏设计师 + Unity 架构师 + 叙事设计师 + 技术美术</li>
+<li class="lvl-5">产品：独立游戏/休闲应用</li>
+<li class="lvl-5">收益：广告分成 + 内购 + 买量</li>
+<li class="lvl-5">AI 辅助：剧情 + 关卡 + 美术</li>
+<li class="lvl-5">月收入：1 万 - 100 万+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="路径五服务企业-b2b-变现"><a class="markdownIt-Anchor" href="#路径五服务企业-b2b-变现"></a> 路径五：服务企业 / B2B 变现</h3>
+<p><strong>适用人群：</strong> 有企业资源者</p>
+<p><strong>变现方式：</strong></p>
+<ol>
+<li class="lvl-3">
+<p><strong>企业内训服务</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：企业培训课程设计师 + 学习规划师 + 提示词工程师</li>
+<li class="lvl-5">服务：AI 工具使用培训 + 工作流优化</li>
+<li class="lvl-5">收益：5000-50000 元/场</li>
+<li class="lvl-5">客户：中小企业、传统企业转型</li>
+<li class="lvl-5">月收入：2 万 - 30 万</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>数字化转型咨询</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：政务数字化售前顾问 + 飞书集成开发工程师 + 钉钉集成开发工程师 + 企业风险评估师</li>
+<li class="lvl-5">服务：流程优化 + 系统集成 + 合规保障</li>
+<li class="lvl-5">收益：50000-500000 元/项目</li>
+<li class="lvl-5">周期：1-3 个月</li>
+<li class="lvl-5">年收入：20 万 - 200 万</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>技术外包服务</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">组合：前端开发者 + 后端架构师 + DevOps 自动化 + 安全工程师</li>
+<li class="lvl-5">服务：企业 IT 外包、项目开发</li>
+<li class="lvl-5">收益：按人天或项目结算</li>
+<li class="lvl-5">优势：1 人团队完成 5 人工作</li>
+<li class="lvl-5">月收入：5 万 - 50 万</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="个人收益案例模拟"><a class="markdownIt-Anchor" href="#个人收益案例模拟"></a> 个人收益案例模拟</h3>
+<p><strong>案例：程序员小李接单开发小程序</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>传统模式：3 人团队（前端 + 后端 + UI），成本 6 万/月，接单 8 万/月，净利润 2 万</p>
+</li>
+<li class="lvl-2">
+<p>AI 辅助模式：1 人 + 智能体，成本 1 万/月，接单 6 万/月，净利润 5 万</p>
+</li>
+<li class="lvl-2">
+<p><strong>收益提升：150%</strong></p>
+</li>
+</ul>
+<p><strong>案例：营销达人小王代运营品牌</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>传统模式：2 人团队，服务 3 个客户，月收入 4 万，成本 3 万，净利润 1 万</p>
+</li>
+<li class="lvl-2">
+<p>AI 辅助模式：1 人 + 智能体，服务 8 个客户，月收入 12 万，成本 2 万，净利润 10 万</p>
+</li>
+<li class="lvl-2">
+<p><strong>收益提升：900%</strong></p>
+</li>
+</ul>
+<p><strong>案例：自媒体创作者小张多平台运营</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>传统模式：1 人每日产出 1 条内容，3 平台，月收入 5000 元</p>
+</li>
+<li class="lvl-2">
+<p>AI 辅助模式：1 人每日产出 10 条内容，5 平台，月收入 5 万</p>
+</li>
+<li class="lvl-2">
+<p><strong>收益提升：900%</strong></p>
+</li>
+</ul>
+<hr />
+<h2 id="商业价值总结"><a class="markdownIt-Anchor" href="#商业价值总结"></a> 商业价值总结</h2>
+<h3 id="直接收益"><a class="markdownIt-Anchor" href="#直接收益"></a> 直接收益</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统方式</th>
+<th>AI 辅助</th>
+<th>提升幅度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人力成本</td>
+<td>5 人团队 × 2 万/月 = 10 万</td>
+<td>2 人 + AI 工具 = 4 万</td>
+<td>60% ↓</td>
+</tr>
+<tr>
+<td>项目周期</td>
+<td>3 个月</td>
+<td>1.5 个月</td>
+<td>50% ↓</td>
+</tr>
+<tr>
+<td>内容产出</td>
+<td>每日 2 篇</td>
+<td>每日 10+ 篇</td>
+<td>400% ↑</td>
+</tr>
+<tr>
+<td>决策效率</td>
+<td>周/月级</td>
+<td>日/小时级</td>
+<td>10× ↑</td>
+</tr>
+</tbody>
+</table>
+<h3 id="战略收益"><a class="markdownIt-Anchor" href="#战略收益"></a> 战略收益</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>组织敏捷性</strong>：快速响应市场变化，新业务线从 0 到 1 缩短至 2 周</p>
+</li>
+<li class="lvl-3">
+<p><strong>知识沉淀</strong>：智能体本身就是最佳实践的知识库</p>
+</li>
+<li class="lvl-3">
+<p><strong>风险降低</strong>：合规、安全、财务等风险前置预警</p>
+</li>
+<li class="lvl-3">
+<p><strong>规模化能力</strong>：一套 AI 团队可同时服务多个业务线</p>
+</li>
+</ol>
+<hr />
+<h2 id="适合人群"><a class="markdownIt-Anchor" href="#适合人群"></a> 适合人群</h2>
+<p>✅ <strong>创业者</strong>：用 1-2 人团队发挥 10 人团队效能<br />
+✅ <strong>自由职业者</strong>：接单能力提升 5-10 倍，收入翻倍<br />
+✅ <strong>内容创作者</strong>：多平台矩阵运营，月入 10 万+<br />
+✅ <strong>程序员/设计师</strong>：一人公司模式，利润率 80%+<br />
+✅ <strong>营销/电商从业者</strong>：服务更多客户，收入暴涨<br />
+✅ <strong>知识工作者</strong>：开发课程/咨询，建立被动收入</p>
+<hr />
+<h2 id="亮点总结"><a class="markdownIt-Anchor" href="#亮点总结"></a> 亮点总结</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>187 个专家角色</strong>：覆盖 18 个部门，即插即用</p>
+</li>
+<li class="lvl-3">
+<p><strong>46 个中国原创智能体</strong>：深度适配国内平台生态</p>
+</li>
+<li class="lvl-3">
+<p><strong>14 种工具支持</strong>：OpenClaw、Claude Code、Cursor、Copilot 等</p>
+</li>
+<li class="lvl-3">
+<p><strong>多智能体编排</strong>：YAML 定义工作流，零代码协作</p>
+</li>
+<li class="lvl-3">
+<p><strong>MIT 开源协议</strong>：商用/个人均免费</p>
+</li>
+<li class="lvl-3">
+<p><strong>个人变现路径清晰</strong>：从副业接单到创业项目，5 条路径可选</p>
+</li>
+</ol>
+<hr />
+<p>Agency-agents-zh 不仅是一个 AI 工具集，更是一个<strong>个人能力放大器</strong>。通过 187 个专家角色，个人可以突破时间和能力限制，实现从&quot;单打独斗&quot;到&quot;一人公司&quot;的跃迁，收入潜力提升 <strong>5-10 倍</strong>，而成本仅增加 10-20%（AI 工具费用）。对于希望提升收入、拓展能力边界的个人来说，这是一个极具实用价值的杠杆工具。</p>
+</article><div class="cloud-ad-wrapper cloud-ad-bottom"><div class="cloud-ad-banner west-cloud-ad west-cloud-bottom">
+  <a href="https://www.west.cn/active/rebate/?ReferenceID=833653" target="_blank" rel="nofollow">
+    <div class="ad-content">
+      <span class="ad-icon">☁️</span>
+      <span class="ad-text">西部数码云主机 | 安全稳定高速 | 新用户专享 <strong>2160元</strong> 优惠券</span>
+      <span class="ad-btn">免费领取</span>
+    </div>
+  </a>
+</div>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lua.ren">AI安全运营</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lua.ren/openclaw/2026-03-27-ai-superman/">https://lua.ren/openclaw/2026-03-27-ai-superman/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="null" target="_blank">null</a> 许可协议。转载请注明来自 <a href="https://lua.ren" target="_blank">AI安全运营</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/OpenClaw/">OpenClaw</a><a class="post-meta__tags" href="/tags/Skills/">Skills</a><a class="post-meta__tags" href="/tags/Agent/">Agent</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/openclaw/2026-03-26-openclaw-skills-tutorial/" title="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/openclaw/2026-03-26-openclaw-skills-tutorial/" title="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-26</div><div class="title">OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能</div></div></a></div><div><a href="/openclaw/2026-02-15-openclaw-tutorial/" title="OpenClaw 使用教程：跨平台安装部署、配置大模型 Provider、接入 Ollama、本地 Skills&#x2F;插件、浏览器控制、搜索 API、Obsidian Skills"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-15</div><div class="title">OpenClaw 使用教程：跨平台安装部署、配置大模型 Provider、接入 Ollama、本地 Skills&#x2F;插件、浏览器控制、搜索 API、Obsidian Skills</div></div></a></div><div><a href="/openclaw/2026-02-25-openclaw-persona-memory-growth/" title="OpenClaw 聊天机器人角色人格设定"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-15</div><div class="title">OpenClaw 聊天机器人角色人格设定</div></div></a></div><div><a href="/openclaw/2026-02-20-openclaw-classic-skills/" title="OpenClaw 经典 Skills 清单与用法（默认布局）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-20</div><div class="title">OpenClaw 经典 Skills 清单与用法（默认布局）</div></div></a></div><div><a href="/openclaw/2026-02-25-openclaw-create-skill/" title="创建一个OpenClaw Skill"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-15</div><div class="title">创建一个OpenClaw Skill</div></div></a></div><div><a href="/openclaw/2026-02-21-openclaw-tavily-skills-web-search/" title="OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）"><img class="cover" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-21</div><div class="title">OpenClaw 用 Tavily Skill 检索网页信息：替代默认 Brave Search（未配置 Brave Key 将无法 web_search）</div></div></a></div></div></div><div class="cloud-ad-wrapper cloud-ad-middle"><div class="cloud-ad-banner west-cloud-ad west-cloud-middle">
+  <script language="javascript" src="https://www.west.cn/vcp/getJScode/getJScode.asp?ReferenceID=833653&No=580x90"></script>
+  <noscript>
+    <a href="https://www.west.cn/active/rebate/?ReferenceID=833653" target="_blank" rel="nofollow">
+      <div class="ad-content">
+        <div class="ad-title">💡 站长推荐</div>
+        <p class="ad-desc">我正在使用西部数码云主机，安全稳定高速！通过推荐链接购买，可免费领取 <strong>2160元</strong> 云主机新购优惠，赶紧行动吧！</p>
+        <span class="ad-btn">查看优惠 →</span>
+      </div>
+    </a>
+  </noscript>
+</div>
+</div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content aside-left" id="aside-content-left"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">AI安全运营</div><div class="author-info__description">AI安全运营 openclaw claude lua</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">202</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">30</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">公众号：AI安全运营 <img src="/img/20231027182204.png"></img></div></div><div class="card-widget card-tutorials"><div class="item-headline"><i class="fas fa-book-open"></i><span>教程</span></div><div id="aside-tutorial-list"><ul class="card-tutorial-list"><li class="card-tutorial-list-item"><a href="/markdown-tutorial/home.html"><i class="fab fa-markdown"></i><span class="card-tutorial-list-name">Markdown教程</span></a></li><li class="card-tutorial-list-item"><a href="/obsidian/home.html"><i class="fas fa-book"></i><span class="card-tutorial-list-name">Obsidian教程</span></a></li><li class="card-tutorial-list-item"><a href="/openclaw/home.html"><i class="fas fa-book"></i><span class="card-tutorial-list-name">OpenClaw教程</span></a></li><li class="card-tutorial-list-item"><a href="/prompt/home.html"><i class="fas fa-terminal"></i><span class="card-tutorial-list-name">prompt教程</span></a></li><li class="card-tutorial-list-item"><a href="/claude/home.html"><i class="fas fa-robot"></i><span class="card-tutorial-list-name">Claude 教程</span></a></li></ul></div></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/"><span class="card-category-list-name">AIGC</span><span class="card-category-list-count">16</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Claude/"><span class="card-category-list-name">Claude</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/Ollama/"><span class="card-category-list-name">Ollama</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/OpenClaw/"><span class="card-category-list-name">OpenClaw</span><span class="card-category-list-count">14</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AIGC/OpenClaw/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">安全工具</span><span class="card-category-list-count">1</span></a></li></ul></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">AI工具</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E5%B7%A5%E5%85%B7/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/"><span class="card-category-list-name">技术架构</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E5%B7%A5%E5%85%B7/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">开发工具</span><span class="card-category-list-count">1</span></a></li></ul></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/"><span class="card-category-list-name">Lua</span><span class="card-category-list-count">12</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Lua/%E6%95%99%E7%A8%8B/"><span class="card-category-list-name">教程</span><span class="card-category-list-count">12</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/OpenClaw/"><span class="card-category-list-name">OpenClaw</span><span class="card-category-list-count">3</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/OpenClaw/%E6%8A%80%E8%83%BD%E6%8E%A8%E8%8D%90/"><span class="card-category-list-name">技能推荐</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Security-Ops/"><span class="card-category-list-name">Security Ops</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/claude/"><span class="card-category-list-name">claude</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/"><span class="card-category-list-name">安全运营</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/"><span class="card-category-list-name">技术文档</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/"><span class="card-category-list-name">教程</span><span class="card-category-list-count">124</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/Graylog/"><span class="card-category-list-name">Graylog</span><span class="card-category-list-count">30</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/Obsidian/"><span class="card-category-list-name">Obsidian</span><span class="card-category-list-count">65</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/OpenResty/"><span class="card-category-list-name">OpenResty</span><span class="card-category-list-count">29</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/OpenResty/WAF/"><span class="card-category-list-name">WAF</span><span class="card-category-list-count">29</span></a></li></ul></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%96%B0%E9%97%BB/"><span class="card-category-list-name">新闻</span><span class="card-category-list-count">14</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%96%B0%E9%97%BB/Freebuf/"><span class="card-category-list-name">Freebuf</span><span class="card-category-list-count">14</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="card-category-list-name">编程语言</span><span class="card-category-list-count">16</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/"><span class="card-category-list-name">JavaScript</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/"><span class="card-category-list-name">Rust</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/TypeScript/"><span class="card-category-list-name">TypeScript</span><span class="card-category-list-count">4</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">网络安全</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%A9%BE%E8%80%83/"><span class="card-category-list-name">驾考</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%A9%BE%E8%80%83/%E7%A7%91%E7%9B%AE%E4%B8%80/"><span class="card-category-list-name">科目一</span><span class="card-category-list-count">1</span></a></li></ul></li>
+            </ul></div></div></div><div class="aside-content aside-right" id="aside-content-right"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/openclaw/2026-03-27-ai-superman/" title="AI超级个体与一人公司利器(Agency Agents"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI超级个体与一人公司利器(Agency Agents"/></a><div class="content"><a class="title" href="/openclaw/2026-03-27-ai-superman/" title="AI超级个体与一人公司利器(Agency Agents">AI超级个体与一人公司利器(Agency Agents</a><time datetime="2026-03-26T03:30:00.000Z" title="发表于 2026-03-26 11:30:00">2026-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/openclaw/2026-03-26-openclaw-skills-tutorial/" title="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能"/></a><div class="content"><a class="title" href="/openclaw/2026-03-26-openclaw-skills-tutorial/" title="OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能">OpenClaw Skills 基础教程 - 从零开始创建你的第一个技能</a><time datetime="2026-03-26T03:30:00.000Z" title="发表于 2026-03-26 11:30:00">2026-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/news/2026-03-26-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-26-Freebuf每日新闻"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2026-03-26-Freebuf每日新闻"/></a><div class="content"><a class="title" href="/news/2026-03-26-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-26-Freebuf每日新闻">2026-03-26-Freebuf每日新闻</a><time datetime="2026-03-26T02:05:00.000Z" title="发表于 2026-03-26 10:05:00">2026-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/news/2026-03-25-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-25-Freebuf每日新闻"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2026-03-25-Freebuf每日新闻"/></a><div class="content"><a class="title" href="/news/2026-03-25-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-25-Freebuf每日新闻">2026-03-25-Freebuf每日新闻</a><time datetime="2026-03-25T02:05:00.000Z" title="发表于 2026-03-25 10:05:00">2026-03-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/news/2026-03-24-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-24-Freebuf每日新闻"><img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_lua.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2026-03-24-Freebuf每日新闻"/></a><div class="content"><a class="title" href="/news/2026-03-24-Freebuf%E6%AF%8F%E6%97%A5%E6%96%B0%E9%97%BB/" title="2026-03-24-Freebuf每日新闻">2026-03-24-Freebuf每日新闻</a><time datetime="2026-03-24T02:55:00.000Z" title="发表于 2026-03-24 10:55:00">2026-03-24</time></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%AE%9E%E7%94%A8%E4%BB%B7%E5%80%BC"><span class="toc-number">1.</span> <span class="toc-text"> 核心实用价值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8D%B3%E6%8F%92%E5%8D%B3%E7%94%A8%E7%9A%84%E4%B8%93%E5%AE%B6%E5%9B%A2%E9%98%9F"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. 即插即用的专家团队</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%A8%E6%A0%88%E4%B8%9A%E5%8A%A1%E8%A6%86%E7%9B%96"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. 全栈业务覆盖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B7%B1%E5%BA%A6%E6%9C%AC%E5%9C%9F%E5%8C%96"><span class="toc-number">1.3.</span> <span class="toc-text"> 3. 深度本土化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%A4%9A%E5%B7%A5%E5%85%B7%E7%94%9F%E6%80%81%E6%94%AF%E6%8C%81"><span class="toc-number">1.4.</span> <span class="toc-text"> 4. 多工具生态支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8E%E6%94%B6%E7%9B%8A%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 应用场景与收益分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%80%E5%88%9B%E4%B8%9A%E5%9B%A2%E9%98%9F%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-mvp"><span class="toc-number">2.1.</span> <span class="toc-text"> 场景一：创业团队快速搭建 MVP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%E5%93%81%E7%89%8C%E5%85%A8%E6%B8%A0%E9%81%93%E8%90%A5%E9%94%80%E7%9F%A9%E9%98%B5"><span class="toc-number">2.2.</span> <span class="toc-text"> 场景二：品牌全渠道营销矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%89%E7%94%B5%E5%95%86%E4%BC%81%E4%B8%9A%E5%A4%A7%E4%BF%83%E4%BD%9C%E6%88%98"><span class="toc-number">2.3.</span> <span class="toc-text"> 场景三：电商企业大促作战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%9B%9B%E8%B7%A8%E5%A2%83%E5%87%BA%E6%B5%B7%E4%BC%81%E4%B8%9A"><span class="toc-number">2.4.</span> <span class="toc-text"> 场景四：跨境出海企业</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%94%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9B%A2%E9%98%9F"><span class="toc-number">2.5.</span> <span class="toc-text"> 场景五：游戏开发团队</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E5%A6%82%E4%BD%95%E7%94%A8-agency-agents-zh-%E8%8E%B7%E5%BE%97%E6%94%B6%E7%9B%8A"><span class="toc-number">3.</span> <span class="toc-text"> 个人如何用 agency-agents-zh 获得收益</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E4%B8%80%E8%87%AA%E7%94%B1%E8%81%8C%E4%B8%9A%E8%80%85-%E5%89%AF%E4%B8%9A%E6%8E%A5%E5%8D%95"><span class="toc-number">3.1.</span> <span class="toc-text"> 路径一：自由职业者 &#x2F; 副业接单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E4%BA%8C%E7%9F%A5%E8%AF%86%E4%BB%98%E8%B4%B9-%E8%AF%BE%E7%A8%8B%E9%94%80%E5%94%AE"><span class="toc-number">3.2.</span> <span class="toc-text"> 路径二：知识付费 &#x2F; 课程销售</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E4%B8%89%E8%87%AA%E5%AA%92%E4%BD%93-%E6%B5%81%E9%87%8F%E5%8F%98%E7%8E%B0"><span class="toc-number">3.3.</span> <span class="toc-text"> 路径三：自媒体 &#x2F; 流量变现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E5%9B%9B%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.4.</span> <span class="toc-text"> 路径四：创业项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E4%BA%94%E6%9C%8D%E5%8A%A1%E4%BC%81%E4%B8%9A-b2b-%E5%8F%98%E7%8E%B0"><span class="toc-number">3.5.</span> <span class="toc-text"> 路径五：服务企业 &#x2F; B2B 变现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E6%94%B6%E7%9B%8A%E6%A1%88%E4%BE%8B%E6%A8%A1%E6%8B%9F"><span class="toc-number">3.6.</span> <span class="toc-text"> 个人收益案例模拟</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%95%86%E4%B8%9A%E4%BB%B7%E5%80%BC%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text"> 商业价值总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E6%94%B6%E7%9B%8A"><span class="toc-number">4.1.</span> <span class="toc-text"> 直接收益</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%98%E7%95%A5%E6%94%B6%E7%9B%8A"><span class="toc-number">4.2.</span> <span class="toc-text"> 战略收益</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E5%90%88%E4%BA%BA%E7%BE%A4"><span class="toc-number">5.</span> <span class="toc-text"> 适合人群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%AE%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text"> 亮点总结</span></a></li></ol></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><span class="card-archive-list-count">22</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><span class="card-archive-list-count">144</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">36</span></a></li></ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E7%BC%96%E7%A0%81%E4%BB%A3%E7%90%86/" style="font-size: 1.1em; color: #999">编码代理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">线程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 1.2em; color: #999da3">数据类型</a> <a href="/tags/%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE/" style="font-size: 1.1em; color: #999">金融数据</a> <a href="/tags/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" style="font-size: 1.1em; color: #999">基础语法</a> <a href="/tags/%E7%B1%BB%E5%9E%8B/" style="font-size: 1.1em; color: #999">类型</a> <a href="/tags/%E5%90%88%E8%A7%84/" style="font-size: 1.1em; color: #999">合规</a> <a href="/tags/Embedding/" style="font-size: 1.1em; color: #999">Embedding</a> <a href="/tags/Python/" style="font-size: 1.15em; color: #999b9e">Python</a> <a href="/tags/%E6%BC%8F%E6%B4%9E%E7%AE%A1%E7%90%86/" style="font-size: 1.15em; color: #999b9e">漏洞管理</a> <a href="/tags/Tavily/" style="font-size: 1.1em; color: #999">Tavily</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 1.15em; color: #999b9e">模块</a> <a href="/tags/AI%E5%8D%8F%E4%BD%9C/" style="font-size: 1.1em; color: #999">AI协作</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%AB%E6%8F%8F/" style="font-size: 1.1em; color: #999">自动化扫描</a> <a href="/tags/%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5/" style="font-size: 1.1em; color: #999">威胁情报</a> <a href="/tags/Skills/" style="font-size: 1.3em; color: #99a1ac">Skills</a> <a href="/tags/Skill/" style="font-size: 1.2em; color: #999da3">Skill</a> <a href="/tags/Graylog/" style="font-size: 1.5em; color: #99a9bf">Graylog</a> <a href="/tags/Web-Search/" style="font-size: 1.1em; color: #999">Web Search</a> <a href="/tags/%E5%B5%8C%E5%85%A5/" style="font-size: 1.1em; color: #999">嵌入</a> <a href="/tags/OpenResty/" style="font-size: 1.45em; color: #99a7ba">OpenResty</a> <a href="/tags/%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" style="font-size: 1.1em; color: #999">条件语句</a> <a href="/tags/AKShare/" style="font-size: 1.1em; color: #999">AKShare</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 1.1em; color: #999">接口</a> <a href="/tags/Lua/" style="font-size: 1.35em; color: #99a3b1">Lua</a> <a href="/tags/Kali-Linux/" style="font-size: 1.1em; color: #999">Kali Linux</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">系统编程</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 1.1em; color: #999">入门</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5/" style="font-size: 1.25em; color: #999fa7">安全运营</a> <a href="/tags/IO/" style="font-size: 1.1em; color: #999">IO</a> <a href="/tags/%E9%A1%B9%E7%9B%AE/" style="font-size: 1.1em; color: #999">项目</a> <a href="/tags/LLM/" style="font-size: 1.15em; color: #999b9e">LLM</a> <a href="/tags/Freebuf%E6%96%B0%E9%97%BB/" style="font-size: 1.4em; color: #99a5b6">Freebuf新闻</a> <a href="/tags/%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90/" style="font-size: 1.15em; color: #999b9e">威胁分析</a> <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">渗透测试</a> <a href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86/" style="font-size: 1.1em; color: #999">包管理</a> <a href="/tags/%E8%82%A1%E7%A5%A8%E8%A1%8C%E6%83%85/" style="font-size: 1.1em; color: #999">股票行情</a> <a href="/tags/SOAR/" style="font-size: 1.1em; color: #999">SOAR</a> <a href="/tags/JavaScript/" style="font-size: 1.15em; color: #999b9e">JavaScript</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 1.15em; color: #999b9e">字符串</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By AI安全运营</div><div class="footer_webinfo"><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">202</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-03-27T06:44:38.614Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/mp-lock.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '2795b4c1f65d53754571',
+      clientSecret: 'bcf3d1764bd7fe38e1606b25374ecbf2b5db3871',
+      repo: 'lua.ren',
+      owner: 'shengnoah',
+      admin: ['shengnoah'],
+      id: '2f5378194bdb6555c5d0c1a113b388b4',
+      updateCountCallback: commentCount
+    },{"language":"zh-CN","perPage":10,"distractionFreeMode":false,"pagerDirection":"last","createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"}))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script defer data-pjax src="/js/lua-swiper-directory.js"></script><script defer data-pjax src="/js/ai-explosion.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
