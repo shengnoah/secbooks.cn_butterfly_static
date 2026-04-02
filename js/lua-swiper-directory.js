@@ -130,25 +130,37 @@
       return
     }
 
-    // 用一个"保守配置"兜底初始化
-    // 注：避免和主题/插件配置强耦合，只保证能滑动与分页可点。
+    // 使用与 hexo-butterfly-swiper 完全相同的配置
+    // 注意：选择器必须是 .blog-slider，与原始 swiper_init.js 一致
     try {
       // eslint-disable-next-line no-new
-      new Swiper('#swiper_container', {
+      const swiperInstance = new Swiper('.blog-slider', {
+        passiveListeners: true,
+        spaceBetween: 30,
+        effect: 'fade',  // 重要：必须使用 fade 效果，与 swiperstyle.css 配合
         loop: true,
-        speed: 500,
-        slidesPerView: 1,
-        spaceBetween: 0,
         autoplay: {
           delay: 3000,
-          disableOnInteraction: false
+          disableOnInteraction: true
         },
+        mousewheel: true,
         pagination: {
           el: '.blog-slider__pagination',
           clickable: true
         }
       })
-      console.log('[Lua Swiper] Swiper 初始化成功')
+      
+      // 添加鼠标悬停暂停功能（与原始脚本一致）
+      if (container) {
+        container.onmouseenter = function() {
+          swiperInstance.autoplay.stop()
+        }
+        container.onmouseleave = function() {
+          swiperInstance.autoplay.start()
+        }
+      }
+      
+      console.log('[Lua Swiper] Swiper 初始化成功 (fade 效果)')
     } catch (e) {
       console.error('[Lua Swiper] Swiper 初始化失败:', e)
     }
