@@ -1,0 +1,302 @@
+:root {
+  --key-bg: #f0f0f0;
+  --key-shadow: #ccc;
+  --key-text: #333;
+  --key-active-bg: #e0e0e0;
+  --key-active-shadow: #bbb;
+  --key-active-text: #ff0000;
+  --keyboard-bg: #e0e0e0;
+  --keyboard-border: #999;
+}
+
+body {
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#keyboard-page {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  width: fit-content;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+p.description {
+  text-align: center;
+  color: #666;
+  margin: 0 0 30px 0;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(23, 50px); /* 约23个单位宽度 */
+  grid-gap: 6px;
+  background-color: var(--keyboard-bg);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--keyboard-border);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  user-select: none;
+}
+
+.key {
+  width: 50px;
+  height: 50px;
+  background-color: var(--key-bg);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 14px;
+  color: var(--key-text);
+  box-shadow: 0 3px 0 var(--key-shadow);
+  cursor: pointer;
+  transition: all 0.1s;
+  position: relative;
+  top: 0;
+  grid-column: span 1; /* 默认跨1列 */
+}
+
+.key:active,
+.key.active {
+  color: var(--key-active-text);
+  font-weight: bold;
+  box-shadow: 0 1px 0 var(--key-shadow);
+  transform: translateY(2px);
+}
+
+/* 已按过的键保持红色文字 */
+.key.pressed {
+  color: var(--key-active-text);
+  font-weight: bold;
+}
+
+/* 空白占位符 */
+.spacer {
+  grid-column: span 1;
+}
+.spacer-0-5 {
+  grid-column: span 0.5; /* Grid 不支持小数 span，需要调整 grid 列数更细或用 margin */
+}
+
+/* 为了更精确的布局，我们可以使用 margin 来控制间距，或者把 grid 设置得更细（如 0.25u = 12.5px） */
+/* 这里我们采用 flex-row 的方式来通过 CSS 精确控制，之前的 CSS 其实是基于 flex 的，但 108 键跨行和对齐比较麻烦 */
+/* 让我们回到 Flex 布局，并精确调整宽度 */
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 行间距 */
+  width: fit-content;
+}
+
+.key-row {
+  display: flex;
+  gap: 6px; /* 键间距 */
+  align-items: flex-start;
+}
+
+/* 基础按键 1u = 50px */
+.key {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+/*
+ * 悬停时保持字体颜色不变（避免主题/浏览器的全局 hover 样式影响）
+ * - 普通键：保持默认字体色
+ * - 已按下/激活键：保持激活字体色
+ */
+.key:hover {
+  color: var(--key-text);
+}
+
+.key.pressed:hover,
+.key.active:hover {
+  color: var(--key-active-text);
+}
+
+/* 特殊按键宽度 (u * 50 + (u-1) * 6) */
+/* 
+   Backspace: 2u = 106px
+   Tab: 1.5u = 78px
+   Caps Lock: 1.75u = 92px
+   Enter: 2.25u = 120px
+   Shift-L: 2.25u = 120px
+   Shift-R: 2.75u = 148px
+   Ctrl/Alt/Win: 1.25u = 64px
+   Space: 6.25u = 344px
+   0 (Numpad): 2u = 106px
+   + (Numpad) / Enter (Numpad): 2h = 106px (竖向)
+*/
+
+.key[data-key="Backspace"] { width: 106px; }
+.key[data-key="Tab"] { width: 78px; }
+.key[data-key="Backslash"] { width: 78px; } /* 1.5u */
+.key[data-key="CapsLock"] { width: 92px; }
+.key[data-key="Enter"] { width: 120px; }
+.key[data-key="ShiftLeft"] { width: 120px; }
+.key[data-key="ShiftRight"] { width: 148px; }
+
+.key[data-key="ControlLeft"],
+.key[data-key="MetaLeft"],
+.key[data-key="AltLeft"],
+.key[data-key="AltRight"],
+.key[data-key="MetaRight"],
+.key[data-key="ContextMenu"],
+.key[data-key="ControlRight"] { width: 64px; }
+
+.key[data-key="Space"] { width: 344px; }
+.key[data-key="Numpad0"] { width: 106px; }
+
+/* 区域间隔 */
+/* F区域间隔：Esc, F4, F8, F12 后 */
+.key-row:nth-child(1) > .key:nth-child(1) { margin-right: 50px; } /* Esc (1u gap approx) */
+.key-row:nth-child(1) > .key:nth-child(5) { margin-right: 25px; } /* F4 (0.5u gap) */
+.key-row:nth-child(1) > .key:nth-child(9) { margin-right: 25px; } /* F8 (0.5u gap) */
+/* F12 后间隔到 PrtSc */
+.key-row:nth-child(1) > .key:nth-child(13) { margin-right: 25px; }
+
+/* 主键盘区与功能键区（Ins/Home/PgUp等）间隔 */
+.key-row:not(:first-child) > .key:nth-child(14) { margin-left: 25px; } /* 0.5u gap approx */
+
+/* 第一行 F12 后不需要再加 margin-left 给 PrtSc，因为上面加了 margin-right */
+/* 但第二行开始，第14个键是 Backspace/Backslash 等后面的 Ins/Del */
+/* 特殊处理：第二行第14个是 Ins，前面是 Backspace (14th element is Ins) */
+.key-row:nth-child(2) > .key:nth-child(15) { margin-left: 25px; } /* Backspace 是第14个 */
+/* 第三行第14个是 Del (14th element is Del, after \) */
+.key-row:nth-child(3) > .key:nth-child(15) { margin-left: 25px; } /* \ 是第14个 */
+/* 第四行 Enter 是第13个，后面没键？不对，108键中间区还有 */
+/* 让我们重新数一下各行元素个数，确保 margin 加对位置 */
+
+/* 
+Row 1: Esc(1) ... F4(5) ... F8(9) ... F12(13) ... PrtSc(14) ... Pause(16) -> 总16个
+Row 2: `(1) ... Backspace(14) ... Ins(15) Home(16) PgUp(17) ... Num(18) ... -(21) -> 总21个
+Row 3: Tab(1) ... \(14) ... Del(15) End(16) PgDn(17) ... 7(18) ... +(21) -> 总21个
+Row 4: Caps(1) ... Enter(13) ... (空) ... 4(14) ... 6(16) -> 这里的 4 是 Numpad4，前面没有中间的功能键
+Row 5: Shift(1) ... Shift(12) ... Up(13) ... 1(14) ... Enter(17) -> 总17个
+Row 6: Ctrl(1) ... Ctrl(8) ... Left(9) Down(10) Right(11) ... 0(12) .(13) -> 总13个
+*/
+
+/* 统一调整：主键盘区右侧间隔 */
+/* Row 2: Ins(15) 距离 Backspace(14) */
+.key-row:nth-child(2) > .key:nth-child(15) { margin-left: 25px; }
+/* Row 3: Del(15) 距离 \(14) */
+.key-row:nth-child(3) > .key:nth-child(15) { margin-left: 25px; }
+/* Row 4: Numpad4(14) 距离 Enter(13) */
+/* 中间是空的吗？标准108键 Row 4 中间是没有键的，所以直接隔开 */
+/* 但要注意，Numpad4 应该对齐 Numpad7，距离 Enter 应该等于 Backspace 到 Ins 的距离 + Ins 到 Num 的距离 */
+/* 计算：gap(6px) + 间隔到功能键区(25px) + 3个功能键(150px) + 2个gap(12px) + 间隔到数字键盘(25px) = 218px */
+.key-row:nth-child(4) > .key:nth-child(14) { margin-left: 217px; }
+
+/* Row 5: Up(13) 距离 Shift(12) */
+/* Up 箭头键通常在右 Shift 下方偏右，或者对齐 */
+/* 标准布局中，方向键是下沉的，或者是紧凑的。108 键标准布局方向键在主键盘和数字键盘之间 */
+/* Row 5: Shift(12) 右边是间隔，然后是 Up(13) */
+/* Up 键上面是空的，Up 键应该在 R-Shift 右侧空出一定距离 */
+.key-row:nth-child(5) > .key:nth-child(13) { margin-left: 81px; } /* 约 1.5u */
+
+/* Row 6: Left(9) 距离 Ctrl(8) */
+.key-row:nth-child(6) > .key:nth-child(9) { margin-left: 25px; }
+
+/* 功能键区与数字小键盘区间隔 */
+/* Row 2: Num(18) 距离 PgUp(17) */
+.key-row:nth-child(2) > .key:nth-child(18) { margin-left: 25px; }
+/* Row 3: 7(18) 距离 PgDn(17) */
+.key-row:nth-child(3) > .key:nth-child(18) { margin-left: 25px; }
+/* Row 4: Numpad4(14) 前面已经加了大 margin，与上方 Numpad7 对齐 */
+/* Row 5: 1(14) 距离 Up(13)，与上方 Numpad4 对齐 */
+.key-row:nth-child(5) > .key:nth-child(14) { margin-left: 25px; }
+/* Row 6: 0(12) 距离 Right(11)，与上方 Numpad1 对齐 */
+.key-row:nth-child(6) > .key:nth-child(12) { margin-left: 25px; }
+
+/* 竖向大键处理 */
+/* Numpad + 和 Enter 是 2u 高度，对应 106px */
+.key[data-key="NumpadAdd"],
+.key[data-key="NumpadEnter"] {
+  height: 106px;
+  position: absolute;
+  z-index: 10;
+}
+
+/* NumpadAdd 在 Row 3，位置在最右侧 */
+/* 父元素设置 relative 以便定位 */
+.key-row { position: relative; }
+
+/* 
+Row 3 包含 NumpadAdd，它应该占据 Row 3 和 Row 4 的位置。
+Row 4 只有 4, 5, 6，原本 NumpadAdd 的位置是空的。
+我们需要调整 HTML 结构或者利用 absolute 定位。
+*/
+
+/* 调整 NumpadAdd 位置 */
+/* 它是 Row 3 的最后一个元素 (21) */
+.key-row:nth-child(3) > .key:last-child {
+  /* 已经在流中，只需增加高度，这会撑开 Row 3 吗？不会，因为是 flex-row */
+  /* 但它会遮挡下面的元素，或者下面的行需要避让 */
+  /* 简单方案：浮动起来，下面的行不需要避让，因为下面行对应位置本来就是空的 */
+  /* Row 4 只有 4,5,6，最右侧是空的，正好给 + 号下半截 */
+}
+
+/* 调整 NumpadEnter 位置 */
+/* 它是 Row 5 的最后一个元素 (17) */
+.key-row:nth-child(5) > .key:last-child {
+  /* 占据 Row 5 和 Row 6 */
+  /* Row 6 对应位置只有 0 和 . ，Enter 的位置是空的 */
+}
+
+/* 信息面板 */
+.key-info {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+}
+.key-info span {
+  color: #d9534f;
+  font-weight: bold;
+  margin: 0 5px;
+}
+
+/* 按键历史队列展示 */
+.key-history {
+  margin-top: 16px;
+  text-align: center;
+  color: #333;
+}
+
+.key-history > p {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.key-history-list {
+  display: inline-block;
+  max-width: 1200px;
+  padding: 10px 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  word-break: break-word;
+  white-space: pre-wrap;
+}

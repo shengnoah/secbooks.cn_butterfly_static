@@ -1,0 +1,1809 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Mermaid 在线编辑器 | AI安全运营</title><meta name="author" content="AI安全运营"><meta name="copyright" content="AI安全运营"><meta name="keywords" content="AI安全运营,openclaw,claude,lua"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AI安全运营 openclaw claude lua">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mermaid 在线编辑器">
+<meta property="og:url" content="https://lua.ren/mermaid-editor/index.html">
+<meta property="og:site_name" content="AI安全运营">
+<meta property="og:description" content="AI安全运营 openclaw claude lua">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lua.ren/img/aibk.jpg">
+<meta property="article:published_time" content="2023-12-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-14T07:07:28.000Z">
+<meta property="article:author" content="AI安全运营">
+<meta property="article:tag" content="AI安全运营,openclaw,claude,lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lua.ren/img/aibk.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/mermaid-editor/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?74a6c8c028d98427eec84fb00e9d6a60";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>// 兼容性：使用 var + 避免尾逗号，减少旧 WebView/内置浏览器“脚本不执行”导致的功能失效
+var GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  mpLock: {"keysHash":["743392a6cfca212568fbd1ca6b693f91f583f67672f2698b000dc20e062ddf6e"],"storageKey":"mp_lock_code","qrcode":"/img/20231027182204.png","title":"阅读全文需关注公众号","subtitle":"扫描下方二维码关注公众号，回复关键词获取解锁口令","keywordHint":"公众号私信留言：获取口令","inputPlaceholder":"请输入解锁口令","submitText":"解锁","errorMessage":"口令错误，请重新输入","successMessage":"解锁成功"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Mermaid 在线编辑器',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-10-14 15:07:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.anthropic.com/images/icons/apple-touch-icon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-file-lines"></i><span> Markdown在线编辑</span></a></div><div class="menus_item"><a class="site-page" href="/json-parser/"><i class="fa-fw fas fa-code"></i><span> JSON解析器</span></a></div><div class="menus_item"><a class="site-page" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘按键测试</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/seo-checker/"><i class="fa-fw fas fa-search"></i><span> SEO 检测工具</span></a></li><li><a class="site-page child" href="/basic-runner/"><i class="fa-fw fas fa-play"></i><span> BASIC 运行器</span></a></li><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/markdown-tutorial/home.html"><i class="fa-fw fab fa-markdown"></i><span> Markdown教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-file-lines"></i><span> Markdown在线编辑</span></a></div><div class="menus_item"><a class="site-page" href="/json-parser/"><i class="fa-fw fas fa-code"></i><span> JSON解析器</span></a></div><div class="menus_item"><a class="site-page" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘按键测试</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/seo-checker/"><i class="fa-fw fas fa-search"></i><span> SEO 检测工具</span></a></li><li><a class="site-page child" href="/basic-runner/"><i class="fa-fw fas fa-play"></i><span> BASIC 运行器</span></a></li><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/markdown-tutorial/home.html"><i class="fa-fw fab fa-markdown"></i><span> Markdown教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout hide-aside hide-aside-left hide-aside-right " id="content-inner"><div id="page"><h1 class="page-title">Mermaid 在线编辑器</h1><div class="mermaid-editor-fullwidth"><div class="mermaid-editor-app"><header class="mermaid-toolbar"><div class="toolbar-left"><div class="logo"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg><span>Mermaid 编辑器</span></div></div><div class="toolbar-center"><div class="diagram-type-selector"><select id="diagramType"><option value="flowchart">流程图 (Flowchart)</option><option value="sequence">时序图 (Sequence)</option><option value="class">类图 (Class)</option><option value="state">状态图 (State)</option><option value="er">ER图 (Entity Relationship)</option><option value="gantt">甘特图 (Gantt)</option><option value="pie">饼图 (Pie)</option><option value="mindmap">思维导图 (Mindmap)</option><option value="timeline">时间线 (Timeline)</option></select></div></div><div class="toolbar-right"><button class="btn btn-icon" id="shareBtn" type="button" title="分享链接"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16,6 12,2 8,6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg><span>分享</span></button><button class="btn btn-icon" id="downloadSvgBtn" type="button" title="下载 SVG"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7,10 12,15 17,10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span>SVG</span></button><button class="btn btn-icon" id="downloadPngBtn" type="button" title="下载 PNG"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21,15 16,10 5,21"></polyline></svg><span>PNG</span></button><button class="btn btn-primary" id="copyLinkBtn" type="button" title="复制链接"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>复制链接</span></button></div></header><main class="main-content"><div class="elements-panel" id="elementsPanel"><div class="elements-panel-header"><span class="panel-title">元素库</span><button class="btn-small" id="toggleElementsPanel" type="button" title="收起/展开"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"></polyline></svg></button></div><div class="elements-panel-content"><div class="element-category"><div class="category-header" data-category="flowchart"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>流程图元素</span></div><div class="category-items"><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A[矩形节点]"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"></rect></svg></div><span>矩形节点</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A(圆角矩形)"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="6"></rect></svg></div><span>圆角矩形</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A((圆形节点))"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"></circle></svg></div><span>圆形节点</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A{菱形判断}"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12"></polygon></svg></div><span>菱形判断</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A[[子程序]]"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12"></rect><line x1="6" y1="6" x2="6" y2="18"></line><line x1="18" y1="6" x2="18" y2="18"></line></svg></div><span>子程序</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A[(数据库)]"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path></svg></div><span>数据库</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A&gt;非对称形状]"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3,6 18,6 21,12 18,18 3,18"></polygon></svg></div><span>非对称形状</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A{{六边形}}"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,7 20,17 12,22 4,17 4,7"></polygon></svg></div><span>六边形</span></div><div class="draggable-element element-divider" draggable="true" data-type="flowchart" data-code="A --&gt; B"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="15,8 19,12 15,16"></polyline></svg></div><span>箭头连接</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A --- B"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></div><span>直线连接</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A -.-&gt; B"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-dasharray="4"></line><polyline points="15,8 19,12 15,16"></polyline></svg></div><span>虚线箭头</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A ==&gt; B"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3"></line><polyline points="15,8 19,12 15,16"></polyline></svg></div><span>粗箭头</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="A --&gt;|文字| B"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="15,8 19,12 15,16"></polyline><text x="12" y="8" font-size="6" text-anchor="middle">T</text></svg></div><span>带文字连接</span></div><div class="draggable-element" draggable="true" data-type="flowchart" data-code="subgraph 子图标题
+    A --&gt; B
+end"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4"></rect><rect x="6" y="8" width="5" height="4"></rect><rect x="13" y="8" width="5" height="4"></rect></svg></div><span>子图</span></div></div></div><div class="element-category"><div class="category-header" data-category="sequence"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>时序图元素</span></div><div class="category-items" style="display: none;"><div class="draggable-element" draggable="true" data-type="sequence" data-code="participant 参与者A"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"></circle><path d="M5 21v-2a7 7 0 0 1 14 0v2"></path></svg></div><span>参与者</span></div><div class="draggable-element" draggable="true" data-type="sequence" data-code="actor 角色A"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line><line x1="12" y1="16" x2="8" y2="21"></line><line x1="12" y1="16" x2="16" y2="21"></line></svg></div><span>角色</span></div><div class="draggable-element" draggable="true" data-type="sequence" data-code="A-&gt;&gt;B: 同步消息"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polygon points="19,12 15,8 15,16" fill="currentColor"></polygon></svg></div><span>同步消息</span></div><div class="draggable-element" draggable="true" data-type="sequence" data-code="A--&gt;&gt;B: 异步消息"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-dasharray="4"></line><polygon points="19,12 15,8 15,16" fill="currentColor"></polygon></svg></div><span>异步消息</span></div><div class="draggable-element" draggable="true" data-type="sequence" data-code="A-&gt;&gt;A: 自调用"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6 L18 6 L18 18 L12 18"></path><polygon points="12,18 16,14 16,22" fill="currentColor"></polygon></svg></div><span>自调用</span></div><div class="draggable-element" draggable="true" data-type="sequence" data-code="Note over A,B: 注释内容"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="12" rx="2"></rect><line x1="8" y1="8" x2="16" y2="8"></line><line x1="8" y1="12" x2="14" y2="12"></line></svg></div><span>注释</span></div><div class="draggable-element" draggable="true" data-type="sequence" data-code="activate A
+deactivate A"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="4" width="4" height="16" fill="currentColor" opacity="0.3"></rect></svg></div><span>激活框</span></div><div class="draggable-element" draggable="true" data-type="sequence" data-code="loop 循环条件
+    A-&gt;&gt;B: 消息
+end"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 12 L12 8 L16 12 L12 16 Z"></path></svg></div><span>循环</span></div><div class="draggable-element" draggable="true" data-type="sequence" data-code="alt 条件1
+    A-&gt;&gt;B: 消息1
+else 条件2
+    A-&gt;&gt;B: 消息2
+end"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line></svg></div><span>条件分支</span></div></div></div><div class="element-category"><div class="category-header" data-category="class"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>类图元素</span></div><div class="category-items" style="display: none;"><div class="draggable-element" draggable="true" data-type="class" data-code="class ClassName {
+    +String attribute
+    +method()
+}"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg></div><span>类定义</span></div><div class="draggable-element" draggable="true" data-type="class" data-code="ClassA &lt;|-- ClassB"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polygon points="12,5 8,10 16,10" fill="none"></polygon></svg></div><span>继承</span></div><div class="draggable-element" draggable="true" data-type="class" data-code="ClassA *-- ClassB"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polygon points="12,5 8,10 12,15 16,10" fill="currentColor"></polygon></svg></div><span>组合</span></div><div class="draggable-element" draggable="true" data-type="class" data-code="ClassA o-- ClassB"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polygon points="12,5 8,10 12,15 16,10" fill="none"></polygon></svg></div><span>聚合</span></div><div class="draggable-element" draggable="true" data-type="class" data-code="ClassA --&gt; ClassB"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="8,15 12,19 16,15"></polyline></svg></div><span>关联</span></div><div class="draggable-element" draggable="true" data-type="class" data-code="ClassA ..&gt; ClassB"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" stroke-dasharray="4"></line><polyline points="8,15 12,19 16,15"></polyline></svg></div><span>依赖</span></div><div class="draggable-element" draggable="true" data-type="class" data-code="ClassA ..|&gt; InterfaceB"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" stroke-dasharray="4"></line><polygon points="12,5 8,10 16,10" fill="none"></polygon></svg></div><span>实现</span></div></div></div><div class="element-category"><div class="category-header" data-category="state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>状态图元素</span></div><div class="category-items" style="display: none;"><div class="draggable-element" draggable="true" data-type="state" data-code="[*] --&gt; 状态A"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="12" r="4" fill="currentColor"></circle><line x1="12" y1="12" x2="20" y2="12"></line><polyline points="16,8 20,12 16,16"></polyline></svg></div><span>初始状态</span></div><div class="draggable-element" draggable="true" data-type="state" data-code="状态A --&gt; [*]"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="12" y2="12"></line><polyline points="8,8 12,12 8,16"></polyline><circle cx="16" cy="12" r="4"></circle><circle cx="16" cy="12" r="2" fill="currentColor"></circle></svg></div><span>结束状态</span></div><div class="draggable-element" draggable="true" data-type="state" data-code="状态A --&gt; 状态B: 转换"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="8" height="8" rx="2"></rect><rect x="14" y="8" width="8" height="8" rx="2"></rect><line x1="10" y1="12" x2="14" y2="12"></line><polyline points="12,10 14,12 12,14"></polyline></svg></div><span>状态转换</span></div><div class="draggable-element" draggable="true" data-type="state" data-code="state 复合状态 {
+    [*] --&gt; 子状态A
+    子状态A --&gt; 子状态B
+}"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><rect x="6" y="8" width="5" height="4" rx="1"></rect><rect x="13" y="8" width="5" height="4" rx="1"></rect></svg></div><span>复合状态</span></div><div class="draggable-element" draggable="true" data-type="state" data-code="state fork_state &lt;&lt;fork&gt;&gt;"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="4" width="4" height="16" fill="currentColor"></rect></svg></div><span>分叉/汇合</span></div></div></div><div class="element-category"><div class="category-header" data-category="er"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>ER图元素</span></div><div class="category-items" style="display: none;"><div class="draggable-element" draggable="true" data-type="er" data-code="ENTITY {
+    string name
+    int id
+}"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg></div><span>实体</span></div><div class="draggable-element" draggable="true" data-type="er" data-code="ENTITY1 ||--o{ ENTITY2 : &quot;一对多&quot;"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="8" x2="4" y2="16"></line><circle cx="18" cy="12" r="2"></circle></svg></div><span>一对多</span></div><div class="draggable-element" draggable="true" data-type="er" data-code="ENTITY1 ||--|| ENTITY2 : &quot;一对一&quot;"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="8" x2="4" y2="16"></line><line x1="20" y1="8" x2="20" y2="16"></line></svg></div><span>一对一</span></div><div class="draggable-element" draggable="true" data-type="er" data-code="ENTITY1 }o--o{ ENTITY2 : &quot;多对多&quot;"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"></line><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="12" r="2"></circle></svg></div><span>多对多</span></div></div></div><div class="element-category"><div class="category-header" data-category="gantt"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>甘特图元素</span></div><div class="category-items" style="display: none;"><div class="draggable-element" draggable="true" data-type="gantt" data-code="section 阶段名称"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="4" rx="1"></rect><rect x="3" y="14" width="18" height="4" rx="1"></rect></svg></div><span>阶段</span></div><div class="draggable-element" draggable="true" data-type="gantt" data-code="任务名称 :a1, 2024-01-01, 7d"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="4" rx="1" fill="currentColor" opacity="0.3"></rect></svg></div><span>任务</span></div><div class="draggable-element" draggable="true" data-type="gantt" data-code="任务名称 :active, a2, 2024-01-08, 5d"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="4" rx="1" fill="currentColor"></rect></svg></div><span>活动任务</span></div><div class="draggable-element" draggable="true" data-type="gantt" data-code="任务名称 :done, a3, 2024-01-01, 3d"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="4" rx="1"></rect><polyline points="8,12 11,15 16,9"></polyline></svg></div><span>已完成任务</span></div><div class="draggable-element" draggable="true" data-type="gantt" data-code="任务名称 :crit, a4, 2024-01-15, 4d"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="4" rx="1" stroke="#ef4444"></rect></svg></div><span>关键任务</span></div><div class="draggable-element" draggable="true" data-type="gantt" data-code="里程碑 :milestone, m1, 2024-01-20, 0d"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,4 20,12 12,20 4,12" fill="currentColor"></polygon></svg></div><span>里程碑</span></div></div></div><div class="element-category"><div class="category-header" data-category="pie"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>饼图元素</span></div><div class="category-items" style="display: none;"><div class="draggable-element" draggable="true" data-type="pie" data-code="&quot;标签A&quot; : 30"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L12 12 L20 16" fill="currentColor" opacity="0.3"></path><circle cx="12" cy="12" r="10"></circle></svg></div><span>饼图数据</span></div><div class="draggable-element" draggable="true" data-type="pie" data-code="title 图表标题"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><text x="12" y="14" font-size="10" text-anchor="middle" fill="currentColor">T</text></svg></div><span>标题</span></div></div></div><div class="element-category"><div class="category-header" data-category="mindmap"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>思维导图元素</span></div><div class="category-items" style="display: none;"><div class="draggable-element" draggable="true" data-type="mindmap" data-code="root((中心主题))"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="6" fill="currentColor" opacity="0.3"></circle></svg></div><span>中心主题</span></div><div class="draggable-element" draggable="true" data-type="mindmap" data-code="    主题分支"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="12" r="4"></circle><line x1="12" y1="12" x2="20" y2="12"></line><circle cx="20" cy="12" r="2"></circle></svg></div><span>分支节点</span></div><div class="draggable-element" draggable="true" data-type="mindmap" data-code="        子节点"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="12" y2="12"></line><circle cx="16" cy="12" r="3"></circle></svg></div><span>子节点</span></div></div></div><div class="element-category"><div class="category-header" data-category="timeline"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg><span>时间线元素</span></div><div class="category-items" style="display: none;"><div class="draggable-element" draggable="true" data-type="timeline" data-code="title 时间线标题"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><text x="12" y="14" font-size="10" text-anchor="middle" fill="currentColor">T</text></svg></div><span>标题</span></div><div class="draggable-element" draggable="true" data-type="timeline" data-code="2024 : 事件描述"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"></line><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg></div><span>时间点</span></div><div class="draggable-element" draggable="true" data-type="timeline" data-code="section 阶段名称"><div class="element-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="8" rx="2" stroke-dasharray="4"></rect></svg></div><span>阶段分组</span></div></div></div></div></div><div class="editor-panel"><div class="panel-header"><span class="panel-title">代码编辑器</span><div class="panel-actions"><button class="btn-small" id="formatBtn" type="button" title="格式化"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg></button><button class="btn-small" id="clearBtn" type="button" title="清空"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></div></div><div class="editor-container" id="editorContainer"><textarea id="codeEditor"></textarea></div></div><div class="resizer" id="resizer"></div><div class="preview-panel"><div class="panel-header"><span class="panel-title">预览</span><div class="panel-actions"><button class="btn-small" id="zoomInBtn" type="button" title="放大"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></button><button class="btn-small" id="zoomOutBtn" type="button" title="缩小"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></button><button class="btn-small" id="resetZoomBtn" type="button" title="重置缩放"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg></button><span class="zoom-level" id="zoomLevel">100%</span></div></div><div class="preview-container" id="previewContainer"><div class="preview-content" id="previewContent"><div id="mermaidOutput"></div></div></div><div class="error-container" id="errorContainer" style="display: none;"><div class="error-icon">⚠️</div><div class="error-message" id="errorMessage"></div></div></div></main><footer class="statusbar"><div class="statusbar-left"><span id="charCount">字符: 0</span><span id="lineCount">行数: 0</span></div><div class="statusbar-right"><span id="lastSaved">自动保存已启用</span></div></footer></div><div class="modal" id="shareModal"><div class="modal-overlay"></div><div class="modal-content"><div class="modal-header"><h3>分享图表</h3><button class="modal-close" id="closeShareModal">&times;</button></div><div class="modal-body"><div class="share-option"><label>编辑链接</label><div class="input-group"><input id="editLink" type="text" readonly><button class="btn btn-small" id="copyEditLink">复制</button></div></div><div class="share-option"><label>只读链接</label><div class="input-group"><input id="viewLink" type="text" readonly><button class="btn btn-small" id="copyViewLink">复制</button></div></div><div class="share-option"><label>Markdown 嵌入</label><div class="input-group"><input id="markdownEmbed" type="text" readonly><button class="btn btn-small" id="copyMarkdown">复制</button></div></div></div></div></div><div class="toast" id="toast"><span id="toastMessage"></span></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"><script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/markdown/markdown.min.js"></script><script>// ===== 全局变量 =====
+let editor = null;
+let currentZoom = 1;
+let debounceTimer = null;
+let isResizing = false;
+
+// ===== 示例模板 =====
+const templates = {
+    flowchart: `flowchart TD
+    A[开始] --> B{是否有问题?}
+    B -->|是| C[分析问题]
+    C --> D[寻找解决方案]
+    D --> E[实施解决方案]
+    E --> F{问题解决了吗?}
+    F -->|是| G[结束]
+    F -->|否| C
+    B -->|否| G`,
+
+    sequence: `sequenceDiagram
+    participant 用户
+    participant 前端
+    participant 后端
+    participant 数据库
+    
+    用户->>前端: 发起请求
+    前端->>后端: API调用
+    后端->>数据库: 查询数据
+    数据库-->>后端: 返回结果
+    后端-->>前端: 响应数据
+    前端-->>用户: 显示结果`,
+
+    class: `classDiagram
+    class Animal {
+        +String name
+        +int age
+        +makeSound()
+    }
+    class Dog {
+        +String breed
+        +bark()
+        +fetch()
+    }
+    class Cat {
+        +String color
+        +meow()
+        +scratch()
+    }
+    Animal <|-- Dog
+    Animal <|-- Cat`,
+
+    state: `stateDiagram-v2
+    [*] --> 待处理
+    待处理 --> 处理中: 开始处理
+    处理中 --> 已完成: 处理成功
+    处理中 --> 失败: 处理失败
+    失败 --> 处理中: 重试
+    已完成 --> [*]`,
+
+    er: `erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER {
+        string name
+        string email
+        string address
+    }
+    ORDER {
+        int orderNumber
+        date orderDate
+        string status
+    }
+    LINE-ITEM {
+        int quantity
+        float price
+        string productName
+    }`,
+
+    gantt: `gantt
+    title 项目开发计划
+    dateFormat  YYYY-MM-DD
+    section 需求分析
+    需求调研           :a1, 2024-01-01, 7d
+    需求文档编写       :after a1, 5d
+    section 设计阶段
+    系统设计           :2024-01-15, 10d
+    UI设计             :2024-01-20, 8d
+    section 开发阶段
+    前端开发           :2024-01-28, 20d
+    后端开发           :2024-01-28, 25d
+    section 测试阶段
+    单元测试           :2024-02-25, 7d
+    集成测试           :2024-03-03, 7d`,
+
+    pie: `pie showData
+    title 浏览器市场份额
+    "Chrome" : 65
+    "Safari" : 19
+    "Firefox" : 8
+    "Edge" : 5
+    "其他" : 3`,
+
+    mindmap: `mindmap
+  root((前端技术栈))
+    HTML
+      语义化标签
+      表单
+      多媒体
+    CSS
+      Flexbox
+      Grid
+      动画
+    JavaScript
+      ES6+
+      TypeScript
+      框架
+        React
+        Vue
+        Angular`,
+
+    timeline: `timeline
+    title 互联网发展史
+    1969 : ARPANET诞生
+    1983 : TCP/IP协议
+    1989 : WWW万维网
+    1993 : Mosaic浏览器
+    1995 : JavaScript诞生
+    2004 : Web 2.0时代
+    2010 : 移动互联网
+    2020 : 5G时代`
+};
+
+// ===== 初始化 =====
+document.addEventListener('DOMContentLoaded', () => {
+    initMermaid();
+    initEditor();
+    initEventListeners();
+    loadFromURL();
+    initResizer();
+    initDragAndDrop();
+    initElementsPanel();
+});
+
+// ===== Mermaid 初始化 =====
+function initMermaid() {
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        securityLevel: 'loose',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis'
+        },
+        sequence: {
+            useMaxWidth: true,
+            diagramMarginX: 50,
+            diagramMarginY: 10
+        },
+        gantt: {
+            useMaxWidth: true
+        }
+    });
+}
+
+// ===== 编辑器初始化 =====
+function initEditor() {
+    const textarea = document.getElementById('codeEditor');
+    
+    editor = CodeMirror.fromTextArea(textarea, {
+        mode: 'markdown',
+        theme: 'dracula',
+        lineNumbers: true,
+        lineWrapping: true,
+        tabSize: 2,
+        indentWithTabs: false,
+        autofocus: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        extraKeys: {
+            'Ctrl-S': () => saveToLocalStorage(),
+            'Cmd-S': () => saveToLocalStorage(),
+            'Ctrl-Enter': () => renderDiagram(),
+            'Cmd-Enter': () => renderDiagram()
+        }
+    });
+
+    // 设置默认内容
+    const savedCode = localStorage.getItem('mermaid-code');
+    if (savedCode) {
+        editor.setValue(savedCode);
+    } else {
+        editor.setValue(templates.flowchart);
+    }
+
+    // 监听内容变化
+    editor.on('change', () => {
+        updateStats();
+        debouncedRender();
+        saveToLocalStorage();
+    });
+
+    // 初始渲染
+    updateStats();
+    renderDiagram();
+}
+
+// ===== 事件监听器 =====
+function initEventListeners() {
+    // 图表类型选择
+    document.getElementById('diagramType').addEventListener('change', (e) => {
+        const type = e.target.value;
+        if (templates[type]) {
+            editor.setValue(templates[type]);
+        }
+    });
+
+    // 分享按钮
+    document.getElementById('shareBtn').addEventListener('click', openShareModal);
+    document.getElementById('closeShareModal').addEventListener('click', closeShareModal);
+    document.querySelector('#shareModal .modal-overlay').addEventListener('click', closeShareModal);
+
+    // 复制链接按钮
+    document.getElementById('copyLinkBtn').addEventListener('click', () => {
+        copyToClipboard(generateShareURL('edit'));
+        showToast('链接已复制到剪贴板', 'success');
+    });
+
+    // 分享弹窗中的复制按钮
+    document.getElementById('copyEditLink').addEventListener('click', () => {
+        copyToClipboard(document.getElementById('editLink').value);
+        showToast('编辑链接已复制', 'success');
+    });
+
+    document.getElementById('copyViewLink').addEventListener('click', () => {
+        copyToClipboard(document.getElementById('viewLink').value);
+        showToast('只读链接已复制', 'success');
+    });
+
+    document.getElementById('copyMarkdown').addEventListener('click', () => {
+        copyToClipboard(document.getElementById('markdownEmbed').value);
+        showToast('Markdown代码已复制', 'success');
+    });
+
+    // 下载按钮
+    document.getElementById('downloadSvgBtn').addEventListener('click', downloadSVG);
+    document.getElementById('downloadPngBtn').addEventListener('click', downloadPNG);
+
+    // 编辑器操作按钮
+    document.getElementById('formatBtn').addEventListener('click', formatCode);
+    document.getElementById('clearBtn').addEventListener('click', clearEditor);
+
+    // 缩放按钮
+    document.getElementById('zoomInBtn').addEventListener('click', () => zoom(0.1));
+    document.getElementById('zoomOutBtn').addEventListener('click', () => zoom(-0.1));
+    document.getElementById('resetZoomBtn').addEventListener('click', resetZoom);
+
+    // 键盘快捷键
+    document.addEventListener('keydown', handleKeyboard);
+
+    // 窗口大小变化
+    window.addEventListener('resize', () => {
+        debouncedRender();
+    });
+
+    // URL hash 变化
+    window.addEventListener('hashchange', loadFromURL);
+}
+
+// ===== 分隔条拖拽 =====
+function initResizer() {
+    const resizer = document.getElementById('resizer');
+    const editorPanel = document.querySelector('.editor-panel');
+    const mainContent = document.querySelector('.main-content');
+
+    let startX, startWidth;
+
+    resizer.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        startX = e.clientX;
+        startWidth = editorPanel.offsetWidth;
+        resizer.classList.add('active');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+
+        const diff = e.clientX - startX;
+        const newWidth = startWidth + diff;
+        const containerWidth = mainContent.offsetWidth;
+        const minWidth = 300;
+        const maxWidth = containerWidth - minWidth - 4;
+
+        if (newWidth >= minWidth && newWidth <= maxWidth) {
+            editorPanel.style.width = `${newWidth}px`;
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isResizing) {
+            isResizing = false;
+            resizer.classList.remove('active');
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+            debouncedRender();
+        }
+    });
+}
+
+// ===== 渲染图表 =====
+async function renderDiagram() {
+    const code = editor.getValue().trim();
+    const output = document.getElementById('mermaidOutput');
+    const errorContainer = document.getElementById('errorContainer');
+    const errorMessage = document.getElementById('errorMessage');
+
+    if (!code) {
+        output.innerHTML = '<div style="color: #94a3b8; padding: 40px;">请在左侧编辑器中输入 Mermaid 代码</div>';
+        errorContainer.style.display = 'none';
+        return;
+    }
+
+    try {
+        // 清除之前的内容
+        output.innerHTML = '';
+        
+        // 生成唯一ID
+        const id = `mermaid-${Date.now()}`;
+        
+        // 渲染图表
+        const { svg } = await mermaid.render(id, code);
+        output.innerHTML = svg;
+        
+        // 隐藏错误
+        errorContainer.style.display = 'none';
+        
+        // 更新URL
+        updateURL();
+    } catch (error) {
+        console.error('Mermaid render error:', error);
+        errorMessage.textContent = error.message || '语法错误，请检查您的代码';
+        errorContainer.style.display = 'flex';
+    }
+}
+
+// ===== 防抖渲染 =====
+function debouncedRender() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(renderDiagram, 300);
+}
+
+// ===== 更新统计信息 =====
+function updateStats() {
+    const code = editor.getValue();
+    document.getElementById('charCount').textContent = `字符: ${code.length}`;
+    document.getElementById('lineCount').textContent = `行数: ${code.split('\n').length}`;
+}
+
+// ===== 缩放功能 =====
+function zoom(delta) {
+    currentZoom = Math.max(0.25, Math.min(3, currentZoom + delta));
+    applyZoom();
+}
+
+function resetZoom() {
+    currentZoom = 1;
+    applyZoom();
+}
+
+function applyZoom() {
+    const content = document.getElementById('previewContent');
+    content.style.transform = `scale(${currentZoom})`;
+    document.getElementById('zoomLevel').textContent = `${Math.round(currentZoom * 100)}%`;
+}
+
+// ===== URL 编码/解码 =====
+function encodeCode(code) {
+    try {
+        const compressed = pako.deflate(code, { level: 9 });
+        const base64 = btoa(String.fromCharCode.apply(null, compressed));
+        return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    } catch (e) {
+        console.error('Encode error:', e);
+        return '';
+    }
+}
+
+function decodeCode(encoded) {
+    try {
+        const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+        const padding = base64.length % 4;
+        const paddedBase64 = padding ? base64 + '='.repeat(4 - padding) : base64;
+        const binary = atob(paddedBase64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i);
+        }
+        return pako.inflate(bytes, { to: 'string' });
+    } catch (e) {
+        console.error('Decode error:', e);
+        return null;
+    }
+}
+
+// ===== URL 操作 =====
+function updateURL() {
+    const code = editor.getValue();
+    const encoded = encodeCode(code);
+    if (encoded) {
+        const newURL = `${window.location.pathname}#pako:${encoded}`;
+        history.replaceState(null, '', newURL);
+    }
+}
+
+function loadFromURL() {
+    const hash = window.location.hash;
+    if (hash.startsWith('#pako:')) {
+        const encoded = hash.substring(6);
+        const decoded = decodeCode(encoded);
+        if (decoded && editor) {
+            editor.setValue(decoded);
+        }
+    }
+}
+
+function generateShareURL(mode = 'edit') {
+    const code = editor.getValue();
+    const encoded = encodeCode(code);
+    const baseURL = window.location.origin + window.location.pathname;
+    return `${baseURL}#pako:${encoded}`;
+}
+
+// ===== 分享弹窗 =====
+function openShareModal() {
+    const modal = document.getElementById('shareModal');
+    const editLink = generateShareURL('edit');
+    const viewLink = generateShareURL('view');
+    
+    document.getElementById('editLink').value = editLink;
+    document.getElementById('viewLink').value = viewLink;
+    document.getElementById('markdownEmbed').value = `![Mermaid Diagram](${viewLink})`;
+    
+    modal.classList.add('active');
+}
+
+function closeShareModal() {
+    document.getElementById('shareModal').classList.remove('active');
+}
+
+// ===== 下载功能 =====
+function downloadSVG() {
+    const svg = document.querySelector('#mermaidOutput svg');
+    if (!svg) {
+        showToast('没有可下载的图表', 'error');
+        return;
+    }
+
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `mermaid-diagram-${Date.now()}.svg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    showToast('SVG 已下载', 'success');
+}
+
+function downloadPNG() {
+    const svg = document.querySelector('#mermaidOutput svg');
+    if (!svg) {
+        showToast('没有可下载的图表', 'error');
+        return;
+    }
+
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    // 获取 SVG 尺寸
+    const svgRect = svg.getBoundingClientRect();
+    const scale = 2; // 高清输出
+    canvas.width = svgRect.width * scale;
+    canvas.height = svgRect.height * scale;
+
+    img.onload = () => {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = `mermaid-diagram-${Date.now()}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showToast('PNG 已下载', 'success');
+    };
+
+    img.onerror = () => {
+        showToast('PNG 导出失败', 'error');
+    };
+
+    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    img.src = URL.createObjectURL(svgBlob);
+}
+
+// ===== 编辑器操作 =====
+function formatCode() {
+    // 简单的格式化：移除多余空行
+    const code = editor.getValue();
+    const formatted = code
+        .split('\n')
+        .map(line => line.trimEnd())
+        .join('\n')
+        .replace(/\n{3,}/g, '\n\n');
+    editor.setValue(formatted);
+    showToast('代码已格式化', 'success');
+}
+
+function clearEditor() {
+    if (confirm('确定要清空编辑器内容吗？')) {
+        editor.setValue('');
+        showToast('编辑器已清空', 'success');
+    }
+}
+
+// ===== 本地存储 =====
+function saveToLocalStorage() {
+    const code = editor.getValue();
+    localStorage.setItem('mermaid-code', code);
+    document.getElementById('lastSaved').textContent = `已保存 ${new Date().toLocaleTimeString()}`;
+}
+
+// ===== 工具函数 =====
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+    } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+}
+
+function showToast(message, type = 'info') {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    
+    toastMessage.textContent = message;
+    toast.className = `toast ${type} show`;
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+function handleKeyboard(e) {
+    // Escape 关闭弹窗
+    if (e.key === 'Escape') {
+        closeShareModal();
+    }
+}
+
+// ===== 元素面板初始化 =====
+function initElementsPanel() {
+    const toggleBtn = document.getElementById('toggleElementsPanel');
+    const elementsPanel = document.getElementById('elementsPanel');
+    
+    // 切换面板展开/收起
+    toggleBtn.addEventListener('click', () => {
+        elementsPanel.classList.toggle('collapsed');
+        const icon = toggleBtn.querySelector('svg polyline');
+        if (elementsPanel.classList.contains('collapsed')) {
+            icon.setAttribute('points', '9,18 15,12 9,6');
+        } else {
+            icon.setAttribute('points', '15,18 9,12 15,6');
+        }
+    });
+
+    // 分类折叠/展开
+    document.querySelectorAll('.category-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const category = header.closest('.element-category');
+            const items = category.querySelector('.category-items');
+            const icon = header.querySelector('svg polyline');
+            
+            if (items.style.display === 'none') {
+                items.style.display = 'block';
+                icon.setAttribute('points', '6,9 12,15 18,9');
+                category.classList.add('expanded');
+            } else {
+                items.style.display = 'none';
+                icon.setAttribute('points', '6,15 12,9 18,15');
+                category.classList.remove('expanded');
+            }
+        });
+    });
+
+    // 双击元素直接插入
+    document.querySelectorAll('.draggable-element').forEach(element => {
+        element.addEventListener('dblclick', () => {
+            const code = element.dataset.code;
+            insertCodeAtCursor(code);
+        });
+    });
+}
+
+// ===== 拖拽功能初始化 =====
+function initDragAndDrop() {
+    const draggableElements = document.querySelectorAll('.draggable-element');
+    const editorContainer = document.getElementById('editorContainer');
+    
+    draggableElements.forEach(element => {
+        element.addEventListener('dragstart', handleDragStart);
+        element.addEventListener('dragend', handleDragEnd);
+    });
+
+    // 编辑器容器作为放置目标
+    editorContainer.addEventListener('dragover', handleDragOver);
+    editorContainer.addEventListener('dragleave', handleDragLeave);
+    editorContainer.addEventListener('drop', handleDrop);
+
+    // CodeMirror 编辑器也需要处理拖放
+    const cmWrapper = document.querySelector('.CodeMirror');
+    if (cmWrapper) {
+        cmWrapper.addEventListener('dragover', handleDragOver);
+        cmWrapper.addEventListener('dragleave', handleDragLeave);
+        cmWrapper.addEventListener('drop', handleDrop);
+    }
+}
+
+let draggedElement = null;
+let dragGhost = null;
+
+function handleDragStart(e) {
+    draggedElement = e.target.closest('.draggable-element');
+    
+    // 创建拖拽时的视觉效果
+    dragGhost = draggedElement.cloneNode(true);
+    dragGhost.classList.add('drag-ghost');
+    document.body.appendChild(dragGhost);
+    
+    // 设置拖拽数据
+    e.dataTransfer.setData('text/plain', draggedElement.dataset.code);
+    e.dataTransfer.setData('application/mermaid-element', JSON.stringify({
+        type: draggedElement.dataset.type,
+        code: draggedElement.dataset.code
+    }));
+    e.dataTransfer.effectAllowed = 'copy';
+    
+    // 使用自定义拖拽图像
+    const dragImage = document.createElement('div');
+    dragImage.className = 'drag-image';
+    dragImage.textContent = draggedElement.querySelector('span').textContent;
+    document.body.appendChild(dragImage);
+    e.dataTransfer.setDragImage(dragImage, 0, 0);
+    setTimeout(() => dragImage.remove(), 0);
+    
+    // 添加拖拽中的样式
+    draggedElement.classList.add('dragging');
+    
+    // 高亮编辑器区域
+    document.querySelector('.editor-container').classList.add('drop-target-highlight');
+}
+
+function handleDragEnd(e) {
+    if (draggedElement) {
+        draggedElement.classList.remove('dragging');
+    }
+    if (dragGhost) {
+        dragGhost.remove();
+        dragGhost = null;
+    }
+    draggedElement = null;
+    
+    // 移除高亮
+    document.querySelector('.editor-container').classList.remove('drop-target-highlight');
+    document.querySelector('.editor-container').classList.remove('drop-target-active');
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+    
+    const editorContainer = document.querySelector('.editor-container');
+    editorContainer.classList.add('drop-target-active');
+    
+    // 更新拖拽幽灵位置
+    if (dragGhost) {
+        dragGhost.style.left = e.clientX + 10 + 'px';
+        dragGhost.style.top = e.clientY + 10 + 'px';
+    }
+}
+
+function handleDragLeave(e) {
+    const editorContainer = document.querySelector('.editor-container');
+    // 检查是否真的离开了容器
+    if (!editorContainer.contains(e.relatedTarget)) {
+        editorContainer.classList.remove('drop-target-active');
+    }
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const editorContainer = document.querySelector('.editor-container');
+    editorContainer.classList.remove('drop-target-active');
+    editorContainer.classList.remove('drop-target-highlight');
+    
+    // 获取拖拽的代码
+    let code = e.dataTransfer.getData('text/plain');
+    
+    // 尝试获取更详细的数据
+    try {
+        const mermaidData = JSON.parse(e.dataTransfer.getData('application/mermaid-element'));
+        if (mermaidData && mermaidData.code) {
+            code = mermaidData.code;
+        }
+    } catch (err) {
+        // 使用纯文本数据
+    }
+    
+    if (code) {
+        // 处理转义的换行符
+        code = code.replace(/\\n/g, '\n');
+        insertCodeAtCursor(code);
+        showToast('元素已添加', 'success');
+    }
+}
+
+// 在光标位置插入代码
+function insertCodeAtCursor(code) {
+    if (!editor) return;
+    
+    // 处理转义的换行符
+    code = code.replace(/\\n/g, '\n');
+    
+    const cursor = editor.getCursor();
+    const currentLine = editor.getLine(cursor.line);
+    
+    // 判断是否需要在新行插入
+    let insertText = code;
+    if (currentLine.trim() !== '') {
+        // 当前行有内容，在下一行插入
+        insertText = '\n' + code;
+    }
+    
+    // 插入代码
+    editor.replaceRange(insertText, cursor);
+    
+    // 移动光标到插入内容的末尾
+    const lines = insertText.split('\n');
+    const newLine = cursor.line + lines.length - 1;
+    const newCh = lines[lines.length - 1].length;
+    editor.setCursor({ line: newLine, ch: newCh });
+    
+    // 聚焦编辑器
+    editor.focus();
+}
+</script><style>/* ===== 元素拖拽面板样式 ===== */
+.elements-panel {
+  width: 240px;
+  min-width: 200px;
+  max-width: 300px;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease, min-width 0.3s ease;
+  flex-shrink: 0;
+}
+
+.elements-panel.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-right: none;
+}
+
+.elements-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--panel-header-height);
+  padding: 0 12px;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.elements-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.element-category {
+  margin-bottom: 4px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.category-header:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+}
+
+.category-header svg {
+  transition: transform 0.2s ease;
+}
+
+.element-category.expanded .category-header svg {
+  transform: rotate(180deg);
+}
+
+.category-items {
+  padding: 4px 8px;
+}
+
+.draggable-element {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  margin: 2px 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: grab;
+  transition: var(--transition);
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+.draggable-element:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.draggable-element:active {
+  cursor: grabbing;
+}
+
+.draggable-element.dragging {
+  opacity: 0.5;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.draggable-element.element-divider {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.element-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: var(--bg-tertiary);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.element-icon svg {
+  color: var(--primary-color);
+}
+
+/* 拖拽时的幽灵元素 */
+.drag-ghost {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.9;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 8px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: scale(0.95);
+}
+
+.drag-image {
+  position: fixed;
+  top: -1000px;
+  left: -1000px;
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* 编辑器拖放目标高亮 */
+.editor-container.drop-target-highlight {
+  position: relative;
+}
+
+.editor-container.drop-target-highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px dashed var(--primary-color);
+  background-color: rgba(99, 102, 241, 0.05);
+  pointer-events: none;
+  z-index: 10;
+  border-radius: 4px;
+}
+
+.editor-container.drop-target-active::after {
+  background-color: rgba(99, 102, 241, 0.15);
+  border-style: solid;
+}
+
+/* 响应式：移动端隐藏元素面板 */
+@media (max-width: 768px) {
+  .elements-panel {
+    display: none;
+  }
+}
+
+/* 隐藏 page-title 标题 */
+#page h1.page-title {
+  display: none;
+}
+
+/* 让编辑器页面使用全宽布局 */
+.layout.hide-aside {
+  max-width: 100% !important;
+}
+
+/* 移除 #page 的宽度限制 */
+#page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* ===== 全局样式 ===== */
+.mermaid-editor-fullwidth * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mermaid-editor-fullwidth {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --bg-color: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-color: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --success-color: #22c55e;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  --editor-bg: #1e1e2e;
+  --preview-bg: #ffffff;
+  --toolbar-height: 56px;
+  --statusbar-height: 28px;
+  --panel-header-height: 40px;
+  --transition: all 0.2s ease;
+  
+  width: 100%;
+  max-width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* ===== 应用容器 ===== */
+.mermaid-editor-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== 顶部工具栏 ===== */
+.mermaid-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--toolbar-height);
+  padding: 0 16px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.toolbar-left,
+.toolbar-center,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mermaid-editor-fullwidth .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.mermaid-editor-fullwidth .logo svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* 图表类型选择器 */
+.diagram-type-selector select {
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  transition: var(--transition);
+}
+
+.diagram-type-selector select:hover {
+  border-color: var(--primary-color);
+}
+
+.diagram-type-selector select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* 按钮样式 */
+.mermaid-editor-fullwidth .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.mermaid-editor-fullwidth .btn:hover {
+  background-color: var(--border-color);
+  border-color: var(--text-secondary);
+}
+
+.mermaid-editor-fullwidth .btn-icon {
+  padding: 8px 12px;
+}
+
+.mermaid-editor-fullwidth .btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.mermaid-editor-fullwidth .btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.mermaid-editor-fullwidth .btn-small {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+/* ===== 主内容区 ===== */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - var(--toolbar-height) - var(--statusbar-height));
+}
+
+/* ===== 编辑器面板 ===== */
+.editor-panel {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  min-width: 300px;
+  background-color: var(--editor-bg);
+  border-right: 1px solid var(--border-color);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--panel-header-height);
+  padding: 0 12px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.mermaid-editor-fullwidth .btn-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mermaid-editor-fullwidth .btn-small:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+}
+
+.editor-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* CodeMirror 样式覆盖 */
+.mermaid-editor-fullwidth .CodeMirror {
+  height: 100% !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  background-color: var(--editor-bg) !important;
+}
+
+.mermaid-editor-fullwidth .CodeMirror-gutters {
+  background-color: var(--editor-bg) !important;
+  border-right: 1px solid var(--border-color) !important;
+}
+
+.mermaid-editor-fullwidth .CodeMirror-linenumber {
+  color: var(--text-secondary) !important;
+}
+
+/* ===== 分隔条 ===== */
+.resizer {
+  width: 4px;
+  background-color: var(--border-color);
+  cursor: col-resize;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.resizer:hover,
+.resizer.active {
+  background-color: var(--primary-color);
+}
+
+/* ===== 预览面板 ===== */
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 300px;
+  background-color: var(--bg-secondary);
+  position: relative;
+}
+
+.preview-container {
+  flex: 1;
+  overflow: auto;
+  background-color: var(--preview-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-content {
+  padding: 20px;
+  transform-origin: center center;
+  transition: transform 0.2s ease;
+}
+
+#mermaidOutput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#mermaidOutput svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.zoom-level {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 45px;
+  text-align: center;
+}
+
+/* 错误容器 */
+.error-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background-color: rgba(239, 68, 68, 0.1);
+  border-top: 1px solid var(--error-color);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.error-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.error-message {
+  font-size: 13px;
+  color: var(--error-color);
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* ===== 底部状态栏 ===== */
+.statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--statusbar-height);
+  padding: 0 12px;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  font-size: 12px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.statusbar-left,
+.statusbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ===== 模态框 ===== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+/* 分享选项 */
+.share-option {
+  margin-bottom: 16px;
+}
+
+.share-option:last-child {
+  margin-bottom: 0;
+}
+
+.share-option label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 13px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: monospace;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* ===== Toast 通知 ===== */
+.toast {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 12px 24px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast.success {
+  background-color: var(--success-color);
+}
+
+.toast.error {
+  background-color: var(--error-color);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+  .mermaid-toolbar {
+    padding: 0 8px;
+  }
+
+  .toolbar-center {
+    display: none;
+  }
+
+  .mermaid-editor-fullwidth .btn span {
+    display: none;
+  }
+
+  .mermaid-editor-fullwidth .btn-icon {
+    padding: 8px;
+  }
+
+  .main-content {
+    flex-direction: column;
+  }
+
+  .editor-panel {
+    width: 100%;
+    height: 50%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .resizer {
+    width: 100%;
+    height: 4px;
+    cursor: row-resize;
+  }
+
+  .preview-panel {
+    min-width: unset;
+  }
+
+  .mermaid-editor-fullwidth .logo span {
+    display: none;
+  }
+}
+
+/* ===== 滚动条样式 ===== */
+.mermaid-editor-fullwidth ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.mermaid-editor-fullwidth ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.mermaid-editor-fullwidth ::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+
+.mermaid-editor-fullwidth ::-webkit-scrollbar-thumb:hover {
+  background: var(--border-color);
+}</style></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By AI安全运营</div><div class="footer_webinfo"><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">101</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-10-15T07:58:52.458Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/mp-lock.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script defer data-pjax src="/js/lua-swiper-directory.js"></script><script defer data-pjax src="/js/ai-explosion.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

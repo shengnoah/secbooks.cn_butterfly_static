@@ -1,0 +1,2218 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>OpenClaw 配置助手 | AI安全运营</title><meta name="author" content="AI安全运营"><meta name="copyright" content="AI安全运营"><meta name="keywords" content="AI安全运营,openclaw,claude,lua"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AI安全运营 openclaw claude lua">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OpenClaw 配置助手">
+<meta property="og:url" content="https://lua.ren/openclaw-config/index.html">
+<meta property="og:site_name" content="AI安全运营">
+<meta property="og:description" content="AI安全运营 openclaw claude lua">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lua.ren/img/aibk.jpg">
+<meta property="article:published_time" content="2026-03-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-14T07:07:28.000Z">
+<meta property="article:author" content="AI安全运营">
+<meta property="article:tag" content="AI安全运营,openclaw,claude,lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lua.ren/img/aibk.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lua.ren/openclaw-config/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?74a6c8c028d98427eec84fb00e9d6a60";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+</script><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script><script>// 兼容性：使用 var + 避免尾逗号，减少旧 WebView/内置浏览器“脚本不执行”导致的功能失效
+var GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"OCGZTJTHCQ","apiKey":"4dede33603574dcaed0e9d4641849158","indexName":"jianpan.vip","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  mpLock: {"keysHash":["743392a6cfca212568fbd1ca6b693f91f583f67672f2698b000dc20e062ddf6e"],"storageKey":"mp_lock_code","qrcode":"/img/20231027182204.png","title":"阅读全文需关注公众号","subtitle":"扫描下方二维码关注公众号，回复关键词获取解锁口令","keywordHint":"公众号私信留言：获取口令","inputPlaceholder":"请输入解锁口令","submitText":"解锁","errorMessage":"口令错误，请重新输入","successMessage":"解锁成功"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OpenClaw 配置助手',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-10-14 15:07:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.anthropic.com/images/icons/apple-touch-icon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-file-lines"></i><span> Markdown在线编辑</span></a></div><div class="menus_item"><a class="site-page" href="/json-parser/"><i class="fa-fw fas fa-code"></i><span> JSON解析器</span></a></div><div class="menus_item"><a class="site-page" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘按键测试</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/seo-checker/"><i class="fa-fw fas fa-search"></i><span> SEO 检测工具</span></a></li><li><a class="site-page child" href="/basic-runner/"><i class="fa-fw fas fa-play"></i><span> BASIC 运行器</span></a></li><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/markdown-tutorial/home.html"><i class="fa-fw fab fa-markdown"></i><span> Markdown教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="AI安全运营"><span class="site-name">AI安全运营</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-file-lines"></i><span> Markdown在线编辑</span></a></div><div class="menus_item"><a class="site-page" href="/json-parser/"><i class="fa-fw fas fa-code"></i><span> JSON解析器</span></a></div><div class="menus_item"><a class="site-page" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘按键测试</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/seo-checker/"><i class="fa-fw fas fa-search"></i><span> SEO 检测工具</span></a></li><li><a class="site-page child" href="/basic-runner/"><i class="fa-fw fas fa-play"></i><span> BASIC 运行器</span></a></li><li><a class="site-page child" href="/keyboard-108/"><i class="fa-fw fas fa-keyboard"></i><span> 键盘测试</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 技术教程</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/markdown-tutorial/home.html"><i class="fa-fw fab fa-markdown"></i><span> Markdown教程</span></a></li><li><a class="site-page child" href="/obsidian/home.html"><i class="fa-fw fas fa-book"></i><span> Obsidian教程</span></a></li><li><a class="site-page child" href="/openclaw/home.html"><i class="fa-fw fas fa-book"></i><span> OpenClaw教程</span></a></li><li><a class="site-page child" href="/prompt/home.html"><i class="fa-fw fas fa-terminal"></i><span> prompt教程</span></a></li><li><a class="site-page child" href="/claude/home.html"><i class="fa-fw fas fa-robot"></i><span> Claude 教程</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout hide-aside hide-aside-left hide-aside-right " id="content-inner"><div id="page"><h1 class="page-title">OpenClaw 配置助手</h1><div class="openclaw-config-fullwidth"><div class="openclaw-config-app"><header class="openclaw-toolbar"><div class="toolbar-left"><div class="logo"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg><span>OpenClaw 配置助手</span></div></div><div class="toolbar-center"><div class="skill-name-display"><span id="currentSkillName">未命名技能</span></div></div><div class="toolbar-right"><button class="btn btn-icon" id="newConfigBtn" type="button" title="新建配置"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>新建</span></button><button class="btn btn-icon" id="importConfigBtn" type="button" title="导入配置"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17,8 12,3 7,8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg><span>导入</span></button><button class="btn btn-icon" id="saveConfigBtn" type="button" title="保存配置"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17,21 17,13 7,13 7,21"></polyline><polyline points="7,3 7,8 15,8"></polyline></svg><span>保存</span></button><button class="btn btn-primary" id="exportConfigBtn" type="button" title="导出配置"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7,10 12,15 17,10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span>导出</span></button></div></header><main class="main-content"><div class="config-panel"><div class="config-tabs"><button class="tab-btn active" data-tab="basic">基本信息</button><button class="tab-btn" data-tab="triggers">触发器</button><button class="tab-btn" data-tab="tools">工具</button><button class="tab-btn" data-tab="mcp">MCP资源</button><button class="tab-btn" data-tab="instructions">使用说明</button></div><div class="tab-content" id="basicTab"><div class="config-section"><h3 class="section-title">技能基本信息</h3><div class="form-group"><label for="skillName">技能名称 *</label><input id="skillName" type="text" placeholder="例如：问候语生成器" required></div><div class="form-group"><label for="skillDescription">技能描述 *</label><textarea id="skillDescription" rows="3" placeholder="清晰描述这个技能能做什么..." required></textarea></div><div class="form-row"><div class="form-group half"><label for="skillVersion">版本号</label><input id="skillVersion" type="text" placeholder="1.0.0" value="1.0.0"></div><div class="form-group half"><label for="skillAuthor">作者</label><input id="skillAuthor" type="text" placeholder="Your Name"></div></div><div class="form-group"><label for="skillLicense">许可证</label><select id="skillLicense"><option value="MIT">MIT</option><option value="Apache-2.0">Apache 2.0</option><option value="GPL-3.0">GPL 3.0</option><option value="BSD-3-Clause">BSD 3-Clause</option><option value="ISC">ISC</option><option value="Proprietary">专有</option></select></div><div class="form-group"><label for="skillTags">标签（用逗号分隔）</label><input id="skillTags" type="text" placeholder="greeting, text, chinese"></div><div class="form-group"><label for="skillRuntime">运行时</label><select id="skillRuntime"><option value="python">Python</option><option value="nodejs">Node.js</option><option value="shell">Shell</option><option value="none">无（纯描述型）</option></select></div><div class="form-group"><label for="skillEntry">入口文件</label><input id="skillEntry" type="text" placeholder="run.py"></div></div></div><div class="tab-content" id="triggersTab" style="display: none;"><div class="config-section"><h3 class="section-title">使用场景（触发器）</h3><p class="section-desc">定义什么情况下应该使用这个技能</p><div class="triggers-list" id="triggersList"></div><button class="btn btn-add" id="addTriggerBtn" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>添加使用场景</span></button></div></div><div class="tab-content" id="toolsTab" style="display: none;"><div class="config-section"><h3 class="section-title">参数定义</h3><p class="section-desc">定义技能接受的输入参数</p><div class="params-list" id="paramsList"></div><button class="btn btn-add" id="addParamBtn" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>添加参数</span></button></div><div class="config-section"><h3 class="section-title">调用示例</h3><p class="section-desc">提供一些调用示例帮助 AI 理解如何使用</p><div class="examples-list" id="examplesList"></div><button class="btn btn-add" id="addExampleBtn" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>添加示例</span></button></div><div class="config-section"><h3 class="section-title">返回格式</h3><div class="form-group"><label for="outputFormat">输出格式描述</label><textarea id="outputFormat" rows="6" placeholder="描述返回的数据格式，例如 JSON Schema..."></textarea></div></div></div><div class="tab-content" id="mcpTab" style="display: none;"><div class="config-section"><h3 class="section-title">MCP 资源配置</h3><p class="section-desc">配置技能需要访问的 MCP 资源</p><div class="mcp-list" id="mcpList"></div><button class="btn btn-add" id="addMcpBtn" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>添加 MCP 资源</span></button></div><div class="config-section"><h3 class="section-title">环境变量</h3><p class="section-desc">配置技能需要的环境变量</p><div class="env-list" id="envList"></div><button class="btn btn-add" id="addEnvBtn" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>添加环境变量</span></button></div></div><div class="tab-content" id="instructionsTab" style="display: none;"><div class="config-section"><h3 class="section-title">注意事项</h3><div class="form-group"><label for="constraints">约束和限制</label><textarea id="constraints" rows="4" placeholder="列出使用这个技能时需要注意的事项..."></textarea></div></div><div class="config-section"><h3 class="section-title">执行方式</h3><div class="form-group"><label for="executionMethod">执行说明</label><textarea id="executionMethod" rows="3" placeholder="例如：用 Python 3.10+ 执行 run.py，输入为 JSON（从 stdin），输出为 JSON（到 stdout）"></textarea></div></div><div class="config-section"><h3 class="section-title">依赖配置</h3><div class="form-group"><label for="dependencies">依赖项</label><textarea id="dependencies" rows="4" placeholder="列出所需的依赖，每行一个..."></textarea></div></div></div></div><div class="resizer" id="resizer"></div><div class="preview-panel"><div class="panel-header"><span class="panel-title">预览</span><div class="panel-actions"><div class="preview-tabs"><button class="preview-tab-btn active" data-preview="skill-md">SKILL.md</button><button class="preview-tab-btn" data-preview="manifest">manifest.json</button><button class="preview-tab-btn" data-preview="visual">可视化</button></div><button class="btn-small" id="copyPreviewBtn" type="button" title="复制内容"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></div></div><div class="preview-container"><div class="preview-content" id="skillMdPreview"><pre id="skillMdCode"></pre></div><div class="preview-content" id="manifestPreview" style="display: none;"><pre id="manifestCode"></pre></div><div class="preview-content" id="visualPreview" style="display: none;"><div class="visual-card"><div class="card-header"><div class="skill-icon">🔧</div><div class="skill-info"><h2 id="visualSkillName">技能名称</h2><p id="visualSkillDesc">技能描述</p></div></div><div class="card-body"><div class="info-section"><h4>基本信息</h4><div class="info-grid"><div class="info-item"><span class="label">版本</span><span class="value" id="visualVersion">-</span></div><div class="info-item"><span class="label">作者</span><span class="value" id="visualAuthor">-</span></div><div class="info-item"><span class="label">运行时</span><span class="value" id="visualRuntime">-</span></div><div class="info-item"><span class="label">许可证</span><span class="value" id="visualLicense">-</span></div></div></div><div class="info-section"><h4>使用场景</h4><ul id="visualTriggers"></ul></div><div class="info-section"><h4>参数</h4><div class="params-preview" id="visualParams"></div></div></div></div></div></div></div></main><footer class="statusbar"><div class="statusbar-left"><span id="configStatus">就绪</span></div><div class="statusbar-right"><span id="lastModified">未保存</span></div></footer></div><div class="modal" id="importModal"><div class="modal-overlay"></div><div class="modal-content"><div class="modal-header"><h3>导入配置</h3><button class="modal-close" id="closeImportModal">&times;</button></div><div class="modal-body"><div class="import-options"><div class="import-option"><label>从文件导入</label><input id="importFile" type="file" accept=".json,.md"></div><div class="import-option"><label>从文本导入</label><textarea id="importText" rows="10" placeholder="粘贴 SKILL.md 或 manifest.json 内容..."></textarea></div></div><div class="modal-footer"><button class="btn" id="cancelImportBtn">取消</button><button class="btn btn-primary" id="confirmImportBtn">导入</button></div></div></div></div><div class="modal" id="exportModal"><div class="modal-overlay"></div><div class="modal-content"><div class="modal-header"><h3>导出配置</h3><button class="modal-close" id="closeExportModal">&times;</button></div><div class="modal-body"><div class="export-options"><label>选择导出格式</label><div class="checkbox-group"><label class="checkbox-label"><input id="exportSkillMd" type="checkbox" checked><span>SKILL.md</span></label><label class="checkbox-label"><input id="exportManifest" type="checkbox" checked><span>manifest.json</span></label><label class="checkbox-label"><input id="exportRunPy" type="checkbox"><span>run.py (模板)</span></label><label class="checkbox-label"><input id="exportZip" type="checkbox"><span>打包为 ZIP</span></label></div></div><div class="modal-footer"><button class="btn" id="cancelExportBtn">取消</button><button class="btn btn-primary" id="confirmExportBtn">导出</button></div></div></div></div><div class="toast" id="toast"><span id="toastMessage"></span></div><input id="hiddenFileInput" type="file" accept=".json,.md,.zip" style="display: none;"><script>// ===== 全局状态 =====
+let skillConfig = {
+  name: '',
+  description: '',
+  version: '1.0.0',
+  author: '',
+  license: 'MIT',
+  tags: [],
+  runtime: 'python',
+  entry: 'run.py',
+  triggers: [],
+  params: [],
+  examples: [],
+  outputFormat: '',
+  mcpResources: [],
+  envVars: [],
+  constraints: '',
+  executionMethod: '',
+  dependencies: ''
+};
+
+let isResizing = false;
+let debounceTimer = null;
+
+// ===== 初始化 =====
+document.addEventListener('DOMContentLoaded', () => {
+  initEventListeners();
+  initResizer();
+  loadFromLocalStorage();
+  updatePreview();
+});
+
+// ===== 事件监听器 =====
+function initEventListeners() {
+  // Tab 切换
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  // 预览 Tab 切换
+  document.querySelectorAll('.preview-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchPreviewTab(btn.dataset.preview));
+  });
+
+  // 基本信息输入
+  document.getElementById('skillName').addEventListener('input', (e) => {
+    skillConfig.name = e.target.value;
+    document.getElementById('currentSkillName').textContent = e.target.value || '未命名技能';
+    debouncedUpdate();
+  });
+
+  document.getElementById('skillDescription').addEventListener('input', (e) => {
+    skillConfig.description = e.target.value;
+    debouncedUpdate();
+  });
+
+  document.getElementById('skillVersion').addEventListener('input', (e) => {
+    skillConfig.version = e.target.value;
+    debouncedUpdate();
+  });
+
+  document.getElementById('skillAuthor').addEventListener('input', (e) => {
+    skillConfig.author = e.target.value;
+    debouncedUpdate();
+  });
+
+  document.getElementById('skillLicense').addEventListener('change', (e) => {
+    skillConfig.license = e.target.value;
+    debouncedUpdate();
+  });
+
+  document.getElementById('skillTags').addEventListener('input', (e) => {
+    skillConfig.tags = e.target.value.split(',').map(t => t.trim()).filter(t => t);
+    debouncedUpdate();
+  });
+
+  document.getElementById('skillRuntime').addEventListener('change', (e) => {
+    skillConfig.runtime = e.target.value;
+    updateEntryPlaceholder();
+    debouncedUpdate();
+  });
+
+  document.getElementById('skillEntry').addEventListener('input', (e) => {
+    skillConfig.entry = e.target.value;
+    debouncedUpdate();
+  });
+
+  document.getElementById('outputFormat').addEventListener('input', (e) => {
+    skillConfig.outputFormat = e.target.value;
+    debouncedUpdate();
+  });
+
+  document.getElementById('constraints').addEventListener('input', (e) => {
+    skillConfig.constraints = e.target.value;
+    debouncedUpdate();
+  });
+
+  document.getElementById('executionMethod').addEventListener('input', (e) => {
+    skillConfig.executionMethod = e.target.value;
+    debouncedUpdate();
+  });
+
+  document.getElementById('dependencies').addEventListener('input', (e) => {
+    skillConfig.dependencies = e.target.value;
+    debouncedUpdate();
+  });
+
+  // 添加按钮
+  document.getElementById('addTriggerBtn').addEventListener('click', addTrigger);
+  document.getElementById('addParamBtn').addEventListener('click', addParam);
+  document.getElementById('addExampleBtn').addEventListener('click', addExample);
+  document.getElementById('addMcpBtn').addEventListener('click', addMcpResource);
+  document.getElementById('addEnvBtn').addEventListener('click', addEnvVar);
+
+  // 工具栏按钮
+  document.getElementById('newConfigBtn').addEventListener('click', newConfig);
+  document.getElementById('importConfigBtn').addEventListener('click', openImportModal);
+  document.getElementById('saveConfigBtn').addEventListener('click', saveConfig);
+  document.getElementById('exportConfigBtn').addEventListener('click', openExportModal);
+  document.getElementById('copyPreviewBtn').addEventListener('click', copyPreview);
+
+  // 导入弹窗
+  document.getElementById('closeImportModal').addEventListener('click', closeImportModal);
+  document.querySelector('#importModal .modal-overlay').addEventListener('click', closeImportModal);
+  document.getElementById('cancelImportBtn').addEventListener('click', closeImportModal);
+  document.getElementById('confirmImportBtn').addEventListener('click', confirmImport);
+  document.getElementById('importFile').addEventListener('change', handleFileImport);
+
+  // 导出弹窗
+  document.getElementById('closeExportModal').addEventListener('click', closeExportModal);
+  document.querySelector('#exportModal .modal-overlay').addEventListener('click', closeExportModal);
+  document.getElementById('cancelExportBtn').addEventListener('click', closeExportModal);
+  document.getElementById('confirmExportBtn').addEventListener('click', confirmExport);
+
+  // 键盘快捷键
+  document.addEventListener('keydown', handleKeyboard);
+}
+
+// ===== Tab 切换 =====
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabName);
+  });
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.style.display = content.id === tabName + 'Tab' ? 'block' : 'none';
+  });
+}
+
+function switchPreviewTab(previewName) {
+  document.querySelectorAll('.preview-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.preview === previewName);
+  });
+  document.getElementById('skillMdPreview').style.display = previewName === 'skill-md' ? 'block' : 'none';
+  document.getElementById('manifestPreview').style.display = previewName === 'manifest' ? 'block' : 'none';
+  document.getElementById('visualPreview').style.display = previewName === 'visual' ? 'block' : 'none';
+}
+
+// ===== 触发器管理 =====
+function addTrigger() {
+  const id = Date.now();
+  skillConfig.triggers.push({ id, text: '' });
+  renderTriggers();
+  debouncedUpdate();
+}
+
+function removeTrigger(id) {
+  skillConfig.triggers = skillConfig.triggers.filter(t => t.id !== id);
+  renderTriggers();
+  debouncedUpdate();
+}
+
+function updateTrigger(id, text) {
+  const trigger = skillConfig.triggers.find(t => t.id === id);
+  if (trigger) trigger.text = text;
+  debouncedUpdate();
+}
+
+function renderTriggers() {
+  const container = document.getElementById('triggersList');
+  container.innerHTML = skillConfig.triggers.map(trigger => `
+    <div class="list-item" data-id="${trigger.id}">
+      <input type="text" value="${escapeHtml(trigger.text)}" 
+             placeholder="例如：用户需要生成问候语或祝福语"
+             onchange="updateTrigger(${trigger.id}, this.value)">
+      <button class="btn-remove" onclick="removeTrigger(${trigger.id})" title="删除">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+// ===== 参数管理 =====
+function addParam() {
+  const id = Date.now();
+  skillConfig.params.push({
+    id,
+    name: '',
+    type: 'string',
+    description: '',
+    required: false,
+    default: '',
+    enum: []
+  });
+  renderParams();
+  debouncedUpdate();
+}
+
+function removeParam(id) {
+  skillConfig.params = skillConfig.params.filter(p => p.id !== id);
+  renderParams();
+  debouncedUpdate();
+}
+
+function updateParam(id, field, value) {
+  const param = skillConfig.params.find(p => p.id === id);
+  if (param) {
+    if (field === 'enum') {
+      param[field] = value.split(',').map(v => v.trim()).filter(v => v);
+    } else if (field === 'required') {
+      param[field] = value;
+    } else {
+      param[field] = value;
+    }
+  }
+  debouncedUpdate();
+}
+
+function renderParams() {
+  const container = document.getElementById('paramsList');
+  container.innerHTML = skillConfig.params.map(param => `
+    <div class="param-item" data-id="${param.id}">
+      <div class="param-header">
+        <input type="text" class="param-name" value="${escapeHtml(param.name)}" 
+               placeholder="参数名" onchange="updateParam(${param.id}, 'name', this.value)">
+        <select class="param-type" onchange="updateParam(${param.id}, 'type', this.value)">
+          <option value="string" ${param.type === 'string' ? 'selected' : ''}>string</option>
+          <option value="number" ${param.type === 'number' ? 'selected' : ''}>number</option>
+          <option value="integer" ${param.type === 'integer' ? 'selected' : ''}>integer</option>
+          <option value="boolean" ${param.type === 'boolean' ? 'selected' : ''}>boolean</option>
+          <option value="array" ${param.type === 'array' ? 'selected' : ''}>array</option>
+          <option value="object" ${param.type === 'object' ? 'selected' : ''}>object</option>
+        </select>
+        <label class="checkbox-inline">
+          <input type="checkbox" ${param.required ? 'checked' : ''} 
+                 onchange="updateParam(${param.id}, 'required', this.checked)">
+          必填
+        </label>
+        <button class="btn-remove" onclick="removeParam(${param.id})" title="删除">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="param-body">
+        <input type="text" placeholder="参数描述" value="${escapeHtml(param.description)}"
+               onchange="updateParam(${param.id}, 'description', this.value)">
+        <div class="param-row">
+          <input type="text" placeholder="默认值" value="${escapeHtml(param.default)}"
+                 onchange="updateParam(${param.id}, 'default', this.value)">
+          <input type="text" placeholder="枚举值（逗号分隔）" value="${param.enum.join(', ')}"
+                 onchange="updateParam(${param.id}, 'enum', this.value)">
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== 示例管理 =====
+function addExample() {
+  const id = Date.now();
+  skillConfig.examples.push({ id, userInput: '', callParams: '' });
+  renderExamples();
+  debouncedUpdate();
+}
+
+function removeExample(id) {
+  skillConfig.examples = skillConfig.examples.filter(e => e.id !== id);
+  renderExamples();
+  debouncedUpdate();
+}
+
+function updateExample(id, field, value) {
+  const example = skillConfig.examples.find(e => e.id === id);
+  if (example) example[field] = value;
+  debouncedUpdate();
+}
+
+function renderExamples() {
+  const container = document.getElementById('examplesList');
+  container.innerHTML = skillConfig.examples.map(example => `
+    <div class="example-item" data-id="${example.id}">
+      <div class="example-header">
+        <span class="example-label">示例</span>
+        <button class="btn-remove" onclick="removeExample(${example.id})" title="删除">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="example-body">
+        <input type="text" placeholder="用户输入，例如：帮我写一个给客户的正式问候语" 
+               value="${escapeHtml(example.userInput)}"
+               onchange="updateExample(${example.id}, 'userInput', this.value)">
+        <input type="text" placeholder='调用参数，例如：{ "scene": "formal", "target": "客户" }' 
+               value="${escapeHtml(example.callParams)}"
+               onchange="updateExample(${example.id}, 'callParams', this.value)">
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== MCP 资源管理 =====
+function addMcpResource() {
+  const id = Date.now();
+  skillConfig.mcpResources.push({ id, name: '', type: 'tool', description: '' });
+  renderMcpResources();
+  debouncedUpdate();
+}
+
+function removeMcpResource(id) {
+  skillConfig.mcpResources = skillConfig.mcpResources.filter(m => m.id !== id);
+  renderMcpResources();
+  debouncedUpdate();
+}
+
+function updateMcpResource(id, field, value) {
+  const mcp = skillConfig.mcpResources.find(m => m.id === id);
+  if (mcp) mcp[field] = value;
+  debouncedUpdate();
+}
+
+function renderMcpResources() {
+  const container = document.getElementById('mcpList');
+  container.innerHTML = skillConfig.mcpResources.map(mcp => `
+    <div class="mcp-item" data-id="${mcp.id}">
+      <div class="mcp-header">
+        <input type="text" class="mcp-name" value="${escapeHtml(mcp.name)}" 
+               placeholder="资源名称" onchange="updateMcpResource(${mcp.id}, 'name', this.value)">
+        <select class="mcp-type" onchange="updateMcpResource(${mcp.id}, 'type', this.value)">
+          <option value="tool" ${mcp.type === 'tool' ? 'selected' : ''}>工具 (Tool)</option>
+          <option value="resource" ${mcp.type === 'resource' ? 'selected' : ''}>资源 (Resource)</option>
+          <option value="prompt" ${mcp.type === 'prompt' ? 'selected' : ''}>提示 (Prompt)</option>
+        </select>
+        <button class="btn-remove" onclick="removeMcpResource(${mcp.id})" title="删除">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <input type="text" placeholder="资源描述" value="${escapeHtml(mcp.description)}"
+             onchange="updateMcpResource(${mcp.id}, 'description', this.value)">
+    </div>
+  `).join('');
+}
+
+// ===== 环境变量管理 =====
+function addEnvVar() {
+  const id = Date.now();
+  skillConfig.envVars.push({ id, name: '', description: '', required: false });
+  renderEnvVars();
+  debouncedUpdate();
+}
+
+function removeEnvVar(id) {
+  skillConfig.envVars = skillConfig.envVars.filter(e => e.id !== id);
+  renderEnvVars();
+  debouncedUpdate();
+}
+
+function updateEnvVar(id, field, value) {
+  const envVar = skillConfig.envVars.find(e => e.id === id);
+  if (envVar) envVar[field] = value;
+  debouncedUpdate();
+}
+
+function renderEnvVars() {
+  const container = document.getElementById('envList');
+  container.innerHTML = skillConfig.envVars.map(env => `
+    <div class="env-item" data-id="${env.id}">
+      <div class="env-header">
+        <input type="text" class="env-name" value="${escapeHtml(env.name)}" 
+               placeholder="变量名，例如：API_KEY" onchange="updateEnvVar(${env.id}, 'name', this.value)">
+        <label class="checkbox-inline">
+          <input type="checkbox" ${env.required ? 'checked' : ''} 
+                 onchange="updateEnvVar(${env.id}, 'required', this.checked)">
+          必需
+        </label>
+        <button class="btn-remove" onclick="removeEnvVar(${env.id})" title="删除">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <input type="text" placeholder="变量描述" value="${escapeHtml(env.description)}"
+             onchange="updateEnvVar(${env.id}, 'description', this.value)">
+    </div>
+  `).join('');
+}
+
+// ===== 预览更新 =====
+function updatePreview() {
+  updateSkillMdPreview();
+  updateManifestPreview();
+  updateVisualPreview();
+  saveToLocalStorage();
+}
+
+function debouncedUpdate() {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(updatePreview, 300);
+}
+
+function updateSkillMdPreview() {
+  const md = generateSkillMd();
+  document.getElementById('skillMdCode').textContent = md;
+}
+
+function updateManifestPreview() {
+  const manifest = generateManifest();
+  document.getElementById('manifestCode').textContent = JSON.stringify(manifest, null, 2);
+}
+
+function updateVisualPreview() {
+  document.getElementById('visualSkillName').textContent = skillConfig.name || '未命名技能';
+  document.getElementById('visualSkillDesc').textContent = skillConfig.description || '暂无描述';
+  document.getElementById('visualVersion').textContent = skillConfig.version || '-';
+  document.getElementById('visualAuthor').textContent = skillConfig.author || '-';
+  document.getElementById('visualRuntime').textContent = skillConfig.runtime || '-';
+  document.getElementById('visualLicense').textContent = skillConfig.license || '-';
+
+  // 触发器列表
+  const triggersList = document.getElementById('visualTriggers');
+  if (skillConfig.triggers.length > 0) {
+    triggersList.innerHTML = skillConfig.triggers
+      .filter(t => t.text)
+      .map(t => `<li>${escapeHtml(t.text)}</li>`)
+      .join('');
+  } else {
+    triggersList.innerHTML = '<li class="empty">暂无使用场景</li>';
+  }
+
+  // 参数列表
+  const paramsContainer = document.getElementById('visualParams');
+  if (skillConfig.params.length > 0) {
+    paramsContainer.innerHTML = skillConfig.params.map(p => `
+      <div class="param-preview-item">
+        <span class="param-preview-name">${escapeHtml(p.name || '未命名')}</span>
+        <span class="param-preview-type">${p.type}</span>
+        ${p.required ? '<span class="param-preview-required">必填</span>' : ''}
+        <span class="param-preview-desc">${escapeHtml(p.description || '')}</span>
+      </div>
+    `).join('');
+  } else {
+    paramsContainer.innerHTML = '<div class="empty">暂无参数</div>';
+  }
+}
+
+// ===== 生成 SKILL.md =====
+function generateSkillMd() {
+  let md = `# 技能名称：${skillConfig.name || '未命名技能'}\n\n`;
+  
+  md += `## 描述（Description）\n${skillConfig.description || '暂无描述'}\n\n`;
+  
+  if (skillConfig.triggers.length > 0) {
+    md += `## 使用场景（When to use）\n`;
+    skillConfig.triggers.filter(t => t.text).forEach(t => {
+      md += `- ${t.text}\n`;
+    });
+    md += '\n';
+  }
+  
+  if (skillConfig.params.length > 0) {
+    md += `## 参数（Parameters）\n\n\`\`\`json\n`;
+    const schema = {
+      type: 'object',
+      properties: {},
+      required: []
+    };
+    skillConfig.params.forEach(p => {
+      if (p.name) {
+        const prop = {
+          type: p.type,
+          description: p.description
+        };
+        if (p.default) prop.default = p.default;
+        if (p.enum.length > 0) prop.enum = p.enum;
+        schema.properties[p.name] = prop;
+        if (p.required) schema.required.push(p.name);
+      }
+    });
+    md += JSON.stringify(schema, null, 2);
+    md += `\n\`\`\`\n\n`;
+  }
+  
+  if (skillConfig.examples.length > 0) {
+    md += `## 调用示例（Examples）\n\n\`\`\`text\n`;
+    skillConfig.examples.filter(e => e.userInput).forEach(e => {
+      md += `用户：${e.userInput}\n`;
+      md += `→ 调用 ${e.callParams || '{}'}\n\n`;
+    });
+    md += `\`\`\`\n\n`;
+  }
+  
+  if (skillConfig.outputFormat) {
+    md += `## 返回格式（Expected Output）\n\n${skillConfig.outputFormat}\n\n`;
+  }
+  
+  if (skillConfig.constraints) {
+    md += `## 注意事项（Constraints）\n\n${skillConfig.constraints}\n\n`;
+  }
+  
+  if (skillConfig.executionMethod) {
+    md += `## 执行方式\n\n${skillConfig.executionMethod}\n\n`;
+  }
+  
+  if (skillConfig.mcpResources.length > 0) {
+    md += `## MCP 资源\n\n`;
+    skillConfig.mcpResources.filter(m => m.name).forEach(m => {
+      md += `- **${m.name}** (${m.type}): ${m.description || '无描述'}\n`;
+    });
+    md += '\n';
+  }
+  
+  if (skillConfig.envVars.length > 0) {
+    md += `## 环境变量\n\n`;
+    skillConfig.envVars.filter(e => e.name).forEach(e => {
+      md += `- \`${e.name}\`${e.required ? ' (必需)' : ''}: ${e.description || '无描述'}\n`;
+    });
+    md += '\n';
+  }
+  
+  return md;
+}
+
+// ===== 生成 manifest.json =====
+function generateManifest() {
+  const manifest = {
+    name: skillConfig.name ? skillConfig.name.toLowerCase().replace(/\s+/g, '-') : 'unnamed-skill',
+    version: skillConfig.version || '1.0.0',
+    description: skillConfig.description || '',
+    author: skillConfig.author || '',
+    license: skillConfig.license || 'MIT',
+    tags: skillConfig.tags,
+    runtime: skillConfig.runtime,
+    entry: skillConfig.entry || getDefaultEntry(),
+    dependencies: {}
+  };
+  
+  if (skillConfig.runtime === 'python') {
+    manifest.dependencies.python = '>=3.8';
+  } else if (skillConfig.runtime === 'nodejs') {
+    manifest.dependencies.node = '>=16';
+  }
+  
+  if (skillConfig.mcpResources.length > 0) {
+    manifest.mcp = {
+      resources: skillConfig.mcpResources.filter(m => m.name).map(m => ({
+        name: m.name,
+        type: m.type,
+        description: m.description
+      }))
+    };
+  }
+  
+  if (skillConfig.envVars.length > 0) {
+    manifest.env = skillConfig.envVars.filter(e => e.name).map(e => ({
+      name: e.name,
+      required: e.required,
+      description: e.description
+    }));
+  }
+  
+  return manifest;
+}
+
+// ===== 辅助函数 =====
+function getDefaultEntry() {
+  switch (skillConfig.runtime) {
+    case 'python': return 'run.py';
+    case 'nodejs': return 'index.js';
+    case 'shell': return 'run.sh';
+    default: return '';
+  }
+}
+
+function updateEntryPlaceholder() {
+  const entry = document.getElementById('skillEntry');
+  entry.placeholder = getDefaultEntry();
+  if (!skillConfig.entry) {
+    entry.value = '';
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ===== 配置操作 =====
+function newConfig() {
+  if (confirm('确定要新建配置吗？当前未保存的更改将丢失。')) {
+    skillConfig = {
+      name: '',
+      description: '',
+      version: '1.0.0',
+      author: '',
+      license: 'MIT',
+      tags: [],
+      runtime: 'python',
+      entry: 'run.py',
+      triggers: [],
+      params: [],
+      examples: [],
+      outputFormat: '',
+      mcpResources: [],
+      envVars: [],
+      constraints: '',
+      executionMethod: '',
+      dependencies: ''
+    };
+    loadConfigToForm();
+    updatePreview();
+    showToast('已创建新配置', 'success');
+  }
+}
+
+function loadConfigToForm() {
+  document.getElementById('skillName').value = skillConfig.name;
+  document.getElementById('skillDescription').value = skillConfig.description;
+  document.getElementById('skillVersion').value = skillConfig.version;
+  document.getElementById('skillAuthor').value = skillConfig.author;
+  document.getElementById('skillLicense').value = skillConfig.license;
+  document.getElementById('skillTags').value = skillConfig.tags.join(', ');
+  document.getElementById('skillRuntime').value = skillConfig.runtime;
+  document.getElementById('skillEntry').value = skillConfig.entry;
+  document.getElementById('outputFormat').value = skillConfig.outputFormat;
+  document.getElementById('constraints').value = skillConfig.constraints;
+  document.getElementById('executionMethod').value = skillConfig.executionMethod;
+  document.getElementById('dependencies').value = skillConfig.dependencies;
+  document.getElementById('currentSkillName').textContent = skillConfig.name || '未命名技能';
+  
+  renderTriggers();
+  renderParams();
+  renderExamples();
+  renderMcpResources();
+  renderEnvVars();
+}
+
+function saveConfig() {
+  saveToLocalStorage();
+  document.getElementById('lastModified').textContent = `已保存 ${new Date().toLocaleTimeString()}`;
+  showToast('配置已保存到本地', 'success');
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem('openclaw-skill-config', JSON.stringify(skillConfig));
+}
+
+function loadFromLocalStorage() {
+  const saved = localStorage.getItem('openclaw-skill-config');
+  if (saved) {
+    try {
+      skillConfig = JSON.parse(saved);
+      loadConfigToForm();
+    } catch (e) {
+      console.error('Failed to load config:', e);
+    }
+  }
+}
+
+// ===== 导入功能 =====
+function openImportModal() {
+  document.getElementById('importModal').classList.add('active');
+  document.getElementById('importText').value = '';
+  document.getElementById('importFile').value = '';
+}
+
+function closeImportModal() {
+  document.getElementById('importModal').classList.remove('active');
+}
+
+function handleFileImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    document.getElementById('importText').value = event.target.result;
+  };
+  reader.readAsText(file);
+}
+
+function confirmImport() {
+  const text = document.getElementById('importText').value.trim();
+  if (!text) {
+    showToast('请输入或选择要导入的内容', 'error');
+    return;
+  }
+  
+  try {
+    // 尝试解析为 JSON (manifest.json)
+    const json = JSON.parse(text);
+    importFromManifest(json);
+    closeImportModal();
+    showToast('配置导入成功', 'success');
+  } catch (e) {
+    // 尝试解析为 Markdown (SKILL.md)
+    try {
+      importFromSkillMd(text);
+      closeImportModal();
+      showToast('配置导入成功', 'success');
+    } catch (e2) {
+      showToast('无法解析导入内容', 'error');
+    }
+  }
+}
+
+function importFromManifest(json) {
+  skillConfig.name = json.name ? json.name.replace(/-/g, ' ') : '';
+  skillConfig.version = json.version || '1.0.0';
+  skillConfig.description = json.description || '';
+  skillConfig.author = json.author || '';
+  skillConfig.license = json.license || 'MIT';
+  skillConfig.tags = json.tags || [];
+  skillConfig.runtime = json.runtime || 'python';
+  skillConfig.entry = json.entry || '';
+  
+  if (json.mcp && json.mcp.resources) {
+    skillConfig.mcpResources = json.mcp.resources.map((r, i) => ({
+      id: Date.now() + i,
+      ...r
+    }));
+  }
+  
+  if (json.env) {
+    skillConfig.envVars = json.env.map((e, i) => ({
+      id: Date.now() + i,
+      ...e
+    }));
+  }
+  
+  loadConfigToForm();
+  updatePreview();
+}
+
+function importFromSkillMd(md) {
+  // 解析技能名称
+  const nameMatch = md.match(/# 技能名称：(.+)/);
+  if (nameMatch) skillConfig.name = nameMatch[1].trim();
+  
+  // 解析描述
+  const descMatch = md.match(/## 描述（Description）\n([\s\S]*?)(?=\n##|$)/);
+  if (descMatch) skillConfig.description = descMatch[1].trim();
+  
+  // 解析使用场景
+  const triggersMatch = md.match(/## 使用场景（When to use）\n([\s\S]*?)(?=\n##|$)/);
+  if (triggersMatch) {
+    const triggers = triggersMatch[1].match(/- (.+)/g);
+    if (triggers) {
+      skillConfig.triggers = triggers.map((t, i) => ({
+        id: Date.now() + i,
+        text: t.replace(/^- /, '')
+      }));
+    }
+  }
+  
+  // 解析参数
+  const paramsMatch = md.match(/## 参数（Parameters）\n\n```json\n([\s\S]*?)\n```/);
+  if (paramsMatch) {
+    try {
+      const schema = JSON.parse(paramsMatch[1]);
+      if (schema.properties) {
+        skillConfig.params = Object.entries(schema.properties).map(([name, prop], i) => ({
+          id: Date.now() + i,
+          name,
+          type: prop.type || 'string',
+          description: prop.description || '',
+          required: schema.required?.includes(name) || false,
+          default: prop.default || '',
+          enum: prop.enum || []
+        }));
+      }
+    } catch (e) {
+      console.error('Failed to parse params:', e);
+    }
+  }
+  
+  loadConfigToForm();
+  updatePreview();
+}
+
+// ===== 导出功能 =====
+function openExportModal() {
+  document.getElementById('exportModal').classList.add('active');
+}
+
+function closeExportModal() {
+  document.getElementById('exportModal').classList.remove('active');
+}
+
+function confirmExport() {
+  const exportSkillMd = document.getElementById('exportSkillMd').checked;
+  const exportManifest = document.getElementById('exportManifest').checked;
+  const exportRunPy = document.getElementById('exportRunPy').checked;
+  const exportZip = document.getElementById('exportZip').checked;
+  
+  if (exportZip) {
+    // 需要 JSZip 库，这里简化处理
+    showToast('ZIP 导出功能需要额外库支持', 'warning');
+    return;
+  }
+  
+  const skillName = skillConfig.name ? skillConfig.name.toLowerCase().replace(/\s+/g, '-') : 'skill';
+  
+  if (exportSkillMd) {
+    downloadFile(`SKILL.md`, generateSkillMd(), 'text/markdown');
+  }
+  
+  if (exportManifest) {
+    downloadFile(`manifest.json`, JSON.stringify(generateManifest(), null, 2), 'application/json');
+  }
+  
+  if (exportRunPy && skillConfig.runtime === 'python') {
+    downloadFile(`run.py`, generateRunPyTemplate(), 'text/x-python');
+  }
+  
+  closeExportModal();
+  showToast('导出成功', 'success');
+}
+
+function generateRunPyTemplate() {
+  const hash = String.fromCharCode(35);
+  const skillName = skillConfig.name || '技能名称';
+  const skillDesc = skillConfig.description || '';
+  const skillNameForCode = skillConfig.name || 'skill';
+  
+  return hash + '!/usr/bin/env python3\n' +
+    hash + ' -*- coding: utf-8 -*-\n' +
+    '"""\n' +
+    skillName + ' - 执行脚本\n' +
+    skillDesc + '\n' +
+    '"""\n\n' +
+    'import sys\n' +
+    'import json\n\n\n' +
+    'def execute(params: dict) -> dict:\n' +
+    '    """执行技能逻辑"""\n' +
+    '    try:\n' +
+    '        ' + hash + ' TODO: 在这里实现你的技能逻辑\n' +
+    '        result = {\n' +
+    '            "status": "success",\n' +
+    '            "data": "Hello from ' + skillNameForCode + '!"\n' +
+    '        }\n' +
+    '        return result\n' +
+    '    except Exception as e:\n' +
+    '        return {\n' +
+    '            "status": "error",\n' +
+    '            "message": str(e)\n' +
+    '        }\n\n\n' +
+    'def main():\n' +
+    '    """主函数"""\n' +
+    '    try:\n' +
+    '        ' + hash + ' 从 stdin 读取输入\n' +
+    '        input_data = json.load(sys.stdin)\n' +
+    '        \n' +
+    '        ' + hash + ' 执行技能\n' +
+    '        result = execute(input_data)\n' +
+    '        \n' +
+    '        ' + hash + ' 输出结果到 stdout\n' +
+    '        print(json.dumps(result, ensure_ascii=False, indent=2))\n' +
+    '        \n' +
+    '    except json.JSONDecodeError:\n' +
+    '        print(json.dumps({\n' +
+    '            "status": "error",\n' +
+    '            "message": "Invalid JSON input"\n' +
+    '        }))\n' +
+    '        sys.exit(1)\n' +
+    '    except Exception as e:\n' +
+    '        print(json.dumps({\n' +
+    '            "status": "error",\n' +
+    '            "message": str(e)\n' +
+    '        }))\n' +
+    '        sys.exit(1)\n\n\n' +
+    'if __name__ == "__main__":\n' +
+    '    main()\n';
+}
+
+function downloadFile(filename, content, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+function copyPreview() {
+  const activeTab = document.querySelector('.preview-tab-btn.active').dataset.preview;
+  let content = '';
+  
+  if (activeTab === 'skill-md') {
+    content = generateSkillMd();
+  } else if (activeTab === 'manifest') {
+    content = JSON.stringify(generateManifest(), null, 2);
+  } else {
+    showToast('可视化预览无法复制', 'warning');
+    return;
+  }
+  
+  copyToClipboard(content);
+  showToast('已复制到剪贴板', 'success');
+}
+
+// ===== 分隔条拖拽 =====
+function initResizer() {
+  const resizer = document.getElementById('resizer');
+  const configPanel = document.querySelector('.config-panel');
+  const mainContent = document.querySelector('.main-content');
+
+  let startX, startWidth;
+
+  resizer.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    startX = e.clientX;
+    startWidth = configPanel.offsetWidth;
+    resizer.classList.add('active');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+
+    const diff = e.clientX - startX;
+    const newWidth = startWidth + diff;
+    const containerWidth = mainContent.offsetWidth;
+    const minWidth = 400;
+    const maxWidth = containerWidth - 400;
+
+    if (newWidth >= minWidth && newWidth <= maxWidth) {
+      configPanel.style.width = `${newWidth}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isResizing) {
+      isResizing = false;
+      resizer.classList.remove('active');
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    }
+  });
+}
+
+// ===== 工具函数 =====
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text);
+  } else {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  }
+}
+
+function showToast(message, type = 'info') {
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toastMessage');
+  
+  toastMessage.textContent = message;
+  toast.className = `toast ${type} show`;
+  
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+function handleKeyboard(e) {
+  // Ctrl/Cmd + S 保存
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    saveConfig();
+  }
+  // Escape 关闭弹窗
+  if (e.key === 'Escape') {
+    closeImportModal();
+    closeExportModal();
+  }
+}
+</script><style>/* ===== 隐藏 page-title 标题 ===== */
+#page h1.page-title {
+  display: none;
+}
+
+/* 让编辑器页面使用全宽布局 */
+.layout.hide-aside {
+  max-width: 100% !important;
+}
+
+/* 移除 #page 的宽度限制 */
+#page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* ===== 全局样式 ===== */
+.openclaw-config-fullwidth * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.openclaw-config-fullwidth {
+  --primary-color: #10b981;
+  --primary-hover: #059669;
+  --bg-color: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-color: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --success-color: #22c55e;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  --toolbar-height: 56px;
+  --statusbar-height: 28px;
+  --transition: all 0.2s ease;
+  
+  width: 100%;
+  max-width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* ===== 应用容器 ===== */
+.openclaw-config-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== 顶部工具栏 ===== */
+.openclaw-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--toolbar-height);
+  padding: 0 16px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.toolbar-left,
+.toolbar-center,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.openclaw-config-fullwidth .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.skill-name-display {
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  background-color: var(--bg-tertiary);
+  border-radius: 6px;
+}
+
+/* 按钮样式 */
+.openclaw-config-fullwidth .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.openclaw-config-fullwidth .btn:hover {
+  background-color: var(--border-color);
+  border-color: var(--text-secondary);
+}
+
+.openclaw-config-fullwidth .btn-icon {
+  padding: 8px 12px;
+}
+
+.openclaw-config-fullwidth .btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.openclaw-config-fullwidth .btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.openclaw-config-fullwidth .btn-add {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  margin-top: 12px;
+  background-color: transparent;
+  border: 1px dashed var(--border-color);
+  color: var(--text-secondary);
+  width: 100%;
+  justify-content: center;
+}
+
+.openclaw-config-fullwidth .btn-add:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+.openclaw-config-fullwidth .btn-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.openclaw-config-fullwidth .btn-small:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+}
+
+.btn-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.btn-remove:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: var(--error-color);
+}
+
+/* ===== 主内容区 ===== */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - var(--toolbar-height) - var(--statusbar-height));
+}
+
+/* ===== 配置面板 ===== */
+.config-panel {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  min-width: 400px;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.config-tabs {
+  display: flex;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--text-color);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.tab-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.config-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+.section-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-group.half {
+  flex: 1;
+}
+
+/* 列表项样式 */
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.list-item input {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 14px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.list-item input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* 参数项样式 */
+.param-item,
+.example-item,
+.mcp-item,
+.env-item {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.param-header,
+.example-header,
+.mcp-header,
+.env-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.param-name,
+.mcp-name,
+.env-name {
+  flex: 1;
+  min-width: 120px;
+}
+
+.param-type,
+.mcp-type {
+  width: 100px;
+}
+
+.param-body,
+.example-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.param-body input,
+.example-body input,
+.mcp-item > input,
+.env-item > input {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 13px;
+  background-color: var(--bg-secondary);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.param-row {
+  display: flex;
+  gap: 8px;
+}
+
+.param-row input {
+  flex: 1;
+}
+
+.checkbox-inline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.checkbox-inline input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.example-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+/* ===== 分隔条 ===== */
+.resizer {
+  width: 4px;
+  background-color: var(--border-color);
+  cursor: col-resize;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.resizer:hover,
+.resizer.active {
+  background-color: var(--primary-color);
+}
+
+/* ===== 预览面板 ===== */
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 400px;
+  background-color: var(--bg-secondary);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 16px;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.preview-tab-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.preview-tab-btn:hover {
+  color: var(--text-color);
+  background-color: var(--bg-secondary);
+}
+
+.preview-tab-btn.active {
+  color: var(--primary-color);
+  background-color: var(--bg-secondary);
+  border-color: var(--primary-color);
+}
+
+.preview-container {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+.preview-content {
+  height: 100%;
+}
+
+.preview-content pre {
+  background-color: var(--bg-tertiary);
+  padding: 16px;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+  height: 100%;
+  margin: 0;
+}
+
+/* 可视化预览 */
+.visual-card {
+  background-color: var(--bg-tertiary);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+}
+
+.skill-icon {
+  font-size: 48px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.skill-info h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.skill-info p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.info-section {
+  margin-bottom: 20px;
+}
+
+.info-section:last-child {
+  margin-bottom: 0;
+}
+
+.info-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-item .label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.info-item .value {
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.info-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-section li {
+  padding: 8px 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.info-section li.empty {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.params-preview .empty {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 14px;
+}
+
+.param-preview-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.param-preview-name {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.param-preview-type {
+  font-size: 12px;
+  padding: 2px 6px;
+  background-color: var(--bg-tertiary);
+  border-radius: 4px;
+  color: var(--text-secondary);
+}
+
+.param-preview-required {
+  font-size: 11px;
+  padding: 2px 6px;
+  background-color: var(--error-color);
+  border-radius: 4px;
+  color: white;
+}
+
+.param-preview-desc {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ===== 底部状态栏 ===== */
+.statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--statusbar-height);
+  padding: 0 12px;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  font-size: 12px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.statusbar-left,
+.statusbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ===== 模态框 ===== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.import-option,
+.export-options {
+  margin-bottom: 16px;
+}
+
+.import-option label,
+.export-options > label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.import-option input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-color);
+}
+
+.import-option textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 13px;
+  font-family: monospace;
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===== Toast 通知 ===== */
+.toast {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 12px 24px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast.success {
+  background-color: var(--success-color);
+}
+
+.toast.error {
+  background-color: var(--error-color);
+}
+
+.toast.warning {
+  background-color: var(--warning-color);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 1024px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .config-panel {
+    width: 100%;
+    height: 50%;
+    min-width: unset;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .resizer {
+    width: 100%;
+    height: 4px;
+    cursor: row-resize;
+  }
+
+  .preview-panel {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .openclaw-toolbar {
+    padding: 0 8px;
+  }
+
+  .toolbar-center {
+    display: none;
+  }
+
+  .openclaw-config-fullwidth .btn span {
+    display: none;
+  }
+
+  .openclaw-config-fullwidth .btn-icon {
+    padding: 8px;
+  }
+
+  .openclaw-config-fullwidth .logo span {
+    display: none;
+  }
+
+  .config-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .tab-btn {
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .param-header {
+    flex-wrap: wrap;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== 滚动条样式 ===== */
+.openclaw-config-fullwidth ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.openclaw-config-fullwidth ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.openclaw-config-fullwidth ::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+
+.openclaw-config-fullwidth ::-webkit-scrollbar-thumb:hover {
+  background: var(--border-color);
+}</style></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By AI安全运营</div><div class="footer_webinfo"><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">101</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-10-15T07:58:52.458Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div><script>(function () {
+  var meta = document.createElement('meta');
+  meta.content = 'no-referrer';
+  meta.name = 'referrer';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+})();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/mp-lock.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      // Initialize mermaid with configuration for 10.9.x
+      // mindmap is built-in in 10.9.x, no extra polyfill needed
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'inherit'
+      })
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        // 避免重复渲染
+        if (item.dataset.rendered === 'true') return
+
+        const mermaidSrc = item.firstElementChild
+        const mermaidID = 'mermaid-' + index
+
+        // Mermaid flowchart labels sometimes contain comparison operators like < > <= >=.
+        // If they appear unquoted, Mermaid may treat them as HTML-like text and throw a syntax error.
+        // Convert node labels: [text] -> ["text"] when the label contains < or >.
+        const rawDiagram = mermaidSrc.textContent
+        const safeDiagram = rawDiagram.replace(/\[([^\]]*)\]/g, (m, inner) => {
+          if (!/[<>]/.test(inner)) return m
+          const escaped = inner.replace(/"/g, '\\"')
+          return '["' + escaped + '"]'
+        })
+
+        // 使用 mermaid.render (10.9.x 正确 API)，Promise 形式
+        mermaid.render(mermaidID, safeDiagram).then(({ svg }) => {
+          if (svg) {
+            mermaidSrc.insertAdjacentHTML('afterend', svg)
+            mermaidSrc.hidden = true
+            item.dataset.rendered = 'true'
+          }
+        }).catch(err => {
+          console.error('Mermaid render error:', err)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('/js/mermaid/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script defer data-pjax src="/js/lua-swiper-directory.js"></script><script defer data-pjax src="/js/ai-explosion.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.3/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.51.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
