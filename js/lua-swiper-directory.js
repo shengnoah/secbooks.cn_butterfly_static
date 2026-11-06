@@ -1,9 +1,8 @@
 /* global Swiper */
 
 /**
- * 将首页文章列表填充到 butterfly swiper 的 `.blog-slider__wrp.swiper-wrapper` 中。
- *
- * 背景：hexo-butterfly-swiper 注入的 HTML 里 wrapper 为空，导致组件框无内容。
+ * 将本站技术教程菜单填充到 butterfly swiper，替换插件推荐文章。
+ * 教程入口由首页模板输出，与导航菜单保持一致。
  */
 ;(function () {
   function isHomePage () {
@@ -20,24 +19,14 @@
       .replace(/'/g, '&#39;')
   }
 
-  function collectLuaPostsFromDom () {
-    const items = Array.from(document.querySelectorAll('#recent-posts .recent-post-item'))
-      .filter(el => !el.querySelector('#swiper_container'))
-      .map(el => {
-        const a = el.querySelector('a.article-title')
-        if (!a) return null
-
-        const href = a.getAttribute('href') || ''
-        const title = (a.textContent || '').trim()
-        const time = (el.querySelector('time')?.textContent || '').trim()
-        const cover =
-          el.querySelector('.post_cover img.post-bg')?.getAttribute('src') ||
-          el.querySelector('.post_cover img')?.getAttribute('src') ||
-          ''
-
-        return { href, title, time, cover }
-      })
-      .filter(Boolean)
+  function collectTutorialsFromDom () {
+    const items = Array.from(document.querySelectorAll('#home-swiper-tutorials a'))
+      .map(a => ({
+        href: a.getAttribute('href') || '',
+        title: (a.textContent || '').trim(),
+        icon: a.getAttribute('data-icon') || 'fas fa-book'
+      }))
+      .filter(item => item.href && item.title)
 
     // 去重（防止某些情况下重复渲染）
     const seen = new Set()
@@ -50,49 +39,48 @@
     return uniq
   }
 
-  function fillWrapperIfEmpty () {
+  function fillTutorialWrapper () {
     const wrapper = document.querySelector('#swiper_container .blog-slider__wrp.swiper-wrapper')
     if (!wrapper) {
       console.log('[Lua Swiper] wrapper 未找到')
       return false
     }
 
-    // 已有内容则不重复填充
-    if (wrapper.children && wrapper.children.length > 0) {
-      console.log('[Lua Swiper] wrapper 已有内容，跳过填充')
-      return true
-    }
+    // PJAX 的多个完成事件不应重复生成或重复初始化。
+    if (wrapper.dataset.tutorialsFilled === 'true') return false
 
-    const posts = collectLuaPostsFromDom()
-    if (!posts.length) {
-      console.log('[Lua Swiper] 未找到 Lua 文章')
+    const tutorials = collectTutorialsFromDom()
+    if (!tutorials.length) {
+      console.log('[Lua Swiper] 未找到本站教程入口')
       return false
     }
 
-    console.log(`[Lua Swiper] 找到 ${posts.length} 篇文章，开始填充`)
+    // 也替换插件已经生成的推荐文章，先清理旧实例及循环副本。
+    const container = document.getElementById('swiper_container')
+    if (container.swiper && typeof container.swiper.destroy === 'function') {
+      container.swiper.destroy(true, true)
+    }
 
-    const slidesHtml = posts
+    const slidesHtml = tutorials
       .map((p, i) => {
         const idx = i + 1
         const title = escapeHtml(p.title)
         const href = escapeHtml(p.href)
-        const time = escapeHtml(p.time || '')
-        const cover = escapeHtml(p.cover || '')
+        const icon = escapeHtml(p.icon)
 
         // 兼容 hexo-butterfly-swiper 的样式（尽量贴近常见结构）
         return [
           '<div class="blog-slider__item swiper-slide">',
           '  <div class="blog-slider__img">',
-          `    <a href="${href}" title="${title}">`,
-          cover
-            ? `      <img src="${cover}" alt="${title}">`
-            : '      <div class="blog-slider__img-placeholder"></div>',
+          `    <a class="blog-slider__tutorial-cover" href="${href}" title="${title}">`,
+          `      <i class="${icon}" aria-hidden="true"></i>`,
+          `      <span>${title}</span>`,
           '    </a>',
           '  </div>',
           '  <div class="blog-slider__content">',
-          `    <span class="blog-slider__code">推荐文章 · 第 ${idx} 篇${time ? ' · ' + time : ''}</span>`,
+          `    <span class="blog-slider__code">本站教程 · ${idx} / ${tutorials.length}</span>`,
           `    <div class="blog-slider__title">${title}</div>`,
-          `    <a class="blog-slider__button" href="${href}">阅读</a>`,
+          `    <a class="blog-slider__button" href="${href}">开始学习</a>`,
           '  </div>',
           '</div>'
         ].join('\n')
@@ -100,7 +88,8 @@
       .join('\n')
 
     wrapper.innerHTML = slidesHtml
-    console.log('[Lua Swiper] 内容填充完成')
+    wrapper.dataset.tutorialsFilled = 'true'
+    console.log(`[Lua Swiper] 已填充 ${tutorials.length} 个本站教程`)
     return true
   }
 
@@ -159,8 +148,27 @@
       return
     }
 
+    // 教程轮播放在右侧栏最新文章上方、归档（.sticky_layout 内）之前。
+    const container = document.getElementById('swiper_container')
+    const recentCard = document.querySelector('.aside-content .card-recent-post')
+    if (container && recentCard) {
+      const oldCard = container.closest('.recent-post-item')
+      let tutorialCard = container.closest('.card-tutorial-swiper')
+      if (!tutorialCard) {
+        tutorialCard = document.createElement('div')
+        tutorialCard.className = 'card-widget card-tutorial-swiper'
+        tutorialCard.innerHTML = '<div class="item-headline"><i class="fas fa-book-open" aria-hidden="true"></i><span>本站教程</span></div>'
+        tutorialCard.appendChild(container)
+      }
+      if (recentCard.previousElementSibling !== tutorialCard) {
+        recentCard.parentNode.insertBefore(tutorialCard, recentCard)
+      }
+      // 移走轮播后删除插件在主文章列表留下的空卡片。
+      if (oldCard) oldCard.remove()
+    }
+
     console.log('[Lua Swiper] 开始执行')
-    const ok = fillWrapperIfEmpty()
+    const ok = fillTutorialWrapper()
     if (ok) {
       // 延迟一下，确保 Swiper 库已加载
       setTimeout(ensureSwiperWorks, 100)

@@ -1,0 +1,195 @@
+/* é¦–é¡µé¢„è§ˆæ²¿ç”¨ Butterfly çš„å�¡ç‰‡ã€�æ–‡å­—å�Šè“�è‰²ä¸»é¢˜å�˜é‡�ã€?*/
+#recent-posts > .lua-hero {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  align-items: center;
+  gap: 30px;
+  margin-top: 0;
+  margin-bottom: 28px;
+  padding: 32px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--card-bg, #fff);
+  box-shadow: var(--card-box-shadow, 0 3px 8px 6px rgba(7, 17, 27, .05));
+  color: var(--font-color, #4c4948);
+}
+.lua-hero-copy { min-width: 0; }
+.lua-hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--theme-color, #49b1f5);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+}
+.lua-hero-ping {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 4px rgba(73, 177, 245, .12);
+}
+#lua-hero-title {
+  margin: 16px 0 12px;
+  color: var(--text-highlight-color, #1f2d3d);
+  font-size: clamp(25px, 2.5vw, 34px);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.lua-hero-copy p { margin: 0; font-size: 14px; line-height: 1.9; }
+.lua-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 22px; }
+.lua-hero-actions a { font-size: 13px; transition: background .2s, color .2s; }
+.lua-hero-actions .lua-hero-primary {
+  padding: 9px 16px;
+  border-radius: 6px;
+  background: var(--theme-color, #49b1f5);
+  color: #fff;
+}
+.lua-hero-actions .lua-hero-primary:hover { background: #ff7242; color: #fff; }
+.lua-hero-secondary { color: var(--font-color, #4c4948); }
+.lua-hero-secondary:hover { color: var(--theme-color, #49b1f5); }
+.lua-hero-actions a:focus-visible { outline: 2px solid #49b1f5; outline-offset: 4px; }
+.lua-hero-editor {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(128, 148, 168, .2);
+  border-radius: 8px;
+  background: #f6f9fc;
+  box-shadow: 0 6px 24px rgba(31, 45, 61, .06);
+}
+.lua-hero-bar { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid rgba(128, 148, 168, .15); }
+.lua-hero-dots { display: flex; gap: 5px; }
+.lua-hero-dots span { width: 8px; height: 8px; border-radius: 50%; background: #ff7975; }
+.lua-hero-dots span:nth-child(2) { background: #f4c35b; }
+.lua-hero-dots span:nth-child(3) { background: #64c99a; }
+.lua-hero-filename { color: #60768a; font-size: 12px; }
+.lua-hero-label { margin-left: auto; color: #8192a3; font-size: 10px; }
+.lua-hero-pre {
+  box-sizing: border-box;
+  height: 264px;
+  margin: 0;
+  padding: 18px;
+  overflow: auto;
+  background: transparent;
+  color: #34495e;
+  text-align: left;
+  white-space: pre;
+  tab-size: 2;
+}
+.lua-hero-pre code { padding: 0; background: transparent; color: inherit; font: 12px/22px Consolas, Monaco, 'Courier New', monospace; }
+.lua-hero-pre .lua-token-comment { color: #8494a5; }
+.lua-hero-pre .lua-token-keyword { color: #9063bd; }
+.lua-hero-pre .lua-token-function { color: #2588bd; }
+.lua-hero-pre .lua-token-string { color: #319675; }
+.lua-hero-cursor { display: inline-block; width: 2px; height: 14px; margin-left: 1px; background: #49b1f5; vertical-align: -2px; animation: lua-hero-blink 1s step-end infinite; }
+.lua-hero-status { display: flex; gap: 12px; padding: 6px 14px; border-top: 1px solid rgba(128, 148, 168, .15); color: #8192a3; font-size: 10px; }
+.lua-hero-state { flex: 1; text-align: right; }
+@keyframes lua-hero-blink { 50% { opacity: 0; } }
+[data-theme='dark'] .lua-hero-editor { background: #202933; }
+[data-theme='dark'] .lua-hero-pre { color: #d7e2ec; }
+[data-theme='dark'] .lua-hero-filename { color: #b6c6d5; }
+[data-theme='dark'] .lua-hero-pre .lua-token-keyword { color: #c79aeb; }
+[data-theme='dark'] .lua-hero-pre .lua-token-function { color: #72c5f5; }
+[data-theme='dark'] .lua-hero-pre .lua-token-string { color: #86d7b1; }
+@media (max-width: 1100px) {
+  #recent-posts > .lua-hero { gap: 22px; padding: 24px; grid-template-columns: 1fr 1.2fr; }
+  .lua-hero-pre { padding: 14px; }
+}
+@media (max-width: 768px) {
+  #recent-posts > .lua-hero { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 24px 20px; }
+  #lua-hero-title { font-size: 28px; }
+  #lua-hero-title br { display: none; }
+  .lua-hero-copy p { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .lua-hero-cursor { animation: none; } }
+
+/* æ•™ç¨‹è½®æ’­ä½¿ç”¨å›¾æ ‡å°�é�¢ï¼Œä¸�ä¾�èµ–æ–‡ç« å›¾ç‰‡æˆ–å¤–éƒ¨å›¾ç‰‡æœ�åŠ¡ã€?*/
+#swiper_container .blog-slider__tutorial-cover {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 24px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #49b1f5, #287bc1);
+  color: #fff;
+  text-align: center;
+}
+#swiper_container .blog-slider__tutorial-cover i { font-size: 64px; }
+#swiper_container .blog-slider__tutorial-cover span { font-size: 20px; font-weight: 600; line-height: 1.5; }
+#swiper_container .blog-slider__tutorial-cover:hover { color: #fff; }
+
+/* ä¾§æ �å†…é‡‡ç”¨çºµå�‘ç´§å‡‘å¸ƒå±€ï¼Œè¦†ç›–æ�’ä»¶æŒ‰å±�å¹•å®½åº¦è®¾ç½®çš„æ¨ªå�‘å¸ƒå±€ã€?*/
+/* 侧栏是网格/弹性子项，min-width:0 才能避免轮播内容把侧栏撑宽。 */
+.aside-content,
+.aside-content .card-tutorial-swiper {
+  min-width: 0;
+  max-width: 100%;
+}
+.aside-content .card-tutorial-swiper { overflow: hidden; }
+.aside-content #swiper_container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 300px;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0 30px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.aside-content #swiper_container .swiper-wrapper { height: 270px; align-items: stretch; }
+.aside-content #swiper_container .blog-slider__item {
+  box-sizing: border-box;
+  max-width: 100%;
+  height: 270px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 12px;
+  overflow: hidden;
+}
+.aside-content #swiper_container .blog-slider__img {
+  width: 100% !important;
+  max-width: 100%;
+  min-width: 0;
+  height: 150px;
+  padding: 0;
+  transform: none;
+}
+.aside-content #swiper_container .blog-slider__img::after { pointer-events: none; }
+.aside-content #swiper_container .blog-slider__tutorial-cover { gap: 12px; padding: 16px; }
+.aside-content #swiper_container .blog-slider__tutorial-cover i { font-size: 40px; }
+.aside-content #swiper_container .blog-slider__tutorial-cover span { font-size: 16px; }
+.aside-content #swiper_container .blog-slider__content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.aside-content #swiper_container .blog-slider__code { font-size: 12px; }
+.aside-content #swiper_container .blog-slider__title { margin: 4px 0 10px; font-size: 16px; }
+.aside-content #swiper_container .blog-slider__button { display: inline-flex; width: auto; font-size: 13px; }
+.aside-content #swiper_container .blog-slider__pagination {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  top: auto;
+  right: auto;
+  bottom: 5px !important;
+  left: 0 !important;
+  width: 100% !important;
+  transform: none;
+}
+.aside-content #swiper_container .swiper-pagination-bullet { width: 7px; height: 7px; margin: 0; }
+.aside-content #swiper_container .swiper-pagination-bullet-active { width: 18px; height: 7px; }

@@ -1,0 +1,145 @@
+/* ==========================================================================
+   顶部导航「Lua在线运行」高亮特效
+   渐变胶囊 + 流光扫过 + HOT 徽标 + 烧瓶图标摇摆
+   ========================================================================== */
+
+#nav .menus_items > .menus_item > a.lua-nav-effect {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  margin-left: 2px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 999px;
+  background-image: linear-gradient(115deg, #ff5f6d 0%, #c44dff 48%, #4d9fff 100%);
+  background-size: 220% 220%;
+  color: #fff !important;
+  line-height: 1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .28);
+  box-shadow: 0 3px 14px rgba(196, 77, 255, .38), 0 0 0 1px rgba(255, 255, 255, .12) inset;
+  vertical-align: middle;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  animation: lua-nav-gradient 6s ease-in-out infinite;
+  will-change: background-position;
+}
+
+/* 去掉主题默认的下划线，避免和胶囊按钮冲突 */
+#nav .menus_items > .menus_item > a.lua-nav-effect:not(.child)::after {
+  display: none;
+}
+
+#nav .menus_items > .menus_item > a.lua-nav-effect:hover {
+  transform: translateY(-1px) scale(1.05);
+  color: #fff !important;
+  filter: brightness(1.08) saturate(1.12);
+  box-shadow: 0 6px 22px rgba(196, 77, 255, .6), 0 0 0 1px rgba(255, 255, 255, .3) inset;
+}
+
+#nav .menus_items > .menus_item > a.lua-nav-effect:active {
+  transform: translateY(0) scale(.98);
+}
+
+.lua-nav-effect .lua-nav-effect-inner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px 6px 11px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+/* 流光扫过 */
+.lua-nav-effect .lua-nav-effect-inner::before {
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  left: -80%;
+  width: 45%;
+  background: linear-gradient(100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, .85) 50%,
+    rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-20deg);
+  content: '';
+  pointer-events: none;
+  animation: lua-nav-shine 4.8s ease-in-out infinite;
+}
+
+.lua-nav-effect .lua-nav-effect-inner > i {
+  position: relative;
+  z-index: 1;
+  transform-origin: 50% 85%;
+  animation: lua-nav-flask 3.6s ease-in-out infinite;
+}
+
+.lua-nav-effect .lua-nav-effect-inner > span {
+  position: relative;
+  z-index: 1;
+}
+
+/* HOT 徽标 */
+.lua-nav-effect .lua-nav-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 2;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, #ffb347, #ff4d6d);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  line-height: 1.5;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(255, 77, 109, .55);
+  pointer-events: none;
+  animation: lua-nav-badge 1.9s ease-in-out infinite;
+}
+
+@keyframes lua-nav-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes lua-nav-shine {
+  0%, 58% { left: -80%; opacity: 0; }
+  64% { opacity: 1; }
+  88% { left: 130%; opacity: 1; }
+  100% { left: 130%; opacity: 0; }
+}
+
+@keyframes lua-nav-flask {
+  0%, 78%, 100% { transform: rotate(0deg) scale(1); }
+  82% { transform: rotate(-12deg) scale(1.12); }
+  86% { transform: rotate(10deg) scale(1.12); }
+  90% { transform: rotate(-6deg) scale(1.06); }
+  94% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes lua-nav-badge {
+  0%, 100% { transform: scale(1); box-shadow: 0 2px 8px rgba(255, 77, 109, .5); }
+  50% { transform: scale(1.12); box-shadow: 0 2px 14px rgba(255, 77, 109, .85); }
+}
+
+/* 窄屏时压缩内边距、隐藏徽标，避免导航拥挤 */
+@media screen and (max-width: 1100px) {
+  #nav .menus_items > .menus_item > a.lua-nav-effect .lua-nav-effect-inner {
+    padding: 5px 9px;
+    gap: 4px;
+  }
+
+  .lua-nav-effect .lua-nav-badge {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nav .menus_items > .menus_item > a.lua-nav-effect,
+  .lua-nav-effect .lua-nav-effect-inner::before,
+  .lua-nav-effect .lua-nav-effect-inner > i,
+  .lua-nav-effect .lua-nav-badge {
+    animation: none !important;
+  }
+}
