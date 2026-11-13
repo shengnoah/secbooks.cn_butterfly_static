@@ -1,0 +1,366 @@
+/* ==========================================================================
+   多巴胺蓝风格 (Dopamine Blue) —— 参考 markdown.ren 首页配色
+   主色: #2d9cdb   深主色: #2d8bcc   文字: #2c3e50   次级: #6a7684
+   ========================================================================== */
+
+:root {
+  --dopamine-blue: #2d9cdb;
+  --dopamine-blue-deep: #2d8bcc;
+  --dopamine-blue-soft: #7fd4ff;
+  --dopamine-text: #2c3e50;
+  --dopamine-muted: #6a7684;
+  --dopamine-border: #e6e9ed;
+  --dopamine-hero-start: #f3faff;
+  --dopamine-hero-end: #ffffff;
+}
+
+/* 全局字体统一，与 markdown.ren 一致 */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: var(--dopamine-text);
+}
+
+/* 全局链接 hover 使用多巴胺蓝 */
+a {
+  transition: color 0.2s ease;
+}
+
+/* ---------- 顶部导航栏 ---------- */
+#nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--dopamine-border);
+  transition: box-shadow 0.2s ease;
+}
+
+#nav .site-name {
+  font-weight: 700;
+  color: var(--dopamine-text);
+}
+
+#nav .site-name i {
+  color: var(--dopamine-blue);
+}
+
+#nav .menus_item a,
+#nav .menus_item .site-page {
+  color: var(--dopamine-muted);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+#nav .menus_item a:hover,
+#nav .menus_item .site-page:hover {
+  color: var(--dopamine-blue);
+}
+
+/* ---------- 首页 Hero 区域渐变 ---------- */
+#site-info {
+  background: linear-gradient(180deg, var(--dopamine-hero-start) 0%, var(--dopamine-hero-end) 100%);
+}
+
+/* 首页标题与副标题 */
+#site-title {
+  color: var(--dopamine-text);
+  font-weight: 700;
+}
+
+#site-subtitle {
+  color: var(--dopamine-muted);
+}
+
+/* ---------- 卡片 ---------- */
+#recent-posts .recent-post-item,
+.card-widget,
+.layout > div:first-child:not(.recent-posts),
+#aside-content .card-widget {
+  border: 1px solid var(--dopamine-border);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(45, 156, 219, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+#recent-posts .recent-post-item:hover {
+  border-color: rgba(45, 156, 219, 0.35);
+  box-shadow: 0 8px 24px rgba(45, 156, 219, 0.14);
+  transform: translateY(-3px);
+}
+
+/* 文章标题 hover */
+.recent-post-info .article-title,
+#recent-posts .article-title {
+  color: var(--dopamine-text);
+  transition: color 0.2s ease;
+}
+
+.recent-post-info .article-title:hover,
+#recent-posts .article-title:hover {
+  color: var(--dopamine-blue);
+}
+
+/* ---------- 分类 / 标签 / 归档 计数徽章 ---------- */
+.card-category-list-count,
+.card-tag-list-count,
+.card-archives-list-count {
+  color: var(--dopamine-blue);
+}
+
+.card-category-list-link:hover,
+.card-tag-list-link:hover,
+.card-archives-list-link:hover {
+  color: var(--dopamine-blue);
+}
+
+/* ---------- 侧边栏作者卡片 ---------- */
+#card-info-btn {
+  background: var(--dopamine-blue);
+  border: none;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#card-info-btn:hover {
+  background: var(--dopamine-blue-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(45, 156, 219, 0.28);
+}
+
+/* ---------- 按钮主色 ---------- */
+.btn-primary,
+button#toTop,
+#rightside .rightside-btn,
+a.article-button {
+  background: var(--dopamine-blue) !important;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.btn-primary:hover,
+button#toTop:hover,
+a.article-button:hover {
+  background: var(--dopamine-blue-deep) !important;
+  box-shadow: 0 6px 16px rgba(45, 156, 219, 0.28);
+}
+
+/* ---------- 分页器 ---------- */
+#pagination .page-number.current {
+  background: var(--dopamine-blue);
+  box-shadow: 0 4px 12px rgba(45, 156, 219, 0.3);
+}
+
+#pagination .page-number:hover:not(.current) {
+  color: var(--dopamine-blue);
+  border-color: var(--dopamine-blue);
+}
+
+/* ---------- 滚动条 ---------- */
+::-webkit-scrollbar-thumb {
+  background: var(--dopamine-blue);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dopamine-blue-deep);
+}
+
+/* ---------- 选中文字 ---------- */
+::selection {
+  background: rgba(45, 156, 219, 0.25);
+  color: var(--dopamine-text);
+}
+
+/* ---------- 表格表头 ---------- */
+table thead {
+  background: var(--dopamine-blue);
+  color: #fff;
+}
+
+/* ---------- 引用块 ---------- */
+blockquote {
+  border-left-color: var(--dopamine-blue);
+  background: rgba(45, 156, 219, 0.05);
+}
+
+/* ---------- 代码块边框柔和化 ---------- */
+#article-container figure.highlight {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Dopamine Hero（参考 markdown.ren 的 container.hero-inner 居中 hero）
+   ========================================================================== */
+.dopamine-hero {
+  margin: 0 0 28px;
+  padding: 72px 24px 56px;
+  text-align: center;
+  border-radius: 16px;
+  border: 1px solid var(--dopamine-border);
+  background: linear-gradient(180deg, var(--dopamine-hero-start) 0%, var(--dopamine-hero-end) 100%);
+}
+
+.dopamine-hero-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* 胶囊徽章 */
+.dopamine-hero-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 26px;
+  padding: 8px 16px 8px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(45, 156, 219, 0.28);
+  background: #fff;
+  color: var(--dopamine-blue);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 6px 20px -10px rgba(45, 156, 219, 0.45);
+  overflow: hidden;
+  isolation: isolate;
+  transition: all 0.2s ease;
+}
+
+.dopamine-hero-badge > * {
+  position: relative;
+  z-index: 1;
+}
+
+.dopamine-hero-badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 45%;
+  z-index: 0;
+  background: linear-gradient(100deg, transparent, rgba(45, 156, 219, 0.3), transparent);
+  transform: skewX(-18deg);
+  animation: dopamineHeroSweep 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.dopamine-hero-badge:hover {
+  color: var(--dopamine-blue-deep);
+  border-color: rgba(45, 156, 219, 0.55);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px -10px rgba(45, 156, 219, 0.6);
+}
+
+.dopamine-hero-arrow {
+  transition: transform 0.2s ease;
+}
+
+.dopamine-hero-badge:hover .dopamine-hero-arrow {
+  transform: translateX(4px);
+}
+
+.dopamine-hero-ping {
+  position: relative;
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dopamine-blue);
+  box-shadow: 0 0 8px rgba(45, 156, 219, 0.6);
+}
+
+.dopamine-hero-ping::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(45, 156, 219, 0.55);
+  animation: dopamineHeroPing 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes dopamineHeroSweep {
+  0% { left: -60%; }
+  60%, 100% { left: 130%; }
+}
+
+@keyframes dopamineHeroPing {
+  0% { transform: scale(0.8); opacity: 1; }
+  80%, 100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* 大标题 */
+.dopamine-hero-title {
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin: 0 0 24px;
+  color: var(--dopamine-text);
+}
+
+/* 副标题 */
+.dopamine-hero-subtitle {
+  font-size: 18px;
+  color: var(--dopamine-muted);
+  max-width: 640px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+/* 按钮区 */
+.dopamine-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.dopamine-hero-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.dopamine-hero-actions .btn-primary {
+  background: var(--dopamine-blue);
+  color: #fff;
+}
+
+.dopamine-hero-actions .btn-primary:hover {
+  background: var(--dopamine-blue-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(45, 156, 219, 0.28);
+}
+
+.dopamine-hero-actions .btn-ghost {
+  color: var(--dopamine-text);
+}
+
+.dopamine-hero-actions .btn-ghost:hover {
+  color: var(--dopamine-blue);
+}
+
+@media (max-width: 768px) {
+  .dopamine-hero {
+    padding: 44px 18px 36px;
+  }
+  .dopamine-hero-title br {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dopamine-hero-badge::after,
+  .dopamine-hero-ping::after {
+    animation: none;
+  }
+  .dopamine-hero-badge::after {
+    display: none;
+  }
+}
