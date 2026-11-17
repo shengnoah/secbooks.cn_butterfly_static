@@ -364,3 +364,115 @@ blockquote {
     display: none;
   }
 }
+
+/* ==========================================================================
+   页脚（参考 markdown.ren 首页 site-footer 深色风格）
+   深色背景 #2c3e50 + 浅灰文字 + 蓝色链接 hover
+   ========================================================================== */
+#footer {
+  background-color: #2c3e50 !important;
+  background-image: none !important;
+}
+
+#footer-wrap {
+  padding: 60px 20px 30px !important;
+  color: #b3bdc7 !important;
+  text-align: center;
+}
+
+#footer-wrap a {
+  color: #b3bdc7 !important;
+  transition: color 0.2s ease;
+}
+
+#footer-wrap a:hover {
+  color: #2d9cdb !important;
+  text-decoration: none !important;
+}
+
+/* 网站资讯分区（运行时间/访问量等）—— 位于版权文字上方 */
+#footer-wrap .footer_webinfo {
+  margin-bottom: 24px;
+  color: #8b97a3;
+}
+
+/* 站点名/版权文字 —— 位于网站资讯下方，顶部加分隔线 */
+#footer-wrap .copyright,
+#footer-wrap .footer_custom_text {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #b3bdc7;
+}
+
+#footer-wrap .footer_webinfo .webinfo-item {
+  color: #8b97a3;
+}
+
+/* 备案号图标等次要元素 */
+#footer-wrap .icp-icon {
+  vertical-align: text-bottom;
+}
+
+/* 页脚中的「网站资讯」：透明背景融入 footer-wrap 深色背景，
+   文字编排参考 markdown.ren 页脚（左对齐 + 浅灰标签 + 次级文字层次） */
+#footer-wrap .footer_webinfo .card-widget.card-webinfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  margin: 12px auto 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+  overflow: visible;
+  gap: 12px 40px;
+}
+
+#footer-wrap .footer_webinfo .card-widget.card-webinfo .item-headline {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding-bottom: 0;
+  white-space: nowrap;
+}
+
+#footer-wrap .footer_webinfo .card-widget.card-webinfo .item-headline i {
+  color: #2d9cdb;
+  margin-right: 6px;
+}
+
+/* 统计项容器：横向排列（文章数 / 访客数 / 访问量 / 最后更新） */
+#footer-wrap .footer_webinfo .card-widget.card-webinfo .webinfo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 40px;
+}
+
+#footer-wrap .footer_webinfo .card-widget.card-webinfo .webinfo-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 0;
+  color: #8b97a3;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+#footer-wrap .footer_webinfo .card-widget.card-webinfo .webinfo-item .item-name {
+  color: #8b97a3;
+}
+
+#footer-wrap .footer_webinfo .card-widget.card-webinfo .webinfo-item .item-count {
+  color: #b3bdc7;
+  font-weight: 600;
+}
